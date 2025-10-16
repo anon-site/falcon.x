@@ -183,16 +183,6 @@ const androidApps = [
         description: 'Custom widget maker for Android',
         size: '42 MB',
         downloadUrl: 'https://play.google.com/store/apps/details?id=org.kustom.widget'
-    },
-    {
-        id: 'and-13',
-        name: 'Clean Master',
-        version: '7.6.0',
-        category: 'tools',
-        icon: 'fas fa-broom',
-        description: 'Android optimizer and cleaner app',
-        size: '38 MB',
-        downloadUrl: '#'
     }
 ];
 
