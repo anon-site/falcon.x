@@ -736,10 +736,24 @@ function loadSettings() {
 }
 
 function applyColorScheme(scheme) {
+    // Add pulse animation to logos
+    const allLogos = document.querySelectorAll('.hero-logo, .logo-image, .mobile-logo');
+    allLogos.forEach(logo => {
+        logo.style.animation = 'none';
+        setTimeout(() => {
+            logo.style.animation = '';
+        }, 10);
+    });
+    
     // Remove all color classes
     document.body.classList.remove('color-blue', 'color-purple', 'color-green', 'color-red', 'color-pink', 'color-yellow', 'color-teal', 'color-orange');
     // Add selected color class
     document.body.classList.add(`color-${scheme}`);
+    
+    // Trigger color transition animation
+    allLogos.forEach(logo => {
+        logo.style.transition = 'filter 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
 }
 
 function resetToDefaultSettings() {
