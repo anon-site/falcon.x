@@ -93,16 +93,6 @@ const androidApps = [
         description: 'Short-form video hosting service',
         size: '195 MB',
         downloadUrl: 'https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically'
-    },
-    {
-        id: 'and-4',
-        name: 'PUBG Mobile',
-        version: '2.9.0',
-        category: 'games',
-        icon: 'fas fa-gamepad',
-        description: 'Battle royale mobile game',
-        size: '2.8 GB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.tencent.ig'
     }
 ];
 
