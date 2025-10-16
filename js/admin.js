@@ -115,12 +115,42 @@ function syncToGitHub() {
             statusDiv.style.background = '#10b981';
             statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> تم حفظ البيانات على GitHub بنجاح!';
             showToast('تم حفظ البيانات على GitHub', 'success');
+            updateSyncStatus('ready', 'تم الحفظ على GitHub');
         })
         .catch(error => {
             statusDiv.style.background = '#ef4444';
             statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> خطأ: ' + error.message;
             showToast('فشل الحفظ على GitHub', 'error');
         });
+}
+
+// Manual save to GitHub - called from header button
+function manualSaveToGitHub() {
+    if (!githubAPI.isConfigured()) {
+        if (confirm('لم يتم إعداد GitHub بعد. هل تريد الذهاب إلى صفحة الإعدادات؟')) {
+            showSection('github-settings');
+        }
+        return;
+    }
+    
+    if (confirm('هل تريد حفظ جميع التغييرات على GitHub الآن؟')) {
+        updateSyncStatus('saving', 'جاري الحفظ على GitHub...');
+        
+        const windowsApps = getAllApps('windows');
+        const androidApps = getAllApps('android');
+        const frpTools = getAllApps('frp-tools');
+        const frpApps = getAllApps('frp-apps');
+        
+        githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps)
+            .then(() => {
+                updateSyncStatus('ready', 'تم الحفظ على GitHub');
+                showToast('تم حفظ جميع التغييرات على GitHub بنجاح!', 'success');
+            })
+            .catch(error => {
+                updateSyncStatus('modified', 'فشل الحفظ');
+                showToast('خطأ: ' + error.message, 'error');
+            });
+    }
 }
 
 // Load GitHub settings
@@ -245,18 +275,28 @@ function updateSyncStatus(status, message) {
     if (status === 'saving') {
         icon.className = 'fas fa-sync fa-spin';
         icon.style.color = '#3b82f6';
-        text.textContent = message || 'جاري الحفظ...';
+        text.textContent = message || 'جاري الحفظ محلياً...';
         syncStatus.style.background = '#1e3a8a';
     } else if (status === 'saved') {
         icon.className = 'fas fa-check-circle';
         icon.style.color = '#10b981';
-        text.textContent = message || 'تم الحفظ';
+        text.textContent = message || 'محفوظ محلياً';
         syncStatus.style.background = '#1e2746';
-    } else if (status === 'error') {
+    } else if (status === 'modified') {
         icon.className = 'fas fa-exclamation-circle';
+        icon.style.color = '#f59e0b';
+        text.textContent = message || 'تغييرات غير محفوظة';
+        syncStatus.style.background = '#78350f';
+    } else if (status === 'error') {
+        icon.className = 'fas fa-times-circle';
         icon.style.color = '#ef4444';
         text.textContent = message || 'خطأ في الحفظ';
         syncStatus.style.background = '#7f1d1d';
+    } else if (status === 'ready') {
+        icon.className = 'fas fa-check-circle';
+        icon.style.color = '#10b981';
+        text.textContent = message || 'جاهز للحفظ';
+        syncStatus.style.background = '#1e2746';
     }
 }
 
@@ -269,7 +309,7 @@ function saveToLocalStorage() {
         localStorage.setItem('falcon-x-frp-tools', JSON.stringify(appsData['frp-tools']));
         localStorage.setItem('falcon-x-frp-apps', JSON.stringify(appsData['frp-apps']));
         console.log('✅ Data saved to localStorage');
-        setTimeout(() => updateSyncStatus('saved'), 300);
+        setTimeout(() => updateSyncStatus('modified', 'تغييرات غير محفوظة'), 300);
         return true;
     } catch (error) {
         console.error('❌ Error saving to localStorage:', error);
@@ -468,12 +508,7 @@ function initAppForm() {
     closeAppModal();
     loadApps(type);
     updateDashboardStats();
-    showToast(isEditing ? 'تم التحديث بنجاح' : 'تمت الإضافة بنجاح', 'success');
-    
-    // Auto-sync to GitHub if configured
-    if (githubAPI.isConfigured()) {
-        syncToGitHub();
-    }
+    showToast(isEditing ? 'تم التحديث محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات' : 'تمت الإضافة محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     });
 }
 
@@ -494,12 +529,7 @@ function deleteApp(type, id) {
         
         loadApps(type);
         updateDashboardStats();
-        showToast('تم الحذف بنجاح', 'success');
-        
-        // Auto-sync to GitHub if configured
-        if (githubAPI.isConfigured()) {
-            syncToGitHub();
-        }
+        showToast('تم الحذف محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     }
 }
 

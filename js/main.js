@@ -330,11 +330,18 @@ function refreshData() {
 
 // ===== Create Software Card =====
 function createSoftwareCard(software) {
+    // Check if icon is a URL or Font Awesome class
+    const isImageUrl = software.icon && (software.icon.startsWith('http') || software.icon.startsWith('/') || software.icon.includes('.png') || software.icon.includes('.jpg') || software.icon.includes('.svg') || software.icon.includes('.gif'));
+    
+    const iconHtml = isImageUrl 
+        ? `<img src="${software.icon}" alt="${software.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
+        : `<i class="${software.icon || 'fas fa-cube'}"></i>`;
+    
     return `
         <div class="software-card" data-category="${software.category}">
             <div class="software-header">
                 <div class="software-icon">
-                    <i class="${software.icon}"></i>
+                    ${iconHtml}
                 </div>
                 <div class="software-info">
                     <h3>${software.name}</h3>

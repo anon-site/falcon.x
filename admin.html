@@ -68,8 +68,12 @@
             <div class="header-actions">
                 <div id="syncStatus" style="display: inline-flex; align-items: center; padding: 0.5rem 1rem; background: #1e2746; border-radius: 8px; margin-left: 0.5rem;">
                     <i class="fas fa-check-circle" style="color: #10b981; margin-left: 0.5rem;"></i>
-                    <span style="font-size: 0.85rem; color: #fff;">تم الحفظ</span>
+                    <span style="font-size: 0.85rem; color: #fff;">جاهز للحفظ</span>
                 </div>
+                <button class="btn btn-icon" onclick="manualSaveToGitHub()" title="حفظ التغييرات على GitHub" style="background: #10b981; color: #fff;">
+                    <i class="fas fa-save"></i>
+                    حفظ
+                </button>
                 <button class="btn btn-icon" onclick="document.getElementById('importFile').click()" title="استيراد ملف data.js">
                     <i class="fas fa-upload"></i>
                     استيراد
