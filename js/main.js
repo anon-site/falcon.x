@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSearch();
     initializeFilters();
     loadSoftwareData();
+    initializeCustomCursor();
 });
 
 // ===== Theme Management =====
@@ -476,6 +477,88 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
+
+// ===== Custom Cursor =====
+function initializeCustomCursor() {
+    // Don't initialize on mobile devices
+    if (window.innerWidth <= 768) return;
+    
+    // Create cursor element
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    
+    // Smooth cursor animation
+    function animateCursor() {
+        const speed = 0.6; // زيادة السرعة من 0.2 إلى 0.6
+        cursorX += (mouseX - cursorX) * speed;
+        cursorY += (mouseY - cursorY) * speed;
+        
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    
+    // Add hover effect for interactive elements
+    const linkElements = 'a, .menu-item, .feature-link, .social-link';
+    const buttonElements = 'button, .btn, .filter-btn, .download-btn';
+    const textElements = 'input, textarea';
+    
+    document.addEventListener('mouseover', (e) => {
+        // Check for text input fields
+        if (e.target.closest(textElements)) {
+            cursor.classList.add('text');
+            cursor.classList.remove('hover', 'link');
+        }
+        // Check for links
+        else if (e.target.closest(linkElements)) {
+            cursor.classList.add('link');
+            cursor.classList.remove('hover', 'text');
+        }
+        // Check for buttons
+        else if (e.target.closest(buttonElements)) {
+            cursor.classList.add('hover');
+            cursor.classList.remove('link', 'text');
+        }
+    });
+    
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.closest(linkElements + ',' + buttonElements + ',' + textElements)) {
+            cursor.classList.remove('hover', 'link', 'text');
+        }
+    });
+    
+    // Add click effect
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('click');
+    });
+    
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('click');
+    });
+    
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+    });
+}
 
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
