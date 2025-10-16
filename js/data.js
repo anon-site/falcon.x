@@ -1,70 +1,37 @@
 // ===== Windows Software Data =====
 const windowsSoftware = [
     {
-        id: 1760618652737.7437,
+        id: 1760625566488,
         name: 'Visual Studio Code',
         version: '1.85.0',
         category: 'productivity',
-        icon: 'fas fa-code',
+        icon: 'fa-solid fa-code',
         description: 'Free source code editor with built-in support for JavaScript, TypeScript, and Node.js',
         size: '88.2 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
+        downloadLink: 'https://code.visualstudio.com/',
+        isModified: false
     },
     {
-        id: 1760618652737.3984,
-        name: 'Chrome Browser',
+        id: 1760625972079,
+        name: ' Chrome Browser',
         version: '120.0.6099',
         category: 'productivity',
-        icon: 'fab fa-chrome',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png',
         description: 'Fast, secure, and free web browser built for the modern web',
-        size: '112.5 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
+        size: '112.5',
+        downloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
+        isModified: false
     },
     {
-        id: 1760618652737.3418,
-        name: 'VLC Media Player',
+        id: 1760626067691,
+        name: ' VLC Media Player',
         version: '3.0.20',
         category: 'multimedia',
-        icon: 'fas fa-play-circle',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/250px-VLC_Icon.svg.png',
         description: 'Free and open-source cross-platform multimedia player',
-        size: '42.8 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
-    },
-    {
-        id: 1760618652737.7722,
-        name: 'WinRAR',
-        version: '6.24',
-        category: 'utilities',
-        icon: 'fas fa-file-archive',
-        description: 'Powerful archive manager for Windows',
-        size: '3.2 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
-    },
-    {
-        id: 1760618652737.4866,
-        name: 'OBS Studio',
-        version: '30.0.2',
-        category: 'multimedia',
-        icon: 'fas fa-video',
-        description: 'Free and open-source software for video recording and live streaming',
-        size: '142 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
-    },
-    {
-        id: 1760618652737.3105,
-        name: 'CCleaner',
-        version: '6.19',
-        category: 'utilities',
-        icon: 'fas fa-broom',
-        description: 'System optimization, privacy, and cleaning tool',
-        size: '58 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
+        size: '42.8',
+        downloadLink: 'https://www.videolan.org/',
+        isModified: false
     }
 ];
 
