@@ -47,6 +47,17 @@ const androidApps = [
         size: '22.41',
         downloadLink: 'https://t.me/App8Premium/147',
         isModified: true
+    },
+    {
+        id: 1760627051300,
+        name: 'SSVid',
+        version: '1.4.0',
+        category: 'general',
+        icon: 'https://play-lh.googleusercontent.com/StTPXVol1bhGB96HxBqfoXy7B40r4bl1-4J-Z6LiJ18eGA8JYb7GXCRKs2ywwewVhnbLiDQERYF0SfstvGnn=w600-h300-pc0xffffff-pd',
+        description: 'SSVid: The All-in-One Video Downloading Solution for Free and Unlimited Downloads',
+        size: '19.21',
+        downloadLink: 'https://www.mediafire.com/file/rhl3d8hxlce1i4e/SSVID_1.4.0.apks/file',
+        isModified: false
     }
 ];
 
