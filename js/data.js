@@ -32,6 +32,17 @@ const windowsSoftware = [
         size: '42.8',
         downloadLink: 'https://www.videolan.org/',
         isModified: false
+    },
+    {
+        id: 1760627710498,
+        name: 'Remote Mouse',
+        version: '4.601',
+        category: 'general',
+        icon: 'https://play-lh.googleusercontent.com/SdvvARqZs4m4oesKw6maedFDV9ftdFCArqsiRj09lzu8km-hY7U1uGgT03dfUeGgSNM',
+        description: 'Remote mouse software for all devices',
+        size: '1.11',
+        downloadLink: 'https://www.remotemouse.net/',
+        isModified: false
     }
 ];
 
@@ -58,6 +69,17 @@ const androidApps = [
         size: '19.21',
         downloadLink: 'https://www.mediafire.com/file/rhl3d8hxlce1i4e/SSVID_1.4.0.apks/file',
         isModified: false
+    },
+    {
+        id: 1760627555294,
+        name: 'Remote Mouse',
+        version: '3212',
+        category: 'tools',
+        icon: 'https://play-lh.googleusercontent.com/SdvvARqZs4m4oesKw6maedFDV9ftdFCArqsiRj09lzu8km-hY7U1uGgT03dfUeGgSNM',
+        description: 'An application that turns your phone into a mouse for your computer.',
+        size: '14.18',
+        downloadLink: 'https://www.mediafire.com/file/61ppihrrzxeev7m/Remote_Mouse_3212.zip/file',
+        isModified: true
     }
 ];
 
