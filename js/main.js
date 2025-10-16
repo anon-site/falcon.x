@@ -37,6 +37,7 @@ function initializeTheme() {
 function applyTheme(theme) {
     const logoImage = document.querySelector('.logo-image');
     const mobileLogo = document.querySelector('.mobile-logo');
+    const heroLogo = document.querySelector('.hero-logo');
     
     // Helper function to animate logo change
     const animateLogoChange = (element, newSrc) => {
@@ -58,22 +59,41 @@ function applyTheme(theme) {
         }, 300);
     };
     
+    // Helper function for hero logo with longer animation
+    const animateHeroLogo = (element, newSrc) => {
+        if (!element) return;
+        
+        element.classList.add('fade-out');
+        
+        setTimeout(() => {
+            element.src = newSrc;
+            element.classList.remove('fade-out');
+            element.classList.add('fade-in');
+            
+            setTimeout(() => {
+                element.classList.remove('fade-in');
+            }, 800);
+        }, 400);
+    };
+    
     if (theme === 'light') {
         document.body.classList.add('light-theme');
         if (desktopThemeToggle) {
             desktopThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
-        // تغيير الصورة للوضع الساطع مع التأثير
+        // تغيير الصور للوضع الساطع مع التأثيرات
         animateLogoChange(logoImage, 'images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png');
         animateLogoChange(mobileLogo, 'images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png');
+        animateHeroLogo(heroLogo, 'images/X.png');
     } else {
         document.body.classList.remove('light-theme');
         if (desktopThemeToggle) {
             desktopThemeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         }
-        // تغيير الصورة للوضع الليلي مع التأثير
+        // تغيير الصور للوضع الليلي مع التأثيرات
         animateLogoChange(logoImage, 'images/6e89058a-eeee1-45f5-9585-d26b3fb6fefc copy.png');
         animateLogoChange(mobileLogo, 'images/6e89058a-eeee1-45f5-9585-d26b3fb6fefc copy.png');
+        animateHeroLogo(heroLogo, 'images/X2.png');
     }
 }
 
