@@ -203,16 +203,6 @@ const androidApps = [
         description: 'First-person shooter game',
         size: '3.2 GB',
         downloadUrl: 'https://play.google.com/store/apps/details?id=com.activision.callofduty.shooter'
-    },
-    {
-        id: 'and-15',
-        name: 'Icon Pack Studio',
-        version: '2.2',
-        category: 'customization',
-        icon: 'fas fa-icons',
-        description: 'Create custom icon packs',
-        size: '18 MB',
-        downloadUrl: '#'
     }
 ];
 
