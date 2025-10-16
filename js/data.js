@@ -73,6 +73,16 @@ const androidApps = [
         description: 'Simple, reliable, and secure messaging and calling app',
         size: '85 MB',
         downloadUrl: 'https://www.whatsapp.com/download'
+    },
+    {
+        id: 'and-2',
+        name: 'MT Manager',
+        version: '2.14.5',
+        category: 'tools',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
+        description: 'سيبسيب',
+        size: '22.41',
+        downloadUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png'
     }
 ];
 
