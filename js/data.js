@@ -143,26 +143,6 @@ const androidApps = [
         description: 'Match-three puzzle video game',
         size: '98 MB',
         downloadUrl: 'https://play.google.com/store/apps/details?id=com.king.candycrushsaga'
-    },
-    {
-        id: 'and-9',
-        name: 'File Manager',
-        version: '3.5.2',
-        category: 'tools',
-        icon: 'fas fa-folder-open',
-        description: 'Powerful file explorer and manager',
-        size: '28 MB',
-        downloadUrl: '#'
-    },
-    {
-        id: 'and-10',
-        name: 'Facebook',
-        version: '446.0.0',
-        category: 'social',
-        icon: 'fab fa-facebook',
-        description: 'Social media and social networking service',
-        size: '156 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.facebook.katana'
     }
 ];
 
