@@ -103,26 +103,6 @@ const androidApps = [
         description: 'Battle royale mobile game',
         size: '2.8 GB',
         downloadUrl: 'https://play.google.com/store/apps/details?id=com.tencent.ig'
-    },
-    {
-        id: 'and-5',
-        name: 'Google Chrome',
-        version: '120.0.6099',
-        category: 'tools',
-        icon: 'fab fa-chrome',
-        description: 'Fast and secure web browser',
-        size: '148 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.android.chrome'
-    },
-    {
-        id: 'and-6',
-        name: 'Telegram',
-        version: '10.5.0',
-        category: 'social',
-        icon: 'fab fa-telegram',
-        description: 'Cloud-based instant messaging app',
-        size: '68 MB',
-        downloadUrl: 'https://telegram.org/android'
     }
 ];
 
