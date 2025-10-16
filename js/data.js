@@ -1,17 +1,6 @@
 // ===== Windows Software Data =====
 const windowsSoftware = [
     {
-        id: 1760618652737.7437,
-        name: 'Visual Studio Code',
-        version: '1.85.0',
-        category: 'productivity',
-        icon: 'fas fa-code',
-        description: 'Free source code editor with built-in support for JavaScript, TypeScript, and Node.js',
-        size: '88.2 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
-    },
-    {
         id: 1760618652737.3984,
         name: 'Chrome Browser',
         version: '120.0.6099',
@@ -65,6 +54,17 @@ const windowsSoftware = [
         size: '58 MB',
         downloadLink: 'undefined',
         isModified: undefined
+    },
+    {
+        id: 1760625566488,
+        name: 'Visual Studio Code',
+        version: '1.85.0',
+        category: 'productivity',
+        icon: 'fa-solid fa-code',
+        description: 'Free source code editor with built-in support for JavaScript, TypeScript, and Node.js',
+        size: '88.2 MB',
+        downloadLink: 'https://code.visualstudio.com/',
+        isModified: false
     }
 ];
 
