@@ -80,7 +80,7 @@ const androidApps = [
         version: '2.14.5',
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
-        description: 'سيبسيب',
+        description: 'MT Manager 2.14.5 is a file management and APK editing tool that allows you to edit code and resources, unzip and compress files, and sign or recompile applications.',
         size: '22.41',
         downloadUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png'
     }
