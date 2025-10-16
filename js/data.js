@@ -193,16 +193,6 @@ const androidApps = [
         description: 'Android optimizer and cleaner app',
         size: '38 MB',
         downloadUrl: '#'
-    },
-    {
-        id: 'and-14',
-        name: 'Call of Duty Mobile',
-        version: '1.0.41',
-        category: 'games',
-        icon: 'fas fa-crosshairs',
-        description: 'First-person shooter game',
-        size: '3.2 GB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.activision.callofduty.shooter'
     }
 ];
 
