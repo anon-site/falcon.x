@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falcon X - Advanced Software Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png" alt="Falcon X" class="logo-image">
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="#home" class="menu-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span class="menu-text">Home</span>
+            </a>
+            <a href="#windows" class="menu-item" data-page="windows">
+                <i class="fab fa-windows"></i>
+                <span class="menu-text">Windows Software</span>
+            </a>
+            <a href="#android" class="menu-item" data-page="android">
+                <i class="fab fa-android"></i>
+                <span class="menu-text">Android Apps</span>
+            </a>
+            <a href="#frp" class="menu-item" data-page="frp">
+                <i class="fas fa-unlock-alt"></i>
+                <span class="menu-text">FRP Tools</span>
+            </a>
+            <a href="#frp-apps" class="menu-item" data-page="frp-apps">
+                <i class="fas fa-mobile-alt"></i>
+                <span class="menu-text">FRP Apps</span>
+            </a>
+            <a href="#about" class="menu-item" data-page="about">
+                <i class="fas fa-info-circle"></i>
+                <span class="menu-text">About Us</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <button class="theme-toggle desktop-theme-toggle" id="desktopThemeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <p class="version">Version 2.1</p>
+            <p class="copyright">© 2025 Falcon X. All rights reserved.</p>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="mobile-title-container">
+                <img src="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png" alt="Falcon X" class="mobile-logo">
+            </div>
+            <button class="refresh-btn" onclick="refreshData()" title="Refresh data from admin panel">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </header>
+        
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Home Page -->
+            <section id="home" class="page active">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Welcome to <span class="gradient-text">Falcon X</span></h1>
+                        <p class="hero-subtitle">Advanced Software Solutions for Windows, Android, and FRP</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage('windows')">
+                                <i class="fab fa-windows"></i> Explore Windows
+                            </button>
+                            <button class="btn btn-secondary" onclick="navigateToPage('android')">
+                                <i class="fab fa-android"></i> Explore Android
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="floating-card">
+                            <img src="images/X.png" alt="Falcon X" class="hero-logo">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Features Section -->
+                <div class="features-section">
+                    <h2 class="section-title">Our Services</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fab fa-windows"></i>
+                            </div>
+                            <h3>Windows Software</h3>
+                            <p>Professional desktop applications and utilities for Windows systems</p>
+                            <a href="#windows" class="feature-link" onclick="navigateToPage('windows')">Learn More →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fab fa-android"></i>
+                            </div>
+                            <h3>Android Applications</h3>
+                            <p>Powerful mobile apps and tools for Android devices</p>
+                            <a href="#android" class="feature-link" onclick="navigateToPage('android')">Learn More →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-unlock-alt"></i>
+                            </div>
+                            <h3>FRP Tools</h3>
+                            <p>Factory Reset Protection bypass tools and solutions</p>
+                            <a href="#frp" class="feature-link" onclick="navigateToPage('frp')">Learn More →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistics Section -->
+                <div class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-download"></i>
+                            <h3 class="stat-number" data-target="50000">0</h3>
+                            <p>Downloads</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <h3 class="stat-number" data-target="10000">0</h3>
+                            <p>Active Users</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-code"></i>
+                            <h3 class="stat-number" data-target="150">0</h3>
+                            <p>Applications</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-star"></i>
+                            <h3 class="stat-number" data-target="4.8">0</h3>
+                            <p>Rating</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Windows Software Page -->
+            <section id="windows" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">Windows Software</h1>
+                    <p class="page-subtitle">Professional desktop applications for Windows</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="windowsSearch" placeholder="Search Windows software...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="productivity">Productivity</button>
+                        <button class="filter-btn" data-category="security">Security</button>
+                        <button class="filter-btn" data-category="multimedia">Multimedia</button>
+                        <button class="filter-btn" data-category="utilities">Utilities</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="windowsSoftware">
+                    <!-- Software cards will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- Android Apps Page -->
+            <section id="android" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">Android Applications</h1>
+                    <p class="page-subtitle">Powerful apps for Android devices</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="androidSearch" placeholder="Search Android apps...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="tools">Tools</button>
+                        <button class="filter-btn" data-category="social">Social</button>
+                        <button class="filter-btn" data-category="games">Games</button>
+                        <button class="filter-btn" data-category="customization">Customization</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="androidApps">
+                    <!-- Android apps will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- FRP Tools Page -->
+            <section id="frp" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">FRP Tools</h1>
+                    <p class="page-subtitle">Factory Reset Protection bypass solutions for PC</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="frpSearch" placeholder="Search FRP tools...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="samsung">Samsung</button>
+                        <button class="filter-btn" data-category="xiaomi">Xiaomi</button>
+                        <button class="filter-btn" data-category="oppo">Oppo</button>
+                        <button class="filter-btn" data-category="universal">Universal</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="frpTools">
+                    <!-- FRP tools will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- FRP Apps Page -->
+            <section id="frp-apps" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">FRP Applications</h1>
+                    <p class="page-subtitle">Mobile FRP bypass applications for Android devices</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="frpAppsSearch" placeholder="Search FRP apps...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="samsung">Samsung</button>
+                        <button class="filter-btn" data-category="xiaomi">Xiaomi</button>
+                        <button class="filter-btn" data-category="huawei">Huawei</button>
+                        <button class="filter-btn" data-category="oppo">Oppo</button>
+                        <button class="filter-btn" data-category="realme">Realme</button>
+                        <button class="filter-btn" data-category="universal">Universal</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="frpApps">
+                    <!-- FRP apps will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- About Page -->
+            <section id="about" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">About Falcon X</h1>
+                    <p class="page-subtitle">Your trusted source for software solutions</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-section">
+                        <h2>Our Mission</h2>
+                        <p>Falcon X is dedicated to providing high-quality software solutions for Windows and Android platforms. We specialize in developing tools that enhance productivity, security, and user experience.</p>
+                    </div>
+                    
+                    <div class="about-section">
+                        <h2>What We Offer</h2>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Professional Windows applications</li>
+                            <li><i class="fas fa-check"></i> Innovative Android apps</li>
+                            <li><i class="fas fa-check"></i> FRP bypass solutions</li>
+                            <li><i class="fas fa-check"></i> 24/7 technical support</li>
+                            <li><i class="fas fa-check"></i> Regular updates and improvements</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    
+    
+    <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
+</body>
+</html>
