@@ -372,12 +372,15 @@ h1, h2, h3, h4, h5, h6 {
 /* ===== Hero Section ===== */
 .hero-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
     align-items: center;
     min-height: calc(100vh - 4rem);
     margin-bottom: 4rem;
-    padding: 2rem 0;
+    padding: 2rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-content {
@@ -385,29 +388,31 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 600px;
+    padding-right: 2rem;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    line-height: 1.15;
-    margin-bottom: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-size: 3.75rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
 }
 
 .hero-subtitle {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
     color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    line-height: 1.6;
+    margin-bottom: 2rem;
+    line-height: 1.7;
     font-weight: 400;
+    max-width: 90%;
 }
 
 .hero-buttons {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .hero-image {
@@ -415,27 +420,27 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     align-items: center;
     animation: slideInRight 0.8s ease-out;
-    padding: 2rem;
+    position: relative;
 }
 
 .floating-card {
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: float-subtle 4s ease-in-out infinite;
+    animation: float-subtle 6s ease-in-out infinite;
     position: relative;
-    transform: scale(1);
-    transform-style: preserve-3d;
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1), transparent 70%);
+    border-radius: 50%;
 }
 
 .hero-logo {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     object-fit: contain;
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1)) contrast(1.1) brightness(1.05);
+    filter: drop-shadow(0 10px 25px rgba(59, 130, 246, 0.3));
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     -webkit-font-smoothing: antialiased;
@@ -446,10 +451,10 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes float-subtle {
     0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-15px) scale(1.02);
     }
 }
 
@@ -1559,24 +1564,32 @@ body.no-animations * {
         grid-template-columns: 1fr;
         text-align: center;
         min-height: calc(100vh - var(--mobile-header-height));
-        padding: 3rem 1.5rem;
-        gap: 3rem;
+        padding: 3rem 2rem;
+        gap: 2.5rem;
     }
     
     .hero-content {
         max-width: 100%;
+        padding-right: 0;
+        align-items: center;
     }
     
     .hero-title {
-        font-size: 2.75rem;
+        font-size: 3rem;
     }
     
     .hero-subtitle {
         font-size: 1.125rem;
+        max-width: 100%;
     }
     
     .hero-buttons {
         justify-content: center;
+        width: 100%;
+    }
+    
+    .floating-card {
+        max-width: 350px;
     }
     
     .contact-content {
@@ -1653,26 +1666,32 @@ body.no-animations * {
     
     .hero-section {
         min-height: calc(100vh - var(--mobile-header-height));
-        padding: 2.5rem 1rem;
-        gap: 2.5rem;
+        padding: 2rem 1rem;
+        gap: 2rem;
     }
     
     .hero-title {
-        font-size: 2.25rem;
+        font-size: 2rem;
         line-height: 1.2;
     }
     
     .hero-subtitle {
-        font-size: 1.125rem;
-        line-height: 1.5;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
     }
     
     .hero-image {
-        padding: 1rem;
+        padding: 0;
     }
     
     .floating-card {
-        max-width: 280px;
+        max-width: 260px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
     }
     
     .features-grid {
@@ -1707,21 +1726,28 @@ body.no-animations * {
 
 @media (max-width: 480px) {
     .hero-section {
-        padding: 2rem 0.75rem;
-        gap: 2rem;
+        padding: 1.5rem 0.75rem;
+        gap: 1.5rem;
     }
     
     .hero-title {
-        font-size: 1.875rem;
-        line-height: 1.25;
+        font-size: 1.75rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
     }
     
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.9375rem;
+        margin-bottom: 1.25rem;
     }
     
     .floating-card {
-        max-width: 220px;
+        max-width: 200px;
+    }
+    
+    .hero-buttons .btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9375rem;
     }
     
     .section-title {
