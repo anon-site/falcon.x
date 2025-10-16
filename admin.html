@@ -421,9 +421,15 @@
                             <label for="githubToken">
                                 <i class="fas fa-key"></i> Personal Access Token*
                             </label>
-                            <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required style="flex: 1;">
+                                <button type="button" class="btn btn-primary" onclick="fetchReposFromToken()" style="white-space: nowrap;">
+                                    <i class="fas fa-sync"></i>
+                                    جلب المستودعات
+                                </button>
+                            </div>
                             <small style="color: #888; display: block; margin-top: 0.3rem;">
-                                سيتم حفظ الـ Token محلياً في متصفحك فقط
+                                سيتم حفظ الـ Token محلياً في متصفحك فقط. اضغط "جلب المستودعات" بعد إدخال التوكن
                             </small>
                         </div>
                         
@@ -431,9 +437,11 @@
                             <label for="githubRepo">
                                 <i class="fas fa-folder"></i> اسم الـ Repository*
                             </label>
-                            <input type="text" id="githubRepo" placeholder="" required>
+                            <select id="githubRepo" required style="width: 100%; padding: 0.75rem; border: 1px solid rgba(255,255,255,0.1); background: #1e2746; color: #fff; border-radius: 8px; font-size: 0.95rem;">
+                                <option value="" style="background: #1e2746; color: #888;">أدخل التوكن أولاً لجلب المستودعات...</option>
+                            </select>
                             <small style="color: #888; display: block; margin-top: 0.3rem;">
-                                مثال: username/repository-name
+                                سيتم عرض جميع المستودعات الخاصة بك بعد إدخال التوكن
                             </small>
                         </div>
                         

@@ -199,6 +199,38 @@ class GitHubAPI {
         return await this.updateFile('js/data.js', content, 'Update data.js from Admin Panel');
     }
 
+    // Get user repositories from token
+    async getUserRepos() {
+        try {
+            if (!this.config.token) {
+                return { success: false, message: 'الرجاء إدخال التوكن أولاً' };
+            }
+            
+            const response = await fetch('https://api.github.com/user/repos?per_page=100&sort=updated', {
+                headers: {
+                    'Authorization': `token ${this.config.token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`خطأ في التوكن: ${response.status}`);
+            }
+
+            const repos = await response.json();
+            return { 
+                success: true, 
+                repos: repos.map(repo => ({
+                    name: repo.full_name,
+                    description: repo.description || 'لا يوجد وصف',
+                    updated: repo.updated_at
+                }))
+            };
+        } catch (error) {
+            return { success: false, message: error.message };
+        }
+    }
+
     // Test GitHub connection
     async testConnection() {
         try {

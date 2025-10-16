@@ -133,6 +133,61 @@ function loadGitHubSettings() {
     }
 }
 
+// Fetch repositories when token is entered
+async function fetchReposFromToken() {
+    const token = document.getElementById('githubToken').value.trim();
+    const repoSelect = document.getElementById('githubRepo');
+    const statusDiv = document.getElementById('githubStatus');
+    
+    if (!token) {
+        showToast('الرجاء إدخال التوكن أولاً', 'error');
+        return;
+    }
+    
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#1e2746';
+    statusDiv.style.color = '#fff';
+    statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري جلب المستودعات...';
+    
+    // Temporarily save token to config
+    const tempConfig = {
+        token: token,
+        repo: githubAPI.config.repo || '',
+        branch: githubAPI.config.branch || 'main'
+    };
+    githubAPI.config = tempConfig;
+    
+    const result = await githubAPI.getUserRepos();
+    
+    if (result.success) {
+        // Convert input to select dropdown
+        const currentValue = repoSelect.value;
+        repoSelect.innerHTML = '<option value="" style="background: #1e2746; color: #888;">اختر المستودع...</option>';
+        
+        result.repos.forEach(repo => {
+            const option = document.createElement('option');
+            option.value = repo.name;
+            option.textContent = `${repo.name} - ${repo.description.substring(0, 50)}`;
+            option.style.background = '#1e2746';
+            option.style.color = '#fff';
+            repoSelect.appendChild(option);
+        });
+        
+        // Restore previous value if exists
+        if (currentValue && result.repos.find(r => r.name === currentValue)) {
+            repoSelect.value = currentValue;
+        }
+        
+        statusDiv.style.background = '#10b981';
+        statusDiv.innerHTML = `<i class="fas fa-check-circle"></i> تم العثور على ${result.repos.length} مستودع`;
+        showToast(`تم جلب ${result.repos.length} مستودع بنجاح`, 'success');
+    } else {
+        statusDiv.style.background = '#ef4444';
+        statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> ' + result.message;
+        showToast('فشل جلب المستودعات. تحقق من التوكن', 'error');
+    }
+}
+
 // Save GitHub settings
 document.getElementById('githubSettingsForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -140,8 +195,8 @@ document.getElementById('githubSettingsForm').addEventListener('submit', functio
     const repoValue = document.getElementById('githubRepo').value;
     
     // Validate repository format
-    if (!repoValue.includes('/')) {
-        showToast('صيغة Repository خاطئة. يجب أن تكون: username/repository-name', 'error');
+    if (!repoValue || !repoValue.includes('/')) {
+        showToast('الرجاء اختيار مستودع من القائمة', 'error');
         return;
     }
     
