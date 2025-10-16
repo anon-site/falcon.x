@@ -376,6 +376,8 @@ function loadApps(type) {
     const apps = appsData[type] || [];
     const container = document.getElementById(`${type}-list`);
     
+    console.log(`📖 Loading apps for ${type}:`, apps.length, 'items');
+    
     if (apps.length === 0) {
         container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>لا توجد عناصر بعد</p></div>';
         return;
@@ -454,7 +456,9 @@ function openAppModal(type, appId = null) {
         }
     } else {
         form.reset();
+        document.getElementById('appId').value = '';
         document.getElementById('appType').value = type;
+        document.getElementById('appModified').value = 'false';
     }
     
     modal.style.display = 'flex';
@@ -463,7 +467,11 @@ function openAppModal(type, appId = null) {
 // Close app modal
 function closeAppModal() {
     document.getElementById('appModal').style.display = 'none';
-    document.getElementById('appForm').reset();
+    const form = document.getElementById('appForm');
+    form.reset();
+    // Clear hidden fields explicitly
+    document.getElementById('appId').value = '';
+    document.getElementById('appType').value = '';
     editingAppId = null;
 }
 
@@ -476,6 +484,9 @@ function initAppForm() {
     const appId = document.getElementById('appId').value;
     const isEditing = appId !== '';
     
+    // Get the modified status from the form
+    const modifiedValue = document.getElementById('appModified').value;
+    
     const appData = {
         id: isEditing ? parseInt(appId) : Date.now(),
         name: document.getElementById('appName').value || 'Untitled',
@@ -485,19 +496,27 @@ function initAppForm() {
         description: document.getElementById('appDescription').value || 'No description provided',
         icon: document.getElementById('appIcon').value || 'fas fa-cube',
         downloadLink: document.getElementById('appDownloadLink').value || '#',
-        isModified: document.getElementById('appModified').value === 'true'
+        isModified: modifiedValue === 'true'
     };
     
     let apps = appsData[type] || [];
     
     if (isEditing) {
         const index = apps.findIndex(a => a.id === parseInt(appId));
-        apps[index] = appData;
+        if (index !== -1) {
+            apps[index] = appData;
+        } else {
+            console.error('App not found for editing:', appId);
+            apps.push(appData); // Add as new if not found
+        }
     } else {
         apps.push(appData);
     }
     
     appsData[type] = apps;
+    
+    console.log(`✅ ${isEditing ? 'Updated' : 'Added'} app:`, appData.name);
+    console.log(`📊 Total ${type} apps:`, apps.length);
     
     // Save to localStorage immediately
     saveToLocalStorage();
@@ -864,56 +883,60 @@ function importFromDataJS() {
     // Import Windows Software
     if (typeof windowsSoftware !== 'undefined' && appsData.windows.length === 0) {
         appsData.windows = windowsSoftware.map(item => ({
-            id: Date.now() + Math.random(),
+            id: item.id || (Date.now() + Math.random()),
             name: item.name,
             category: item.category,
             version: item.version,
             size: item.size,
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl
+            downloadLink: item.downloadUrl || item.downloadLink,
+            isModified: item.isModified === true ? true : false
         }));
     }
     
     // Import Android Apps
     if (typeof androidApps !== 'undefined' && appsData.android.length === 0) {
         appsData.android = androidApps.map(item => ({
-            id: Date.now() + Math.random(),
+            id: item.id || (Date.now() + Math.random()),
             name: item.name,
             category: item.category,
             version: item.version,
             size: item.size,
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl
+            downloadLink: item.downloadUrl || item.downloadLink,
+            isModified: item.isModified === true ? true : false
         }));
     }
     
     // Import FRP Tools
     if (typeof frpTools !== 'undefined' && appsData['frp-tools'].length === 0) {
         appsData['frp-tools'] = frpTools.map(item => ({
-            id: Date.now() + Math.random(),
+            id: item.id || (Date.now() + Math.random()),
             name: item.name,
             category: item.category,
             version: item.version,
             size: item.size,
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl
+            downloadLink: item.downloadUrl || item.downloadLink,
+            isModified: item.isModified === true ? true : false
         }));
     }
     
     // Import FRP Apps
     if (typeof frpApps !== 'undefined' && appsData['frp-apps'].length === 0) {
         appsData['frp-apps'] = frpApps.map(item => ({
-            id: Date.now() + Math.random(),
+            id: item.id || (Date.now() + Math.random()),
             name: item.name,
             category: item.category,
             version: item.version,
             size: item.size,
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl
+            downloadLink: item.downloadUrl || item.downloadLink,
+            isModified: item.isModified === true ? true : false
         }));
     }
 }
@@ -988,14 +1011,15 @@ function exportToDataJS() {
     let output = '// ===== Windows Software Data =====\nconst windowsSoftware = [\n';
     windows.forEach((item, index) => {
         output += `    {\n`;
-        output += `        id: 'win-${index + 1}',\n`;
+        output += `        id: ${item.id},\n`;
         output += `        name: '${item.name}',\n`;
         output += `        version: '${item.version}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
         output += `        description: '${item.description}',\n`;
         output += `        size: '${item.size}',\n`;
-        output += `        downloadUrl: '${item.downloadLink}'\n`;
+        output += `        downloadLink: '${item.downloadLink}',\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
         output += `    }${index < windows.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
@@ -1003,14 +1027,15 @@ function exportToDataJS() {
     output += '// ===== Android Applications Data =====\nconst androidApps = [\n';
     android.forEach((item, index) => {
         output += `    {\n`;
-        output += `        id: 'and-${index + 1}',\n`;
+        output += `        id: ${item.id},\n`;
         output += `        name: '${item.name}',\n`;
         output += `        version: '${item.version}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
         output += `        description: '${item.description}',\n`;
         output += `        size: '${item.size}',\n`;
-        output += `        downloadUrl: '${item.downloadLink}'\n`;
+        output += `        downloadLink: '${item.downloadLink}',\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
         output += `    }${index < android.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
@@ -1018,14 +1043,15 @@ function exportToDataJS() {
     output += '// ===== FRP Tools Data =====\nconst frpTools = [\n';
     frpToolsData.forEach((item, index) => {
         output += `    {\n`;
-        output += `        id: 'frp-${index + 1}',\n`;
+        output += `        id: ${item.id},\n`;
         output += `        name: '${item.name}',\n`;
         output += `        version: '${item.version}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
         output += `        description: '${item.description}',\n`;
         output += `        size: '${item.size}',\n`;
-        output += `        downloadUrl: '${item.downloadLink}'\n`;
+        output += `        downloadLink: '${item.downloadLink}',\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
         output += `    }${index < frpToolsData.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
@@ -1033,14 +1059,15 @@ function exportToDataJS() {
     output += '// ===== FRP Applications Data =====\nconst frpApps = [\n';
     frpAppsData.forEach((item, index) => {
         output += `    {\n`;
-        output += `        id: 'frpapp-${index + 1}',\n`;
+        output += `        id: ${item.id},\n`;
         output += `        name: '${item.name}',\n`;
         output += `        version: '${item.version}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
         output += `        description: '${item.description}',\n`;
         output += `        size: '${item.size}',\n`;
-        output += `        downloadUrl: '${item.downloadLink}'\n`;
+        output += `        downloadLink: '${item.downloadLink}',\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
         output += `    }${index < frpAppsData.length - 1 ? ',' : ''}\n`;
     });
     output += '];';
