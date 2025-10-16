@@ -476,56 +476,72 @@ function closeAppModal() {
 }
 
 // Save app - will be initialized in DOMContentLoaded
+let appFormHandler = null; // Store the handler to prevent duplicates
+
 function initAppForm() {
-    document.getElementById('appForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+    const form = document.getElementById('appForm');
     
-    const type = document.getElementById('appType').value;
-    const appId = document.getElementById('appId').value;
-    const isEditing = appId !== '';
-    
-    // Get the modified status from the form
-    const modifiedValue = document.getElementById('appModified').value;
-    
-    const appData = {
-        id: isEditing ? parseInt(appId) : Date.now(),
-        name: document.getElementById('appName').value || 'Untitled',
-        category: document.getElementById('appCategory').value || 'general',
-        version: document.getElementById('appVersion').value || '1.0',
-        size: document.getElementById('appSize').value || 'N/A',
-        description: document.getElementById('appDescription').value || 'No description provided',
-        icon: document.getElementById('appIcon').value || 'fas fa-cube',
-        downloadLink: document.getElementById('appDownloadLink').value || '#',
-        isModified: modifiedValue === 'true'
-    };
-    
-    let apps = appsData[type] || [];
-    
-    if (isEditing) {
-        const index = apps.findIndex(a => a.id === parseInt(appId));
-        if (index !== -1) {
-            apps[index] = appData;
-        } else {
-            console.error('App not found for editing:', appId);
-            apps.push(appData); // Add as new if not found
-        }
-    } else {
-        apps.push(appData);
+    // Remove previous event listener if exists
+    if (appFormHandler) {
+        form.removeEventListener('submit', appFormHandler);
     }
     
-    appsData[type] = apps;
+    // Define the handler
+    appFormHandler = function(e) {
+        e.preventDefault();
+        
+        const type = document.getElementById('appType').value;
+        const appId = document.getElementById('appId').value;
+        const isEditing = appId !== '' && appId !== '0';
+        
+        // Get the modified status from the form
+        const modifiedValue = document.getElementById('appModified').value;
+        
+        const appData = {
+            id: isEditing ? parseInt(appId) : Date.now(),
+            name: document.getElementById('appName').value || 'Untitled',
+            category: document.getElementById('appCategory').value || 'general',
+            version: document.getElementById('appVersion').value || '1.0',
+            size: document.getElementById('appSize').value || 'N/A',
+            description: document.getElementById('appDescription').value || 'No description provided',
+            icon: document.getElementById('appIcon').value || 'fas fa-cube',
+            downloadLink: document.getElementById('appDownloadLink').value || '#',
+            isModified: modifiedValue === 'true'
+        };
+        
+        // Get a fresh copy of apps array
+        let apps = [...(appsData[type] || [])];
+        
+        if (isEditing) {
+            const index = apps.findIndex(a => a.id === parseInt(appId));
+            if (index !== -1) {
+                console.log(`🔄 Updating app at index ${index}:`, appData.name);
+                apps[index] = appData;
+            } else {
+                console.warn('⚠️ App not found for editing, adding as new:', appId);
+                apps.push(appData);
+            }
+        } else {
+            console.log(`➕ Adding new app:`, appData.name);
+            apps.push(appData);
+        }
+        
+        // Update the data
+        appsData[type] = apps;
+        
+        console.log(`📊 Total ${type} apps:`, apps.length);
+        
+        // Save to localStorage immediately
+        saveToLocalStorage();
+        
+        closeAppModal();
+        loadApps(type);
+        updateDashboardStats();
+        showToast(isEditing ? 'تم التحديث محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات' : 'تمت الإضافة محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
+    };
     
-    console.log(`✅ ${isEditing ? 'Updated' : 'Added'} app:`, appData.name);
-    console.log(`📊 Total ${type} apps:`, apps.length);
-    
-    // Save to localStorage immediately
-    saveToLocalStorage();
-    
-    closeAppModal();
-    loadApps(type);
-    updateDashboardStats();
-    showToast(isEditing ? 'تم التحديث محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات' : 'تمت الإضافة محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
-    });
+    // Add the event listener
+    form.addEventListener('submit', appFormHandler);
 }
 
 // Edit app

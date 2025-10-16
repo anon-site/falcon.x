@@ -48,6 +48,14 @@
                 <i class="fab fa-github"></i>
                 <span>إعدادات GitHub</span>
             </a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="https://github.com/anon-site/falcon.x" target="_blank" class="nav-item nav-external">
+                <i class="fas fa-code-branch"></i>
+                <span>Repository</span>
+                <i class="fas fa-external-link-alt" style="margin-right: auto; font-size: 0.75rem; opacity: 0.5;"></i>
+            </a>
         </nav>
         
         <div class="sidebar-footer">
@@ -73,14 +81,6 @@
                 <button class="btn btn-icon" onclick="manualSaveToGitHub()" title="حفظ التغييرات على GitHub" style="background: #10b981; color: #fff;">
                     <i class="fas fa-save"></i>
                     حفظ
-                </button>
-                <button class="btn btn-icon" onclick="document.getElementById('importFile').click()" title="استيراد ملف data.js">
-                    <i class="fas fa-upload"></i>
-                    استيراد
-                </button>
-                <button class="btn btn-icon" onclick="exportToDataJS()" title="تصدير البيانات">
-                    <i class="fas fa-download"></i>
-                    تصدير
                 </button>
                 <button class="btn btn-icon" onclick="window.open('index.html', '_blank')">
                     <i class="fas fa-external-link-alt"></i>
@@ -295,11 +295,44 @@
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        حفظ التغييرات
-                    </button>
+                    <div class="form-actions" style="margin-top: 1.5rem;">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            حفظ التغييرات
+                        </button>
+                    </div>
                 </form>
+                
+                <!-- Data Import/Export Section -->
+                <div class="settings-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary); font-size: 1.25rem;">
+                        <i class="fas fa-database"></i>
+                        إدارة البيانات
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        استيراد أو تصدير بيانات البرامج والتطبيقات بتنسيق data.js
+                    </p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="document.getElementById('importFile').click()" style="flex: 1; min-width: 200px;">
+                            <i class="fas fa-upload"></i>
+                            استيراد ملف data.js
+                        </button>
+                        <button class="btn btn-info" onclick="exportToDataJS()" style="flex: 1; min-width: 200px;">
+                            <i class="fas fa-download"></i>
+                            تصدير إلى data.js
+                        </button>
+                        <button class="btn btn-warning" onclick="reimportFromDataJS()" style="flex: 1; min-width: 200px;">
+                            <i class="fas fa-sync-alt"></i>
+                            إعادة من الملف الأصلي
+                        </button>
+                    </div>
+                    <div class="info-box" style="margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-right: 3px solid var(--info-color); border-radius: 8px;">
+                        <p style="margin: 0; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6;">
+                            <i class="fas fa-info-circle" style="color: var(--info-color);"></i>
+                            <strong>ملاحظة:</strong> الاستيراد سيستبدل جميع البيانات الحالية. التصدير سينشئ ملف data.js بجميع البيانات الحالية.
+                        </p>
+                    </div>
+                </div>
             </section>
             
             <!-- Colors Management Section -->
