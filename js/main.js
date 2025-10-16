@@ -289,22 +289,43 @@ async function loadSoftwareData() {
 
 // ===== Get Data from data.js =====
 function getDataFromStorage(storageKey, fallbackData) {
-    // Always use data.js as the source of truth
+    try {
+        // Map storage keys to localStorage keys used by admin panel
+        const localStorageKeyMap = {
+            'windows-apps': 'falcon-x-windows-apps',
+            'android-apps': 'falcon-x-android-apps',
+            'frp-tools-apps': 'falcon-x-frp-tools',
+            'frp-apps-apps': 'falcon-x-frp-apps'
+        };
+        
+        const localStorageKey = localStorageKeyMap[storageKey];
+        if (localStorageKey) {
+            const stored = localStorage.getItem(localStorageKey);
+            if (stored) {
+                const parsedData = JSON.parse(stored);
+                console.log(`✅ Loaded ${parsedData.length} items from localStorage (${storageKey})`);
+                return parsedData;
+            }
+        }
+    } catch (error) {
+        console.error('Error reading from localStorage:', error);
+    }
+    
+    // Fallback to data.js
+    console.log(`📂 Using fallback data.js for ${storageKey}`);
     return fallbackData || [];
 }
 
 // ===== Refresh Data from Admin Panel =====
 function refreshData() {
     // Show loading toast
-    showToast('Refreshing data...', 'success');
+    showToast('Refreshing data from admin panel...', 'info');
     
-    // Reload software data
-    loadSoftwareData();
-    
-    // Show success message
+    // Clear cache and reload software data
     setTimeout(() => {
+        loadSoftwareData();
         showToast('Data refreshed successfully!', 'success');
-    }, 500);
+    }, 300);
 }
 
 // ===== Create Software Card =====
@@ -333,36 +354,77 @@ function createSoftwareCard(software) {
 
 // ===== Download Software =====
 function downloadSoftware(softwareId) {
-    // Find the software in all arrays
+    // Find the software in all arrays (check localStorage first, then data.js)
     let software = null;
     
-    if (typeof windowsSoftware !== 'undefined') {
-        software = windowsSoftware.find(app => app.id === softwareId);
+    // Helper function to search in array
+    const findInArray = (arr, id) => {
+        if (!arr) return null;
+        // Try to find by both numeric and string ID
+        return arr.find(app => app.id == id || app.id === id);
+    };
+    
+    // Check localStorage data first
+    const windowsLS = localStorage.getItem('falcon-x-windows-apps');
+    if (windowsLS) {
+        const windows = JSON.parse(windowsLS);
+        software = findInArray(windows, softwareId);
+    }
+    
+    if (!software) {
+        const androidLS = localStorage.getItem('falcon-x-android-apps');
+        if (androidLS) {
+            const android = JSON.parse(androidLS);
+            software = findInArray(android, softwareId);
+        }
+    }
+    
+    if (!software) {
+        const frpToolsLS = localStorage.getItem('falcon-x-frp-tools');
+        if (frpToolsLS) {
+            const frpT = JSON.parse(frpToolsLS);
+            software = findInArray(frpT, softwareId);
+        }
+    }
+    
+    if (!software) {
+        const frpAppsLS = localStorage.getItem('falcon-x-frp-apps');
+        if (frpAppsLS) {
+            const frpA = JSON.parse(frpAppsLS);
+            software = findInArray(frpA, softwareId);
+        }
+    }
+    
+    // Fallback to data.js arrays
+    if (!software && typeof windowsSoftware !== 'undefined') {
+        software = findInArray(windowsSoftware, softwareId);
     }
     
     if (!software && typeof androidApps !== 'undefined') {
-        software = androidApps.find(app => app.id === softwareId);
+        software = findInArray(androidApps, softwareId);
     }
     
     if (!software && typeof frpTools !== 'undefined') {
-        software = frpTools.find(app => app.id === softwareId);
+        software = findInArray(frpTools, softwareId);
     }
     
     if (!software && typeof frpApps !== 'undefined') {
-        software = frpApps.find(app => app.id === softwareId);
+        software = findInArray(frpApps, softwareId);
     }
     
-    if (software && software.downloadUrl) {
-        if (software.downloadUrl === '#') {
+    if (software) {
+        const downloadUrl = software.downloadLink || software.downloadUrl;
+        if (downloadUrl && downloadUrl !== '#') {
+            // Open download link in new tab
+            window.open(downloadUrl, '_blank');
+            showToast(`Downloading ${software.name}...`, 'success');
+        } else {
             // Show message for unavailable downloads
             showToast('Download link will be available soon!', 'warning');
-        } else {
-            // Open download link in new tab
-            window.open(software.downloadUrl, '_blank');
-            showToast(`Downloading ${software.name}...`, 'success');
         }
     } else {
         showToast('Download link not found!', 'error');
+        console.error('Software not found with ID:', softwareId);
     }
 }
 

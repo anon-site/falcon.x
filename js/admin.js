@@ -188,27 +188,29 @@ async function fetchReposFromToken() {
     }
 }
 
-// Save GitHub settings
-document.getElementById('githubSettingsForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const repoValue = document.getElementById('githubRepo').value;
-    
-    // Validate repository format
-    if (!repoValue || !repoValue.includes('/')) {
-        showToast('الرجاء اختيار مستودع من القائمة', 'error');
-        return;
-    }
-    
-    const config = {
-        token: document.getElementById('githubToken').value,
-        repo: repoValue,
-        branch: document.getElementById('githubBranch').value || 'main'
-    };
-    
-    githubAPI.saveConfig(config);
-    showToast('تم حفظ إعدادات GitHub بنجاح', 'success');
-});
+// Save GitHub settings - will be initialized in DOMContentLoaded
+function initGitHubSettingsForm() {
+    document.getElementById('githubSettingsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const repoValue = document.getElementById('githubRepo').value;
+        
+        // Validate repository format
+        if (!repoValue || !repoValue.includes('/')) {
+            showToast('الرجاء اختيار مستودع من القائمة', 'error');
+            return;
+        }
+        
+        const config = {
+            token: document.getElementById('githubToken').value,
+            repo: repoValue,
+            branch: document.getElementById('githubBranch').value || 'main'
+        };
+        
+        githubAPI.saveConfig(config);
+        showToast('تم حفظ إعدادات GitHub بنجاح', 'success');
+    });
+}
 
 // ============ Apps Management ============
 
@@ -230,6 +232,73 @@ let appsData = {
 let currentAppType = 'windows';
 let editingAppId = null;
 
+// ============ localStorage Sync Functions ============
+
+// Update sync status indicator
+function updateSyncStatus(status, message) {
+    const syncStatus = document.getElementById('syncStatus');
+    if (!syncStatus) return;
+    
+    const icon = syncStatus.querySelector('i');
+    const text = syncStatus.querySelector('span');
+    
+    if (status === 'saving') {
+        icon.className = 'fas fa-sync fa-spin';
+        icon.style.color = '#3b82f6';
+        text.textContent = message || 'جاري الحفظ...';
+        syncStatus.style.background = '#1e3a8a';
+    } else if (status === 'saved') {
+        icon.className = 'fas fa-check-circle';
+        icon.style.color = '#10b981';
+        text.textContent = message || 'تم الحفظ';
+        syncStatus.style.background = '#1e2746';
+    } else if (status === 'error') {
+        icon.className = 'fas fa-exclamation-circle';
+        icon.style.color = '#ef4444';
+        text.textContent = message || 'خطأ في الحفظ';
+        syncStatus.style.background = '#7f1d1d';
+    }
+}
+
+// Save all data to localStorage
+function saveToLocalStorage() {
+    try {
+        updateSyncStatus('saving');
+        localStorage.setItem('falcon-x-windows-apps', JSON.stringify(appsData.windows));
+        localStorage.setItem('falcon-x-android-apps', JSON.stringify(appsData.android));
+        localStorage.setItem('falcon-x-frp-tools', JSON.stringify(appsData['frp-tools']));
+        localStorage.setItem('falcon-x-frp-apps', JSON.stringify(appsData['frp-apps']));
+        console.log('✅ Data saved to localStorage');
+        setTimeout(() => updateSyncStatus('saved'), 300);
+        return true;
+    } catch (error) {
+        console.error('❌ Error saving to localStorage:', error);
+        updateSyncStatus('error');
+        return false;
+    }
+}
+
+// Load data from localStorage
+function loadFromLocalStorage() {
+    try {
+        const windows = localStorage.getItem('falcon-x-windows-apps');
+        const android = localStorage.getItem('falcon-x-android-apps');
+        const frpTools = localStorage.getItem('falcon-x-frp-tools');
+        const frpApps = localStorage.getItem('falcon-x-frp-apps');
+        
+        if (windows) appsData.windows = JSON.parse(windows);
+        if (android) appsData.android = JSON.parse(android);
+        if (frpTools) appsData['frp-tools'] = JSON.parse(frpTools);
+        if (frpApps) appsData['frp-apps'] = JSON.parse(frpApps);
+        
+        console.log('✅ Data loaded from localStorage');
+        return true;
+    } catch (error) {
+        console.error('❌ Error loading from localStorage:', error);
+        return false;
+    }
+}
+
 // Get all apps of a type
 function getAllApps(type) {
     return appsData[type] || [];
@@ -240,10 +309,17 @@ function switchTab(type) {
     currentAppType = type;
     
     // Update tab buttons
-    document.querySelectorAll('.tab-btn').forEach(btn => {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach((btn, index) => {
         btn.classList.remove('active');
+        // Check button text to match type
+        if ((type === 'windows' && index === 0) ||
+            (type === 'android' && index === 1) ||
+            (type === 'frp-tools' && index === 2) ||
+            (type === 'frp-apps' && index === 3)) {
+            btn.classList.add('active');
+        }
     });
-    event.target.classList.add('active');
     
     // Update tab content
     document.querySelectorAll('.tab-pane').forEach(pane => {
@@ -352,8 +428,9 @@ function closeAppModal() {
     editingAppId = null;
 }
 
-// Save app
-document.getElementById('appForm').addEventListener('submit', function(e) {
+// Save app - will be initialized in DOMContentLoaded
+function initAppForm() {
+    document.getElementById('appForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const type = document.getElementById('appType').value;
@@ -385,6 +462,9 @@ document.getElementById('appForm').addEventListener('submit', function(e) {
     
     appsData[type] = apps;
     
+    // Save to localStorage immediately
+    saveToLocalStorage();
+    
     closeAppModal();
     loadApps(type);
     updateDashboardStats();
@@ -394,7 +474,8 @@ document.getElementById('appForm').addEventListener('submit', function(e) {
     if (githubAPI.isConfigured()) {
         syncToGitHub();
     }
-});
+    });
+}
 
 // Edit app
 function editApp(type, id) {
@@ -407,6 +488,9 @@ function deleteApp(type, id) {
         let apps = appsData[type] || [];
         apps = apps.filter(app => app.id !== id);
         appsData[type] = apps;
+        
+        // Save to localStorage immediately
+        saveToLocalStorage();
         
         loadApps(type);
         updateDashboardStats();
@@ -544,7 +628,8 @@ function closeNavModal() {
     document.getElementById('navForm').reset();
 }
 
-document.getElementById('navForm').addEventListener('submit', function(e) {
+function initNavForm() {
+    document.getElementById('navForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const id = document.getElementById('navId').value;
@@ -573,7 +658,8 @@ document.getElementById('navForm').addEventListener('submit', function(e) {
     closeNavModal();
     loadNavigation();
     showToast(isEditing ? 'تم التحديث بنجاح' : 'تمت الإضافة بنجاح', 'success');
-});
+    });
+}
 
 function editNavItem(id) {
     openNavModal(id);
@@ -612,20 +698,22 @@ function getDefaultSettings() {
     };
 }
 
-document.getElementById('siteSettingsForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const settings = {
-        title: document.getElementById('siteTitle').value,
-        version: document.getElementById('siteVersion').value,
-        copyright: document.getElementById('siteCopyright').value,
-        description: document.getElementById('siteDescription').value,
-        mission: document.getElementById('siteMission').value
-    };
-    
-    localStorage.setItem('siteSettings', JSON.stringify(settings));
-    showToast('تم حفظ الإعدادات بنجاح', 'success');
-});
+function initSiteSettingsForm() {
+    document.getElementById('siteSettingsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const settings = {
+            title: document.getElementById('siteTitle').value,
+            version: document.getElementById('siteVersion').value,
+            copyright: document.getElementById('siteCopyright').value,
+            description: document.getElementById('siteDescription').value,
+            mission: document.getElementById('siteMission').value
+        };
+        
+        localStorage.setItem('siteSettings', JSON.stringify(settings));
+        showToast('تم حفظ الإعدادات بنجاح', 'success');
+    });
+}
 
 // ============ Colors Management ============
 
@@ -673,19 +761,21 @@ function syncColorInputs() {
     });
 }
 
-document.getElementById('colorsForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const colors = {
-        primary: document.getElementById('primaryColor').value,
-        secondary: document.getElementById('secondaryColor').value,
-        accent: document.getElementById('accentColor').value,
-        background: document.getElementById('backgroundColor').value
-    };
-    
-    localStorage.setItem('siteColors', JSON.stringify(colors));
-    showToast('تم حفظ الألوان بنجاح', 'success');
-});
+function initColorsForm() {
+    document.getElementById('colorsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const colors = {
+            primary: document.getElementById('primaryColor').value,
+            secondary: document.getElementById('secondaryColor').value,
+            accent: document.getElementById('accentColor').value,
+            background: document.getElementById('backgroundColor').value
+        };
+        
+        localStorage.setItem('siteColors', JSON.stringify(colors));
+        showToast('تم حفظ الألوان بنجاح', 'success');
+    });
+}
 
 function resetColors() {
     if (confirm('هل تريد استعادة الألوان الافتراضية؟')) {
@@ -730,6 +820,9 @@ function reimportFromDataJS() {
         };
         
         importFromDataJS();
+        
+        // Save to localStorage
+        saveToLocalStorage();
         
         // Reload current tab
         loadApps(currentAppType);
@@ -840,6 +933,9 @@ function handleImportFile(event) {
             
             // Import the new data
             importFromDataJS();
+            
+            // Save to localStorage
+            saveToLocalStorage();
             
             // Remove the temporary script
             document.head.removeChild(script);
@@ -964,8 +1060,29 @@ function updateDashboardStats() {
 window.addEventListener('DOMContentLoaded', function() {
     if (!checkAuth()) return;
     
-    // Import data from data.js on first load
-    importFromDataJS();
+    // Try to load from localStorage first
+    const hasLocalData = loadFromLocalStorage();
+    
+    // If no localStorage data, import from data.js
+    if (!hasLocalData || 
+        (appsData.windows.length === 0 && 
+         appsData.android.length === 0 && 
+         appsData['frp-tools'].length === 0 && 
+         appsData['frp-apps'].length === 0)) {
+        console.log('📥 Importing from data.js...');
+        importFromDataJS();
+        // Save imported data to localStorage
+        saveToLocalStorage();
+    } else {
+        console.log('✅ Using data from localStorage');
+    }
+    
+    // Initialize event listeners
+    initGitHubSettingsForm();
+    initAppForm();
+    initNavForm();
+    initSiteSettingsForm();
+    initColorsForm();
     
     // Load GitHub settings
     loadGitHubSettings();
@@ -976,16 +1093,6 @@ window.addEventListener('DOMContentLoaded', function() {
     loadColors();
     updateDashboardStats();
     
-    // Close modals on outside click
-    window.onclick = function(event) {
-        const appModal = document.getElementById('appModal');
-        const navModal = document.getElementById('navModal');
-        
-        if (event.target === appModal) {
-            closeAppModal();
-        }
-        if (event.target === navModal) {
-            closeNavModal();
-        }
-    };
+    // Modals will only close via X button or Cancel button
+    // Outside click is disabled
 });
