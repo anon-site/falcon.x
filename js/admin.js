@@ -478,13 +478,13 @@ function initAppForm() {
     
     const appData = {
         id: isEditing ? parseInt(appId) : Date.now(),
-        name: document.getElementById('appName').value,
-        category: document.getElementById('appCategory').value,
-        version: document.getElementById('appVersion').value,
-        size: document.getElementById('appSize').value,
-        description: document.getElementById('appDescription').value,
-        icon: document.getElementById('appIcon').value || 'https://via.placeholder.com/64',
-        downloadLink: document.getElementById('appDownloadLink').value,
+        name: document.getElementById('appName').value || 'Untitled',
+        category: document.getElementById('appCategory').value || 'general',
+        version: document.getElementById('appVersion').value || '1.0',
+        size: document.getElementById('appSize').value || 'N/A',
+        description: document.getElementById('appDescription').value || 'No description provided',
+        icon: document.getElementById('appIcon').value || 'fas fa-cube',
+        downloadLink: document.getElementById('appDownloadLink').value || '#',
         isModified: document.getElementById('appModified').value === 'true'
     };
     

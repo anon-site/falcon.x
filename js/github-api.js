@@ -120,14 +120,15 @@ class GitHubAPI {
         content += 'const windowsSoftware = [\n';
         windowsApps.forEach((app, index) => {
             content += '    {\n';
-            content += `        id: 'win-${index + 1}',\n`;
+            content += `        id: ${app.id},\n`;
             content += `        name: '${this.escapeString(app.name)}',\n`;
             content += `        version: '${this.escapeString(app.version)}',\n`;
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
             content += `        size: '${app.size}',\n`;
-            content += `        downloadUrl: '${app.downloadLink}'\n`;
+            content += `        downloadLink: '${app.downloadLink}',\n`;
+            content += `        isModified: ${app.isModified}\n`;
             content += `    }${index < windowsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
@@ -136,14 +137,15 @@ class GitHubAPI {
         content += 'const androidApps = [\n';
         androidApps.forEach((app, index) => {
             content += '    {\n';
-            content += `        id: 'and-${index + 1}',\n`;
+            content += `        id: ${app.id},\n`;
             content += `        name: '${this.escapeString(app.name)}',\n`;
             content += `        version: '${this.escapeString(app.version)}',\n`;
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
             content += `        size: '${app.size}',\n`;
-            content += `        downloadUrl: '${app.downloadLink}'\n`;
+            content += `        downloadLink: '${app.downloadLink}',\n`;
+            content += `        isModified: ${app.isModified}\n`;
             content += `    }${index < androidApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
@@ -152,14 +154,15 @@ class GitHubAPI {
         content += 'const frpTools = [\n';
         frpToolsApps.forEach((app, index) => {
             content += '    {\n';
-            content += `        id: 'frp-${index + 1}',\n`;
+            content += `        id: ${app.id},\n`;
             content += `        name: '${this.escapeString(app.name)}',\n`;
             content += `        version: '${this.escapeString(app.version)}',\n`;
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
             content += `        size: '${app.size}',\n`;
-            content += `        downloadUrl: '${app.downloadLink}'\n`;
+            content += `        downloadLink: '${app.downloadLink}',\n`;
+            content += `        isModified: ${app.isModified}\n`;
             content += `    }${index < frpToolsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
@@ -168,14 +171,15 @@ class GitHubAPI {
         content += 'const frpApps = [\n';
         frpAppsApps.forEach((app, index) => {
             content += '    {\n';
-            content += `        id: 'frpapp-${index + 1}',\n`;
+            content += `        id: ${app.id},\n`;
             content += `        name: '${this.escapeString(app.name)}',\n`;
             content += `        version: '${this.escapeString(app.version)}',\n`;
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
             content += `        size: '${app.size}',\n`;
-            content += `        downloadUrl: '${app.downloadLink}'\n`;
+            content += `        downloadLink: '${app.downloadLink}',\n`;
+            content += `        isModified: ${app.isModified}\n`;
             content += `    }${index < frpAppsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];';
