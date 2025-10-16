@@ -35,16 +35,45 @@ function initializeTheme() {
 }
 
 function applyTheme(theme) {
+    const logoImage = document.querySelector('.logo-image');
+    const mobileLogo = document.querySelector('.mobile-logo');
+    
+    // Helper function to animate logo change
+    const animateLogoChange = (element, newSrc) => {
+        if (!element) return;
+        
+        // Add fade-out effect
+        element.classList.add('fade-out');
+        
+        // Change image and add fade-in effect after fade-out
+        setTimeout(() => {
+            element.src = newSrc;
+            element.classList.remove('fade-out');
+            element.classList.add('fade-in');
+            
+            // Remove fade-in class after animation completes
+            setTimeout(() => {
+                element.classList.remove('fade-in');
+            }, 600);
+        }, 300);
+    };
+    
     if (theme === 'light') {
         document.body.classList.add('light-theme');
         if (desktopThemeToggle) {
             desktopThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
+        // تغيير الصورة للوضع الساطع مع التأثير
+        animateLogoChange(logoImage, 'images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png');
+        animateLogoChange(mobileLogo, 'images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png');
     } else {
         document.body.classList.remove('light-theme');
         if (desktopThemeToggle) {
             desktopThemeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         }
+        // تغيير الصورة للوضع الليلي مع التأثير
+        animateLogoChange(logoImage, 'images/6e89058a-eeee1-45f5-9585-d26b3fb6fefc copy.png');
+        animateLogoChange(mobileLogo, 'images/6e89058a-eeee1-45f5-9585-d26b3fb6fefc copy.png');
     }
 }
 
