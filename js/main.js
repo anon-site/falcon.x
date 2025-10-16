@@ -619,7 +619,7 @@ function initializeCustomCursor() {
 }
 
 function applyCursorStyle(style) {
-    document.body.classList.remove('cursor-arrow', 'cursor-dot', 'cursor-cross');
+    document.body.classList.remove('cursor-arrow', 'cursor-dot', 'cursor-cross', 'cursor-ring', 'cursor-star', 'cursor-square');
     document.body.classList.add(`cursor-${style}`);
 }
 
