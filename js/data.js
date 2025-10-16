@@ -123,26 +123,6 @@ const androidApps = [
         description: 'Cloud-based instant messaging app',
         size: '68 MB',
         downloadUrl: 'https://telegram.org/android'
-    },
-    {
-        id: 'and-7',
-        name: 'Nova Launcher',
-        version: '8.0.14',
-        category: 'customization',
-        icon: 'fas fa-rocket',
-        description: 'Highly customizable home screen replacement',
-        size: '12 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.teslacoilsw.launcher'
-    },
-    {
-        id: 'and-8',
-        name: 'Candy Crush Saga',
-        version: '1.266.0',
-        category: 'games',
-        icon: 'fas fa-candy-cane',
-        description: 'Match-three puzzle video game',
-        size: '98 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.king.candycrushsaga'
     }
 ];
 
