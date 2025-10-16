@@ -80,6 +80,17 @@ const androidApps = [
         size: '14.18',
         downloadLink: 'https://www.mediafire.com/file/61ppihrrzxeev7m/Remote_Mouse_3212.zip/file',
         isModified: true
+    },
+    {
+        id: 1760628063597,
+        name: 'Hail Freezedom',
+        version: '1.8.1',
+        category: 'general',
+        icon: 'https://f-droid.org/repo/com.aistra.hail/en-US/icon_u7CvMjol4AxutWwPnkgLTgF6bDaYPwlp576Xa283b0M=.png',
+        description: 'A great app to freeze apps on Android device that only works on root and Shizuku.',
+        size: '3.22',
+        downloadLink: 'https://www.mediafire.com/file/e7y23htnzsoygf8/Hail_1.8.1.zip/file',
+        isModified: false
     }
 ];
 
