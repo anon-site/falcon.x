@@ -73,16 +73,6 @@ const androidApps = [
         description: 'Simple, reliable, and secure messaging and calling app',
         size: '85 MB',
         downloadUrl: 'https://www.whatsapp.com/download'
-    },
-    {
-        id: 'and-2',
-        name: 'TikTok',
-        version: '32.8.3',
-        category: 'social',
-        icon: 'fab fa-tiktok',
-        description: 'Short-form video hosting service',
-        size: '195 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically'
     }
 ];
 
