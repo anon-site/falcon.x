@@ -382,15 +382,17 @@ function loadApps(type) {
     }
     
     let html = '<table class="data-table"><thead><tr>';
-    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الإجراءات</th>';
+    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>الإجراءات</th>';
     html += '</tr></thead><tbody>';
     
     apps.forEach(app => {
+        const modifiedBadge = app.isModified ? '<span class="badge" style="background: #f59e0b;">معدل</span>' : '<span class="badge" style="background: #10b981;">غير معدل</span>';
         html += `<tr>
             <td><strong>${app.name}</strong></td>
             <td><span class="badge">${app.category}</span></td>
             <td>${app.version}</td>
             <td>${app.size}</td>
+            <td>${modifiedBadge}</td>
             <td class="actions">
                 <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                     <i class="fas fa-edit"></i>
@@ -448,6 +450,7 @@ function openAppModal(type, appId = null) {
             document.getElementById('appDescription').value = app.description;
             document.getElementById('appIcon').value = app.icon || '';
             document.getElementById('appDownloadLink').value = app.downloadLink;
+            document.getElementById('appModified').value = app.isModified ? 'true' : 'false';
         }
     } else {
         form.reset();
@@ -481,7 +484,8 @@ function initAppForm() {
         size: document.getElementById('appSize').value,
         description: document.getElementById('appDescription').value,
         icon: document.getElementById('appIcon').value || 'https://via.placeholder.com/64',
-        downloadLink: document.getElementById('appDownloadLink').value
+        downloadLink: document.getElementById('appDownloadLink').value,
+        isModified: document.getElementById('appModified').value === 'true'
     };
     
     let apps = appsData[type] || [];
@@ -541,15 +545,17 @@ function filterApps(type, searchTerm) {
     } else {
         // Reuse loadApps logic with filtered data
         let html = '<table class="data-table"><thead><tr>';
-        html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الإجراءات</th>';
+        html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>الإجراءات</th>';
         html += '</tr></thead><tbody>';
         
         filtered.forEach(app => {
+            const modifiedBadge = app.isModified ? '<span class="badge" style="background: #f59e0b;">معدل</span>' : '<span class="badge" style="background: #10b981;">غير معدل</span>';
             html += `<tr>
                 <td><strong>${app.name}</strong></td>
                 <td><span class="badge">${app.category}</span></td>
                 <td>${app.version}</td>
                 <td>${app.size}</td>
+                <td>${modifiedBadge}</td>
                 <td class="actions">
                     <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                         <i class="fas fa-edit"></i>

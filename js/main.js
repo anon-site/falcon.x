@@ -337,6 +337,11 @@ function createSoftwareCard(software) {
         ? `<img src="${software.icon}" alt="${software.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
         : `<i class="${software.icon || 'fas fa-cube'}"></i>`;
     
+    // Modified badge
+    const modifiedBadge = software.isModified 
+        ? '<span class="modified-badge modified" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-star" style="font-size: 0.6rem;"></i>Modified</span>'
+        : '<span class="modified-badge unmodified" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-check-circle" style="font-size: 0.6rem;"></i>Original</span>';
+    
     return `
         <div class="software-card" data-category="${software.category}">
             <div class="software-header">
@@ -345,7 +350,10 @@ function createSoftwareCard(software) {
                 </div>
                 <div class="software-info">
                     <h3>${software.name}</h3>
-                    <span class="software-version">v${software.version}</span>
+                    <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                        <span class="software-version">v${software.version}</span>
+                        ${modifiedBadge}
+                    </div>
                 </div>
             </div>
             <p class="software-description">${software.description}</p>
