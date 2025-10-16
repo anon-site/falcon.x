@@ -695,7 +695,6 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
     padding: 1.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
 }
 
 .software-card:hover {
