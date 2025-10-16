@@ -163,26 +163,6 @@ const androidApps = [
         description: 'Social media and social networking service',
         size: '156 MB',
         downloadUrl: 'https://play.google.com/store/apps/details?id=com.facebook.katana'
-    },
-    {
-        id: 'and-11',
-        name: 'Subway Surfers',
-        version: '3.22.1',
-        category: 'games',
-        icon: 'fas fa-train',
-        description: 'Endless runner mobile game',
-        size: '185 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf'
-    },
-    {
-        id: 'and-12',
-        name: 'KWGT Widget Maker',
-        version: '3.74',
-        category: 'customization',
-        icon: 'fas fa-palette',
-        description: 'Custom widget maker for Android',
-        size: '42 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=org.kustom.widget'
     }
 ];
 
