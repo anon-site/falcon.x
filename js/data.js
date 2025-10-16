@@ -70,6 +70,17 @@ const windowsSoftware = [
 
 // ===== Android Applications Data =====
 const androidApps = [
+    {
+        id: 1760620848459,
+        name: 'MT Manager',
+        version: '2.14.5',
+        category: 'tools',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
+        description: 'A file management application with many features.',
+        size: '22.41',
+        downloadLink: 'https://t.me/App8Premium/147',
+        isModified: true
+    }
 ];
 
 // ===== FRP Tools Data =====
