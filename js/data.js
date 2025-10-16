@@ -76,16 +76,6 @@ const androidApps = [
     },
     {
         id: 'and-2',
-        name: 'Instagram',
-        version: '316.0.0',
-        category: 'social',
-        icon: 'fab fa-instagram',
-        description: 'Photo and video sharing social networking service',
-        size: '125 MB',
-        downloadUrl: 'https://play.google.com/store/apps/details?id=com.instagram.android'
-    },
-    {
-        id: 'and-3',
         name: 'TikTok',
         version: '32.8.3',
         category: 'social',
