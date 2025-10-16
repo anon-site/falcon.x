@@ -750,6 +750,35 @@ function applyColorScheme(scheme) {
     // Add selected color class
     document.body.classList.add(`color-${scheme}`);
     
+    // Change hero logo based on color scheme
+    const heroLogo = document.querySelector('.hero-logo');
+    const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+    
+    // Map color schemes to image files
+    const colorImages = {
+        'blue': currentTheme === 'light' ? 'X.png' : 'X2.png',
+        'purple': '854CF0.png',  // Purple
+        'green': '0FA373.png',   // Green
+        'red': 'DF2F2F.png',     // Red
+        'pink': 'DF3783.png',    // Pink
+        'yellow': 'DE8510.png',  // Yellow/Orange
+        'teal': '1AA294.png',    // Teal
+        'orange': 'ED6113.png'   // Orange
+    };
+    
+    if (heroLogo && colorImages[scheme]) {
+        // Animate logo change with fade effect
+        heroLogo.classList.add('fade-out');
+        setTimeout(() => {
+            heroLogo.src = `images/${colorImages[scheme]}`;
+            heroLogo.classList.remove('fade-out');
+            heroLogo.classList.add('fade-in');
+            setTimeout(() => {
+                heroLogo.classList.remove('fade-in');
+            }, 800);
+        }, 400);
+    }
+    
     // Trigger color transition animation
     allLogos.forEach(logo => {
         logo.style.transition = 'filter 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -791,6 +820,13 @@ function resetToDefaultSettings() {
             preset.classList.remove('active');
         }
     });
+    
+    // Reset hero logo to default
+    const heroLogo = document.querySelector('.hero-logo');
+    const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+    if (heroLogo) {
+        heroLogo.src = currentTheme === 'light' ? 'images/X.png' : 'images/X2.png';
+    }
 }
 
 // ===== Export Functions =====

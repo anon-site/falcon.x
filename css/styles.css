@@ -697,52 +697,77 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Dynamic Color Effects for Images */
-.color-blue .hero-logo,
+.color-blue .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(59, 130, 246, 0.6));
+}
+
+.color-purple .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(124, 58, 237, 0.8));
+}
+
+.color-green .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(5, 150, 105, 0.8));
+}
+
+.color-red .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(220, 38, 38, 0.8));
+}
+
+.color-pink .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(219, 39, 119, 0.8));
+}
+
+.color-yellow .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(217, 119, 6, 0.8));
+}
+
+.color-teal .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(13, 148, 136, 0.8));
+}
+
+.color-orange .hero-logo {
+    filter: drop-shadow(0 10px 25px rgba(234, 88, 12, 0.8));
+}
+
+/* Logo sidebar and mobile with color filters */
 .color-blue .logo-image,
 .color-blue .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(59, 130, 246, 0.6)) hue-rotate(0deg) brightness(1);
+    filter: drop-shadow(0 2px 6px rgba(59, 130, 246, 0.4));
 }
 
-.color-purple .hero-logo,
 .color-purple .logo-image,
 .color-purple .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(124, 58, 237, 0.8)) hue-rotate(60deg) saturate(1.5) brightness(1.1);
+    filter: drop-shadow(0 2px 6px rgba(124, 58, 237, 0.5)) hue-rotate(60deg) saturate(1.5);
 }
 
-.color-green .hero-logo,
 .color-green .logo-image,
 .color-green .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(5, 150, 105, 0.8)) hue-rotate(140deg) saturate(1.4) brightness(1.05);
+    filter: drop-shadow(0 2px 6px rgba(5, 150, 105, 0.5)) hue-rotate(140deg) saturate(1.4);
 }
 
-.color-red .hero-logo,
 .color-red .logo-image,
 .color-red .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(220, 38, 38, 0.8)) hue-rotate(-40deg) saturate(1.6) brightness(1.1);
+    filter: drop-shadow(0 2px 6px rgba(220, 38, 38, 0.5)) hue-rotate(-40deg) saturate(1.6);
 }
 
-.color-pink .hero-logo,
 .color-pink .logo-image,
 .color-pink .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(219, 39, 119, 0.8)) hue-rotate(-20deg) saturate(1.7) brightness(1.15);
+    filter: drop-shadow(0 2px 6px rgba(219, 39, 119, 0.5)) hue-rotate(-20deg) saturate(1.7);
 }
 
-.color-yellow .hero-logo,
 .color-yellow .logo-image,
 .color-yellow .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(217, 119, 6, 0.8)) hue-rotate(50deg) saturate(1.5) brightness(1.2);
+    filter: drop-shadow(0 2px 6px rgba(217, 119, 6, 0.5)) hue-rotate(50deg) saturate(1.5);
 }
 
-.color-teal .hero-logo,
 .color-teal .logo-image,
 .color-teal .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(13, 148, 136, 0.8)) hue-rotate(160deg) saturate(1.4) brightness(1.05);
+    filter: drop-shadow(0 2px 6px rgba(13, 148, 136, 0.5)) hue-rotate(160deg) saturate(1.4);
 }
 
-.color-orange .hero-logo,
 .color-orange .logo-image,
 .color-orange .mobile-logo {
-    filter: drop-shadow(0 10px 25px rgba(234, 88, 12, 0.8)) hue-rotate(30deg) saturate(1.6) brightness(1.15);
+    filter: drop-shadow(0 2px 6px rgba(234, 88, 12, 0.5)) hue-rotate(30deg) saturate(1.6);
 }
 
 /* Hover effects with dynamic colors */
