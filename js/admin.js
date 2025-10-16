@@ -166,7 +166,7 @@ async function fetchReposFromToken() {
         
         result.repos.forEach(repo => {
             const option = document.createElement('option');
-            option.value = repo.name;
+            option.value = repo.name; // repo.name already contains owner/repo format
             option.textContent = `${repo.name} - ${repo.description.substring(0, 50)}`;
             option.style.background = '#1e2746';
             option.style.color = '#fff';
