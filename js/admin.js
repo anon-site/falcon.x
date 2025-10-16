@@ -382,7 +382,7 @@ function loadApps(type) {
     }
     
     let html = '<table class="data-table"><thead><tr>';
-    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>التقييم</th><th>الإجراءات</th>';
+    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الإجراءات</th>';
     html += '</tr></thead><tbody>';
     
     apps.forEach(app => {
@@ -391,7 +391,6 @@ function loadApps(type) {
             <td><span class="badge">${app.category}</span></td>
             <td>${app.version}</td>
             <td>${app.size}</td>
-            <td>${app.rating} ⭐</td>
             <td class="actions">
                 <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                     <i class="fas fa-edit"></i>
@@ -446,12 +445,9 @@ function openAppModal(type, appId = null) {
             document.getElementById('appCategory').value = app.category;
             document.getElementById('appVersion').value = app.version;
             document.getElementById('appSize').value = app.size;
-            document.getElementById('appRating').value = app.rating;
-            document.getElementById('appDownloads').value = app.downloads;
             document.getElementById('appDescription').value = app.description;
             document.getElementById('appIcon').value = app.icon || '';
             document.getElementById('appDownloadLink').value = app.downloadLink;
-            document.getElementById('appFeatures').value = app.features ? app.features.join('\n') : '';
         }
     } else {
         form.reset();
@@ -483,12 +479,9 @@ function initAppForm() {
         category: document.getElementById('appCategory').value,
         version: document.getElementById('appVersion').value,
         size: document.getElementById('appSize').value,
-        rating: parseFloat(document.getElementById('appRating').value),
-        downloads: document.getElementById('appDownloads').value,
         description: document.getElementById('appDescription').value,
         icon: document.getElementById('appIcon').value || 'https://via.placeholder.com/64',
-        downloadLink: document.getElementById('appDownloadLink').value,
-        features: document.getElementById('appFeatures').value.split('\n').filter(f => f.trim())
+        downloadLink: document.getElementById('appDownloadLink').value
     };
     
     let apps = appsData[type] || [];
@@ -548,7 +541,7 @@ function filterApps(type, searchTerm) {
     } else {
         // Reuse loadApps logic with filtered data
         let html = '<table class="data-table"><thead><tr>';
-        html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>التقييم</th><th>الإجراءات</th>';
+        html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الإجراءات</th>';
         html += '</tr></thead><tbody>';
         
         filtered.forEach(app => {
@@ -557,7 +550,6 @@ function filterApps(type, searchTerm) {
                 <td><span class="badge">${app.category}</span></td>
                 <td>${app.version}</td>
                 <td>${app.size}</td>
-                <td>${app.rating} ⭐</td>
                 <td class="actions">
                     <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                         <i class="fas fa-edit"></i>
@@ -871,12 +863,9 @@ function importFromDataJS() {
             category: item.category,
             version: item.version,
             size: item.size,
-            rating: 4.5,
-            downloads: '10K+',
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl,
-            features: []
+            downloadLink: item.downloadUrl
         }));
     }
     
@@ -888,12 +877,9 @@ function importFromDataJS() {
             category: item.category,
             version: item.version,
             size: item.size,
-            rating: 4.5,
-            downloads: '10K+',
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl,
-            features: []
+            downloadLink: item.downloadUrl
         }));
     }
     
@@ -905,12 +891,9 @@ function importFromDataJS() {
             category: item.category,
             version: item.version,
             size: item.size,
-            rating: 4.5,
-            downloads: '5K+',
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl,
-            features: []
+            downloadLink: item.downloadUrl
         }));
     }
     
@@ -922,12 +905,9 @@ function importFromDataJS() {
             category: item.category,
             version: item.version,
             size: item.size,
-            rating: 4.5,
-            downloads: '5K+',
             description: item.description,
             icon: item.icon || 'https://via.placeholder.com/64',
-            downloadLink: item.downloadUrl,
-            features: []
+            downloadLink: item.downloadUrl
         }));
     }
 }
