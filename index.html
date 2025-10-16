@@ -51,6 +51,10 @@
             <button class="theme-toggle desktop-theme-toggle" id="desktopThemeToggle">
                 <i class="fas fa-moon"></i>
             </button>
+            <button class="settings-toggle" id="settingsToggle">
+                <i class="fas fa-cog"></i>
+                <span class="menu-text">Settings</span>
+            </button>
             <p class="version">Version 2.1</p>
             <p class="copyright">© 2025 Falcon X. All rights reserved.</p>
         </div>
@@ -265,7 +269,85 @@
         </div>
     </main>
     
-    
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <button class="close-settings" id="closeSettings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-body">
+                <!-- Cursor Settings -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-mouse-pointer"></i> Cursor Style</h3>
+                    <div class="cursor-options">
+                        <div class="cursor-option active" data-cursor="arrow">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span>Arrow</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="dot">
+                            <i class="fas fa-circle"></i>
+                            <span>Dot</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="cross">
+                            <i class="fas fa-crosshairs"></i>
+                            <span>Cross</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cursor Speed -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-tachometer-alt"></i> Cursor Speed</h3>
+                    <div class="speed-control">
+                        <button class="speed-btn" data-speed="0.3">Slow</button>
+                        <button class="speed-btn" data-speed="0.7">Normal</button>
+                        <button class="speed-btn active" data-speed="1">Fast</button>
+                    </div>
+                </div>
+
+                <!-- Color Presets -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-palette"></i> Color Theme</h3>
+                    <div class="color-presets">
+                        <div class="color-preset" data-color="blue" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="purple" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="green" style="background: linear-gradient(135deg, #059669, #34d399);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="red" style="background: linear-gradient(135deg, #dc2626, #f87171);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="pink" style="background: linear-gradient(135deg, #db2777, #f9a8d4);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="yellow" style="background: linear-gradient(135deg, #d97706, #fcd34d);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="teal" style="background: linear-gradient(135deg, #0d9488, #5eead4);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="orange" style="background: linear-gradient(135deg, #ea580c, #fb923c);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Settings -->
+                <div class="settings-section">
+                    <button class="reset-settings-btn" id="resetSettings">
+                        <i class="fas fa-undo"></i> Reset to Default Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <script src="js/main.js"></script>
     <script src="js/data.js"></script>

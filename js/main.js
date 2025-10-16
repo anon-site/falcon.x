@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeFilters();
     loadSoftwareData();
     initializeCustomCursor();
+    initializeSettings();
 });
 
 // ===== Theme Management =====
@@ -479,13 +480,22 @@ function showToast(message, type = 'success') {
 
 
 // ===== Custom Cursor =====
+let cursorSpeed = 1;
+
 function initializeCustomCursor() {
     // Don't initialize on mobile devices
     if (window.innerWidth <= 768) return;
     
+    // Load saved cursor settings
+    const savedCursorStyle = localStorage.getItem('cursor-style') || 'arrow';
+    const savedCursorSpeed = localStorage.getItem('cursor-speed') || '1';
+    cursorSpeed = parseFloat(savedCursorSpeed);
+    applyCursorStyle(savedCursorStyle);
+    
     // Create cursor element
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
+    cursor.id = 'customCursor';
     document.body.appendChild(cursor);
     
     let mouseX = 0;
@@ -501,9 +511,8 @@ function initializeCustomCursor() {
     
     // Smooth cursor animation
     function animateCursor() {
-        const speed = 0.9; // سرعة شبه فورية
-        cursorX += (mouseX - cursorX) * speed;
-        cursorY += (mouseY - cursorY) * speed;
+        cursorX += (mouseX - cursorX) * cursorSpeed;
+        cursorY += (mouseY - cursorY) * cursorSpeed;
         
         cursor.style.left = cursorX + 'px';
         cursor.style.top = cursorY + 'px';
@@ -514,7 +523,7 @@ function initializeCustomCursor() {
     
     // Add hover effect for interactive elements
     const linkElements = 'a, .menu-item, .feature-link, .social-link';
-    const buttonElements = 'button, .btn, .filter-btn, .download-btn';
+    const buttonElements = 'button, .btn, .filter-btn, .download-btn, .cursor-option, .speed-btn, .color-preset';
     const textElements = 'input, textarea';
     
     document.addEventListener('mouseover', (e) => {
@@ -557,6 +566,167 @@ function initializeCustomCursor() {
     
     document.addEventListener('mouseenter', () => {
         cursor.style.opacity = '1';
+    });
+}
+
+function applyCursorStyle(style) {
+    document.body.classList.remove('cursor-arrow', 'cursor-dot', 'cursor-cross');
+    document.body.classList.add(`cursor-${style}`);
+}
+
+function updateCursorSpeed(speed) {
+    cursorSpeed = speed;
+}
+
+
+// ===== Settings Management =====
+function initializeSettings() {
+    const settingsToggle = document.getElementById('settingsToggle');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettings = document.getElementById('closeSettings');
+    
+    // Load saved settings
+    loadSettings();
+    
+    // Open settings modal
+    settingsToggle?.addEventListener('click', () => {
+        settingsModal.classList.add('active');
+    });
+    
+    // Close settings modal
+    closeSettings?.addEventListener('click', () => {
+        settingsModal.classList.remove('active');
+    });
+    
+    // Close on backdrop click
+    settingsModal?.addEventListener('click', (e) => {
+        if (e.target === settingsModal) {
+            settingsModal.classList.remove('active');
+        }
+    });
+    
+    // Cursor style options
+    const cursorOptions = document.querySelectorAll('.cursor-option');
+    cursorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            cursorOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+            const cursorStyle = option.dataset.cursor;
+            applyCursorStyle(cursorStyle);
+            localStorage.setItem('cursor-style', cursorStyle);
+        });
+    });
+    
+    // Cursor speed options
+    const speedBtns = document.querySelectorAll('.speed-btn');
+    speedBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            speedBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const speed = parseFloat(btn.dataset.speed);
+            updateCursorSpeed(speed);
+            localStorage.setItem('cursor-speed', speed.toString());
+        });
+    });
+    
+    // Color presets
+    const colorPresets = document.querySelectorAll('.color-preset');
+    colorPresets.forEach(preset => {
+        preset.addEventListener('click', () => {
+            colorPresets.forEach(p => p.classList.remove('active'));
+            preset.classList.add('active');
+            const color = preset.dataset.color;
+            applyColorScheme(color);
+            localStorage.setItem('color-scheme', color);
+        });
+    });
+    
+    // Reset settings button
+    const resetSettingsBtn = document.getElementById('resetSettings');
+    resetSettingsBtn?.addEventListener('click', () => {
+        if (confirm('Are you sure you want to reset all settings to default?')) {
+            resetToDefaultSettings();
+            showToast('Settings reset to default!', 'success');
+        }
+    });
+}
+
+function loadSettings() {
+    // Load cursor style
+    const savedCursorStyle = localStorage.getItem('cursor-style') || 'arrow';
+    document.querySelectorAll('.cursor-option').forEach(option => {
+        if (option.dataset.cursor === savedCursorStyle) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+    
+    // Load cursor speed
+    const savedCursorSpeed = localStorage.getItem('cursor-speed') || '1';
+    document.querySelectorAll('.speed-btn').forEach(btn => {
+        if (btn.dataset.speed === savedCursorSpeed) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // Load color scheme
+    const savedColorScheme = localStorage.getItem('color-scheme') || 'blue';
+    if (savedColorScheme !== 'custom') {
+        document.querySelectorAll('.color-preset').forEach(preset => {
+            if (preset.dataset.color === savedColorScheme) {
+                preset.classList.add('active');
+            } else {
+            preset.classList.remove('active');
+        }
+    });
+    applyColorScheme(savedColorScheme);
+    }
+}
+
+function applyColorScheme(scheme) {
+    // Remove all color classes
+    document.body.classList.remove('color-blue', 'color-purple', 'color-green', 'color-red', 'color-pink', 'color-yellow', 'color-teal', 'color-orange');
+    // Add selected color class
+    document.body.classList.add(`color-${scheme}`);
+}
+
+function resetToDefaultSettings() {
+    // Clear all settings from localStorage
+    localStorage.removeItem('cursor-style');
+    localStorage.removeItem('cursor-speed');
+    localStorage.removeItem('color-scheme');
+    
+    // Reset cursor style to arrow
+    applyCursorStyle('arrow');
+    document.querySelectorAll('.cursor-option').forEach(option => {
+        if (option.dataset.cursor === 'arrow') {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+    
+    // Reset cursor speed to fast
+    updateCursorSpeed(1);
+    document.querySelectorAll('.speed-btn').forEach(btn => {
+        if (btn.dataset.speed === '1') {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // Reset color scheme to blue
+    applyColorScheme('blue');
+    document.querySelectorAll('.color-preset').forEach(preset => {
+        if (preset.dataset.color === 'blue') {
+            preset.classList.add('active');
+        } else {
+            preset.classList.remove('active');
+        }
     });
 }
 
