@@ -70,28 +70,6 @@ const windowsSoftware = [
 
 // ===== Android Applications Data =====
 const androidApps = [
-    {
-        id: 1760618652737.4475,
-        name: 'MT Manager',
-        version: '2.14.5',
-        category: 'tools',
-        icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
-        description: 'A file management application with many features.',
-        size: '22.41',
-        downloadLink: 'undefined',
-        isModified: undefined
-    },
-    {
-        id: 1760618652737.8154,
-        name: 'WhatsApp',
-        version: '2.24.1.5',
-        category: 'social',
-        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png?20220228223904',
-        description: 'Simple, reliable, and secure messaging and calling app',
-        size: '85 MB',
-        downloadLink: 'undefined',
-        isModified: undefined
-    }
 ];
 
 // ===== FRP Tools Data =====
