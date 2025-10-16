@@ -72,7 +72,7 @@ const windowsSoftware = [
 const androidApps = [
     {
         id: 1760606131330,
-        name: 'MT Manager1',
+        name: 'MT Manager',
         version: '2.14.5',
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
