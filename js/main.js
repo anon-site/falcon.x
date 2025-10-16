@@ -501,7 +501,7 @@ function initializeCustomCursor() {
     
     // Smooth cursor animation
     function animateCursor() {
-        const speed = 0.6; // زيادة السرعة من 0.2 إلى 0.6
+        const speed = 0.9; // سرعة شبه فورية
         cursorX += (mouseX - cursorX) * speed;
         cursorY += (mouseY - cursorY) * speed;
         
