@@ -483,12 +483,26 @@ function createSoftwareCard(software) {
             <p class="software-description">${software.description}</p>
             <div class="software-meta">
                 <span class="software-size">${software.size}</span>
-                <button class="download-btn" onclick="event.stopPropagation(); ${hasValidLink ? `window.open('${downloadUrl}', '_blank'); showToast('Downloading ${software.name.replace(/'/g, "\\'")}'...', 'success');` : `showToast('Download link will be available soon!', 'warning');`}">
+                <button class="download-btn" onclick="handleDownloadClick(event, '${software.id}', '${downloadUrl}', '${software.name.replace(/'/g, "\\'")}'${hasValidLink ? ', true' : ', false'})">
                     <i class="fas fa-download"></i> Download
                 </button>
             </div>
         </div>
     `;
+}
+
+// ===== Handle Download Click =====
+function handleDownloadClick(event, softwareId, downloadUrl, appName, hasValidLink) {
+    // منع فتح نافذة التفاصيل
+    event.stopPropagation();
+    event.preventDefault();
+    
+    if (hasValidLink && downloadUrl && downloadUrl !== '#' && downloadUrl !== 'undefined') {
+        window.open(downloadUrl, '_blank');
+        showToast(`Downloading ${appName}...`, 'success');
+    } else {
+        showToast('Download link will be available soon!', 'warning');
+    }
 }
 
 // ===== Download Software =====
@@ -1206,6 +1220,7 @@ document.addEventListener('keydown', (e) => {
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
 window.downloadSoftware = downloadSoftware;
+window.handleDownloadClick = handleDownloadClick;
 window.showAppDetails = showAppDetails;
 window.closeAppDetails = closeAppDetails;
 window.downloadFromModal = downloadFromModal;
