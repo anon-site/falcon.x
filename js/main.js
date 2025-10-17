@@ -1294,11 +1294,20 @@ function updateDownloadButtons(app) {
     
     let buttonsHTML = '';
     
+    // Debug: Log the app data
+    console.log('App data:', {
+        name: app.name,
+        downloadLink: app.downloadLink,
+        originalDownloadLink: app.originalDownloadLink,
+        isModified: app.isModified
+    });
+    
     const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
+    const hasValidOriginalLink = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined';
     
     if (app.isModified) {
         // Modified version
-        if (app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#') {
+        if (hasValidOriginalLink) {
             // Show two buttons: Modified and Original
             buttonsHTML = `
                 <button class="btn btn-primary btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}">
