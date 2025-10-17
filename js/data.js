@@ -56,7 +56,7 @@ const androidApps = [
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
         description: 'A file management application with many features.',
         size: '22.41',
-        downloadLink: 'https://t.me/App8Premium/147',
+        downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
         isModified: true
     },
     {
@@ -91,6 +91,50 @@ const androidApps = [
         size: '3.22',
         downloadLink: 'https://www.mediafire.com/file/e7y23htnzsoygf8/Hail_1.8.1.zip/file',
         isModified: false
+    },
+    {
+        id: 1760670417792,
+        name: ' APK Editor Pro',
+        version: '1.6.12',
+        category: 'tools',
+        icon: 'https://img.utdstc.com/icon/ca3/0e4/ca30e4b2f2d983f2f1b1436d64bca9be55e5b8f2a900b09bdee5e446b34bfd8c:200',
+        description: 'This is the very best application to edit your APK files easily. With this app, you can explore the contents of an APK file',
+        size: '5.31',
+        downloadLink: 'https://www.mediafire.com/file/f1iczua6mblucyv/APK_Editor_Pro.ver.1.6.12.build.70.rar/file',
+        isModified: true
+    },
+    {
+        id: 1760670709239,
+        name: ' App Cloner VIP',
+        version: '2.1.1',
+        category: 'tools',
+        icon: 'https://media.infosec.exchange/infosec.exchange/media_attachments/files/109/483/691/260/285/976/original/c7166899de75f0e4.png',
+        description: 'App Cloner is a popular third-party app cloning tool to create multiple instances of an app for use with different accounts and logins',
+        size: '21.3',
+        downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
+        isModified: true
+    },
+    {
+        id: 1760670886353,
+        name: 'NP Manager',
+        version: '3.1.25',
+        category: 'tools',
+        icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
+        description: 'Easily manage your Android media with NP Manager\nSimilar to MTManager',
+        size: '43.3',
+        downloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
+        isModified: false
+    },
+    {
+        id: 1760671090904,
+        name: 'ZArchiver Pro',
+        version: '1.0.8',
+        category: 'tools',
+        icon: 'https://appteka.store/get/e2Wp1PQuDKBDXQnr3xx9xFbvp_n8xmKoUUVKra4uCno41GZQ-konjdEB7zxrPUYmMNd5Nn6lB4mKl8BZNr2HRokU-I4=/51b296dd65d989fbd9b5c15b5b86b041c9ae3d49.png',
+        description: 'ZArchiver - is a program for archive management (including managing of application backups in archives)',
+        size: '4.84',
+        downloadLink: 'https://www.mediafire.com/file/kkxv00vgfg0au2a/ZArchiver_Pro.rar/file',
+        isModified: false
     }
 ];
 
@@ -105,7 +149,7 @@ const frpTools = [
         description: 'Remove FRP lock from Samsung devices running Android 5-13',
         size: '15.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.6548,
@@ -116,7 +160,7 @@ const frpTools = [
         description: 'Universal FRP bypass tool using ADB commands',
         size: '8.5 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.786,
@@ -127,7 +171,7 @@ const frpTools = [
         description: 'Remove Mi Account lock from Xiaomi devices',
         size: '22.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.5151,
@@ -138,7 +182,7 @@ const frpTools = [
         description: 'Android app to bypass Google account verification',
         size: '4.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.3093,
@@ -149,7 +193,7 @@ const frpTools = [
         description: 'Professional tool for Oppo and Realme FRP removal',
         size: '18.6 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.0286,
@@ -160,7 +204,7 @@ const frpTools = [
         description: 'Official Samsung flashing tool for firmware and FRP',
         size: '5.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.0454,
@@ -171,7 +215,7 @@ const frpTools = [
         description: 'Official Xiaomi bootloader unlock tool',
         size: '62.4 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.2207,
@@ -182,7 +226,7 @@ const frpTools = [
         description: 'Flash firmware and remove FRP on Realme devices',
         size: '45.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.3555,
@@ -193,7 +237,7 @@ const frpTools = [
         description: 'Advanced FRP bypass tool for multiple brands',
         size: '12.4 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.1685,
@@ -204,7 +248,7 @@ const frpTools = [
         description: 'Engineering boot files for Samsung FRP bypass',
         size: '285 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.3015,
@@ -215,7 +259,7 @@ const frpTools = [
         description: 'EDL authentication bypass for Xiaomi devices',
         size: '8.9 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.6748,
@@ -226,7 +270,7 @@ const frpTools = [
         description: 'ADB drivers and FRP tools for all Android devices',
         size: '32.5 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.4075,
@@ -237,7 +281,7 @@ const frpTools = [
         description: 'Specialized tool for Oppo A3s FRP and pattern unlock',
         size: '14.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.385,
@@ -248,7 +292,7 @@ const frpTools = [
         description: 'Combination firmware files for Samsung FRP bypass',
         size: '1.2 GB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.4863,
@@ -259,7 +303,7 @@ const frpTools = [
         description: 'One-click FRP bypass APK for Android 5-8',
         size: '2.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     }
 ];
 
@@ -274,7 +318,7 @@ const frpApps = [
         description: 'Universal FRP bypass application for Android 5-14',
         size: '4.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.1511,
@@ -285,7 +329,7 @@ const frpApps = [
         description: 'Specialized FRP bypass app for Samsung Galaxy devices',
         size: '6.5 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.634,
@@ -296,7 +340,7 @@ const frpApps = [
         description: 'Create shortcuts to bypass FRP lock screen',
         size: '3.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.9023,
@@ -307,7 +351,7 @@ const frpApps = [
         description: 'Remove Mi Account and FRP from Xiaomi devices',
         size: '8.4 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.8284,
@@ -318,7 +362,7 @@ const frpApps = [
         description: 'Advanced FRP removal tool for multiple brands',
         size: '5.6 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.4976,
@@ -329,7 +373,7 @@ const frpApps = [
         description: 'Remove Huawei ID and FRP lock',
         size: '7.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.6384,
@@ -340,7 +384,7 @@ const frpApps = [
         description: 'Remove FRP and pattern lock from Oppo devices',
         size: '6.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.605,
@@ -351,7 +395,7 @@ const frpApps = [
         description: 'Device Policy Controller for FRP bypass',
         size: '4.1 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.7026,
@@ -362,7 +406,7 @@ const frpApps = [
         description: 'FRP bypass and unlock tool for Realme devices',
         size: '5.9 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.2854,
@@ -373,7 +417,7 @@ const frpApps = [
         description: 'Latest Samsung FRP bypass for Android 14',
         size: '7.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.334,
@@ -384,7 +428,7 @@ const frpApps = [
         description: 'Multiple FRP bypass methods in one app',
         size: '9.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.4646,
@@ -395,7 +439,7 @@ const frpApps = [
         description: 'Professional Mi Account and FRP remover',
         size: '10.5 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.3062,
@@ -406,7 +450,7 @@ const frpApps = [
         description: 'Skip Google account verification on any device',
         size: '3.8 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.81,
@@ -417,7 +461,7 @@ const frpApps = [
         description: 'Complete FRP solution for Huawei and Honor',
         size: '8.9 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.9365,
@@ -428,7 +472,7 @@ const frpApps = [
         description: 'Fast FRP bypass for all Realme models',
         size: '5.3 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.658,
@@ -439,7 +483,7 @@ const frpApps = [
         description: 'Bypass Samsung Knox and FRP protection',
         size: '11.2 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.808,
@@ -450,7 +494,7 @@ const frpApps = [
         description: 'FRP bypass for ColorOS 7-13',
         size: '7.6 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     },
     {
         id: 1760618652737.7043,
@@ -461,6 +505,6 @@ const frpApps = [
         description: 'Professional FRP bypass for Android 8-14',
         size: '6.4 MB',
         downloadLink: 'undefined',
-        isModified: undefined
+        isModified: false
     }
 ];
