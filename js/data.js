@@ -66,11 +66,12 @@ const windowsSoftware = [
         name: 'WinRar',
         version: '5.9.1',
         category: 'utilities',
-        icon: 'https://static.wikia.nocookie.net/logopedia/images/4/4f/WinRAR_Logo_2018.png/revision/latest?cb=20180730011613',
+        icon: 'https://upload.wikimedia.org/wikipedia/fr/thumb/a/aa/WinRAR_logo_big.png/250px-WinRAR_logo_big.png',
         description: 'Modified file compression and decompression program without purchase',
         fullDescription: 'WinRAR is a powerful file archiver utility developed by RARLAB. It allows users to compress, extract, and manage archive files easily. WinRAR supports many formats such as RAR, ZIP, 7Z, TAR, and ISO. It is widely used for reducing file sizes and organizing data efficiently. The program is available for Windows, macOS, and Linux.',
         size: '5.71',
         downloadLink: 'https://www.mediafire.com/file/bqupujn550l8dn4/WinRAR_AIO_5.91-en.rar/file',
+        originalDownloadLink: 'https://www.win-rar.com/download.html?&L=0',
         isModified: true,
         screenshots: ['https://www.dignited.com/wp-content/uploads/2022/08/WinRAR_.png', 'https://www.win-rar.com/uploads/pics/open-zip-files-extract-files_08.png', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoZDj2T37WzE_HWvIIO7sJI1ZlQfeuZzag5A-1E7i-zOowbEiAOLa-IT0mTc258QiSLwPXNje9g96S9oSqkz6_XD3W0b0uJ8bdKLBg3ImnYBxATLgZYPWHOKDeAlzxT6KTIbeL8nDXClnOlr62puxTt5u_hFq9q_dGN8EahSIJDnyANwUR35AhfRWYzi0/s1600/Echo%20Chamber%20(2)%20(1).webp'],
         features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.']
@@ -86,8 +87,9 @@ const androidApps = [
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
         description: 'A file management application with many features.',
-        size: '22.41',
+        size: '22.41 MB',
         downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
+        originalDownloadLink: 'https://www.mediafire.com/file/j1n11da8u310wyk/mt-manager-2-19-2-orgenal.rar/file',
         isModified: true
     },
     {
