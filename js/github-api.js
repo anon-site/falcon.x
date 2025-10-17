@@ -131,6 +131,9 @@ class GitHubAPI {
             }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+            }
             content += `        isModified: ${app.isModified}`;
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
@@ -157,6 +160,9 @@ class GitHubAPI {
             }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+            }
             content += `        isModified: ${app.isModified}`;
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
@@ -183,6 +189,9 @@ class GitHubAPI {
             }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+            }
             content += `        isModified: ${app.isModified}`;
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
@@ -209,6 +218,9 @@ class GitHubAPI {
             }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+            }
             content += `        isModified: ${app.isModified}`;
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;

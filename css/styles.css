@@ -1062,6 +1062,39 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-2px);
 }
 
+/* Download Original Button Special Effects */
+.app-modal-footer .btn[style*="linear-gradient(135deg, #10b981"] {
+    position: relative;
+    overflow: visible !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.app-modal-footer .btn[style*="linear-gradient(135deg, #10b981"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    filter: brightness(1.1);
+}
+
+.app-modal-footer .btn[style*="linear-gradient(135deg, #10b981"]:active {
+    transform: translateY(0);
+}
+
+/* Original Badge */
+.original-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4);
+    z-index: 10;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
 /* ===== Features Section ===== */
 .features-section {
     margin-bottom: 4rem;
@@ -1263,12 +1296,30 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 12px;
     padding: 1.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.software-card::after {
+    content: 'View Details';
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    opacity: 0;
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: opacity 0.3s;
+    pointer-events: none;
 }
 
 .software-card:hover {
     transform: translateY(-4px);
     border-color: var(--primary-color);
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+}
+
+.software-card:hover::after {
+    opacity: 1;
 }
 
 .software-header {
@@ -1310,7 +1361,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .software-meta {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding-top: 1rem;
     border-top: 1px solid var(--dark-border);
@@ -1319,6 +1370,13 @@ h1, h2, h3, h4, h5, h6 {
 .software-size {
     font-size: 0.875rem;
     color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.software-size i {
+    color: var(--primary-color);
 }
 
 .download-btn {
@@ -1338,6 +1396,38 @@ h1, h2, h3, h4, h5, h6 {
 .download-btn:hover {
     background: var(--secondary-color);
     transform: scale(1.05);
+}
+
+/* Download Original Button - Green Style for Cards */
+.software-card .download-btn-original {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25);
+    overflow: visible !important;
+}
+
+.software-card .download-btn-original:hover {
+    background: linear-gradient(135deg, #10b981, #059669);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+    filter: brightness(1.1);
+}
+
+.software-card .download-btn-original::before {
+    content: '100%';
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.35);
+    z-index: 10;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
 }
 
 /* ===== Warning Banner ===== */

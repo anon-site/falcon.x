@@ -567,9 +567,20 @@
                         <input type="text" id="appIcon" placeholder="https://... أو fas fa-icon">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="appDownloadLink">رابط التحميل</label>
+                    <div class="form-group full-width">
+                        <label for="appDownloadLink">
+                            <i class="fas fa-download"></i> رابط التحميل (الأساسي)
+                        </label>
                         <input type="text" id="appDownloadLink" placeholder="https://...">
+                        <small style="color: #888; display: block; margin-top: 0.3rem;">رابط التحميل الرئيسي - يُستخدم للنسخة المعدلة إذا كانت معدلة</small>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="appOriginalDownloadLink">
+                            <i class="fas fa-link"></i> رابط التحميل الأصلي (Original)
+                        </label>
+                        <input type="text" id="appOriginalDownloadLink" placeholder="https://...">
+                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - رابط النسخة الأصلية، يظهر فقط إذا كانت الحالة "معدل"</small>
                     </div>
                     
                     <div class="form-group">

@@ -479,10 +479,6 @@ function createSoftwareCard(software) {
         ? '<span class="modified-badge modified" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-star" style="font-size: 0.6rem;"></i>Modified</span>'
         : '<span class="modified-badge unmodified" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-check-circle" style="font-size: 0.6rem;"></i>Original</span>';
     
-    // Get download link
-    const downloadUrl = software.downloadLink || software.downloadUrl;
-    const hasValidLink = downloadUrl && downloadUrl !== '#' && downloadUrl !== 'undefined';
-    
     return `
         <div class="software-card" data-category="${software.category}" onclick="showAppDetails('${software.id}')" style="cursor: pointer;">
             <div class="software-header">
@@ -499,10 +495,7 @@ function createSoftwareCard(software) {
             </div>
             <p class="software-description">${software.description}</p>
             <div class="software-meta">
-                <span class="software-size">${software.size}</span>
-                <button class="download-btn" onclick="handleDownloadClick(event, '${software.id}', '${downloadUrl}', '${software.name.replace(/'/g, "\\'")}'${hasValidLink ? ', true' : ', false'})">
-                    <i class="fas fa-download"></i> Download
-                </button>
+                <span class="software-size"><i class="fas fa-hdd"></i> ${software.size}</span>
             </div>
         </div>
     `;
@@ -1072,6 +1065,9 @@ function refreshModalData() {
         featuresSection.style.display = 'none';
     }
     
+    // Update download buttons
+    updateDownloadButtons(app);
+    
     console.log('✅ Modal data refreshed for app:', app.name);
 }
 
@@ -1138,6 +1134,9 @@ function showAppDetails(appId) {
     } else {
         featuresSection.style.display = 'none';
     }
+    
+    // Update download buttons based on app type
+    updateDownloadButtons(app);
     
     // Reset scroll position to top
     const modalContent = modal.querySelector('.app-modal-content');
@@ -1282,6 +1281,59 @@ document.addEventListener('keydown', (e) => {
         closeAppDetails();
     }
 });
+
+// ===== Update Download Buttons =====
+function updateDownloadButtons(app) {
+    const modalFooter = document.getElementById('modalFooter');
+    if (!modalFooter) return;
+    
+    let buttonsHTML = '';
+    
+    // Check if app is modified and has original download link
+    if (app.isModified && app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#') {
+        // Show two buttons: Modified and Original
+        buttonsHTML = `
+            <button class="btn btn-primary btn-large" onclick="window.open('${app.downloadLink}', '_blank')">
+                <i class="fas fa-download"></i> Download Modified
+            </button>
+            <button class="btn btn-large" onclick="window.open('${app.originalDownloadLink}', '_blank')" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
+                <span class="original-badge">100%</span>
+            </button>
+            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
+                <i class="fas fa-times"></i> Close
+            </button>
+        `;
+    } else {
+        // Show single download button - check if modified or original
+        const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
+        
+        if (!app.isModified) {
+            // Original version - show special green button
+            buttonsHTML = `
+                <button class="btn btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                    <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
+                    <span class="original-badge">100%</span>
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            `;
+        } else {
+            // Modified version - show normal button
+            buttonsHTML = `
+                <button class="btn btn-primary btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}">
+                    <i class="fas fa-download"></i> Download Now
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            `;
+        }
+    }
+    
+    modalFooter.innerHTML = buttonsHTML;
+}
 
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;

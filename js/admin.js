@@ -492,6 +492,7 @@ function openAppModal(type, appId = null) {
             document.getElementById('appFullDescription').value = app.fullDescription || '';
             document.getElementById('appIcon').value = app.icon || '';
             document.getElementById('appDownloadLink').value = app.downloadLink;
+            document.getElementById('appOriginalDownloadLink').value = app.originalDownloadLink || '';
             document.getElementById('appModified').value = app.isModified ? 'true' : 'false';
             
             // Load screenshots (array to newline-separated text)
@@ -513,6 +514,7 @@ function openAppModal(type, appId = null) {
         document.getElementById('appId').value = '';
         document.getElementById('appType').value = type;
         document.getElementById('appModified').value = 'false';
+        document.getElementById('appOriginalDownloadLink').value = '';
         document.getElementById('appScreenshots').value = '';
         document.getElementById('appFeatures').value = '';
     }
@@ -571,6 +573,7 @@ function initAppForm() {
             fullDescription: document.getElementById('appFullDescription').value.trim() || '',
             icon: document.getElementById('appIcon').value || 'fas fa-cube',
             downloadLink: document.getElementById('appDownloadLink').value || '#',
+            originalDownloadLink: document.getElementById('appOriginalDownloadLink').value.trim() || '',
             isModified: modifiedValue === 'true',
             screenshots: screenshots,
             features: features,
@@ -976,6 +979,7 @@ function importFromDataJS() {
             fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
+            originalDownloadLink: item.originalDownloadLink || '',
             isModified: item.isModified === true ? true : false,
             screenshots: item.screenshots || [],
             features: item.features || []
@@ -994,6 +998,7 @@ function importFromDataJS() {
             fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
+            originalDownloadLink: item.originalDownloadLink || '',
             isModified: item.isModified === true ? true : false,
             screenshots: item.screenshots || [],
             features: item.features || []
@@ -1012,6 +1017,7 @@ function importFromDataJS() {
             fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
+            originalDownloadLink: item.originalDownloadLink || '',
             isModified: item.isModified === true ? true : false,
             screenshots: item.screenshots || [],
             features: item.features || []
@@ -1030,6 +1036,7 @@ function importFromDataJS() {
             fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
+            originalDownloadLink: item.originalDownloadLink || '',
             isModified: item.isModified === true ? true : false,
             screenshots: item.screenshots || [],
             features: item.features || []
@@ -1127,6 +1134,9 @@ function exportToDataJS() {
         }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
+        if (item.originalDownloadLink) {
+            output += `        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}',\n`;
+        }
         output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
         if (item.screenshots && item.screenshots.length > 0) {
             output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
@@ -1152,6 +1162,9 @@ function exportToDataJS() {
         }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
+        if (item.originalDownloadLink) {
+            output += `        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}',\n`;
+        }
         output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
         if (item.screenshots && item.screenshots.length > 0) {
             output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
@@ -1177,6 +1190,9 @@ function exportToDataJS() {
         }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
+        if (item.originalDownloadLink) {
+            output += `        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}',\n`;
+        }
         output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
         if (item.screenshots && item.screenshots.length > 0) {
             output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
@@ -1202,6 +1218,9 @@ function exportToDataJS() {
         }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
+        if (item.originalDownloadLink) {
+            output += `        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}',\n`;
+        }
         output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
         if (item.screenshots && item.screenshots.length > 0) {
             output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
