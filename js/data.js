@@ -71,6 +71,21 @@ const windowsSoftware = [
         isModified: false,
         screenshots: ['https://iili.io/KvFSXEl.png', 'https://iili.io/KvFSWB4.png', 'https://iili.io/KvFSMQf.png'],
         features: ['Privacy-focused: Blocks ads and trackers by default.', 'Fast Performance: Loads pages faster by removing unnecessary content.', 'Built-in Ad Blocker: No need for extra extensions.', 'Rewards System: Earn Basic Attention Tokens (BAT) for viewing privacy-safe ads.', 'Integrated Crypto Wallet: Manage and store cryptocurrencies directly in the browser.', 'Cross-platform: Available on Windows, macOS, Linux, Android, and iOS.', 'HTTPS Everywhere: Automatically upgrades connections to secure HTTPS.', 'Customizable Settings: Control privacy, appearance, and performance easily.', 'Open Source: Transparent and community-driven development.']
+    },
+    {
+        id: 1760688301831,
+        name: 'WinRar',
+        version: '5.9.1',
+        category: 'utilities',
+        icon: 'https://upload.wikimedia.org/wikipedia/fr/thumb/a/aa/WinRAR_logo_big.png/250px-WinRAR_logo_big.png',
+        description: 'Modified file compression and decompression program without purchase',
+        fullDescription: 'WinRAR is a powerful file archiver utility developed by RARLAB. It allows users to compress, extract, and manage archive files easily. WinRAR supports many formats such as RAR, ZIP, 7Z, TAR, and ISO. It is widely used for reducing file sizes and organizing data efficiently. The program is available for Windows, macOS, and Linux.',
+        size: '5.71 MB',
+        downloadLink: 'https://www.mediafire.com/file/bqupujn550l8dn4/WinRAR_AIO_5.91-en.rar/file',
+        originalDownloadLink: 'https://www.win-rar.com/download.html?&L=0',
+        isModified: true,
+        screenshots: ['https://www.dignited.com/wp-content/uploads/2022/08/WinRAR_.png', 'https://www.win-rar.com/uploads/pics/open-zip-files-extract-files_08.png', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoZDj2T37WzE_HWvIIO7sJI1ZlQfeuZzag5A-1E7i-zOowbEiAOLa-IT0mTc258QiSLwPXNje9g96S9oSqkz6_XD3W0b0uJ8bdKLBg3ImnYBxATLgZYPWHOKDeAlzxT6KTIbeL8nDXClnOlr62puxTt5u_hFq9q_dGN8EahSIJDnyANwUR35AhfRWYzi0/s1600/Echo%20Chamber%20(2)%20(1).webp'],
+        features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.']
     }
 ];
 
