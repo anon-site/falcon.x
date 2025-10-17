@@ -46,13 +46,17 @@ const windowsSoftware = [
     {
         id: 1760627710498,
         name: 'Remote Mouse',
-        version: '4.601',
-        category: 'general',
+        version: '5.202',
+        category: 'productivity',
         icon: 'https://play-lh.googleusercontent.com/SdvvARqZs4m4oesKw6maedFDV9ftdFCArqsiRj09lzu8km-hY7U1uGgT03dfUeGgSNM',
-        description: 'Remote mouse software for all devices',
-        size: '1.11',
-        downloadLink: 'https://www.remotemouse.net/',
-        isModified: false
+        description: 'Remote Mouse turns your mobile device into a wireless remote control, functioning as a mouse, keyboard, and touchpad for your computer.',
+        fullDescription: 'Remote Mouse allows you to control your computer using your mobile device. It supports Windows, macOS, and Linux operating systems and operates over a Wi-Fi network. The app features a customizable user interface and supports functionalities like volume control, voice typing, and application control.',
+        size: '63.04 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.remotemouse.net/',
+        isModified: false,
+        screenshots: ['https://fossbytes.com/wp-content/uploads/2015/02/Remote-Mouse-iPhone-iPad-App.jpg', 'https://www.remotemouse.net/public/img/cover-rm.jpg', 'https://s3b.cashify.in/gpro/uploads/2023/01/02022209/How-To-Use-Remote-Mouse-App_3-1024x512.jpg'],
+        features: ['Transforms mobile device into a wireless mouse, keyboard, and touchpad.', 'Supports voice typing via speech recognition.', 'Controls volume and changes slides in presentations.', 'Supports multi-touch touchpad.', 'Enables cross-device copy and paste functionality.', 'Supports Windows, macOS, and Linux operating systems.']
     },
     {
         id: 1760677535105,
