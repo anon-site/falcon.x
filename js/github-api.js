@@ -72,7 +72,7 @@ class GitHubAPI {
     }
 
     // Update file on GitHub
-    async updateFile(path, content, message = 'Update from Falcon X Admin Panel') {
+    async updateFile(path, content, message = 'Update from Falcon X Admin Panel', retryCount = 0) {
         if (!this.isConfigured()) {
             throw new Error('GitHub is not configured. Please set up your credentials.');
         }
@@ -104,6 +104,15 @@ class GitHubAPI {
 
             if (!response.ok) {
                 const errorData = await response.json();
+                
+                // If 409 conflict and we haven't retried too many times, retry once
+                if (response.status === 409 && retryCount < 2) {
+                    console.warn(`⚠️ Conflict detected (409), retrying... (attempt ${retryCount + 1})`);
+                    // Wait a bit and retry
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    return await this.updateFile(path, content, message, retryCount + 1);
+                }
+                
                 throw new Error(`GitHub API Error: ${response.status} - ${errorData.message}`);
             }
 
