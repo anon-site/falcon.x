@@ -411,12 +411,17 @@ body {
     transition: var(--transition);
     margin: 4px 12px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .nav-item i {
     margin-left: 12px;
     font-size: 18px;
     width: 24px;
+}
+
+.nav-item span {
+    cursor: default;
 }
 
 .nav-item:hover {
