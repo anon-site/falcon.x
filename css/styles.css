@@ -1803,17 +1803,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .app-modal-footer {
     display: flex;
-    gap: 1rem;
-    padding: 1.5rem 2rem;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(0, 0, 0, 0.2);
+    justify-content: flex-end;
 }
 
 .btn-large {
-    flex: 1;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.9rem;
     font-weight: 600;
+    min-width: 140px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 /* ===== Image Lightbox ===== */
