@@ -1287,6 +1287,30 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Helper function to download from original link
+function downloadOriginal(link) {
+    if (link && link !== '' && link !== '#' && link !== 'undefined') {
+        window.open(link, '_blank');
+    } else {
+        showToast('Original download link not available!', 'warning');
+    }
+}
+
+// Helper function to download modified version
+function downloadModified(link) {
+    if (link && link !== '#' && link !== 'undefined') {
+        window.open(link, '_blank');
+    } else {
+        showToast('Download link will be available soon!', 'warning');
+    }
+}
+
+// Store current app links globally for button access
+let currentAppLinks = {
+    downloadLink: '',
+    originalDownloadLink: ''
+};
+
 // ===== Update Download Buttons =====
 function updateDownloadButtons(app) {
     const modalFooter = document.getElementById('modalFooter');
@@ -1302,6 +1326,10 @@ function updateDownloadButtons(app) {
         isModified: app.isModified
     });
     
+    // Store links globally
+    currentAppLinks.downloadLink = app.downloadLink || '';
+    currentAppLinks.originalDownloadLink = app.originalDownloadLink || '';
+    
     const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
     const hasValidOriginalLink = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined';
     
@@ -1310,10 +1338,10 @@ function updateDownloadButtons(app) {
         if (hasValidOriginalLink) {
             // Show two buttons: Modified and Original
             buttonsHTML = `
-                <button class="btn btn-primary btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}">
+                <button class="btn btn-primary btn-large" onclick="downloadModified(currentAppLinks.downloadLink)">
                     <i class="fas fa-download"></i> Download Modified
                 </button>
-                <button class="btn btn-large" onclick="window.open('${app.originalDownloadLink}', '_blank')" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
                     <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
                     <span class="original-badge">100%</span>
                 </button>
@@ -1324,7 +1352,7 @@ function updateDownloadButtons(app) {
         } else {
             // Show only Modified button
             buttonsHTML = `
-                <button class="btn btn-primary btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}">
+                <button class="btn btn-primary btn-large" onclick="downloadModified(currentAppLinks.downloadLink)">
                     <i class="fas fa-download"></i> Download Modified
                 </button>
                 <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
@@ -1335,7 +1363,7 @@ function updateDownloadButtons(app) {
     } else {
         // Original version - show special green button
         buttonsHTML = `
-            <button class="btn btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.downloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
                 <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
                 <span class="original-badge">100%</span>
             </button>
@@ -1391,3 +1419,5 @@ window.closeLightbox = closeLightbox;
 window.nextImage = nextImage;
 window.prevImage = prevImage;
 window.closeFrpWarning = closeFrpWarning;
+window.downloadOriginal = downloadOriginal;
+window.downloadModified = downloadModified;
