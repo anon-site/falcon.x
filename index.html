@@ -361,6 +361,77 @@
         </div>
     </div>
     
+    <!-- App Details Modal -->
+    <div class="app-modal" id="appDetailsModal">
+        <div class="app-modal-overlay" onclick="closeAppDetails()"></div>
+        <div class="app-modal-content">
+            <button class="app-modal-close" onclick="closeAppDetails()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="app-modal-header">
+                <div class="app-modal-icon" id="modalAppIcon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="app-modal-info">
+                    <h2 id="modalAppName">App Name</h2>
+                    <div class="app-modal-meta">
+                        <span id="modalAppVersion">v1.0</span>
+                        <span id="modalAppSize">10 MB</span>
+                        <span id="modalAppBadge"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-modal-body">
+                <!-- Screenshots Gallery -->
+                <div class="app-screenshots-section" id="screenshotsSection">
+                    <h3><i class="fas fa-images"></i> Screenshots</h3>
+                    <div class="app-screenshots-gallery" id="screenshotsGallery">
+                        <!-- Screenshots will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="app-description-section">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p id="modalAppDescription">App description will appear here...</p>
+                </div>
+                
+                <!-- Features -->
+                <div class="app-features-section" id="featuresSection">
+                    <h3><i class="fas fa-star"></i> Features</h3>
+                    <ul id="modalAppFeatures">
+                        <!-- Features will be loaded here -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="app-modal-footer">
+                <button class="btn btn-primary btn-large" id="modalDownloadBtn" onclick="downloadFromModal()">
+                    <i class="fas fa-download"></i> Download Now
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Lightbox -->
+    <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-prev" onclick="event.stopPropagation(); prevImage()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-next" onclick="event.stopPropagation(); nextImage()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <img id="lightboxImage" src="" alt="Screenshot">
+    </div>
+    
     <script src="js/main.js"></script>
     <script src="js/data.js"></script>
 </body>

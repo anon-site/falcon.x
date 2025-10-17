@@ -308,6 +308,10 @@ function saveToLocalStorage() {
         localStorage.setItem('falcon-x-android-apps', JSON.stringify(appsData.android));
         localStorage.setItem('falcon-x-frp-tools', JSON.stringify(appsData['frp-tools']));
         localStorage.setItem('falcon-x-frp-apps', JSON.stringify(appsData['frp-apps']));
+        
+        // Set a timestamp to track last update
+        localStorage.setItem('falcon-x-last-update', Date.now().toString());
+        
         console.log('✅ Data saved to localStorage');
         setTimeout(() => updateSyncStatus('modified', 'تغييرات غير محفوظة'), 300);
         return true;
@@ -326,10 +330,20 @@ function loadFromLocalStorage() {
         const frpTools = localStorage.getItem('falcon-x-frp-tools');
         const frpApps = localStorage.getItem('falcon-x-frp-apps');
         
-        if (windows) appsData.windows = JSON.parse(windows);
-        if (android) appsData.android = JSON.parse(android);
-        if (frpTools) appsData['frp-tools'] = JSON.parse(frpTools);
-        if (frpApps) appsData['frp-apps'] = JSON.parse(frpApps);
+        // Helper function to add lastUpdated if missing
+        const addTimestampIfMissing = (apps) => {
+            return apps.map(app => {
+                if (!app.lastUpdated) {
+                    app.lastUpdated = new Date().toISOString();
+                }
+                return app;
+            });
+        };
+        
+        if (windows) appsData.windows = addTimestampIfMissing(JSON.parse(windows));
+        if (android) appsData.android = addTimestampIfMissing(JSON.parse(android));
+        if (frpTools) appsData['frp-tools'] = addTimestampIfMissing(JSON.parse(frpTools));
+        if (frpApps) appsData['frp-apps'] = addTimestampIfMissing(JSON.parse(frpApps));
         
         console.log('✅ Data loaded from localStorage');
         return true;
@@ -384,17 +398,40 @@ function loadApps(type) {
     }
     
     let html = '<table class="data-table"><thead><tr>';
-    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>الإجراءات</th>';
+    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>آخر تحديث</th><th>الإجراءات</th>';
     html += '</tr></thead><tbody>';
     
     apps.forEach(app => {
         const modifiedBadge = app.isModified ? '<span class="badge" style="background: #f59e0b;">معدل</span>' : '<span class="badge" style="background: #10b981;">غير معدل</span>';
+        
+        // Format last updated date
+        let lastUpdatedText = 'غير محدد';
+        if (app.lastUpdated) {
+            const date = new Date(app.lastUpdated);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+            const diffMinutes = Math.floor(diffTime / (1000 * 60));
+            
+            if (diffDays > 0) {
+                lastUpdatedText = `قبل ${diffDays} يوم`;
+            } else if (diffHours > 0) {
+                lastUpdatedText = `قبل ${diffHours} ساعة`;
+            } else if (diffMinutes > 0) {
+                lastUpdatedText = `قبل ${diffMinutes} دقيقة`;
+            } else {
+                lastUpdatedText = 'الآن';
+            }
+        }
+        
         html += `<tr>
             <td><strong>${app.name}</strong></td>
             <td><span class="badge">${app.category}</span></td>
             <td>${app.version}</td>
             <td>${app.size}</td>
             <td>${modifiedBadge}</td>
+            <td style="font-size: 0.85rem; color: #9ca3af;"><i class="fas fa-clock" style="margin-left: 0.3rem;"></i>${lastUpdatedText}</td>
             <td class="actions">
                 <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                     <i class="fas fa-edit"></i>
@@ -450,15 +487,32 @@ function openAppModal(type, appId = null) {
             document.getElementById('appVersion').value = app.version;
             document.getElementById('appSize').value = app.size;
             document.getElementById('appDescription').value = app.description;
+            document.getElementById('appFullDescription').value = app.fullDescription || '';
             document.getElementById('appIcon').value = app.icon || '';
             document.getElementById('appDownloadLink').value = app.downloadLink;
             document.getElementById('appModified').value = app.isModified ? 'true' : 'false';
+            
+            // Load screenshots (array to newline-separated text)
+            if (app.screenshots && Array.isArray(app.screenshots)) {
+                document.getElementById('appScreenshots').value = app.screenshots.join('\n');
+            } else {
+                document.getElementById('appScreenshots').value = '';
+            }
+            
+            // Load features (array to newline-separated text)
+            if (app.features && Array.isArray(app.features)) {
+                document.getElementById('appFeatures').value = app.features.join('\n');
+            } else {
+                document.getElementById('appFeatures').value = '';
+            }
         }
     } else {
         form.reset();
         document.getElementById('appId').value = '';
         document.getElementById('appType').value = type;
         document.getElementById('appModified').value = 'false';
+        document.getElementById('appScreenshots').value = '';
+        document.getElementById('appFeatures').value = '';
     }
     
     modal.style.display = 'flex';
@@ -497,6 +551,14 @@ function initAppForm() {
         // Get the modified status from the form
         const modifiedValue = document.getElementById('appModified').value;
         
+        // Process screenshots (convert newline-separated text to array)
+        const screenshotsText = document.getElementById('appScreenshots').value.trim();
+        const screenshots = screenshotsText ? screenshotsText.split('\n').map(s => s.trim()).filter(s => s) : [];
+        
+        // Process features (convert newline-separated text to array)
+        const featuresText = document.getElementById('appFeatures').value.trim();
+        const features = featuresText ? featuresText.split('\n').map(f => f.trim()).filter(f => f) : [];
+        
         const appData = {
             id: isEditing ? parseInt(appId) : Date.now(),
             name: document.getElementById('appName').value || 'Untitled',
@@ -504,9 +566,13 @@ function initAppForm() {
             version: document.getElementById('appVersion').value || '1.0',
             size: document.getElementById('appSize').value || 'N/A',
             description: document.getElementById('appDescription').value || 'No description provided',
+            fullDescription: document.getElementById('appFullDescription').value.trim() || '',
             icon: document.getElementById('appIcon').value || 'fas fa-cube',
             downloadLink: document.getElementById('appDownloadLink').value || '#',
-            isModified: modifiedValue === 'true'
+            isModified: modifiedValue === 'true',
+            screenshots: screenshots,
+            features: features,
+            lastUpdated: new Date().toISOString() // Add timestamp
         };
         
         // Get a fresh copy of apps array

@@ -552,13 +552,19 @@
                     </div>
                     
                     <div class="form-group full-width">
-                        <label for="appDescription">الوصف</label>
-                        <textarea id="appDescription" rows="3" placeholder="أدخل وصف البرنامج..."></textarea>
+                        <label for="appDescription">الوصف المختصر</label>
+                        <textarea id="appDescription" rows="2" placeholder="وصف قصير يظهر في الكارد..."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="appFullDescription">الوصف الكامل</label>
+                        <textarea id="appFullDescription" rows="4" placeholder="وصف مفصل يظهر في النافذة المنبثقة..."></textarea>
+                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - إذا لم يتم تعبئته سيتم استخدام الوصف المختصر</small>
                     </div>
                     
                     <div class="form-group">
                         <label for="appIcon">رابط الأيقونة</label>
-                        <input type="text" id="appIcon" placeholder="https://...">
+                        <input type="text" id="appIcon" placeholder="https://... أو fas fa-icon">
                     </div>
                     
                     <div class="form-group">
@@ -572,6 +578,22 @@
                             <option value="false">غير معدل (Original)</option>
                             <option value="true">معدل (Modified)</option>
                         </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="appScreenshots">
+                            <i class="fas fa-images"></i> روابط الصور (Screenshots)
+                        </label>
+                        <textarea id="appScreenshots" rows="3" placeholder="ضع كل رابط صورة في سطر منفصل&#10;https://example.com/screenshot1.png&#10;https://example.com/screenshot2.png"></textarea>
+                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - روابط الصور للمعرض (سطر واحد لكل رابط)</small>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="appFeatures">
+                            <i class="fas fa-star"></i> المميزات (Features)
+                        </label>
+                        <textarea id="appFeatures" rows="4" placeholder="ضع كل ميزة في سطر منفصل&#10;ميزة رائعة أولى&#10;ميزة مذهلة ثانية&#10;ميزة احترافية ثالثة"></textarea>
+                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - قائمة المميزات (سطر واحد لكل ميزة)</small>
                     </div>
                 </div>
                 

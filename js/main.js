@@ -17,7 +17,71 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSoftwareData();
     initializeCustomCursor();
     initializeSettings();
+    initializeStorageListener();
 });
+
+// ===== Storage Change Listener =====
+function initializeStorageListener() {
+    // Store the last known update timestamp
+    let lastKnownUpdate = localStorage.getItem('falcon-x-last-update') || '0';
+    
+    // Listen for storage changes from other tabs/windows (like admin panel)
+    window.addEventListener('storage', (e) => {
+        // Check if the changed key is one of our app data keys
+        if (e.key && (e.key.startsWith('falcon-x-') || e.key === null)) {
+            console.log('🔄 Storage changed, reloading data...');
+            loadSoftwareData();
+            showToast('Data updated from admin panel!', 'success');
+            lastKnownUpdate = localStorage.getItem('falcon-x-last-update') || '0';
+        }
+    });
+    
+    // Check for updates periodically (every 2 seconds)
+    setInterval(() => {
+        const currentUpdate = localStorage.getItem('falcon-x-last-update') || '0';
+        if (currentUpdate !== lastKnownUpdate && currentUpdate !== '0') {
+            console.log('🔄 Data updated, reloading...');
+            
+            // Add visual feedback - fade effect on containers
+            const containers = [
+                document.getElementById('windowsSoftware'),
+                document.getElementById('androidApps'),
+                document.getElementById('frpTools'),
+                document.getElementById('frpApps')
+            ];
+            
+            containers.forEach(container => {
+                if (container) {
+                    container.style.opacity = '0.5';
+                    container.style.transition = 'opacity 0.3s';
+                }
+            });
+            
+            // Reload data
+            setTimeout(() => {
+                loadSoftwareData();
+                containers.forEach(container => {
+                    if (container) {
+                        container.style.opacity = '1';
+                    }
+                });
+            }, 300);
+            
+            lastKnownUpdate = currentUpdate;
+            showToast('✨ Data refreshed automatically!', 'success');
+        }
+    }, 2000);
+    
+    // Also check for changes on focus (when returning to the tab)
+    window.addEventListener('focus', () => {
+        const currentUpdate = localStorage.getItem('falcon-x-last-update') || '0';
+        if (currentUpdate !== lastKnownUpdate && currentUpdate !== '0') {
+            console.log('🔄 Data updated on focus, reloading...');
+            loadSoftwareData();
+            lastKnownUpdate = currentUpdate;
+        }
+    });
+}
 
 // ===== Theme Management =====
 function initializeTheme() {
@@ -372,10 +436,15 @@ function refreshData() {
     // Show loading toast
     showToast('Refreshing data from admin panel...', 'info');
     
-    // Clear cache and reload software data
+    // Clear sessionStorage check time to force reload
+    sessionStorage.removeItem('last-data-check');
+    
+    // Reload software data
     setTimeout(() => {
         loadSoftwareData();
+        sessionStorage.setItem('last-data-check', Date.now().toString());
         showToast('Data refreshed successfully!', 'success');
+        console.log('✅ Data manually refreshed from localStorage');
     }, 300);
 }
 
@@ -394,7 +463,7 @@ function createSoftwareCard(software) {
         : '<span class="modified-badge unmodified" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-check-circle" style="font-size: 0.6rem;"></i>Original</span>';
     
     return `
-        <div class="software-card" data-category="${software.category}">
+        <div class="software-card" data-category="${software.category}" onclick="showAppDetails('${software.id}')" style="cursor: pointer;">
             <div class="software-header">
                 <div class="software-icon">
                     ${iconHtml}
@@ -410,7 +479,7 @@ function createSoftwareCard(software) {
             <p class="software-description">${software.description}</p>
             <div class="software-meta">
                 <span class="software-size">${software.size}</span>
-                <button class="download-btn" onclick="downloadSoftware('${software.id}')">
+                <button class="download-btn" onclick="event.stopPropagation(); downloadSoftware('${software.id}')">
                     <i class="fas fa-download"></i> Download
                 </button>
             </div>
@@ -829,6 +898,238 @@ function resetToDefaultSettings() {
     }
 }
 
+// ===== App Details Modal =====
+let currentAppId = null;
+
+function showAppDetails(appId) {
+    // Find the app from all data sources
+    let app = findAppById(appId);
+    
+    if (!app) {
+        showToast('Application not found!', 'error');
+        return;
+    }
+    
+    currentAppId = appId;
+    
+    const modal = document.getElementById('appDetailsModal');
+    const modalIcon = document.getElementById('modalAppIcon');
+    const modalName = document.getElementById('modalAppName');
+    const modalVersion = document.getElementById('modalAppVersion');
+    const modalSize = document.getElementById('modalAppSize');
+    const modalBadge = document.getElementById('modalAppBadge');
+    const modalDescription = document.getElementById('modalAppDescription');
+    const screenshotsSection = document.getElementById('screenshotsSection');
+    const screenshotsGallery = document.getElementById('screenshotsGallery');
+    const featuresSection = document.getElementById('featuresSection');
+    const modalFeatures = document.getElementById('modalAppFeatures');
+    
+    // Set app icon
+    const isImageUrl = app.icon && (app.icon.startsWith('http') || app.icon.startsWith('/') || app.icon.includes('.png') || app.icon.includes('.jpg') || app.icon.includes('.svg') || app.icon.includes('.gif'));
+    if (isImageUrl) {
+        modalIcon.innerHTML = `<img src="${app.icon}" alt="${app.name}">`;
+    } else {
+        modalIcon.innerHTML = `<i class="${app.icon || 'fas fa-cube'}"></i>`;
+    }
+    
+    // Set app info
+    modalName.textContent = app.name;
+    modalVersion.textContent = `v${app.version}`;
+    modalSize.textContent = app.size;
+    
+    // Add last updated info if available
+    if (app.lastUpdated) {
+        const lastUpdatedSpan = document.createElement('span');
+        lastUpdatedSpan.style.cssText = 'padding: 0.3rem 0.6rem; background: rgba(156, 163, 175, 0.1); border: 1px solid rgba(156, 163, 175, 0.2); border-radius: 8px; font-size: 0.75rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.3rem;';
+        
+        const date = new Date(app.lastUpdated);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+        const diffMinutes = Math.floor(diffTime / (1000 * 60));
+        
+        let timeAgo = '';
+        if (diffDays > 0) {
+            timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+        } else if (diffHours > 0) {
+            timeAgo = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        } else if (diffMinutes > 0) {
+            timeAgo = `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+        } else {
+            timeAgo = 'Just now';
+        }
+        
+        lastUpdatedSpan.innerHTML = `<i class="fas fa-clock" style="font-size: 0.7rem;"></i>Updated ${timeAgo}`;
+        modalMeta.appendChild(lastUpdatedSpan);
+    }
+    
+    // Set badge
+    modalBadge.innerHTML = app.isModified 
+        ? '<span style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-star" style="font-size: 0.7rem;"></i>Modified</span>'
+        : '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-check-circle" style="font-size: 0.7rem;"></i>Original</span>';
+    
+    // Set description (use fullDescription if available, otherwise use description)
+    modalDescription.textContent = app.fullDescription || app.description;
+    
+    // Set screenshots
+    if (app.screenshots && app.screenshots.length > 0) {
+        screenshotsSection.style.display = 'block';
+        screenshotsGallery.innerHTML = app.screenshots.map((screenshot, index) => 
+            `<div class="screenshot-item" onclick="openLightbox(${index})">
+                <img src="${screenshot}" alt="Screenshot ${index + 1}">
+            </div>`
+        ).join('');
+    } else {
+        screenshotsSection.style.display = 'none';
+    }
+    
+    // Set features
+    if (app.features && app.features.length > 0) {
+        featuresSection.style.display = 'block';
+        modalFeatures.innerHTML = app.features.map(feature => `<li>${feature}</li>`).join('');
+    } else {
+        featuresSection.style.display = 'none';
+    }
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAppDetails() {
+    const modal = document.getElementById('appDetailsModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    currentAppId = null;
+}
+
+function downloadFromModal() {
+    if (currentAppId) {
+        downloadSoftware(currentAppId);
+    }
+}
+
+function findAppById(appId) {
+    // Helper function to search in array
+    const findInArray = (arr, id) => {
+        if (!arr) return null;
+        return arr.find(app => app.id == id || app.id === id);
+    };
+    
+    // Check localStorage data first
+    const windowsLS = localStorage.getItem('falcon-x-windows-apps');
+    if (windowsLS) {
+        const app = findInArray(JSON.parse(windowsLS), appId);
+        if (app) return app;
+    }
+    
+    const androidLS = localStorage.getItem('falcon-x-android-apps');
+    if (androidLS) {
+        const app = findInArray(JSON.parse(androidLS), appId);
+        if (app) return app;
+    }
+    
+    const frpToolsLS = localStorage.getItem('falcon-x-frp-tools');
+    if (frpToolsLS) {
+        const app = findInArray(JSON.parse(frpToolsLS), appId);
+        if (app) return app;
+    }
+    
+    const frpAppsLS = localStorage.getItem('falcon-x-frp-apps');
+    if (frpAppsLS) {
+        const app = findInArray(JSON.parse(frpAppsLS), appId);
+        if (app) return app;
+    }
+    
+    // Fallback to data.js arrays
+    if (typeof windowsSoftware !== 'undefined') {
+        const app = findInArray(windowsSoftware, appId);
+        if (app) return app;
+    }
+    
+    if (typeof androidApps !== 'undefined') {
+        const app = findInArray(androidApps, appId);
+        if (app) return app;
+    }
+    
+    if (typeof frpTools !== 'undefined') {
+        const app = findInArray(frpTools, appId);
+        if (app) return app;
+    }
+    
+    if (typeof frpApps !== 'undefined') {
+        const app = findInArray(frpApps, appId);
+        if (app) return app;
+    }
+    
+    return null;
+}
+
+// ===== Image Lightbox =====
+let currentImageIndex = 0;
+let currentScreenshots = [];
+
+function openLightbox(index) {
+    const app = findAppById(currentAppId);
+    if (!app || !app.screenshots) return;
+    
+    currentScreenshots = app.screenshots;
+    currentImageIndex = index;
+    
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    
+    lightboxImage.src = currentScreenshots[currentImageIndex];
+    lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('imageLightbox');
+    lightbox.classList.remove('active');
+}
+
+function nextImage() {
+    if (currentScreenshots.length === 0) return;
+    currentImageIndex = (currentImageIndex + 1) % currentScreenshots.length;
+    const lightboxImage = document.getElementById('lightboxImage');
+    lightboxImage.src = currentScreenshots[currentImageIndex];
+}
+
+function prevImage() {
+    if (currentScreenshots.length === 0) return;
+    currentImageIndex = (currentImageIndex - 1 + currentScreenshots.length) % currentScreenshots.length;
+    const lightboxImage = document.getElementById('lightboxImage');
+    lightboxImage.src = currentScreenshots[currentImageIndex];
+}
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('imageLightbox');
+    if (lightbox && lightbox.classList.contains('active')) {
+        if (e.key === 'ArrowRight') {
+            nextImage();
+        } else if (e.key === 'ArrowLeft') {
+            prevImage();
+        } else if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    }
+    
+    // Close app modal with Escape
+    const appModal = document.getElementById('appDetailsModal');
+    if (appModal && appModal.classList.contains('active') && e.key === 'Escape') {
+        closeAppDetails();
+    }
+});
+
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
 window.downloadSoftware = downloadSoftware;
+window.showAppDetails = showAppDetails;
+window.closeAppDetails = closeAppDetails;
+window.downloadFromModal = downloadFromModal;
+window.openLightbox = openLightbox;
+window.closeLightbox = closeLightbox;
+window.nextImage = nextImage;
+window.prevImage = prevImage;

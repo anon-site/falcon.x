@@ -157,6 +157,34 @@ body {
     background: rgba(59, 130, 246, 0.3);
 }
 
+/* Custom Cursor for Light Theme */
+body.light-theme .custom-cursor {
+    border-color: var(--primary-color);
+    mix-blend-mode: normal;
+    opacity: 0.9;
+}
+
+body.light-theme .custom-cursor::before {
+    background: var(--primary-color);
+}
+
+body.light-theme .custom-cursor.hover,
+body.light-theme .custom-cursor.link {
+    border-bottom-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4),
+                0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+body.light-theme .custom-cursor.hover::before,
+body.light-theme .custom-cursor.link::before {
+    background: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}
+
+body.light-theme .custom-cursor.text {
+    background: var(--primary-color);
+}
+
 /* إخفاء المؤشر المخصص على الشاشات الصغيرة */
 @media (max-width: 768px) {
     body {
@@ -1362,6 +1390,337 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--warning-color);
 }
 
+/* ===== App Details Modal ===== */
+.app-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.app-modal.active {
+    display: flex;
+}
+
+.app-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+.app-modal-content {
+    position: relative;
+    background: linear-gradient(145deg, rgba(20, 24, 36, 0.98), rgba(10, 14, 26, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 1;
+}
+
+.app-modal-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    transform: rotate(90deg);
+}
+
+.app-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), transparent);
+}
+
+.app-modal-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.1));
+    border-radius: 16px;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    font-size: 2rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.app-modal-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
+}
+
+.app-modal-info h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.75rem;
+    color: white;
+    font-weight: 700;
+}
+
+.app-modal-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.app-modal-meta span {
+    padding: 0.4rem 0.8rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--secondary-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.app-modal-body {
+    padding: 2rem;
+}
+
+.app-modal-body h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.app-modal-body h3 i {
+    color: var(--primary-color);
+}
+
+.app-screenshots-section {
+    margin-bottom: 2rem;
+}
+
+.app-screenshots-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.screenshot-item {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.screenshot-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    border-color: var(--primary-color);
+}
+
+.screenshot-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.screenshot-item::after {
+    content: '\f00e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.screenshot-item:hover::after {
+    opacity: 0.9;
+}
+
+.app-description-section {
+    margin-bottom: 2rem;
+}
+
+.app-description-section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.app-features-section ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+}
+
+.app-features-section li {
+    padding: 0.75rem 1rem;
+    background: rgba(59, 130, 246, 0.05);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.app-features-section li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--success-color);
+}
+
+.app-modal-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.btn-large {
+    flex: 1;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* ===== Image Lightbox ===== */
+.image-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.image-lightbox.active {
+    display: flex;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.25rem;
+}
+
+.lightbox-close {
+    top: 2rem;
+    right: 2rem;
+}
+
+.lightbox-close:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.4);
+    transform: rotate(90deg);
+}
+
+.lightbox-prev {
+    left: 2rem;
+}
+
+.lightbox-next {
+    right: 2rem;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+#lightboxImage {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ===== Settings Modal ===== */
 .settings-modal {
     position: fixed;
@@ -1781,6 +2140,95 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 768px) {
     .cursor-options {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* App Modal Responsive */
+    .app-modal-content {
+        width: 95%;
+        max-width: none;
+        max-height: 90vh;
+        border-radius: 16px;
+    }
+    
+    .app-modal-close {
+        top: 1rem;
+        right: 1rem;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .app-modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem 1rem;
+        gap: 1rem;
+    }
+    
+    .app-modal-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .app-modal-info h2 {
+        font-size: 1.35rem;
+    }
+    
+    .app-modal-meta {
+        font-size: 0.8rem;
+    }
+    
+    .app-modal-body {
+        padding: 1.5rem 1rem;
+    }
+    
+    .app-modal-body h3 {
+        font-size: 1.1rem;
+    }
+    
+    .app-screenshots-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .app-features-section ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .app-modal-footer {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .btn-large {
+        width: 100%;
+    }
+    
+    /* Lightbox Responsive */
+    .lightbox-close {
+        top: 1rem;
+        right: 1rem;
+        width: 44px;
+        height: 44px;
+    }
+    
+    .lightbox-prev,
+    .lightbox-next {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .lightbox-prev {
+        left: 1rem;
+    }
+    
+    .lightbox-next {
+        right: 1rem;
+    }
+    
+    #lightboxImage {
+        max-width: 95%;
+        max-height: 80%;
     }
 }
 
@@ -2466,4 +2914,238 @@ body.light-theme .btn-secondary {
 body.light-theme .btn-secondary:hover {
     background: #f9fafb;
     border-color: #d1d5db;
+}
+
+/* ===== Light Theme for App Modal ===== */
+body.light-theme .app-modal-overlay {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+body.light-theme .app-modal-content {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.98));
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+body.light-theme .app-modal-close {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .app-modal-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+body.light-theme .app-modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.08), transparent);
+}
+
+body.light-theme .app-modal-icon {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
+    border: 2px solid rgba(59, 130, 246, 0.2);
+}
+
+body.light-theme .app-modal-info h2 {
+    color: #111827;
+}
+
+body.light-theme .app-modal-meta span {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    color: #1e40af;
+}
+
+body.light-theme .app-modal-body {
+    background: transparent;
+}
+
+body.light-theme .app-modal-body h3 {
+    color: #111827;
+}
+
+body.light-theme .app-description-section p {
+    color: #4b5563;
+}
+
+body.light-theme .screenshot-item {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .screenshot-item:hover {
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+    border-color: var(--primary-color);
+}
+
+body.light-theme .app-features-section li {
+    background: rgba(59, 130, 246, 0.05);
+    border-left: 3px solid var(--primary-color);
+    color: #374151;
+}
+
+body.light-theme .app-modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(249, 250, 251, 0.5);
+}
+
+/* ===== Light Theme for Image Lightbox ===== */
+body.light-theme .image-lightbox {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+body.light-theme .lightbox-close,
+body.light-theme .lightbox-prev,
+body.light-theme .lightbox-next {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1f2937;
+}
+
+body.light-theme .lightbox-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+body.light-theme .lightbox-prev:hover,
+body.light-theme .lightbox-next:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+body.light-theme #lightboxImage {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Light Theme for Badges in Modal ===== */
+body.light-theme .app-modal-meta .modified-badge.modified {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+}
+
+body.light-theme .app-modal-meta .modified-badge.unmodified {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+/* ===== Light Theme for Settings Modal ===== */
+body.light-theme .settings-modal {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+body.light-theme .settings-content {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.98));
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+}
+
+body.light-theme .settings-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.08), transparent);
+}
+
+body.light-theme .settings-header h2 {
+    color: #111827;
+}
+
+body.light-theme .close-settings {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .close-settings:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+body.light-theme .settings-body {
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.03));
+}
+
+body.light-theme .settings-section h3 {
+    color: #111827;
+}
+
+body.light-theme .cursor-option,
+body.light-theme .theme-option {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #374151;
+}
+
+body.light-theme .cursor-option::before,
+body.light-theme .theme-option::before {
+    background: linear-gradient(145deg, transparent, rgba(0, 0, 0, 0.05));
+}
+
+body.light-theme .cursor-option:hover,
+body.light-theme .theme-option:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    background: rgba(59, 130, 246, 0.05);
+    color: #1f2937;
+}
+
+body.light-theme .cursor-option.active,
+body.light-theme .theme-option.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+body.light-theme .speed-btn {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #374151;
+}
+
+body.light-theme .speed-btn:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    background: rgba(59, 130, 246, 0.05);
+    color: #1f2937;
+}
+
+body.light-theme .speed-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+body.light-theme .color-presets {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .color-preset {
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .color-preset:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+body.light-theme .color-preset.active {
+    border-color: #1f2937;
+    border-width: 3px;
+}
+
+body.light-theme .reset-settings-btn {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #dc2626;
+}
+
+body.light-theme .reset-settings-btn:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+    border-color: #ef4444;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
