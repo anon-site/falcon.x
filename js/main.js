@@ -31,6 +31,12 @@ function initializeStorageListener() {
         if (e.key && (e.key.startsWith('falcon-x-') || e.key === null)) {
             console.log('🔄 Storage changed, reloading data...');
             loadSoftwareData();
+            
+            // Update modal if it's open
+            if (currentAppId) {
+                refreshModalData();
+            }
+            
             showToast('Data updated from admin panel!', 'success');
             lastKnownUpdate = localStorage.getItem('falcon-x-last-update') || '0';
         }
@@ -65,6 +71,11 @@ function initializeStorageListener() {
                         container.style.opacity = '1';
                     }
                 });
+                
+                // Update modal if it's open
+                if (currentAppId) {
+                    refreshModalData();
+                }
             }, 300);
             
             lastKnownUpdate = currentUpdate;
@@ -78,6 +89,12 @@ function initializeStorageListener() {
         if (currentUpdate !== lastKnownUpdate && currentUpdate !== '0') {
             console.log('🔄 Data updated on focus, reloading...');
             loadSoftwareData();
+            
+            // Update modal if it's open
+            if (currentAppId) {
+                refreshModalData();
+            }
+            
             lastKnownUpdate = currentUpdate;
         }
     });
@@ -994,6 +1011,69 @@ function resetToDefaultSettings() {
 
 // ===== App Details Modal =====
 let currentAppId = null;
+
+// Refresh modal data when localStorage changes
+function refreshModalData() {
+    if (!currentAppId) return;
+    
+    const app = findAppById(currentAppId);
+    if (!app) return;
+    
+    // Update modal content without closing it
+    const modalIcon = document.getElementById('modalAppIcon');
+    const modalName = document.getElementById('modalAppName');
+    const modalVersion = document.getElementById('modalAppVersion');
+    const modalSize = document.getElementById('modalAppSize');
+    const modalBadge = document.getElementById('modalAppBadge');
+    const modalDescription = document.getElementById('modalAppDescription');
+    const screenshotsSection = document.getElementById('screenshotsSection');
+    const screenshotsGallery = document.getElementById('screenshotsGallery');
+    const featuresSection = document.getElementById('featuresSection');
+    const modalFeatures = document.getElementById('modalAppFeatures');
+    
+    // Update icon
+    const isImageUrl = app.icon && (app.icon.startsWith('http') || app.icon.startsWith('/') || app.icon.includes('.png') || app.icon.includes('.jpg') || app.icon.includes('.svg') || app.icon.includes('.gif'));
+    if (isImageUrl) {
+        modalIcon.innerHTML = `<img src="${app.icon}" alt="${app.name}">`;
+    } else {
+        modalIcon.innerHTML = `<i class="${app.icon || 'fas fa-cube'}"></i>`;
+    }
+    
+    // Update info
+    modalName.textContent = app.name;
+    modalVersion.textContent = `v${app.version}`;
+    modalSize.textContent = app.size;
+    
+    // Update badge
+    modalBadge.innerHTML = app.isModified 
+        ? '<span style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-star" style="font-size: 0.7rem;"></i>Modified</span>'
+        : '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-check-circle" style="font-size: 0.7rem;"></i>Original</span>';
+    
+    // Update description
+    modalDescription.textContent = app.fullDescription || app.description;
+    
+    // Update screenshots
+    if (app.screenshots && app.screenshots.length > 0) {
+        screenshotsSection.style.display = 'block';
+        screenshotsGallery.innerHTML = app.screenshots.map((screenshot, index) => 
+            `<div class="screenshot-item" onclick="openLightbox(${index})">
+                <img src="${screenshot}" alt="Screenshot ${index + 1}">
+            </div>`
+        ).join('');
+    } else {
+        screenshotsSection.style.display = 'none';
+    }
+    
+    // Update features
+    if (app.features && app.features.length > 0) {
+        featuresSection.style.display = 'block';
+        modalFeatures.innerHTML = app.features.map(feature => `<li>${feature}</li>`).join('');
+    } else {
+        featuresSection.style.display = 'none';
+    }
+    
+    console.log('✅ Modal data refreshed for app:', app.name);
+}
 
 function showAppDetails(appId) {
     // Find the app from all data sources
