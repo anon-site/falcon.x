@@ -1031,33 +1031,6 @@ function showAppDetails(appId) {
     modalVersion.textContent = `v${app.version}`;
     modalSize.textContent = app.size;
     
-    // Add last updated info if available
-    if (app.lastUpdated) {
-        const lastUpdatedSpan = document.createElement('span');
-        lastUpdatedSpan.style.cssText = 'padding: 0.3rem 0.6rem; background: rgba(156, 163, 175, 0.1); border: 1px solid rgba(156, 163, 175, 0.2); border-radius: 8px; font-size: 0.75rem; color: var(--text-secondary); display: inline-flex; align-items: center; gap: 0.3rem;';
-        
-        const date = new Date(app.lastUpdated);
-        const now = new Date();
-        const diffTime = Math.abs(now - date);
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-        const diffMinutes = Math.floor(diffTime / (1000 * 60));
-        
-        let timeAgo = '';
-        if (diffDays > 0) {
-            timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-        } else if (diffHours > 0) {
-            timeAgo = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-        } else if (diffMinutes > 0) {
-            timeAgo = `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
-        } else {
-            timeAgo = 'Just now';
-        }
-        
-        lastUpdatedSpan.innerHTML = `<i class="fas fa-clock" style="font-size: 0.7rem;"></i>Updated ${timeAgo}`;
-        modalMeta.appendChild(lastUpdatedSpan);
-    }
-    
     // Set badge
     modalBadge.innerHTML = app.isModified 
         ? '<span style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-star" style="font-size: 0.7rem;"></i>Modified</span>'
