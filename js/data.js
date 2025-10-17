@@ -97,7 +97,7 @@ const androidApps = [
         version: '2.14.5',
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
-        description: 'A file management application with many features.',
+        description: 'MT Manager is a powerful Android file manager and APK/code editor that lets users modify, translate, and rebuild Android apps directly on their device combining file management, text editing, and APK reverse-engineering tools in one app.',
         fullDescription: 'MT Manager is a powerful Android app used for file management and APK editing. It allows users to browse, copy, move, and modify files, as well as decompile and recompile APK packages. With root access, it can also manage system files. MT Manager is widely used by developers and advanced users for app modification, translation, and file analysis.',
         size: '22.41 MB',
         downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
@@ -157,10 +157,14 @@ const androidApps = [
         version: '1.6.12',
         category: 'tools',
         icon: 'https://img.utdstc.com/icon/ca3/0e4/ca30e4b2f2d983f2f1b1436d64bca9be55e5b8f2a900b09bdee5e446b34bfd8c:200',
-        description: 'This is the very best application to edit your APK files easily. With this app, you can explore the contents of an APK file',
+        description: 'APK Editor Pro is an Android tool that enables users to edit and customize APK files on their device — modifying resources, permissions, UI elements, and more.',
+        fullDescription: 'APK Editor Pro lets users open APK files or applications installed on their device, make changes to parts such as layouts, images, string resources, manifest settings, and then recompile the APK into a modified version. It supports two modes: a simpler mode for resource replacements, and a full-edit / rebuild mode for deep modifications. It is useful for developers or tech-savvy users who want to tweak apps (e.g. change icons, remove ads, adjust permissions). Care must be taken, as improper edits may break the app; backups are recommended.',
         size: '5.31',
         downloadLink: 'https://www.mediafire.com/file/f1iczua6mblucyv/APK_Editor_Pro.ver.1.6.12.build.70.rar/file',
-        isModified: true
+        originalDownloadLink: 'https://www.mediafire.com/file/2q5gnrts3r00rh9/apk-editor-1-9-0.rar/file',
+        isModified: true,
+        screenshots: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJjajYbyp3oNnLBQ6Dv6iGWtZV28SzMykaEg&s', 'https://play-lh.googleusercontent.com/3G3dZQUtVxrXony7Lvf54xGI7cwWmwukXNF3emFf1RX-y_PYpwL7wch3lGDzaP_FGoAX=rw-w1200', 'https://img.utdstc.com/screen/855/3a6/8553a68c414ddf4bd2258083746a1a87b036d0dad42b20097fbed922ea52803b:600'],
+        features: ['Browse and inspect APK contents (resources, manifest, code)', 'Simple edit mode: replace resources (images, strings, layouts)', 'Full edit / rebuild mode: decompile, modify code/resources, recompile', 'Modify AndroidManifest settings (permissions, activities, etc.)', 'Remove or disable ads embedded in apps', 'Adjust or revoke permissions of apps', 'Customize app UI: change icons, backgrounds, strings', 'Backup original APK before editing and restore if needed', 'Work directly on mobile device without needing a PC for many changes', 'Support for multiple editing approaches (simple vs full)']
     },
     {
         id: 1760670709239,
@@ -168,10 +172,14 @@ const androidApps = [
         version: '2.1.1',
         category: 'tools',
         icon: 'https://media.infosec.exchange/infosec.exchange/media_attachments/files/109/483/691/260/285/976/original/c7166899de75f0e4.png',
-        description: 'App Cloner is a popular third-party app cloning tool to create multiple instances of an app for use with different accounts and logins',
+        description: 'App Cloner lets you create and install multiple modified copies of Android apps so you can run several accounts, tweak behavior, and protect privacy.',
+        fullDescription: 'App Cloner is a tool for Android that creates cloned instances of installed apps. Each clone is an independent install so you can run multiple accounts (for example two WhatsApp or Facebook logins) on the same device. In addition to simple cloning, App Cloner’s premium/VIP options add many modding features: change app name and icon, remove or disable permissions, prevent background auto-start, block analytics/ads, force a fresh data directory, spoof device identifiers, limit network access, and apply UI or behavior tweaks. Premium unlocks extra cloning options, more simultaneous clones, and advanced modifications not available in the free/basic edition. Cloned apps are installed separately and can be removed without affecting the original app.',
         size: '21.3',
         downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
-        isModified: true
+        originalDownloadLink: 'https://appcloner.app/',
+        isModified: true,
+        screenshots: ['https://liteapks.com/wp-content/uploads/2022/05/app-cloner.jpeg', 'https://appcloner.applisto.com/web/screenshots30/small/026.png', 'https://play-lh.googleusercontent.com/RjZbsmh22gbDGBsGPqVE16EkOX8h0wVJUm81lsJ79NA8AtSlPbzJv0U8rMH2e7oHmyE=w526-h296-rw'],
+        features: ['Create multiple independent clones of any compatible Android app.', 'Rename clones and change their app icons.', 'Toggle or remove app permissions for each clone.', 'Disable auto-start/background services and block background activity.', 'Remove or block analytics and certain ad components (where possible).', 'Limit network access for a clone (offline clones) or control notifications.', 'Spoof or reset identifiers for privacy (where supported).', 'Option to sign or re-sign cloned APKs for installation.', 'Premium/VIP add-ons unlock many additional mod options and increase number of allowed clones.', 'Backup and uninstall clones without affecting original app.', 'Useful for multi-account use, testing, privacy separation, and app customization.']
     },
     {
         id: 1760670886353,
@@ -179,10 +187,14 @@ const androidApps = [
         version: '3.1.25',
         category: 'tools',
         icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
-        description: 'Easily manage your Android media with NP Manager\nSimilar to MTManager',
+        description: 'NP Manager is a tool on Android that acts as an advanced file manager and APK / code editing assistant, supporting operations on APK, DEX, Smali, JAR files along with general file management.',
+        fullDescription: 'NP Manager combines powerful file management and code-level capabilities in one app. It allows users to browse internal and external storage (SD, USB OTG), manage all file types (documents, media, archives, apps), and also perform more advanced operations: decompress/compress archives (ZIP, RAR), recycle bin to restore deleted files, hide/show files, manage installed apps, and preview large files. On the more technical side, it supports APK and DEX/Smali editing: conversion between Dex, JAR, Smali; obfuscation, encryption of strings; APK signing and removing signature verification; resource obfuscation; merging/splitting dex files; editing AXML, ARSC; video/audio transcoding or extraction; PDF operations (merge, split, encrypt, decrypt); and toolbox utilities like encoding (base64, MD5, etc.). Some builds include features like LOG injection, removal of popups, disabling VPN/proxy detection, and UI tweaks.\nBecause of its capabilities, it is often compared with “MT Manager” in terms of power and flexibility.',
         size: '43.3',
-        downloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
-        isModified: false
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
+        isModified: false,
+        screenshots: ['https://www.farsroid.com/wp-content/uploads/NP-Manager-Cover.jpg', 'https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
+        features: ['Support for many file types: documents, media, archives, apps', 'File browsing on internal, external storage, USB OTG', 'Compress / decompress archives (ZIP, RAR)', 'Recycle Bin for recovering deleted files', 'Show / hide hidden files', 'App management: list/uninstall apps', 'Preview large files or resource files', 'APK / DEX / Smali / JAR editing: convert between formats', 'Obfuscation and encryption (string encryption, resource obfuscation)', 'APK signing, removing signature verification', 'Merge / split DEX files', 'Editing AXML / ARSC resources', 'Video/audio transcoding, extraction of streams', 'PDF operations: merge, split, encrypt, decrypt, extract content', 'Utility toolbox: encoding/decoding (base64, MD5, etc.), LOG injection, popup removal', 'UI tweaks, protocol detections (VPN/proxy), disable popups']
     },
     {
         id: 1760671090904,
@@ -190,10 +202,13 @@ const androidApps = [
         version: '1.0.8',
         category: 'tools',
         icon: 'https://appteka.store/get/e2Wp1PQuDKBDXQnr3xx9xFbvp_n8xmKoUUVKra4uCno41GZQ-konjdEB7zxrPUYmMNd5Nn6lB4mKl8BZNr2HRokU-I4=/51b296dd65d989fbd9b5c15b5b86b041c9ae3d49.png',
-        description: 'ZArchiver - is a program for archive management (including managing of application backups in archives)',
+        description: 'ZArchiver Pro is an advanced Android archive manager that allows you to create, extract, and manage compressed files such as ZIP, RAR, 7Z, and many more directly on your device.',
+        fullDescription: 'ZArchiver Pro is a professional and feature-rich file compression and extraction tool for Android. It allows users to create and decompress a wide range of archive formats including ZIP, RAR, 7Z, TAR, ISO, BZIP2, and more. The app offers complete control over archive creation parameters like compression level, password protection, and split volumes. Users can view, edit, and extract files without needing to decompress the entire archive, and can also add, delete, or rename files inside existing archives.\n\nZArchiver Pro supports working with encrypted archives and UTF-8 encoded filenames. It includes advanced file operations (cut, copy, paste, rename, delete), multi-threaded processing for better performance on multicore devices, and integration with file browsers for smooth navigation. The Pro version includes dark theme options, faster performance, and improved stability compared to the free version.\n\nIt’s a popular choice among Android users for managing and handling compressed files without needing a PC.',
         size: '4.84',
         downloadLink: 'https://www.mediafire.com/file/kkxv00vgfg0au2a/ZArchiver_Pro.rar/file',
-        isModified: false
+        isModified: true,
+        screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://imgcdn.latestmodapks.com/api/resize?url=https://www.latestmodapks.com/wp-content/uploads/2023/11/ZArchiver-7.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg'],
+        features: ['Create and extract archives (ZIP, RAR, 7Z, TAR, ISO, etc.)', 'View archive contents without extraction', 'Add or remove files inside existing archives', 'Create password-protected or encrypted archives', 'Support for multithreading and fast compression', 'UTF-8 filename support (for international characters)', 'File operations: copy, move, delete, rename', 'Compress multiple files or folders simultaneously', 'Split large archives into parts (volumes)', 'Dark and light themes', 'Ad-free interface (in Pro version)', 'Optimized for Android 11+ and 64-bit processors']
     }
 ];
 
