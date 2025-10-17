@@ -245,6 +245,11 @@ function navigateToPage(pageId, pushState = true) {
     }
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Show FRP warning for FRP pages
+    if (pageId === 'frp' || pageId === 'frp-apps') {
+        showFrpWarning();
+    }
 }
 
 function showPage(pageId) {
@@ -1334,6 +1339,37 @@ function updateDownloadButtons(app) {
     modalFooter.innerHTML = buttonsHTML;
 }
 
+// ===== FRP Warning Modal =====
+function showFrpWarning() {
+    // Check if user has opted to not show the warning again
+    const dontShow = localStorage.getItem('frp-warning-dont-show');
+    if (dontShow === 'true') {
+        return;
+    }
+    
+    const modal = document.getElementById('frpWarningModal');
+    if (modal) {
+        modal.classList.add('active');
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeFrpWarning() {
+    const modal = document.getElementById('frpWarningModal');
+    const checkbox = document.getElementById('dontShowAgain');
+    
+    if (checkbox && checkbox.checked) {
+        localStorage.setItem('frp-warning-dont-show', 'true');
+    }
+    
+    if (modal) {
+        modal.classList.remove('active');
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+}
+
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
 window.downloadSoftware = downloadSoftware;
@@ -1345,3 +1381,4 @@ window.openLightbox = openLightbox;
 window.closeLightbox = closeLightbox;
 window.nextImage = nextImage;
 window.prevImage = prevImage;
+window.closeFrpWarning = closeFrpWarning;

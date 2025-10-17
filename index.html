@@ -435,6 +435,36 @@
         <img id="lightboxImage" src="" alt="Screenshot">
     </div>
     
+    <!-- FRP Warning Modal -->
+    <div class="frp-warning-modal" id="frpWarningModal">
+        <div class="frp-warning-overlay" onclick="closeFrpWarning()"></div>
+        <div class="frp-warning-content">
+            <div class="frp-warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 class="frp-warning-title">Important Warning</h2>
+            <div class="frp-warning-body">
+                <p class="frp-warning-text">
+                    These programs are professional tools and should not be used for entertainment purposes. 
+                    Be careful when using them to avoid legal liability.
+                </p>
+                <div class="frp-warning-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <p><strong>Important Note:</strong> You must disable your antivirus software for these programs to work properly.</p>
+                </div>
+            </div>
+            <div class="frp-warning-footer">
+                <label class="frp-warning-checkbox">
+                    <input type="checkbox" id="dontShowAgain">
+                    <span>Don't show this message again</span>
+                </label>
+                <button class="frp-warning-btn" onclick="closeFrpWarning()">
+                    <i class="fas fa-check"></i> I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <script src="js/main.js"></script>
     <script src="js/data.js"></script>
 </body>
