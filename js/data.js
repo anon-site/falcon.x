@@ -127,21 +127,29 @@ const androidApps = [
         version: '3212',
         category: 'tools',
         icon: 'https://play-lh.googleusercontent.com/SdvvARqZs4m4oesKw6maedFDV9ftdFCArqsiRj09lzu8km-hY7U1uGgT03dfUeGgSNM',
-        description: 'An application that turns your phone into a mouse for your computer.',
-        size: '14.18',
+        description: 'Remote Mouse turns your Android device into a wireless mouse, keyboard, and touchpad to control your computer via Wi-Fi or Bluetooth.',
+        fullDescription: 'Remote Mouse allows Android users to fully control their computers (Windows, macOS, Linux) remotely. Through its simple interface, users can use their phones as a wireless mouse, keyboard, or touchpad. The app supports multi-touch gestures, media control, and clipboard synchronization between devices. It requires the installation of the Remote Mouse server on the target computer to function correctly.',
+        size: '53.1 MB',
         downloadLink: 'https://www.mediafire.com/file/61ppihrrzxeev7m/Remote_Mouse_3212.zip/file',
-        isModified: true
+        originalDownloadLink: 'https://www.remotemouse.net/',
+        isModified: true,
+        screenshots: ['https://fossbytes.com/wp-content/uploads/2015/02/Remote-Mouse-iPhone-iPad-App.jpg', 'https://www.remotemouse.net/public/img/cover-rm.jpg', 'https://www.remotemouse.net/public/img/rm-feature1.png'],
+        features: ['Transforms your phone into a wireless mouse, keyboard, and touchpad.', 'Supports multi-touch gestures for smooth control.', 'Controls media playback such as play/pause, volume adjustment, and skip forward/backward.', 'Allows shutting down, restarting, or putting the computer to sleep remotely.', 'Enables clipboard synchronization between phone and computer.', 'User-friendly and intuitive interface.']
     },
     {
         id: 1760628063597,
         name: 'Hail Freezedom',
-        version: '1.8.1',
-        category: 'general',
+        version: '1.9.0',
+        category: 'tools',
         icon: 'https://f-droid.org/repo/com.aistra.hail/en-US/icon_u7CvMjol4AxutWwPnkgLTgF6bDaYPwlp576Xa283b0M=.png',
-        description: 'A great app to freeze apps on Android device that only works on root and Shizuku.',
-        size: '3.22',
-        downloadLink: 'https://www.mediafire.com/file/e7y23htnzsoygf8/Hail_1.8.1.zip/file',
-        isModified: false
+        description: 'Hail is a free open-source Android app that lets you freeze (disable, hide, or suspend) other apps when not in use, helping reduce RAM usage and save battery.\nworks on root and Shizuku.',
+        fullDescription: 'Hail is a tool for Android that allows users to “freeze” apps—that is, disable, hide, or suspend them—when they are not needed. By doing so, it helps in reducing memory (RAM) consumption and conserving battery life. The apps that are frozen can be reverted (“unfrozen”) when needed.\n\n“Hiding” means the app will not appear in the launcher or in the installed apps list (but can be unhidden). “Disabling” removes it from the launcher (but can be enabled again). “Suspending” (on supported Android versions) shows the icon in grayscale and prevents background activity, popping up a dialog if the user tries to open it.',
+        size: '3.3 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/e7y23htnzsoygf8/Hail_1.8.1.zip/file',
+        isModified: false,
+        screenshots: ['https://i.ytimg.com/vi/fI0D6c4VNZA/maxresdefault.jpg', 'https://droidwin.com/wp-content/uploads/2024/09/hail-app.jpg', 'https://f-droid.org/repo/com.aistra.hail/en-US/phoneScreenshots/3.png'],
+        features: ['Freeze / unfreeze apps (disable, hide, suspend)', 'GrapheneOS Discussion Forum', 'Support for different working modes: Device Owner, Root, Shizuku, Dhizuku', 'Revert changes (unfreeze) easily when needed', 'Hide apps (so they don’t appear in launcher or app list)', 'Suspend apps (icon turns grayscale; background and notifications are blocked) on supported versions', 'Works without root for many features (via Shizuku / Dhizuku)', 'GrapheneOS Discussion Forum', 'Free and open source (GPL-3.0)']
     },
     {
         id: 1760670417792,
