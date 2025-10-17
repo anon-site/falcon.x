@@ -182,21 +182,6 @@ const androidApps = [
         features: ['Create multiple independent clones of any compatible Android app.', 'Rename clones and change their app icons.', 'Toggle or remove app permissions for each clone.', 'Disable auto-start/background services and block background activity.', 'Remove or block analytics and certain ad components (where possible).', 'Limit network access for a clone (offline clones) or control notifications.', 'Spoof or reset identifiers for privacy (where supported).', 'Option to sign or re-sign cloned APKs for installation.', 'Premium/VIP add-ons unlock many additional mod options and increase number of allowed clones.', 'Backup and uninstall clones without affecting original app.', 'Useful for multi-account use, testing, privacy separation, and app customization.']
     },
     {
-        id: 1760670886353,
-        name: 'NP Manager',
-        version: '3.1.25',
-        category: 'tools',
-        icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
-        description: 'NP Manager is a tool on Android that acts as an advanced file manager and APK / code editing assistant, supporting operations on APK, DEX, Smali, JAR files along with general file management.',
-        fullDescription: 'NP Manager combines powerful file management and code-level capabilities in one app. It allows users to browse internal and external storage (SD, USB OTG), manage all file types (documents, media, archives, apps), and also perform more advanced operations: decompress/compress archives (ZIP, RAR), recycle bin to restore deleted files, hide/show files, manage installed apps, and preview large files. On the more technical side, it supports APK and DEX/Smali editing: conversion between Dex, JAR, Smali; obfuscation, encryption of strings; APK signing and removing signature verification; resource obfuscation; merging/splitting dex files; editing AXML, ARSC; video/audio transcoding or extraction; PDF operations (merge, split, encrypt, decrypt); and toolbox utilities like encoding (base64, MD5, etc.). Some builds include features like LOG injection, removal of popups, disabling VPN/proxy detection, and UI tweaks.\nBecause of its capabilities, it is often compared with “MT Manager” in terms of power and flexibility.',
-        size: '43.3',
-        downloadLink: '#',
-        originalDownloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
-        isModified: false,
-        screenshots: ['https://www.farsroid.com/wp-content/uploads/NP-Manager-Cover.jpg', 'https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
-        features: ['Support for many file types: documents, media, archives, apps', 'File browsing on internal, external storage, USB OTG', 'Compress / decompress archives (ZIP, RAR)', 'Recycle Bin for recovering deleted files', 'Show / hide hidden files', 'App management: list/uninstall apps', 'Preview large files or resource files', 'APK / DEX / Smali / JAR editing: convert between formats', 'Obfuscation and encryption (string encryption, resource obfuscation)', 'APK signing, removing signature verification', 'Merge / split DEX files', 'Editing AXML / ARSC resources', 'Video/audio transcoding, extraction of streams', 'PDF operations: merge, split, encrypt, decrypt, extract content', 'Utility toolbox: encoding/decoding (base64, MD5, etc.), LOG injection, popup removal', 'UI tweaks, protocol detections (VPN/proxy), disable popups']
-    },
-    {
         id: 1760671090904,
         name: 'ZArchiver Pro',
         version: '1.0.8',
@@ -209,6 +194,21 @@ const androidApps = [
         isModified: true,
         screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://imgcdn.latestmodapks.com/api/resize?url=https://www.latestmodapks.com/wp-content/uploads/2023/11/ZArchiver-7.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg'],
         features: ['Create and extract archives (ZIP, RAR, 7Z, TAR, ISO, etc.)', 'View archive contents without extraction', 'Add or remove files inside existing archives', 'Create password-protected or encrypted archives', 'Support for multithreading and fast compression', 'UTF-8 filename support (for international characters)', 'File operations: copy, move, delete, rename', 'Compress multiple files or folders simultaneously', 'Split large archives into parts (volumes)', 'Dark and light themes', 'Ad-free interface (in Pro version)', 'Optimized for Android 11+ and 64-bit processors']
+    },
+    {
+        id: 1760730254180,
+        name: 'NP Manager',
+        version: '3.1.25',
+        category: 'tools',
+        icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
+        description: 'NP Manager is a tool on Android that acts as an advanced file manager and APK / code editing assistant, supporting operations on APK, DEX, Smali, JAR files along with general file management.',
+        fullDescription: 'NP Manager combines powerful file management and code-level capabilities in one app. It allows users to browse internal and external storage (SD, USB OTG), manage all file types (documents, media, archives, apps), and also perform more advanced operations: decompress/compress archives (ZIP, RAR), recycle bin to restore deleted files, hide/show files, manage installed apps, and preview large files. On the more technical side, it supports APK and DEX/Smali editing: conversion between Dex, JAR, Smali; obfuscation, encryption of strings; APK signing and removing signature verification; resource obfuscation; merging/splitting dex files; editing AXML, ARSC; video/audio transcoding or extraction; PDF operations (merge, split, encrypt, decrypt); and toolbox utilities like encoding (base64, MD5, etc.). Some builds include features like LOG injection, removal of popups, disabling VPN/proxy detection, and UI tweaks.\nBecause of its capabilities, it is often compared with “MT Manager” in terms of power and flexibility.',
+        size: '43.3 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
+        isModified: false,
+        screenshots: ['https://www.farsroid.com/wp-content/uploads/NP-Manager-Cover.jpg', 'https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
+        features: ['Support for many file types: documents, media, archives, apps', 'File browsing on internal, external storage, USB OTG', 'Compress / decompress archives (ZIP, RAR)', 'Recycle Bin for recovering deleted files', 'Show / hide hidden files', 'App management: list/uninstall apps', 'Preview large files or resource files', 'APK / DEX / Smali / JAR editing: convert between formats', 'Obfuscation and encryption (string encryption, resource obfuscation)', 'APK signing, removing signature verification', 'Merge / split DEX files', 'Editing AXML / ARSC resources', 'Video/audio transcoding, extraction of streams', 'PDF operations: merge, split, encrypt, decrypt, extract content', 'Utility toolbox: encoding/decoding (base64, MD5, etc.), LOG injection, popup removal', 'UI tweaks, protocol detections (VPN/proxy), disable popups']
     }
 ];
 
