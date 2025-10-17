@@ -1139,6 +1139,12 @@ function showAppDetails(appId) {
         featuresSection.style.display = 'none';
     }
     
+    // Reset scroll position to top
+    const modalContent = modal.querySelector('.app-modal-content');
+    if (modalContent) {
+        modalContent.scrollTop = 0;
+    }
+    
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1146,6 +1152,13 @@ function showAppDetails(appId) {
 
 function closeAppDetails() {
     const modal = document.getElementById('appDetailsModal');
+    
+    // Reset scroll position when closing
+    const modalContent = modal.querySelector('.app-modal-content');
+    if (modalContent) {
+        modalContent.scrollTop = 0;
+    }
+    
     modal.classList.remove('active');
     document.body.style.overflow = '';
     currentAppId = null;

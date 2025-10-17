@@ -8,7 +8,9 @@ function checkAuth() {
     }
     
     const sessionData = JSON.parse(session);
-    document.getElementById('adminUsername').textContent = sessionData.username;
+    // Use username from session, or fallback to repo owner, or default to 'Admin'
+    const username = sessionData.username || (sessionData.repo && sessionData.repo.owner) || 'Admin';
+    document.getElementById('adminUsername').textContent = username;
     return true;
 }
 

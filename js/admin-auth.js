@@ -96,6 +96,7 @@ if (repoForm) {
                 const rememberToken = document.getElementById('rememberToken').checked;
                 
                 const sessionData = {
+                    username: owner,
                     token: tempToken,
                     repo: { owner, name },
                     loginTime: new Date().toISOString()
@@ -105,6 +106,7 @@ if (repoForm) {
                 if (rememberToken) {
                     localStorage.setItem('githubToken', tempToken);
                     localStorage.setItem('githubRepo', JSON.stringify({ owner, name }));
+                    localStorage.setItem('githubUsername', owner);
                 }
                 
                 sessionStorage.setItem('adminSession', JSON.stringify(sessionData));
@@ -198,6 +200,7 @@ function backToToken() {
 
 // Check if already logged in
 window.addEventListener('DOMContentLoaded', function() {
+    // Check session first
     const session = sessionStorage.getItem('adminSession');
     
     if (session) {
@@ -209,9 +212,19 @@ window.addEventListener('DOMContentLoaded', function() {
         
         if (hoursDiff < 24) {
             window.location.href = 'admin.html';
+            return;
         } else {
             // Session expired
             sessionStorage.removeItem('adminSession');
         }
+    }
+    
+    // Load saved token if exists
+    const savedToken = localStorage.getItem('githubToken');
+    const savedRepo = localStorage.getItem('githubRepo');
+    
+    if (savedToken) {
+        document.getElementById('githubToken').value = savedToken;
+        document.getElementById('rememberToken').checked = true;
     }
 });
