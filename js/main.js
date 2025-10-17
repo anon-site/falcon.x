@@ -1289,29 +1289,17 @@ function updateDownloadButtons(app) {
     
     let buttonsHTML = '';
     
-    // Check if app is modified and has original download link
-    if (app.isModified && app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#') {
-        // Show two buttons: Modified and Original
-        buttonsHTML = `
-            <button class="btn btn-primary btn-large" onclick="window.open('${app.downloadLink}', '_blank')">
-                <i class="fas fa-download"></i> Download Modified
-            </button>
-            <button class="btn btn-large" onclick="window.open('${app.originalDownloadLink}', '_blank')" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
-                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
-                <span class="original-badge">100%</span>
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    } else {
-        // Show single download button - check if modified or original
-        const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
-        
-        if (!app.isModified) {
-            // Original version - show special green button
+    const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
+    
+    if (app.isModified) {
+        // Modified version
+        if (app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#') {
+            // Show two buttons: Modified and Original
             buttonsHTML = `
-                <button class="btn btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                <button class="btn btn-primary btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}">
+                    <i class="fas fa-download"></i> Download Modified
+                </button>
+                <button class="btn btn-large" onclick="window.open('${app.originalDownloadLink}', '_blank')" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
                     <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
                     <span class="original-badge">100%</span>
                 </button>
@@ -1320,16 +1308,27 @@ function updateDownloadButtons(app) {
                 </button>
             `;
         } else {
-            // Modified version - show normal button
+            // Show only Modified button
             buttonsHTML = `
                 <button class="btn btn-primary btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}">
-                    <i class="fas fa-download"></i> Download Now
+                    <i class="fas fa-download"></i> Download Modified
                 </button>
                 <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
                     <i class="fas fa-times"></i> Close
                 </button>
             `;
         }
+    } else {
+        // Original version - show special green button
+        buttonsHTML = `
+            <button class="btn btn-large" onclick="${hasValidLink ? `window.open('${app.downloadLink}', '_blank')` : `showToast('Download link will be available soon!', 'warning')`}" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
+                <span class="original-badge">100%</span>
+            </button>
+            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
+                <i class="fas fa-times"></i> Close
+            </button>
+        `;
     }
     
     modalFooter.innerHTML = buttonsHTML;
