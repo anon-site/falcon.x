@@ -1289,9 +1289,20 @@ document.addEventListener('keydown', (e) => {
 
 // Helper function to download from original link
 function downloadOriginal(link) {
+    console.log('downloadOriginal called with:', link);
+    console.log('Link type:', typeof link);
+    console.log('Link check:', {
+        exists: !!link,
+        notEmpty: link !== '',
+        notHash: link !== '#',
+        notUndefined: link !== 'undefined'
+    });
+    
     if (link && link !== '' && link !== '#' && link !== 'undefined') {
+        console.log('✅ Opening link:', link);
         window.open(link, '_blank');
     } else {
+        console.log('❌ Link not valid');
         showToast('Original download link not available!', 'warning');
     }
 }
