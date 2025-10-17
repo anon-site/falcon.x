@@ -971,9 +971,12 @@ function importFromDataJS() {
             version: item.version,
             size: item.size,
             description: item.description,
+            fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
-            isModified: item.isModified === true ? true : false
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            features: item.features || []
         }));
     }
     
@@ -986,9 +989,12 @@ function importFromDataJS() {
             version: item.version,
             size: item.size,
             description: item.description,
+            fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
-            isModified: item.isModified === true ? true : false
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            features: item.features || []
         }));
     }
     
@@ -1001,9 +1007,12 @@ function importFromDataJS() {
             version: item.version,
             size: item.size,
             description: item.description,
+            fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
-            isModified: item.isModified === true ? true : false
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            features: item.features || []
         }));
     }
     
@@ -1016,9 +1025,12 @@ function importFromDataJS() {
             version: item.version,
             size: item.size,
             description: item.description,
+            fullDescription: item.fullDescription || '',
             icon: item.icon || 'https://via.placeholder.com/64',
             downloadLink: item.downloadUrl || item.downloadLink,
-            isModified: item.isModified === true ? true : false
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            features: item.features || []
         }));
     }
 }
@@ -1090,19 +1102,37 @@ function exportToDataJS() {
     const frpToolsData = appsData['frp-tools'] || [];
     const frpAppsData = appsData['frp-apps'] || [];
     
+    // Helper to escape strings
+    const escapeStr = (str) => {
+        if (!str) return '';
+        return str.replace(/\\/g, '\\\\')
+                  .replace(/'/g, "\\'")
+                  .replace(/\n/g, '\\n')
+                  .replace(/\r/g, '');
+    };
+    
     let output = '// ===== Windows Software Data =====\nconst windowsSoftware = [\n';
     windows.forEach((item, index) => {
         output += `    {\n`;
         output += `        id: ${item.id},\n`;
-        output += `        name: '${item.name}',\n`;
-        output += `        version: '${item.version}',\n`;
+        output += `        name: '${escapeStr(item.name)}',\n`;
+        output += `        version: '${escapeStr(item.version)}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
-        output += `        description: '${item.description}',\n`;
+        output += `        description: '${escapeStr(item.description)}',\n`;
+        if (item.fullDescription) {
+            output += `        fullDescription: '${escapeStr(item.fullDescription)}',\n`;
+        }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
-        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
-        output += `    }${index < windows.length - 1 ? ',' : ''}\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
+        if (item.screenshots && item.screenshots.length > 0) {
+            output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
+        }
+        if (item.features && item.features.length > 0) {
+            output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
+        }
+        output += `\n    }${index < windows.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
     
@@ -1110,15 +1140,24 @@ function exportToDataJS() {
     android.forEach((item, index) => {
         output += `    {\n`;
         output += `        id: ${item.id},\n`;
-        output += `        name: '${item.name}',\n`;
-        output += `        version: '${item.version}',\n`;
+        output += `        name: '${escapeStr(item.name)}',\n`;
+        output += `        version: '${escapeStr(item.version)}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
-        output += `        description: '${item.description}',\n`;
+        output += `        description: '${escapeStr(item.description)}',\n`;
+        if (item.fullDescription) {
+            output += `        fullDescription: '${escapeStr(item.fullDescription)}',\n`;
+        }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
-        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
-        output += `    }${index < android.length - 1 ? ',' : ''}\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
+        if (item.screenshots && item.screenshots.length > 0) {
+            output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
+        }
+        if (item.features && item.features.length > 0) {
+            output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
+        }
+        output += `\n    }${index < android.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
     
@@ -1126,15 +1165,24 @@ function exportToDataJS() {
     frpToolsData.forEach((item, index) => {
         output += `    {\n`;
         output += `        id: ${item.id},\n`;
-        output += `        name: '${item.name}',\n`;
-        output += `        version: '${item.version}',\n`;
+        output += `        name: '${escapeStr(item.name)}',\n`;
+        output += `        version: '${escapeStr(item.version)}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
-        output += `        description: '${item.description}',\n`;
+        output += `        description: '${escapeStr(item.description)}',\n`;
+        if (item.fullDescription) {
+            output += `        fullDescription: '${escapeStr(item.fullDescription)}',\n`;
+        }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
-        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
-        output += `    }${index < frpToolsData.length - 1 ? ',' : ''}\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
+        if (item.screenshots && item.screenshots.length > 0) {
+            output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
+        }
+        if (item.features && item.features.length > 0) {
+            output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
+        }
+        output += `\n    }${index < frpToolsData.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
     
@@ -1142,15 +1190,24 @@ function exportToDataJS() {
     frpAppsData.forEach((item, index) => {
         output += `    {\n`;
         output += `        id: ${item.id},\n`;
-        output += `        name: '${item.name}',\n`;
-        output += `        version: '${item.version}',\n`;
+        output += `        name: '${escapeStr(item.name)}',\n`;
+        output += `        version: '${escapeStr(item.version)}',\n`;
         output += `        category: '${item.category}',\n`;
         output += `        icon: '${item.icon}',\n`;
-        output += `        description: '${item.description}',\n`;
+        output += `        description: '${escapeStr(item.description)}',\n`;
+        if (item.fullDescription) {
+            output += `        fullDescription: '${escapeStr(item.fullDescription)}',\n`;
+        }
         output += `        size: '${item.size}',\n`;
         output += `        downloadLink: '${item.downloadLink}',\n`;
-        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}\n`;
-        output += `    }${index < frpAppsData.length - 1 ? ',' : ''}\n`;
+        output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
+        if (item.screenshots && item.screenshots.length > 0) {
+            output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
+        }
+        if (item.features && item.features.length > 0) {
+            output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
+        }
+        output += `\n    }${index < frpAppsData.length - 1 ? ',' : ''}\n`;
     });
     output += '];';
     

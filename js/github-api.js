@@ -126,10 +126,19 @@ class GitHubAPI {
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+            }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
-            content += `        isModified: ${app.isModified}\n`;
-            content += `    }${index < windowsApps.length - 1 ? ',' : ''}\n`;
+            content += `        isModified: ${app.isModified}`;
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            content += `\n    }${index < windowsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
 
@@ -143,10 +152,19 @@ class GitHubAPI {
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+            }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
-            content += `        isModified: ${app.isModified}\n`;
-            content += `    }${index < androidApps.length - 1 ? ',' : ''}\n`;
+            content += `        isModified: ${app.isModified}`;
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            content += `\n    }${index < androidApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
 
@@ -160,10 +178,19 @@ class GitHubAPI {
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+            }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
-            content += `        isModified: ${app.isModified}\n`;
-            content += `    }${index < frpToolsApps.length - 1 ? ',' : ''}\n`;
+            content += `        isModified: ${app.isModified}`;
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            content += `\n    }${index < frpToolsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
 
@@ -177,10 +204,19 @@ class GitHubAPI {
             content += `        category: '${app.category}',\n`;
             content += `        icon: '${app.icon}',\n`;
             content += `        description: '${this.escapeString(app.description)}',\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+            }
             content += `        size: '${app.size}',\n`;
             content += `        downloadLink: '${app.downloadLink}',\n`;
-            content += `        isModified: ${app.isModified}\n`;
-            content += `    }${index < frpAppsApps.length - 1 ? ',' : ''}\n`;
+            content += `        isModified: ${app.isModified}`;
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            content += `\n    }${index < frpAppsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];';
 
