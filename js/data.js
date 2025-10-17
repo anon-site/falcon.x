@@ -7,22 +7,9 @@ const windowsSoftware = [
         category: 'productivity',
         icon: 'fa-solid fa-code',
         description: 'Free source code editor with built-in support for JavaScript, TypeScript, and Node.js',
-        fullDescription: 'Visual Studio Code is a lightweight but powerful source code editor that runs on your desktop and is available for Windows, macOS and Linux. It comes with built-in support for JavaScript, TypeScript and Node.js and has a rich ecosystem of extensions for other languages and runtimes.',
         size: '88.2 MB',
         downloadLink: 'https://code.visualstudio.com/',
-        isModified: false,
-        screenshots: [
-            'https://code.visualstudio.com/assets/docs/getstarted/userinterface/hero.png',
-            'https://code.visualstudio.com/assets/docs/editor/codebasics/overview.png'
-        ],
-        features: [
-            'IntelliSense code completion',
-            'Built-in Git support',
-            'Extensions marketplace',
-            'Debugging support',
-            'Customizable themes',
-            'Integrated terminal'
-        ]
+        isModified: false
     },
     {
         id: 1760625972079,
@@ -56,6 +43,17 @@ const windowsSoftware = [
         size: '1.11',
         downloadLink: 'https://www.remotemouse.net/',
         isModified: false
+    },
+    {
+        id: 1760677535105,
+        name: 'Brave Browser',
+        version: '1.83.118',
+        category: 'productivity',
+        icon: 'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/brave-browser-icon.png',
+        description: 'Brave browser is currently the best, fastest and safest',
+        size: '28',
+        downloadLink: 'https://brave.com/',
+        isModified: false
     }
 ];
 
@@ -68,21 +66,9 @@ const androidApps = [
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
         description: 'A file management application with many features.',
-        fullDescription: 'MT Manager is a powerful file manager and APK editor for Android. It provides dual window panels, built-in text editor, image viewer, music player, and APK modification tools. Perfect for developers and advanced users.',
         size: '22.41',
         downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
-        isModified: true,
-        screenshots: [],
-        features: [
-            'Dual file manager panels',
-            'APK editor and modifier',
-            'Built-in text editor',
-            'Archive support (ZIP, RAR, 7Z)',
-            'Root file access',
-            'Batch file operations',
-            'DEX editor',
-            'XML/Arsc editor'
-        ]
+        isModified: true
     },
     {
         id: 1760627051300,
