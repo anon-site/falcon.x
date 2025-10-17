@@ -21,20 +21,27 @@ const windowsSoftware = [
         category: 'productivity',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png',
         description: 'Fast, secure, and free web browser built for the modern web',
+        fullDescription: 'Google Chrome is a free, fast, and secure web browser developed by Google. It is designed for simplicity and speed, offering features like synchronization across devices, built-in security, extensions, and automatic updates. Chrome supports modern web technologies, providing users with a smooth browsing experience on Windows, macOS, Linux, Android, and iOS.',
         size: '112.5',
         downloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
-        isModified: false
+        isModified: false,
+        screenshots: ['https://eshop.macsales.com/blog/wp-content/uploads/2018/09/screenshot_122.png', 'https://developer.chrome.com/static/images/2025_ai-challenge.jpg', 'https://img.utdstc.com/screen/fee/785/fee7859e412b27d8527813ab6d0c3242b78de46b2fc51e97f62672ad6c042f0a:600'],
+        features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.']
     },
     {
         id: 1760626067691,
         name: ' VLC Media Player',
-        version: '3.0.20',
+        version: '3.0.22 RC1',
         category: 'multimedia',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/250px-VLC_Icon.svg.png',
-        description: 'Free and open-source cross-platform multimedia player',
-        size: '42.8',
-        downloadLink: 'https://www.videolan.org/',
-        isModified: false
+        description: 'VLC is a versatile, free, and open-source media player that supports playback of most video and audio formats without the need for additional codecs.',
+        fullDescription: 'VLC Media Player, developed by the VideoLAN project, is available on multiple operating systems including Windows, macOS, Linux, iOS, and Android. It features a customizable user interface and supports a wide range of formats such as MKV, MP4, AVI, FLAC, and MP3. Advanced features include AI-powered automatic subtitles, playback speed control, advanced subtitle support, and network streaming capabilities.',
+        size: '43.12 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.videolan.org/',
+        isModified: false,
+        screenshots: ['https://game-experience.it/wp-content/uploads/2019/01/vlc-media-player.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/c2/VLC_3.0.10_running_on_Linux_and_GNOME_Shell.png', 'https://cdn2.portableapps.com/VLCPortable.png'],
+        features: ['Playback of most video and audio formats without the need for additional codecs.', 'AI-powered automatic subtitles support for over 100 languages.', 'Playback speed control, seek, and jump features.', 'Advanced subtitle support, including SSA.', 'Network streaming capabilities with support for multiple protocols.', 'Customizable user interface.']
     },
     {
         id: 1760627710498,
@@ -60,21 +67,6 @@ const windowsSoftware = [
         isModified: false,
         screenshots: ['https://iili.io/KvFSXEl.png', 'https://iili.io/KvFSWB4.png', 'https://iili.io/KvFSMQf.png'],
         features: ['Privacy-focused: Blocks ads and trackers by default.', 'Fast Performance: Loads pages faster by removing unnecessary content.', 'Built-in Ad Blocker: No need for extra extensions.', 'Rewards System: Earn Basic Attention Tokens (BAT) for viewing privacy-safe ads.', 'Integrated Crypto Wallet: Manage and store cryptocurrencies directly in the browser.', 'Cross-platform: Available on Windows, macOS, Linux, Android, and iOS.', 'HTTPS Everywhere: Automatically upgrades connections to secure HTTPS.', 'Customizable Settings: Control privacy, appearance, and performance easily.', 'Open Source: Transparent and community-driven development.']
-    },
-    {
-        id: 1760679235711,
-        name: 'WinRar',
-        version: '5.9.1',
-        category: 'utilities',
-        icon: 'https://upload.wikimedia.org/wikipedia/fr/thumb/a/aa/WinRAR_logo_big.png/250px-WinRAR_logo_big.png',
-        description: 'Modified file compression and decompression program without purchase',
-        fullDescription: 'WinRAR is a powerful file archiver utility developed by RARLAB. It allows users to compress, extract, and manage archive files easily. WinRAR supports many formats such as RAR, ZIP, 7Z, TAR, and ISO. It is widely used for reducing file sizes and organizing data efficiently. The program is available for Windows, macOS, and Linux.',
-        size: '5.71',
-        downloadLink: 'https://www.mediafire.com/file/bqupujn550l8dn4/WinRAR_AIO_5.91-en.rar/file',
-        originalDownloadLink: 'https://www.win-rar.com/download.html?&L=0',
-        isModified: true,
-        screenshots: ['https://www.dignited.com/wp-content/uploads/2022/08/WinRAR_.png', 'https://www.win-rar.com/uploads/pics/open-zip-files-extract-files_08.png', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoZDj2T37WzE_HWvIIO7sJI1ZlQfeuZzag5A-1E7i-zOowbEiAOLa-IT0mTc258QiSLwPXNje9g96S9oSqkz6_XD3W0b0uJ8bdKLBg3ImnYBxATLgZYPWHOKDeAlzxT6KTIbeL8nDXClnOlr62puxTt5u_hFq9q_dGN8EahSIJDnyANwUR35AhfRWYzi0/s1600/Echo%20Chamber%20(2)%20(1).webp'],
-        features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.']
     }
 ];
 
@@ -87,13 +79,9 @@ const androidApps = [
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
         description: 'A file management application with many features.',
-        fullDescription: 'MT Manager is a powerful Android app used for file management and APK editing. It allows users to browse, copy, move, and modify files, as well as decompile and recompile APK packages. With root access, it can also manage system files. MT Manager is widely used by developers and advanced users for app modification, translation, and file analysis.',
-        size: '22.41 MB',
+        size: '22.41',
         downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
-        originalDownloadLink: 'https://www.mediafire.com/file/j1n11da8u310wyk/mt-manager-2-19-2-orgenal.rar/file',
-        isModified: true,
-        screenshots: ['https://www.mtmanagerapks.com/wp-content/uploads/2024/07/mt-manager-features.jpg', 'https://images.sftcdn.net/images/t_app-cover-s,f_auto/p/a619d768-3717-4b1b-95df-6990ba44b07a/2318019397/mt-manager-screenshot.png', 'https://i.imgur.com/IdqadjV.png'],
-        features: ['File Management: Copy, move, delete, rename files and folders.', 'Dual Window / Split View: View two directories at once to ease file operations.', 'Archive / ZIP Handling: View, extract, compress files in ZIP, RAR, TAR, 7z, etc., and even manipulate contents inside archives without full extraction.', 'Text Editor: Full-featured editor supporting search, replace, syntax, etc.', 'XML, DEX, ARSC Editing: Decompile, edit, and recompile XML, DEX, ARSC files in APKs.', 'LatestModAPKs', 'APK Operations: Sign APKs, clone apps, optimize, remove signature verification, resource obfuscation, translation support.', 'Script Executor: Execute custom scripts (system or extension environment)', 'Hex Editor / Binary Editing: Edit files at the binary (hex) level.', 'Font & SVG Viewing/Editing: Preview fonts, work with SVG, 9-patch graphics, etc.', 'Batch Operations: Select multiple files for mass operations like delete, move, rename.', 'Search & Filter: Find inside XML, search by ID, filter results, etc.', 'Root Access Support: If device is rooted, can access system directories, remount file systems, change permissions.', 'Cloud Integration & FTP: Some versions or plugins may support cloud storage or FTP connection.']
+        isModified: true
     },
     {
         id: 1760627051300,
