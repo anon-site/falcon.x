@@ -87,10 +87,13 @@ const androidApps = [
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
         description: 'A file management application with many features.',
+        fullDescription: 'MT Manager is a powerful Android app used for file management and APK editing. It allows users to browse, copy, move, and modify files, as well as decompile and recompile APK packages. With root access, it can also manage system files. MT Manager is widely used by developers and advanced users for app modification, translation, and file analysis.',
         size: '22.41 MB',
         downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
         originalDownloadLink: 'https://www.mediafire.com/file/j1n11da8u310wyk/mt-manager-2-19-2-orgenal.rar/file',
-        isModified: true
+        isModified: true,
+        screenshots: ['https://www.mtmanagerapks.com/wp-content/uploads/2024/07/mt-manager-features.jpg', 'https://images.sftcdn.net/images/t_app-cover-s,f_auto/p/a619d768-3717-4b1b-95df-6990ba44b07a/2318019397/mt-manager-screenshot.png', 'https://i.imgur.com/IdqadjV.png'],
+        features: ['File Management: Copy, move, delete, rename files and folders.', 'Dual Window / Split View: View two directories at once to ease file operations.', 'Archive / ZIP Handling: View, extract, compress files in ZIP, RAR, TAR, 7z, etc., and even manipulate contents inside archives without full extraction.', 'Text Editor: Full-featured editor supporting search, replace, syntax, etc.', 'XML, DEX, ARSC Editing: Decompile, edit, and recompile XML, DEX, ARSC files in APKs.', 'LatestModAPKs', 'APK Operations: Sign APKs, clone apps, optimize, remove signature verification, resource obfuscation, translation support.', 'Script Executor: Execute custom scripts (system or extension environment)', 'Hex Editor / Binary Editing: Edit files at the binary (hex) level.', 'Font & SVG Viewing/Editing: Preview fonts, work with SVG, 9-patch graphics, etc.', 'Batch Operations: Select multiple files for mass operations like delete, move, rename.', 'Search & Filter: Find inside XML, search by ID, filter results, etc.', 'Root Access Support: If device is rooted, can access system directories, remount file systems, change permissions.', 'Cloud Integration & FTP: Some versions or plugins may support cloud storage or FTP connection.']
     },
     {
         id: 1760627051300,
