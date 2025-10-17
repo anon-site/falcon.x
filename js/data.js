@@ -378,6 +378,18 @@ const frpTools = [
         size: '2.8 MB',
         downloadLink: 'undefined',
         isModified: false
+    },
+    {
+        id: 1760618652737,
+        name: 'Samsung FRP Tool',
+        version: '2.8',
+        category: 'samsung',
+        icon: 'fas fa-mobile-alt',
+        description: 'Remove FRP lock from Samsung devices running Android 5-13',
+        size: '15.2 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.google.com/?zx=1760730654315&no_sw_cr=1',
+        isModified: false
     }
 ];
 
