@@ -251,6 +251,29 @@ class GitHubAPI {
         return await this.updateFile('js/data.js', content, 'Update data.js from Admin Panel');
     }
 
+    // Save settings to GitHub
+    async saveSettingsToGitHub(siteSettings, colors, navigation, images) {
+        const settingsData = {
+            siteSettings: siteSettings,
+            colors: colors,
+            navigation: navigation,
+            images: images
+        };
+        const content = JSON.stringify(settingsData, null, 4);
+        return await this.updateFile('js/settings.json', content, 'Update settings from Admin Panel');
+    }
+
+    // Get settings from GitHub
+    async getSettingsFromGitHub() {
+        try {
+            const fileData = await this.getFileContent('js/settings.json');
+            return JSON.parse(fileData.content);
+        } catch (error) {
+            console.error('Error loading settings from GitHub:', error);
+            return null;
+        }
+    }
+
     // Get user repositories from token
     async getUserRepos() {
         try {

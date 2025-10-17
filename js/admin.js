@@ -112,11 +112,21 @@ function syncToGitHub() {
     const frpTools = getAllApps('frp-tools');
     const frpApps = getAllApps('frp-apps');
     
-    githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps)
+    // Get settings from localStorage
+    const siteSettings = JSON.parse(localStorage.getItem('siteSettings')) || getDefaultSettings();
+    const colors = JSON.parse(localStorage.getItem('siteColors')) || getDefaultColors();
+    const navigation = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
+    const images = JSON.parse(localStorage.getItem('siteImages')) || {};
+    
+    // Save both data.js and settings.json
+    Promise.all([
+        githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
+        githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
+    ])
         .then(() => {
             statusDiv.style.background = '#10b981';
-            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> تم حفظ البيانات على GitHub بنجاح!';
-            showToast('تم حفظ البيانات على GitHub', 'success');
+            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> تم حفظ جميع البيانات والإعدادات على GitHub بنجاح!';
+            showToast('تم حفظ جميع البيانات والإعدادات على GitHub', 'success');
             updateSyncStatus('ready', 'تم الحفظ على GitHub');
         })
         .catch(error => {
@@ -143,10 +153,20 @@ function manualSaveToGitHub() {
         const frpTools = getAllApps('frp-tools');
         const frpApps = getAllApps('frp-apps');
         
-        githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps)
+        // Get settings from localStorage
+        const siteSettings = JSON.parse(localStorage.getItem('siteSettings')) || getDefaultSettings();
+        const colors = JSON.parse(localStorage.getItem('siteColors')) || getDefaultColors();
+        const navigation = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
+        const images = JSON.parse(localStorage.getItem('siteImages')) || {};
+        
+        // Save both data.js and settings.json
+        Promise.all([
+            githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
+            githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
+        ])
             .then(() => {
                 updateSyncStatus('ready', 'تم الحفظ على GitHub');
-                showToast('تم حفظ جميع التغييرات على GitHub بنجاح!', 'success');
+                showToast('تم حفظ جميع التغييرات والإعدادات على GitHub بنجاح!', 'success');
             })
             .catch(error => {
                 updateSyncStatus('modified', 'فشل الحفظ');
@@ -788,10 +808,11 @@ function initNavForm() {
     }
     
     localStorage.setItem('navigation', JSON.stringify(navItems));
+    updateSyncStatus('modified', 'تغييرات غير محفوظة');
     
     closeNavModal();
     loadNavigation();
-    showToast(isEditing ? 'تم التحديث بنجاح' : 'تمت الإضافة بنجاح', 'success');
+    showToast(isEditing ? 'تم التحديث محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات' : 'تمت الإضافة محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     });
 }
 
@@ -804,9 +825,10 @@ function deleteNavItem(id) {
         let navItems = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
         navItems = navItems.filter(item => item.id !== id);
         localStorage.setItem('navigation', JSON.stringify(navItems));
+        updateSyncStatus('modified', 'تغييرات غير محفوظة');
         
         loadNavigation();
-        showToast('تم الحذف بنجاح', 'success');
+        showToast('تم الحذف محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     }
 }
 
@@ -845,7 +867,8 @@ function initSiteSettingsForm() {
         };
         
         localStorage.setItem('siteSettings', JSON.stringify(settings));
-        showToast('تم حفظ الإعدادات بنجاح', 'success');
+        updateSyncStatus('modified', 'تغييرات غير محفوظة');
+        showToast('تم حفظ الإعدادات محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     });
 }
 
@@ -907,7 +930,8 @@ function initColorsForm() {
         };
         
         localStorage.setItem('siteColors', JSON.stringify(colors));
-        showToast('تم حفظ الألوان بنجاح', 'success');
+        updateSyncStatus('modified', 'تغييرات غير محفوظة');
+        showToast('تم حفظ الألوان محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     });
 }
 
@@ -938,6 +962,41 @@ function previewImage(type, input) {
         };
         
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// ============ Load Settings from GitHub ============
+
+async function loadSettingsFromGitHub() {
+    if (!githubAPI.isConfigured()) {
+        console.log('GitHub not configured, using localStorage settings');
+        return false;
+    }
+    
+    try {
+        const settings = await githubAPI.getSettingsFromGitHub();
+        
+        if (settings) {
+            // Save to localStorage
+            if (settings.siteSettings) {
+                localStorage.setItem('siteSettings', JSON.stringify(settings.siteSettings));
+            }
+            if (settings.colors) {
+                localStorage.setItem('siteColors', JSON.stringify(settings.colors));
+            }
+            if (settings.navigation) {
+                localStorage.setItem('navigation', JSON.stringify(settings.navigation));
+            }
+            if (settings.images) {
+                localStorage.setItem('siteImages', JSON.stringify(settings.images));
+            }
+            
+            console.log('✅ Settings loaded from GitHub');
+            return true;
+        }
+    } catch (error) {
+        console.error('Error loading settings from GitHub:', error);
+        return false;
     }
 }
 
@@ -1260,8 +1319,14 @@ function updateDashboardStats() {
 
 // ============ Initialize ============
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', async function() {
     if (!checkAuth()) return;
+    
+    // Try to load settings from GitHub first
+    if (githubAPI.isConfigured()) {
+        console.log('🔄 Loading settings from GitHub...');
+        await loadSettingsFromGitHub();
+    }
     
     // Try to load from localStorage first
     const hasLocalData = loadFromLocalStorage();
