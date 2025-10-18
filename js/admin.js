@@ -718,26 +718,46 @@ function loadNavigation() {
     const navItems = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
     const container = document.getElementById('navigation-list');
     
+    if (navItems.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>لا توجد تبويبات بعد</p></div>';
+        return;
+    }
+    
     let html = '<div class="navigation-items">';
     
     navItems.sort((a, b) => a.order - b.order).forEach(item => {
+        const statusBadge = item.active 
+            ? '<span class="badge" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;"><i class="fas fa-check-circle" style="margin-left: 0.3rem;"></i>مفعل</span>'
+            : '<span class="badge" style="background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;"><i class="fas fa-times-circle" style="margin-left: 0.3rem;"></i>معطل</span>';
+        
         html += `
-            <div class="nav-item-card ${item.active ? 'active' : 'inactive'}">
-                <div class="nav-item-icon">
-                    <i class="${item.icon}"></i>
-                </div>
-                <div class="nav-item-info">
-                    <h3>${item.title}</h3>
-                    <p>${item.link}</p>
-                    <span class="badge">${item.active ? 'مفعل' : 'معطل'}</span>
-                </div>
-                <div class="nav-item-actions">
-                    <button class="btn-icon" onclick="editNavItem(${item.id})" title="تعديل">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn-icon" onclick="deleteNavItem(${item.id})" title="حذف">
-                        <i class="fas fa-trash"></i>
-                    </button>
+            <div class="nav-item-card ${item.active ? 'active' : 'inactive'}" style="background: var(--bg-secondary); border: 2px solid ${item.active ? 'var(--primary-color)' : 'var(--border-color)'}; border-radius: 15px; padding: 25px; transition: all 0.3s ease;">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div class="nav-item-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+                        <i class="${item.icon}"></i>
+                    </div>
+                    <div class="nav-item-info" style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <h3 style="margin: 0; font-size: 18px; font-weight: 600;">${item.title}</h3>
+                            ${statusBadge}
+                        </div>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                            <i class="fas fa-link" style="font-size: 12px;"></i>
+                            ${item.link}
+                        </p>
+                        <p style="margin: 5px 0 0 0; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; gap: 5px;">
+                            <i class="fas fa-sort-numeric-up" style="font-size: 12px;"></i>
+                            الترتيب: ${item.order}
+                        </p>
+                    </div>
+                    <div class="nav-item-actions" style="display: flex; gap: 10px;">
+                        <button class="btn-icon btn-edit" onclick="editNavItem(${item.id})" title="تعديل" style="background: var(--info-color); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon btn-delete" onclick="deleteNavItem(${item.id})" title="حذف" style="background: var(--danger-color); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;

@@ -8,6 +8,7 @@ const pages = document.querySelectorAll('.page');
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
+    loadNavigationFromStorage(); // Load custom navigation first
     initializeTheme();
     initializeSidebar();
     initializeNavigation();
@@ -213,10 +214,54 @@ function closeSidebar() {
     document.body.style.overflow = '';
 }
 
+// ===== Load Navigation from localStorage =====
+function loadNavigationFromStorage() {
+    try {
+        const savedNavigation = localStorage.getItem('navigation');
+        if (!savedNavigation) {
+            console.log('ℹ️ No custom navigation found, using default');
+            return;
+        }
+        
+        const navItems = JSON.parse(savedNavigation);
+        const sidebarMenu = document.querySelector('.sidebar-menu');
+        
+        if (!sidebarMenu) return;
+        
+        // Clear current menu
+        sidebarMenu.innerHTML = '';
+        
+        // Sort by order and filter active items
+        const activeItems = navItems.filter(item => item.active).sort((a, b) => a.order - b.order);
+        
+        // Add each navigation item
+        activeItems.forEach(item => {
+            const menuItem = document.createElement('a');
+            menuItem.href = item.link;
+            menuItem.className = 'menu-item';
+            menuItem.dataset.page = item.link.replace('#', '');
+            
+            menuItem.innerHTML = `
+                <i class="${item.icon}"></i>
+                <span class="menu-text">${item.title}</span>
+            `;
+            
+            sidebarMenu.appendChild(menuItem);
+        });
+        
+        console.log('✅ Navigation loaded from localStorage:', activeItems.length, 'items');
+    } catch (error) {
+        console.error('❌ Error loading navigation:', error);
+    }
+}
+
 // ===== Navigation Management =====
 function initializeNavigation() {
+    // Re-query menu items after they may have been dynamically loaded
+    const dynamicMenuItems = document.querySelectorAll('.menu-item');
+    
     // Handle menu item clicks
-    menuItems.forEach(item => {
+    dynamicMenuItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const targetPage = item.dataset.page;
