@@ -767,6 +767,74 @@ body {
     opacity: 0.3;
 }
 
+/* ============ Categories Management ============ */
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.category-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.category-card h4 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.category-card p {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.category-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.category-actions .btn-icon {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.category-actions .btn-edit {
+    background: var(--info-color);
+    color: #fff;
+}
+
+.category-actions .btn-edit:hover {
+    background: #2563eb;
+}
+
+.category-actions .btn-delete {
+    background: var(--danger-color);
+    color: #fff;
+}
+
+.category-actions .btn-delete:hover {
+    background: #dc2626;
+}
+
 /* ============ Forms ============ */
 
 .settings-form {
