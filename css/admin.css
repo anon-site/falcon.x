@@ -421,10 +421,7 @@ body {
 }
 
 .nav-item span {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    cursor: default;
 }
 
 .nav-item:hover {
