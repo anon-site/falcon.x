@@ -92,7 +92,7 @@ const windowsSoftware = [
         name: 'FastStone Capture',
         version: '10.9',
         category: 'utilities',
-        icon: 'https://pics.computerbase.de/1/4/6/9/0/logo-256.png',
+        icon: 'https://iili.io/KvtMa0Q.png',
         description: 'FastStone Capture is a powerful, lightweight screen-capture and video-recording tool for Windows, allowing you to capture anything on the screen (windows, objects, full screen, freehand regions, scrolling windows/web pages) and annotate/edit the results.',
         fullDescription: 'FastStone Capture is a full-featured screenshot and screen-recording application for Windows that enables you to capture nearly everything you see on the screen — whether it’s a window, a menu, a full screen, a freehand region or a fixed region, even a scrolling web page or window. It also supports screen recording of activities (including mouse movements, clicks, audio from microphone, webcam in newer versions) into a video file. After capture you can send outputs to editor, clipboard, file, printer, e-mail, Word/PowerPoint document or upload to website. It includes a built-in image editor that lets you annotate (text, arrows, highlights, watermarks, shapes), apply effects (drop shadow, torn edge, fade edge), resize, crop, rotate, sharpen, adjust colours and more. It supports saving images in multiple formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF) and videos in WMV format (and possibly MP4 in latest versions) and comes with global hotkeys, automatic file name generation, support for external editors, colour-picker, screen magnifier, screen ruler and other tools',
         size: '8.49 MB',
