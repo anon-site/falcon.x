@@ -86,6 +86,21 @@ const windowsSoftware = [
         isModified: true,
         screenshots: ['https://www.dignited.com/wp-content/uploads/2022/08/WinRAR_.png', 'https://www.win-rar.com/uploads/pics/open-zip-files-extract-files_08.png', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoZDj2T37WzE_HWvIIO7sJI1ZlQfeuZzag5A-1E7i-zOowbEiAOLa-IT0mTc258QiSLwPXNje9g96S9oSqkz6_XD3W0b0uJ8bdKLBg3ImnYBxATLgZYPWHOKDeAlzxT6KTIbeL8nDXClnOlr62puxTt5u_hFq9q_dGN8EahSIJDnyANwUR35AhfRWYzi0/s1600/Echo%20Chamber%20(2)%20(1).webp'],
         features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.']
+    },
+    {
+        id: 1760780124868,
+        name: 'FastStone Capture',
+        version: '10.9',
+        category: 'utilities',
+        icon: 'https://pics.computerbase.de/1/4/6/9/0/logo-256.png',
+        description: 'FastStone Capture is a powerful, lightweight screen-capture and video-recording tool for Windows, allowing you to capture anything on the screen (windows, objects, full screen, freehand regions, scrolling windows/web pages) and annotate/edit the results.',
+        fullDescription: 'FastStone Capture is a full-featured screenshot and screen-recording application for Windows that enables you to capture nearly everything you see on the screen — whether it’s a window, a menu, a full screen, a freehand region or a fixed region, even a scrolling web page or window. It also supports screen recording of activities (including mouse movements, clicks, audio from microphone, webcam in newer versions) into a video file. After capture you can send outputs to editor, clipboard, file, printer, e-mail, Word/PowerPoint document or upload to website. It includes a built-in image editor that lets you annotate (text, arrows, highlights, watermarks, shapes), apply effects (drop shadow, torn edge, fade edge), resize, crop, rotate, sharpen, adjust colours and more. It supports saving images in multiple formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF) and videos in WMV format (and possibly MP4 in latest versions) and comes with global hotkeys, automatic file name generation, support for external editors, colour-picker, screen magnifier, screen ruler and other tools',
+        size: '8.49 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/ed3wps0320yr2uu/FastStone+Capture+v10.9.rar/file',
+        isModified: false,
+        screenshots: ['https://faststone-capture.fileion.com/curator/software/articles/featued-images/2025/08/faststone-capture-keyboard-shortcuts.webp?s=b3f309af83b4cfa8662ffb0fca48439a', 'https://blackjoomla.com/media/k2/items/cache/05a977f75c8bd421cf67e35678973f79_XL.jpg', 'https://faststone-capture.fileion.com/storage/software/screenshots/2025/07/faststone-capture-1.png'],
+        features: ['Capture full screen, active window, object, menu, rectangular/freehand/fixed region, scrolling windows/web pages.', 'Record screen activities including on-screen changes, microphone audio, mouse movements/clicks and webcam (in recent versions).', 'Built-in editor: annotate images with text, arrowed lines, highlights, watermarks, shapes; apply effects (drop shadow, torn-edge, fade-edge).', 'Resize, crop, rotate, sharpen images; adjust brightness, colour, etc.', 'Save images in many formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF).', 'Built-in video editor allowing trimming, zoom effects, convert video to animated GIF (some versions) …', 'Support for global hotkeys, automatic filename generation, external editor integration, colour picker, screen magnifier, screen crosshair, screen ruler.', 'Lightweight, fast, efficient in system resources.']
     }
 ];
 
