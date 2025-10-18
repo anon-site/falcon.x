@@ -55,7 +55,11 @@
                 <i class="fas fa-cog"></i>
                 <span class="menu-text">Settings</span>
             </button>
-            <p class="version">Version 2.1</p>
+            <button class="settings-toggle" onclick="refreshData()" style="background: linear-gradient(135deg, #f59e0b, #ea580c); margin-top: 0.5rem;" title="Clear cache and reload">
+                <i class="fas fa-sync-alt"></i>
+                <span class="menu-text">Refresh</span>
+            </button>
+            <p class="version">Version 2.2</p>
             <p class="copyright">© 2025 Falcon X. All rights reserved.<br>Designed and developed by <a href="https://anon-site.github.io" target="_blank" style="color: #667eea; text-decoration: none;">Anon Design</a></p>
         </div>
     </nav>
@@ -73,7 +77,7 @@
             <div class="mobile-title-container">
                 <img src="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png" alt="Falcon X" class="mobile-logo">
             </div>
-            <button class="refresh-btn" onclick="refreshData()" title="Refresh data from admin panel">
+            <button class="refresh-btn" onclick="refreshData()" title="Clear cache and reload">
                 <i class="fas fa-sync-alt"></i>
             </button>
         </header>
@@ -567,7 +571,7 @@
         </div>
     </div>
     
-    <script src="js/main.js"></script>
-    <script src="js/data.js"></script>
+    <script src="js/main.js?v=2.2"></script>
+    <script src="js/data.js?v=2.2"></script>
 </body>
 </html>

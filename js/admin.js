@@ -75,6 +75,14 @@ function showToast(message, type = 'success') {
     }, 3000);
 }
 
+// Clear cache and reload
+function clearCacheAndReload() {
+    if (confirm('سيتم إعادة تحميل الصفحة لتطبيق آخر التحديثات. هل تريد المتابعة؟')) {
+        // Clear cache for this site by reloading with cache bypass
+        window.location.reload(true);
+    }
+}
+
 // ============ GitHub Integration ============
 
 function testGitHubConnection() {

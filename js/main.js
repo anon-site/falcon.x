@@ -456,18 +456,12 @@ function getDataFromStorage(storageKey, fallbackData) {
 // ===== Refresh Data from Admin Panel =====
 function refreshData() {
     // Show loading toast
-    showToast('Refreshing data from admin panel...', 'info');
+    showToast('Refreshing page to apply latest updates...', 'info');
     
-    // Clear sessionStorage check time to force reload
-    sessionStorage.removeItem('last-data-check');
-    
-    // Reload software data
+    // Clear cache and reload the page
     setTimeout(() => {
-        loadSoftwareData();
-        sessionStorage.setItem('last-data-check', Date.now().toString());
-        showToast('Data refreshed successfully!', 'success');
-        console.log('✅ Data manually refreshed from localStorage');
-    }, 300);
+        window.location.reload(true);
+    }, 500);
 }
 
 // ===== Create Software Card =====
