@@ -577,6 +577,14 @@ function downloadSoftware(softwareId) {
         }
     }
     
+    if (!software) {
+        const toolsPhoneLS = localStorage.getItem('falcon-x-tools-phone');
+        if (toolsPhoneLS) {
+            const toolsP = JSON.parse(toolsPhoneLS);
+            software = findInArray(toolsP, softwareId);
+        }
+    }
+    
     // Fallback to data.js arrays
     if (!software && typeof windowsSoftware !== 'undefined') {
         software = findInArray(windowsSoftware, softwareId);
@@ -592,6 +600,10 @@ function downloadSoftware(softwareId) {
     
     if (!software && typeof frpApps !== 'undefined') {
         software = findInArray(frpApps, softwareId);
+    }
+    
+    if (!software && typeof toolsPhoneApps !== 'undefined') {
+        software = findInArray(toolsPhoneApps, softwareId);
     }
     
     if (software) {
@@ -1220,6 +1232,12 @@ function findAppById(appId) {
         if (app) return app;
     }
     
+    const toolsPhoneLS = localStorage.getItem('falcon-x-tools-phone');
+    if (toolsPhoneLS) {
+        const app = findInArray(JSON.parse(toolsPhoneLS), appId);
+        if (app) return app;
+    }
+    
     // Fallback to data.js arrays
     if (typeof windowsSoftware !== 'undefined') {
         const app = findInArray(windowsSoftware, appId);
@@ -1238,6 +1256,11 @@ function findAppById(appId) {
     
     if (typeof frpApps !== 'undefined') {
         const app = findInArray(frpApps, appId);
+        if (app) return app;
+    }
+    
+    if (typeof toolsPhoneApps !== 'undefined') {
+        const app = findInArray(toolsPhoneApps, appId);
         if (app) return app;
     }
     
@@ -1484,6 +1507,8 @@ function showToolsPhoneContent() {
     if (overlay && content) {
         overlay.style.display = 'none';
         content.style.display = 'block';
+        // Show warning after successful login
+        showFrpWarning();
     }
 }
 
