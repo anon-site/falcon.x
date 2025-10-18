@@ -41,6 +41,10 @@
                 <i class="fas fa-mobile-alt"></i>
                 <span class="menu-text">FRP Apps</span>
             </a>
+            <a href="#tools-phone" class="menu-item" data-page="tools-phone">
+                <i class="fas fa-tools"></i>
+                <span class="menu-text">Tools Phone</span>
+            </a>
             <a href="#about" class="menu-item" data-page="about">
                 <i class="fas fa-info-circle"></i>
                 <span class="menu-text">About Us</span>
@@ -238,6 +242,68 @@
                 
                 <div class="software-grid" id="frpApps">
                     <!-- FRP apps will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- Tools Phone Page -->
+            <section id="tools-phone" class="page">
+                <!-- Password Protection Overlay -->
+                <div id="toolsPhonePasswordOverlay" class="password-overlay">
+                    <div class="password-box">
+                        <div class="password-header">
+                            <i class="fas fa-lock"></i>
+                            <h2>Protected Content</h2>
+                            <p>Please enter password to access Tools Phone</p>
+                        </div>
+                        <form id="toolsPhonePasswordForm" onsubmit="checkToolsPhonePassword(event)">
+                            <div class="password-input-group">
+                                <input type="password" id="toolsPhonePasswordInput" placeholder="Enter password" required autocomplete="off">
+                                <button type="button" onclick="toggleToolsPhonePasswordVisibility()" class="toggle-password-btn">
+                                    <i class="fas fa-eye" id="toolsPhonePasswordToggleIcon"></i>
+                                </button>
+                            </div>
+                            <div class="remember-me-group">
+                                <label>
+                                    <input type="checkbox" id="toolsPhoneRememberMe">
+                                    <span>Remember me</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-unlock"></i> Unlock
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Actual Page Content -->
+                <div id="toolsPhoneContent" class="page-content-protected" style="display: none;">
+                    <div class="page-header" style="position: relative;">
+                        <h1 class="page-title">Tools Phone</h1>
+                        <p class="page-subtitle">iCloud Bypass, Google Account & Android Lock Removal Tools</p>
+                        <button class="tools-phone-logout-btn" onclick="logoutToolsPhone()" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="toolsPhoneSearch" placeholder="Search tools...">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-category="all">All</button>
+                            <button class="filter-btn" data-category="icloud">iCloud Bypass</button>
+                            <button class="filter-btn" data-category="google">Google Account</button>
+                            <button class="filter-btn" data-category="samsung">Samsung</button>
+                            <button class="filter-btn" data-category="xiaomi">Xiaomi</button>
+                            <button class="filter-btn" data-category="universal">Universal</button>
+                        </div>
+                    </div>
+                    
+                    <div class="software-grid" id="toolsPhoneApps">
+                        <!-- Tools Phone apps will be loaded here -->
+                    </div>
                 </div>
             </section>
             

@@ -173,7 +173,20 @@ const androidApps = [
         category: 'tools',
         icon: 'https://media.infosec.exchange/infosec.exchange/media_attachments/files/109/483/691/260/285/976/original/c7166899de75f0e4.png',
         description: 'App Cloner lets you create and install multiple modified copies of Android apps so you can run several accounts, tweak behavior, and protect privacy.',
-        fullDescription: 'App Cloner is a tool for Android that creates cloned instances of installed apps. Each clone is an independent install so you can run multiple accounts (for example two WhatsApp or Facebook logins) on the same device. In addition to simple cloning, App Cloner’s premium/VIP options add many modding features: change app name and icon, remove or disable permissions, prevent background auto-start, block analytics/ads, force a fresh data directory, spoof device identifiers, limit network access, and apply UI or behavior tweaks. Premium unlocks extra cloning options, more simultaneous clones, and advanced modifications not available in the free/basic edition. Cloned apps are installed separately and can be removed without affecting the original app.',
+        fullDescription: 'App Cloner is a tool for Android that creates cloned instances of installed apps. Each clone is an independent install so you can run multiple accounts (for example two WhatsApp or Facebook logins) on the same device. In addition to simple cloning, App Cloner's premium/VIP options add many modding features: change app name and icon, remove or disable permissions, prevent background auto-start, block analytics/ads, force a fresh data directory, spoof device identifiers, limit network access, and apply UI or behavior tweaks. Premium unlocks extra cloning options, more simultaneous clones, and advanced modifications not available in the free/basic edition. Cloned apps are signed with their own certificates and do not replace the original app.',
+        size: '12.3 MB',
+        downloadLink: 'https://www.mediafire.com/file/example/app-cloner.apk',
+        isModified: true,
+        screenshots: [],
+        features: []
+    }
+];
+
+// ===== Tools Phone Apps Data =====
+// برامج وأدوات تخطي الايكلود وحسابات جوجل وحسابات أجهزة الأندرويد
+const toolsPhoneApps = [];
+
+// ===== FRP Tools Data
         size: '21.3',
         downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
         originalDownloadLink: 'https://appcloner.app/',
@@ -212,7 +225,7 @@ const androidApps = [
     }
 ];
 
-// ===== FRP Tools Data =====
+// ===== FRP Tools Data (PC Software) =====
 const frpTools = [
     {
         id: 1760618652737.6975,

@@ -53,7 +53,8 @@ function initializeStorageListener() {
                 document.getElementById('windowsSoftware'),
                 document.getElementById('androidApps'),
                 document.getElementById('frpTools'),
-                document.getElementById('frpApps')
+                document.getElementById('frpApps'),
+                document.getElementById('toolsPhoneApps')
             ];
             
             containers.forEach(container => {
@@ -250,6 +251,11 @@ function navigateToPage(pageId, pushState = true) {
     if (pageId === 'frp' || pageId === 'frp-apps') {
         showFrpWarning();
     }
+    
+    // Check Tools Phone password
+    if (pageId === 'tools-phone') {
+        checkToolsPhoneAccess();
+    }
 }
 
 function showPage(pageId) {
@@ -419,6 +425,13 @@ async function loadSoftwareData() {
             const frpAppsData = getDataFromStorage('frp-apps-apps', frpApps);
             frpAppsContainer.innerHTML = frpAppsData.map(app => createSoftwareCard(app)).join('');
         }
+        
+        // Load Tools Phone apps
+        const toolsPhoneContainer = document.getElementById('toolsPhoneApps');
+        if (toolsPhoneContainer) {
+            const toolsPhoneData = getDataFromStorage('tools-phone-apps', toolsPhoneApps);
+            toolsPhoneContainer.innerHTML = toolsPhoneData.map(app => createSoftwareCard(app)).join('');
+        }
     } catch (error) {
         console.error('Error loading software data:', error);
     }
@@ -432,7 +445,8 @@ function getDataFromStorage(storageKey, fallbackData) {
             'windows-apps': 'falcon-x-windows-apps',
             'android-apps': 'falcon-x-android-apps',
             'frp-tools-apps': 'falcon-x-frp-tools',
-            'frp-apps-apps': 'falcon-x-frp-apps'
+            'frp-apps-apps': 'falcon-x-frp-apps',
+            'tools-phone-apps': 'falcon-x-tools-phone'
         };
         
         const localStorageKey = localStorageKeyMap[storageKey];
@@ -1437,6 +1451,108 @@ function closeFrpWarning() {
     }
 }
 
+// ===== Tools Phone Password Protection =====
+const TOOLS_PHONE_PASSWORD = 'FalconX2025'; // يمكن تغيير كلمة المرور من هنا
+
+function checkToolsPhoneAccess() {
+    // Check if password is remembered
+    const isRemembered = localStorage.getItem('toolsPhoneAccessGranted');
+    
+    if (isRemembered === 'true') {
+        // Show content directly
+        showToolsPhoneContent();
+    } else {
+        // Show password overlay
+        showToolsPhonePasswordOverlay();
+    }
+}
+
+function showToolsPhonePasswordOverlay() {
+    const overlay = document.getElementById('toolsPhonePasswordOverlay');
+    const content = document.getElementById('toolsPhoneContent');
+    
+    if (overlay && content) {
+        overlay.style.display = 'flex';
+        content.style.display = 'none';
+    }
+}
+
+function showToolsPhoneContent() {
+    const overlay = document.getElementById('toolsPhonePasswordOverlay');
+    const content = document.getElementById('toolsPhoneContent');
+    
+    if (overlay && content) {
+        overlay.style.display = 'none';
+        content.style.display = 'block';
+    }
+}
+
+function checkToolsPhonePassword(event) {
+    event.preventDefault();
+    
+    const passwordInput = document.getElementById('toolsPhonePasswordInput');
+    const rememberMe = document.getElementById('toolsPhoneRememberMe');
+    const enteredPassword = passwordInput.value;
+    
+    if (enteredPassword === TOOLS_PHONE_PASSWORD) {
+        // Password correct
+        if (rememberMe.checked) {
+            localStorage.setItem('toolsPhoneAccessGranted', 'true');
+        }
+        
+        showToolsPhoneContent();
+        passwordInput.value = '';
+        showToast('Access granted! Welcome to Tools Phone', 'success');
+    } else {
+        // Password incorrect
+        passwordInput.value = '';
+        passwordInput.classList.add('shake');
+        setTimeout(() => passwordInput.classList.remove('shake'), 500);
+        showToast('Incorrect password. Please try again.', 'error');
+    }
+    
+    return false;
+}
+
+function toggleToolsPhonePasswordVisibility() {
+    const passwordInput = document.getElementById('toolsPhonePasswordInput');
+    const toggleIcon = document.getElementById('toolsPhonePasswordToggleIcon');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+
+function logoutToolsPhone() {
+    if (confirm('هل تريد تسجيل الخروج من Tools Phone؟ سيتم طلب كلمة المرور مرة أخرى.')) {
+        // Remove the saved access from localStorage
+        localStorage.removeItem('toolsPhoneAccessGranted');
+        
+        // Show password overlay again
+        showToolsPhonePasswordOverlay();
+        
+        // Clear the password input
+        const passwordInput = document.getElementById('toolsPhonePasswordInput');
+        if (passwordInput) {
+            passwordInput.value = '';
+        }
+        
+        // Uncheck remember me
+        const rememberMe = document.getElementById('toolsPhoneRememberMe');
+        if (rememberMe) {
+            rememberMe.checked = false;
+        }
+        
+        showToast('تم تسجيل الخروج بنجاح', 'success');
+    }
+}
+
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
 window.downloadSoftware = downloadSoftware;
@@ -1451,3 +1567,6 @@ window.prevImage = prevImage;
 window.closeFrpWarning = closeFrpWarning;
 window.downloadOriginal = downloadOriginal;
 window.downloadModified = downloadModified;
+window.checkToolsPhonePassword = checkToolsPhonePassword;
+window.toggleToolsPhonePasswordVisibility = toggleToolsPhonePasswordVisibility;
+window.logoutToolsPhone = logoutToolsPhone;

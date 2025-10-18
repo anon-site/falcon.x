@@ -111,6 +111,7 @@ function syncToGitHub() {
     const androidApps = getAllApps('android');
     const frpTools = getAllApps('frp-tools');
     const frpApps = getAllApps('frp-apps');
+    const toolsPhone = getAllApps('tools-phone');
     
     // Get settings from localStorage
     const siteSettings = JSON.parse(localStorage.getItem('siteSettings')) || getDefaultSettings();
@@ -120,7 +121,7 @@ function syncToGitHub() {
     
     // Save both data.js and settings.json
     Promise.all([
-        githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
+        githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps, toolsPhone),
         githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
     ])
         .then(() => {
@@ -152,6 +153,7 @@ function manualSaveToGitHub() {
         const androidApps = getAllApps('android');
         const frpTools = getAllApps('frp-tools');
         const frpApps = getAllApps('frp-apps');
+        const toolsPhone = getAllApps('tools-phone');
         
         // Get settings from localStorage
         const siteSettings = JSON.parse(localStorage.getItem('siteSettings')) || getDefaultSettings();
@@ -161,7 +163,7 @@ function manualSaveToGitHub() {
         
         // Save both data.js and settings.json
         Promise.all([
-            githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
+            githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps, toolsPhone),
             githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
         ])
             .then(() => {
@@ -270,7 +272,8 @@ const CATEGORIES = {
     windows: ['productivity', 'security', 'multimedia', 'utilities'],
     android: ['tools', 'social', 'games', 'customization'],
     'frp-tools': ['samsung', 'xiaomi', 'oppo', 'universal'],
-    'frp-apps': ['samsung', 'xiaomi', 'huawei', 'oppo', 'realme', 'universal']
+    'frp-apps': ['samsung', 'xiaomi', 'huawei', 'oppo', 'realme', 'universal'],
+    'tools-phone': ['icloud', 'google', 'samsung', 'xiaomi', 'universal']
 };
 
 // In-memory storage for apps
@@ -278,7 +281,8 @@ let appsData = {
     windows: [],
     android: [],
     'frp-tools': [],
-    'frp-apps': []
+    'frp-apps': [],
+    'tools-phone': []
 };
 
 let currentAppType = 'windows';
@@ -330,6 +334,7 @@ function saveToLocalStorage() {
         localStorage.setItem('falcon-x-android-apps', JSON.stringify(appsData.android));
         localStorage.setItem('falcon-x-frp-tools', JSON.stringify(appsData['frp-tools']));
         localStorage.setItem('falcon-x-frp-apps', JSON.stringify(appsData['frp-apps']));
+        localStorage.setItem('falcon-x-tools-phone', JSON.stringify(appsData['tools-phone']));
         
         // Set a timestamp to track last update
         localStorage.setItem('falcon-x-last-update', Date.now().toString());
@@ -351,6 +356,7 @@ function loadFromLocalStorage() {
         const android = localStorage.getItem('falcon-x-android-apps');
         const frpTools = localStorage.getItem('falcon-x-frp-tools');
         const frpApps = localStorage.getItem('falcon-x-frp-apps');
+        const toolsPhone = localStorage.getItem('falcon-x-tools-phone');
         
         // Helper function to add lastUpdated if missing
         const addTimestampIfMissing = (apps) => {
@@ -366,6 +372,7 @@ function loadFromLocalStorage() {
         if (android) appsData.android = addTimestampIfMissing(JSON.parse(android));
         if (frpTools) appsData['frp-tools'] = addTimestampIfMissing(JSON.parse(frpTools));
         if (frpApps) appsData['frp-apps'] = addTimestampIfMissing(JSON.parse(frpApps));
+        if (toolsPhone) appsData['tools-phone'] = addTimestampIfMissing(JSON.parse(toolsPhone));
         
         console.log('✅ Data loaded from localStorage');
         return true;
@@ -392,7 +399,8 @@ function switchTab(type) {
         if ((type === 'windows' && index === 0) ||
             (type === 'android' && index === 1) ||
             (type === 'frp-tools' && index === 2) ||
-            (type === 'frp-apps' && index === 3)) {
+            (type === 'frp-apps' && index === 3) ||
+            (type === 'tools-phone' && index === 4)) {
             btn.classList.add('active');
         }
     });
@@ -483,16 +491,18 @@ function openAppModal(type, appId = null) {
         windows: 'برنامج Windows',
         android: 'تطبيق Android',
         'frp-tools': 'أداة FRP',
-        'frp-apps': 'تطبيق FRP'
+        'frp-apps': 'تطبيق FRP',
+        'tools-phone': 'أداة Tools Phone'
     };
     
     document.getElementById('modalTitle').textContent = appId 
         ? `تعديل ${titles[type]}` 
         : `إضافة ${titles[type]} جديد`;
     
-    // Populate categories
+    // Populate categories from localStorage
+    const categories = loadCategoriesFromStorage();
     categorySelect.innerHTML = '<option value="">اختر الفئة</option>';
-    CATEGORIES[type].forEach(cat => {
+    (categories[type] || []).forEach(cat => {
         categorySelect.innerHTML += `<option value="${cat}">${cat}</option>`;
     });
     
@@ -1009,7 +1019,8 @@ function reimportFromDataJS() {
             windows: [],
             android: [],
             'frp-tools': [],
-            'frp-apps': []
+            'frp-apps': [],
+            'tools-phone': []
         };
         
         importFromDataJS();
@@ -1101,6 +1112,25 @@ function importFromDataJS() {
             features: item.features || []
         }));
     }
+    
+    // Import Tools Phone Apps
+    if (typeof toolsPhoneApps !== 'undefined' && appsData['tools-phone'].length === 0) {
+        appsData['tools-phone'] = toolsPhoneApps.map(item => ({
+            id: item.id || (Date.now() + Math.random()),
+            name: item.name,
+            category: item.category,
+            version: item.version,
+            size: item.size,
+            description: item.description,
+            fullDescription: item.fullDescription || '',
+            icon: item.icon || 'https://via.placeholder.com/64',
+            downloadLink: item.downloadUrl || item.downloadLink,
+            originalDownloadLink: item.originalDownloadLink || '',
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            features: item.features || []
+        }));
+    }
 }
 
 // ============ Import File Handler ============
@@ -1129,7 +1159,8 @@ function handleImportFile(event) {
                 windows: [],
                 android: [],
                 'frp-tools': [],
-                'frp-apps': []
+                'frp-apps': [],
+                'tools-phone': []
             };
             
             // Import the new data
@@ -1310,11 +1341,17 @@ function updateDashboardStats() {
     const androidApps = appsData.android || [];
     const frpTools = appsData['frp-tools'] || [];
     const frpApps = appsData['frp-apps'] || [];
+    const toolsPhone = appsData['tools-phone'] || [];
     
     document.getElementById('windowsCount').textContent = windowsApps.length;
     document.getElementById('androidCount').textContent = androidApps.length;
     document.getElementById('frpToolsCount').textContent = frpTools.length;
     document.getElementById('frpAppsCount').textContent = frpApps.length;
+    
+    const toolsPhoneCountEl = document.getElementById('toolsPhoneCount');
+    if (toolsPhoneCountEl) {
+        toolsPhoneCountEl.textContent = toolsPhone.length;
+    }
 }
 
 // ============ Initialize ============
@@ -1336,7 +1373,8 @@ window.addEventListener('DOMContentLoaded', async function() {
         (appsData.windows.length === 0 && 
          appsData.android.length === 0 && 
          appsData['frp-tools'].length === 0 && 
-         appsData['frp-apps'].length === 0)) {
+         appsData['frp-apps'].length === 0 &&
+         appsData['tools-phone'].length === 0)) {
         console.log('📥 Importing from data.js...');
         importFromDataJS();
         // Save imported data to localStorage
@@ -1360,7 +1398,201 @@ window.addEventListener('DOMContentLoaded', async function() {
     loadSiteSettings();
     loadColors();
     updateDashboardStats();
+    loadCategories('windows');
     
     // Modals will only close via X button or Cancel button
     // Outside click is disabled
 });
+
+// ============ Categories Management ============
+
+let currentCategoryType = 'windows';
+
+// Load categories from localStorage
+function loadCategoriesFromStorage() {
+    try {
+        const stored = localStorage.getItem('falcon-x-categories');
+        if (stored) {
+            return JSON.parse(stored);
+        }
+    } catch (error) {
+        console.error('Error loading categories:', error);
+    }
+    return JSON.parse(JSON.stringify(CATEGORIES)); // Deep copy of default
+}
+
+// Save categories to localStorage
+function saveCategoriesToStorage(categories) {
+    try {
+        localStorage.setItem('falcon-x-categories', JSON.stringify(categories));
+        // Update CATEGORIES object
+        Object.assign(CATEGORIES, categories);
+        console.log('✅ Categories saved to localStorage');
+        return true;
+    } catch (error) {
+        console.error('Error saving categories:', error);
+        return false;
+    }
+}
+
+// Switch category tab
+function switchCategoryTab(type) {
+    currentCategoryType = type;
+    
+    // Update tab buttons
+    const section = document.getElementById('categories-management');
+    const tabButtons = section.querySelectorAll('.tab-btn');
+    tabButtons.forEach((btn, index) => {
+        btn.classList.remove('active');
+        if ((type === 'windows' && index === 0) ||
+            (type === 'android' && index === 1) ||
+            (type === 'frp-tools' && index === 2) ||
+            (type === 'frp-apps' && index === 3) ||
+            (type === 'tools-phone' && index === 4)) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Update tab content
+    section.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+    });
+    section.querySelector(`#${type}-cat-tab`).classList.add('active');
+    
+    loadCategories(type);
+}
+
+// Load categories for type
+function loadCategories(type) {
+    const categories = loadCategoriesFromStorage();
+    const categoriesList = categories[type] || [];
+    const container = document.getElementById(`${type}-cat-list`);
+    
+    if (categoriesList.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>لا توجد فئات بعد</p></div>';
+        return;
+    }
+    
+    let html = '';
+    categoriesList.forEach(cat => {
+        html += `
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="category-info">
+                    <h3>${cat}</h3>
+                    <p class="category-key">${cat}</p>
+                </div>
+                <div class="category-actions">
+                    <button class="btn-icon btn-delete" onclick="deleteCategory('${type}', '${cat}')" title="حذف">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// Open category modal
+function openCategoryModal(type) {
+    currentCategoryType = type;
+    const modal = document.getElementById('categoryModal');
+    const form = document.getElementById('categoryForm');
+    
+    const titles = {
+        windows: 'برامج Windows',
+        android: 'تطبيقات Android',
+        'frp-tools': 'أدوات FRP',
+        'frp-apps': 'تطبيقات FRP',
+        'tools-phone': 'أدوات Tools Phone'
+    };
+    
+    document.getElementById('categoryModalTitle').textContent = `إضافة فئة جديدة - ${titles[type]}`;
+    document.getElementById('categoryType').value = type;
+    document.getElementById('oldCategoryValue').value = '';
+    form.reset();
+    
+    modal.classList.add('active');
+}
+
+// Close category modal
+function closeCategoryModal() {
+    const modal = document.getElementById('categoryModal');
+    modal.classList.remove('active');
+}
+
+// Save category form
+function saveCategoryForm(event) {
+    event.preventDefault();
+    
+    const type = document.getElementById('categoryType').value;
+    const categoryName = document.getElementById('categoryName').value.trim().toLowerCase().replace(/\s+/g, '-');
+    
+    // Validate format
+    if (!/^[a-z0-9-]+$/.test(categoryName)) {
+        showToast('اسم الفئة يجب أن يحتوي على أحرف إنجليزية وأرقام وشرطة فقط', 'error');
+        return;
+    }
+    
+    const categories = loadCategoriesFromStorage();
+    
+    // Check if category already exists
+    if (categories[type].includes(categoryName)) {
+        showToast('هذه الفئة موجودة بالفعل', 'error');
+        return;
+    }
+    
+    // Add new category
+    categories[type].push(categoryName);
+    
+    // Save to storage
+    if (saveCategoriesToStorage(categories)) {
+        closeCategoryModal();
+        loadCategories(type);
+        showToast('تم إضافة الفئة بنجاح', 'success');
+    } else {
+        showToast('فشل حفظ الفئة', 'error');
+    }
+}
+
+// Delete category
+function deleteCategory(type, categoryName) {
+    // Check if any apps use this category
+    const apps = appsData[type] || [];
+    const appsUsingCategory = apps.filter(app => app.category === categoryName);
+    
+    if (appsUsingCategory.length > 0) {
+        const message = `لا يمكن حذف هذه الفئة لأنها مستخدمة في ${appsUsingCategory.length} برنامج/تطبيق.\nهل تريد حذفها وتحديث البرامج إلى فئة "general"؟`;
+        if (!confirm(message)) {
+            return;
+        }
+        // Update apps to use 'general' category
+        apps.forEach(app => {
+            if (app.category === categoryName) {
+                app.category = 'general';
+            }
+        });
+        appsData[type] = apps;
+        saveToLocalStorage();
+    } else {
+        if (!confirm(`هل أنت متأكد من حذف فئة "${categoryName}"؟`)) {
+            return;
+        }
+    }
+    
+    const categories = loadCategoriesFromStorage();
+    categories[type] = categories[type].filter(cat => cat !== categoryName);
+    
+    if (saveCategoriesToStorage(categories)) {
+        loadCategories(type);
+        if (appsUsingCategory.length > 0) {
+            loadApps(type);
+        }
+        showToast('تم حذف الفئة بنجاح', 'success');
+    } else {
+        showToast('فشل حذف الفئة', 'error');
+    }
+}

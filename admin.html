@@ -44,6 +44,10 @@
                 <i class="fas fa-images"></i>
                 <span>إدارة الصور</span>
             </a>
+            <a href="#categories-management" class="nav-item" onclick="showSection('categories-management')">
+                <i class="fas fa-tags"></i>
+                <span>إدارة الفئات</span>
+            </a>
             <a href="#github-settings" class="nav-item" onclick="showSection('github-settings')">
                 <i class="fab fa-github"></i>
                 <span>إعدادات GitHub</span>
@@ -136,6 +140,16 @@
                             <p>تطبيقات FRP</p>
                         </div>
                     </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="toolsPhoneCount">0</h3>
+                            <p>أدوات Tools Phone</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="quick-actions">
@@ -152,6 +166,10 @@
                         <button class="action-card" onclick="showSection('apps-management'); addNewApp('frp-tools')">
                             <i class="fas fa-unlock-alt"></i>
                             <span>إضافة أداة FRP</span>
+                        </button>
+                        <button class="action-card" onclick="showSection('apps-management'); addNewApp('tools-phone')">
+                            <i class="fas fa-tools"></i>
+                            <span>إضافة أداة Tools Phone</span>
                         </button>
                         <button class="action-card" onclick="showSection('site-settings')">
                             <i class="fas fa-cog"></i>
@@ -184,6 +202,7 @@
                     <button class="tab-btn" onclick="switchTab('android')">تطبيقات Android</button>
                     <button class="tab-btn" onclick="switchTab('frp-tools')">أدوات FRP</button>
                     <button class="tab-btn" onclick="switchTab('frp-apps')">تطبيقات FRP</button>
+                    <button class="tab-btn" onclick="switchTab('tools-phone')">أدوات Tools Phone</button>
                 </div>
                 
                 <div class="tab-content">
@@ -245,6 +264,21 @@
                             </div>
                         </div>
                         <div id="frp-apps-list" class="apps-table"></div>
+                    </div>
+                    
+                    <!-- Tools Phone Tab -->
+                    <div id="tools-phone-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openAppModal('tools-phone')">
+                                <i class="fas fa-plus"></i>
+                                إضافة أداة جديدة
+                            </button>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="بحث..." onkeyup="filterApps('tools-phone', this.value)">
+                            </div>
+                        </div>
+                        <div id="tools-phone-list" class="apps-table"></div>
                     </div>
                 </div>
             </section>
@@ -430,6 +464,81 @@
                             <i class="fas fa-upload"></i>
                             تغيير الأيقونة
                         </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Categories Management Section -->
+            <section id="categories-management" class="content-section">
+                <div class="section-header">
+                    <h2>إدارة الفئات</h2>
+                    <p style="color: #888; font-size: 0.9rem; margin-top: 0.5rem;">
+                        إدارة الفئات لجميع أنواع البرامج والتطبيقات
+                    </p>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchCategoryTab('windows')">برامج Windows</button>
+                    <button class="tab-btn" onclick="switchCategoryTab('android')">تطبيقات Android</button>
+                    <button class="tab-btn" onclick="switchCategoryTab('frp-tools')">أدوات FRP</button>
+                    <button class="tab-btn" onclick="switchCategoryTab('frp-apps')">تطبيقات FRP</button>
+                    <button class="tab-btn" onclick="switchCategoryTab('tools-phone')">أدوات Tools Phone</button>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- Windows Categories -->
+                    <div id="windows-cat-tab" class="tab-pane active">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openCategoryModal('windows')">
+                                <i class="fas fa-plus"></i>
+                                إضافة فئة جديدة
+                            </button>
+                        </div>
+                        <div id="windows-cat-list" class="categories-grid"></div>
+                    </div>
+                    
+                    <!-- Android Categories -->
+                    <div id="android-cat-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openCategoryModal('android')">
+                                <i class="fas fa-plus"></i>
+                                إضافة فئة جديدة
+                            </button>
+                        </div>
+                        <div id="android-cat-list" class="categories-grid"></div>
+                    </div>
+                    
+                    <!-- FRP Tools Categories -->
+                    <div id="frp-tools-cat-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openCategoryModal('frp-tools')">
+                                <i class="fas fa-plus"></i>
+                                إضافة فئة جديدة
+                            </button>
+                        </div>
+                        <div id="frp-tools-cat-list" class="categories-grid"></div>
+                    </div>
+                    
+                    <!-- FRP Apps Categories -->
+                    <div id="frp-apps-cat-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openCategoryModal('frp-apps')">
+                                <i class="fas fa-plus"></i>
+                                إضافة فئة جديدة
+                            </button>
+                        </div>
+                        <div id="frp-apps-cat-list" class="categories-grid"></div>
+                    </div>
+                    
+                    <!-- Tools Phone Categories -->
+                    <div id="tools-phone-cat-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openCategoryModal('tools-phone')">
+                                <i class="fas fa-plus"></i>
+                                إضافة فئة جديدة
+                            </button>
+                        </div>
+                        <div id="tools-phone-cat-list" class="categories-grid"></div>
                     </div>
                 </div>
             </section>
@@ -678,6 +787,45 @@
     </div>
     
     <div class="toast" id="toast"></div>
+    
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 id="categoryModalTitle">إضافة فئة جديدة</h2>
+                <button class="close-btn" onclick="closeCategoryModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="categoryForm" onsubmit="saveCategoryForm(event)">
+                <input type="hidden" id="categoryType">
+                <input type="hidden" id="oldCategoryValue">
+                
+                <div class="form-group">
+                    <label for="categoryName">اسم الفئة*</label>
+                    <input type="text" id="categoryName" required placeholder="مثال: productivity">
+                    <small style="color: #888; display: block; margin-top: 0.3rem;">استخدم الأحرف الإنجليزية والأرقام والشرطة فقط (بدون مسافات)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoryLabel">العنوان المعروض (اختياري)</label>
+                    <input type="text" id="categoryLabel" placeholder="مثال: الإنتاجية">
+                    <small style="color: #888; display: block; margin-top: 0.3rem;">إذا ترك فارغاً، سيتم استخدام اسم الفئة</small>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i>
+                        حفظ
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCategoryModal()">
+                        <i class="fas fa-times"></i>
+                        إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     
     <!-- Hidden file input for importing data.js -->
     <input type="file" id="importFile" accept=".js" style="display: none;" onchange="handleImportFile(event)">

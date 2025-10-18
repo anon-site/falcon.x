@@ -124,7 +124,7 @@ class GitHubAPI {
     }
 
     // Generate data.js content from current data
-    generateDataJsContent(windowsApps, androidApps, frpToolsApps, frpAppsApps) {
+    generateDataJsContent(windowsApps, androidApps, frpToolsApps, frpAppsApps, toolsPhoneApps = []) {
         let content = '// ===== Windows Software Data =====\n';
         content += 'const windowsSoftware = [\n';
         windowsApps.forEach((app, index) => {
@@ -212,32 +212,63 @@ class GitHubAPI {
         });
         content += '];\n\n';
 
-        content += '// ===== FRP Applications Data =====\n';
-        content += 'const frpApps = [\n';
+        content += '// ===== FRP Applications Data =====\\n';
+        content += 'const frpApps = [\\n';
         frpAppsApps.forEach((app, index) => {
-            content += '    {\n';
-            content += `        id: ${app.id},\n`;
-            content += `        name: '${this.escapeString(app.name)}',\n`;
-            content += `        version: '${this.escapeString(app.version)}',\n`;
-            content += `        category: '${app.category}',\n`;
-            content += `        icon: '${app.icon}',\n`;
-            content += `        description: '${this.escapeString(app.description)}',\n`;
+            content += '    {\\n';
+            content += `        id: ${app.id},\\n`;
+            content += `        name: '${this.escapeString(app.name)}',\\n`;
+            content += `        version: '${this.escapeString(app.version)}',\\n`;
+            content += `        category: '${app.category}',\\n`;
+            content += `        icon: '${app.icon}',\\n`;
+            content += `        description: '${this.escapeString(app.description)}',\\n`;
             if (app.fullDescription) {
-                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\\n`;
             }
-            content += `        size: '${app.size}',\n`;
-            content += `        downloadLink: '${app.downloadLink}',\n`;
+            content += `        size: '${app.size}',\\n`;
+            content += `        downloadLink: '${app.downloadLink}',\\n`;
             if (app.originalDownloadLink) {
-                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\\n`;
             }
             content += `        isModified: ${app.isModified}`;
             if (app.screenshots && app.screenshots.length > 0) {
-                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+                content += `,\\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
             }
             if (app.features && app.features.length > 0) {
-                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+                content += `,\\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
             }
-            content += `\n    }${index < frpAppsApps.length - 1 ? ',' : ''}\n`;
+            content += `\\n    }${index < frpAppsApps.length - 1 ? ',' : ''}\\n`;
+        });
+        content += '];\\n\\n';
+
+        // Tools Phone Apps
+        content += '// ===== Tools Phone Apps Data =====\\n';
+        content += '// برامج وأدوات تخطي الايكلود وحسابات جوجل وحسابات أجهزة الأندرويد\\n';
+        content += 'const toolsPhoneApps = [\\n';
+        toolsPhoneApps.forEach((app, index) => {
+            content += '    {\\n';
+            content += `        id: ${app.id},\\n`;
+            content += `        name: '${this.escapeString(app.name)}',\\n`;
+            content += `        version: '${this.escapeString(app.version)}',\\n`;
+            content += `        category: '${app.category}',\\n`;
+            content += `        icon: '${app.icon}',\\n`;
+            content += `        description: '${this.escapeString(app.description)}',\\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\\n`;
+            }
+            content += `        size: '${app.size}',\\n`;
+            content += `        downloadLink: '${app.downloadLink}',\\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\\n`;
+            }
+            content += `        isModified: ${app.isModified}`;
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            content += `\\n    }${index < toolsPhoneApps.length - 1 ? ',' : ''}\\n`;
         });
         content += '];';
 
@@ -255,8 +286,8 @@ class GitHubAPI {
     }
 
     // Save all data to GitHub
-    async saveAllDataToGitHub(windowsApps, androidApps, frpToolsApps, frpAppsApps) {
-        const content = this.generateDataJsContent(windowsApps, androidApps, frpToolsApps, frpAppsApps);
+    async saveAllDataToGitHub(windowsApps, androidApps, frpToolsApps, frpAppsApps, toolsPhoneApps = []) {
+        const content = this.generateDataJsContent(windowsApps, androidApps, frpToolsApps, frpAppsApps, toolsPhoneApps);
         return await this.updateFile('js/data.js', content, 'Update data.js from Admin Panel');
     }
 

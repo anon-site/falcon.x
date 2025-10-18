@@ -3298,6 +3298,264 @@ body.no-animations * {
     }
 }
 
+/* ===== Tools Phone Password Protection ===== */
+.password-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgba(10, 14, 26, 0.98) 0%, rgba(20, 24, 36, 0.98) 100%);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 2rem;
+}
+
+.password-box {
+    background: linear-gradient(135deg, #1e2746 0%, #141824 100%);
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(59, 130, 246, 0.2);
+    animation: passwordBoxSlideIn 0.5s ease-out;
+}
+
+@keyframes passwordBoxSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.password-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.password-header i {
+    font-size: 4rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    display: block;
+    animation: lockPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.8));
+    }
+}
+
+.password-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.password-header p {
+    font-size: 0.95rem;
+    color: #9ca3af;
+}
+
+.password-input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.password-input-group input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.password-input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.password-input-group input::placeholder {
+    color: #6b7280;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.toggle-password-btn:hover {
+    color: var(--primary-color);
+}
+
+.toggle-password-btn i {
+    font-size: 1.1rem;
+}
+
+.remember-me-group {
+    margin-bottom: 1.5rem;
+}
+
+.remember-me-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.remember-me-group label:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.remember-me-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.remember-me-group span {
+    color: #d1d5db;
+    font-size: 0.95rem;
+}
+
+.password-box .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.password-box .btn i {
+    font-size: 1.1rem;
+}
+
+.page-content-protected {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.password-input-group input.shake {
+    animation: shake 0.5s;
+    border-color: #ef4444 !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+/* Tools Phone Logout Button */
+.tools-phone-logout-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.tools-phone-logout-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.tools-phone-logout-btn i {
+    font-size: 1rem;
+}
+
+.tools-phone-logout-btn span {
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .password-box {
+        padding: 2rem 1.5rem;
+    }
+    
+    .password-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .password-header i {
+        font-size: 3rem;
+    }
+    
+    .tools-phone-logout-btn {
+        position: static;
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .page-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 /* ===== About Page Styles ===== */
 .about-hero {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
