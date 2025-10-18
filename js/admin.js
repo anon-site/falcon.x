@@ -812,7 +812,9 @@ function initNavForm() {
     
     if (isEditing) {
         const index = navItems.findIndex(n => n.id === parseInt(id));
-        navItems[index] = navData;
+        if (index !== -1) {
+            navItems[index] = navData;
+        }
     } else {
         navItems.push(navData);
     }
@@ -822,6 +824,16 @@ function initNavForm() {
     
     closeNavModal();
     loadNavigation();
+    
+    // Reload navigation on the main site
+    try {
+        if (typeof loadNavigationItems === 'function') {
+            loadNavigationItems();
+        }
+    } catch (e) {
+        console.log('Navigation reload not available');
+    }
+    
     showToast(isEditing ? 'تم التحديث محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات' : 'تمت الإضافة محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
     });
 }
@@ -1485,6 +1497,9 @@ function loadCategories(type) {
                     <p class="category-key">${cat}</p>
                 </div>
                 <div class="category-actions">
+                    <button class="btn-icon btn-edit" onclick="editCategory('${type}', '${cat}')" title="تعديل">
+                        <i class="fas fa-edit"></i>
+                    </button>
                     <button class="btn-icon btn-delete" onclick="deleteCategory('${type}', '${cat}')" title="حذف">
                         <i class="fas fa-trash"></i>
                     </button>
@@ -1497,7 +1512,7 @@ function loadCategories(type) {
 }
 
 // Open category modal
-function openCategoryModal(type) {
+function openCategoryModal(type, oldCategoryName = null) {
     currentCategoryType = type;
     const modal = document.getElementById('categoryModal');
     const form = document.getElementById('categoryForm');
@@ -1510,18 +1525,31 @@ function openCategoryModal(type) {
         'tools-phone': 'أدوات Tools Phone'
     };
     
-    document.getElementById('categoryModalTitle').textContent = `إضافة فئة جديدة - ${titles[type]}`;
-    document.getElementById('categoryType').value = type;
-    document.getElementById('oldCategoryValue').value = '';
-    form.reset();
+    if (oldCategoryName) {
+        // Editing mode
+        document.getElementById('categoryModalTitle').textContent = `تعديل فئة - ${titles[type]}`;
+        document.getElementById('categoryName').value = oldCategoryName;
+        document.getElementById('oldCategoryValue').value = oldCategoryName;
+    } else {
+        // Adding mode
+        document.getElementById('categoryModalTitle').textContent = `إضافة فئة جديدة - ${titles[type]}`;
+        document.getElementById('oldCategoryValue').value = '';
+        form.reset();
+    }
     
-    modal.classList.add('active');
+    document.getElementById('categoryType').value = type;
+    modal.style.display = 'flex';
 }
 
 // Close category modal
 function closeCategoryModal() {
     const modal = document.getElementById('categoryModal');
-    modal.classList.remove('active');
+    modal.style.display = 'none';
+}
+
+// Edit category
+function editCategory(type, oldCategoryName) {
+    openCategoryModal(type, oldCategoryName);
 }
 
 // Save category form
@@ -1529,7 +1557,9 @@ function saveCategoryForm(event) {
     event.preventDefault();
     
     const type = document.getElementById('categoryType').value;
-    const categoryName = document.getElementById('categoryName').value.trim().toLowerCase().replace(/\s+/g, '-');
+    const categoryName = document.getElementById('categoryName').value.trim().toLowerCase().replace(/\\s+/g, '-');
+    const oldCategoryValue = document.getElementById('oldCategoryValue').value;
+    const isEditing = oldCategoryValue !== '';
     
     // Validate format
     if (!/^[a-z0-9-]+$/.test(categoryName)) {
@@ -1539,22 +1569,53 @@ function saveCategoryForm(event) {
     
     const categories = loadCategoriesFromStorage();
     
-    // Check if category already exists
-    if (categories[type].includes(categoryName)) {
-        showToast('هذه الفئة موجودة بالفعل', 'error');
-        return;
-    }
-    
-    // Add new category
-    categories[type].push(categoryName);
-    
-    // Save to storage
-    if (saveCategoriesToStorage(categories)) {
-        closeCategoryModal();
-        loadCategories(type);
-        showToast('تم إضافة الفئة بنجاح', 'success');
+    if (isEditing) {
+        // Editing existing category
+        if (categoryName !== oldCategoryValue && categories[type].includes(categoryName)) {
+            showToast('هذه الفئة موجودة بالفعل', 'error');
+            return;
+        }
+        
+        // Replace old category with new one
+        const index = categories[type].indexOf(oldCategoryValue);
+        if (index !== -1) {
+            categories[type][index] = categoryName;
+        }
+        
+        // Update all apps using this category
+        const apps = appsData[type] || [];
+        apps.forEach(app => {
+            if (app.category === oldCategoryValue) {
+                app.category = categoryName;
+            }
+        });
+        appsData[type] = apps;
+        saveToLocalStorage();
+        
+        if (saveCategoriesToStorage(categories)) {
+            closeCategoryModal();
+            loadCategories(type);
+            loadApps(type);
+            showToast('تم تحديث الفئة بنجاح', 'success');
+        } else {
+            showToast('فشل حفظ الفئة', 'error');
+        }
     } else {
-        showToast('فشل حفظ الفئة', 'error');
+        // Adding new category
+        if (categories[type].includes(categoryName)) {
+            showToast('هذه الفئة موجودة بالفعل', 'error');
+            return;
+        }
+        
+        categories[type].push(categoryName);
+        
+        if (saveCategoriesToStorage(categories)) {
+            closeCategoryModal();
+            loadCategories(type);
+            showToast('تم إضافة الفئة بنجاح', 'success');
+        } else {
+            showToast('فشل حفظ الفئة', 'error');
+        }
     }
 }
 

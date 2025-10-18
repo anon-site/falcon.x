@@ -8,6 +8,7 @@ const pages = document.querySelectorAll('.page');
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', () => {
+    loadNavigationFromStorage(); // Load navigation items first
     initializeTheme();
     initializeSidebar();
     initializeNavigation();
@@ -20,6 +21,41 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeStorageListener();
 });
 
+// ===== Navigation Loading from Storage =====
+function loadNavigationFromStorage() {
+    const navigation = localStorage.getItem('navigation');
+    if (!navigation) return; // Use default hardcoded navigation
+    
+    try {
+        const navItems = JSON.parse(navigation);
+        const sidebarMenu = document.querySelector('.sidebar-menu');
+        if (!sidebarMenu) return;
+        
+        // Clear existing items
+        sidebarMenu.innerHTML = '';
+        
+        // Sort by order and filter active items
+        const activeItems = navItems.filter(item => item.active).sort((a, b) => a.order - b.order);
+        
+        // Add each navigation item
+        activeItems.forEach((item, index) => {
+            const menuItem = document.createElement('a');
+            menuItem.href = item.link;
+            menuItem.className = 'menu-item' + (index === 0 ? ' active' : '');
+            menuItem.setAttribute('data-page', item.link.replace('#', ''));
+            menuItem.innerHTML = `
+                <i class="${item.icon}"></i>
+                <span class="menu-text">${item.title}</span>
+            `;
+            sidebarMenu.appendChild(menuItem);
+        });
+        
+        console.log('✅ Navigation loaded from localStorage');
+    } catch (error) {
+        console.error('Error loading navigation:', error);
+    }
+}
+
 // ===== Storage Change Listener =====
 function initializeStorageListener() {
     // Store the last known update timestamp
@@ -28,8 +64,15 @@ function initializeStorageListener() {
     // Listen for storage changes from other tabs/windows (like admin panel)
     window.addEventListener('storage', (e) => {
         // Check if the changed key is one of our app data keys
-        if (e.key && (e.key.startsWith('falcon-x-') || e.key === null)) {
+        if (e.key && (e.key.startsWith('falcon-x-') || e.key === 'navigation' || e.key === null)) {
             console.log('🔄 Storage changed, reloading data...');
+            
+            // Reload navigation if it changed
+            if (e.key === 'navigation' || e.key === null) {
+                loadNavigationFromStorage();
+                initializeNavigation(); // Re-initialize navigation events
+            }
+            
             loadSoftwareData();
             
             // Update modal if it's open
