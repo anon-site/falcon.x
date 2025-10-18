@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeNavigation();
     initializeStatCounters();
     initializeSearch();
-    loadDynamicCategories();
     initializeFilters();
     loadSoftwareData();
     initializeCustomCursor();
@@ -389,55 +388,6 @@ function applyFilter(page, category) {
     });
 }
 
-
-// ===== Load Dynamic Categories =====
-function loadDynamicCategories() {
-    // Load categories from localStorage and populate filter buttons
-    const categoryTypes = {
-        'windows': 'windowsFilters',
-        'android': 'androidFilters',
-        'frp-tools': 'frpToolsFilters',
-        'frp-apps': 'frpAppsFilters'
-    };
-    
-    Object.keys(categoryTypes).forEach(type => {
-        const containerId = categoryTypes[type];
-        const container = document.getElementById(containerId);
-        
-        if (!container) return;
-        
-        // Get categories from localStorage
-        const storageKey = `falcon-x-categories-${type}`;
-        const stored = localStorage.getItem(storageKey);
-        
-        let categories = [];
-        if (stored) {
-            try {
-                categories = JSON.parse(stored);
-            } catch (e) {
-                console.error(`Error parsing categories for ${type}:`, e);
-            }
-        }
-        
-        // Clear existing buttons except "All"
-        const existingButtons = container.querySelectorAll('.filter-btn:not([data-category="all"])');
-        existingButtons.forEach(btn => btn.remove());
-        
-        // Add category buttons
-        categories.forEach(cat => {
-            const button = document.createElement('button');
-            button.className = 'filter-btn';
-            button.setAttribute('data-category', cat.key);
-            button.textContent = cat.label;
-            if (cat.icon) {
-                button.innerHTML = `<i class="${cat.icon}"></i> ${cat.label}`;
-            }
-            container.appendChild(button);
-        });
-    });
-    
-    console.log('✅ Dynamic categories loaded');
-}
 
 // ===== Load Software Data =====
 async function loadSoftwareData() {

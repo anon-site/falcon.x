@@ -86,35 +86,6 @@ const windowsSoftware = [
         isModified: true,
         screenshots: ['https://www.dignited.com/wp-content/uploads/2022/08/WinRAR_.png', 'https://www.win-rar.com/uploads/pics/open-zip-files-extract-files_08.png', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoZDj2T37WzE_HWvIIO7sJI1ZlQfeuZzag5A-1E7i-zOowbEiAOLa-IT0mTc258QiSLwPXNje9g96S9oSqkz6_XD3W0b0uJ8bdKLBg3ImnYBxATLgZYPWHOKDeAlzxT6KTIbeL8nDXClnOlr62puxTt5u_hFq9q_dGN8EahSIJDnyANwUR35AhfRWYzi0/s1600/Echo%20Chamber%20(2)%20(1).webp'],
         features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.']
-    },
-    {
-        id: 1760780124868,
-        name: 'FastStone Capture',
-        version: '10.9',
-        category: 'utilities',
-        icon: 'https://iili.io/KvtMa0Q.png',
-        description: 'FastStone Capture is a powerful, lightweight screen-capture and video-recording tool for Windows, allowing you to capture anything on the screen (windows, objects, full screen, freehand regions, scrolling windows/web pages) and annotate/edit the results.',
-        fullDescription: 'FastStone Capture is a full-featured screenshot and screen-recording application for Windows that enables you to capture nearly everything you see on the screen — whether it’s a window, a menu, a full screen, a freehand region or a fixed region, even a scrolling web page or window. It also supports screen recording of activities (including mouse movements, clicks, audio from microphone, webcam in newer versions) into a video file. After capture you can send outputs to editor, clipboard, file, printer, e-mail, Word/PowerPoint document or upload to website. It includes a built-in image editor that lets you annotate (text, arrows, highlights, watermarks, shapes), apply effects (drop shadow, torn edge, fade edge), resize, crop, rotate, sharpen, adjust colours and more. It supports saving images in multiple formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF) and videos in WMV format (and possibly MP4 in latest versions) and comes with global hotkeys, automatic file name generation, support for external editors, colour-picker, screen magnifier, screen ruler and other tools',
-        size: '8.49 MB',
-        downloadLink: '#',
-        originalDownloadLink: 'https://www.mediafire.com/file/ed3wps0320yr2uu/FastStone+Capture+v10.9.rar/file',
-        isModified: false,
-        screenshots: ['https://faststone-capture.fileion.com/curator/software/articles/featued-images/2025/08/faststone-capture-keyboard-shortcuts.webp?s=b3f309af83b4cfa8662ffb0fca48439a', 'https://blackjoomla.com/media/k2/items/cache/05a977f75c8bd421cf67e35678973f79_XL.jpg', 'https://faststone-capture.fileion.com/storage/software/screenshots/2025/07/faststone-capture-1.png'],
-        features: ['Capture full screen, active window, object, menu, rectangular/freehand/fixed region, scrolling windows/web pages.', 'Record screen activities including on-screen changes, microphone audio, mouse movements/clicks and webcam (in recent versions).', 'Built-in editor: annotate images with text, arrowed lines, highlights, watermarks, shapes; apply effects (drop shadow, torn-edge, fade-edge).', 'Resize, crop, rotate, sharpen images; adjust brightness, colour, etc.', 'Save images in many formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF).', 'Built-in video editor allowing trimming, zoom effects, convert video to animated GIF (some versions) …', 'Support for global hotkeys, automatic filename generation, external editor integration, colour picker, screen magnifier, screen crosshair, screen ruler.', 'Lightweight, fast, efficient in system resources.']
-    },
-    {
-        id: 1760780470022,
-        name: 'IObit Driver Booster Silent',
-        version: '8.3',
-        category: 'utilities',
-        icon: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHM0OYfiFeMI2p9MWie0CvL99U4GA1gf6_kayTt_kBblFwHwo8BW8JXlqfnYxKPmmBR_lQTW0utfoTf1PCUV5Nj40Jn2ThHcxw5xDAwd6lbjK62aWliqpTTqG0qoBQHnTpPnFxjf3.9b74rW6xhvE7eA-&format=source',
-        description: 'IObit Driver Booster Silent is a powerful tool designed to automatically detect, download, and install the latest drivers for your computer in silent mode, without user interaction.',
-        fullDescription: 'IObit Driver Booster Silent is an advanced driver updating utility that helps keep your system stable and optimized. It automatically scans your PC for outdated, missing, or faulty drivers and updates them with one click. The “Silent” version performs all actions quietly in the background without showing notifications or requiring confirmation, making it ideal for technicians or users who prefer a fully automated process. It also helps improve gaming performance, fix system crashes, and ensure hardware compatibility.',
-        size: '28.8 MB',
-        downloadLink: 'https://www.mediafire.com/file/vfdbzjb0jpni92f/IObit_Driver_Booster_silent.rar/file',
-        isModified: true,
-        screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
-        features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process']
     }
 ];
 
@@ -126,7 +97,7 @@ const androidApps = [
         version: '2.14.5',
         category: 'tools',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Mt_Manager_Logo.png',
-        description: 'A file management application with many features.',
+        description: 'MT Manager is a powerful Android file manager and APK/code editor that lets users modify, translate, and rebuild Android apps directly on their device combining file management, text editing, and APK reverse-engineering tools in one app.',
         fullDescription: 'MT Manager is a powerful Android app used for file management and APK editing. It allows users to browse, copy, move, and modify files, as well as decompile and recompile APK packages. With root access, it can also manage system files. MT Manager is widely used by developers and advanced users for app modification, translation, and file analysis.',
         size: '22.41 MB',
         downloadLink: 'https://www.mediafire.com/file/6cz3vrmslc87g0x/MT_Manager_2.14.5.rar/file',
@@ -139,7 +110,7 @@ const androidApps = [
         id: 1760627051300,
         name: 'SSVid',
         version: '1.4.0',
-        category: 'tools',
+        category: 'general',
         icon: 'https://play-lh.googleusercontent.com/StTPXVol1bhGB96HxBqfoXy7B40r4bl1-4J-Z6LiJ18eGA8JYb7GXCRKs2ywwewVhnbLiDQERYF0SfstvGnn=w600-h300-pc0xffffff-pd',
         description: 'SSVid is a free Android application that allows users to search, stream, and download videos and audio from various platforms such as YouTube and Facebook.',
         fullDescription: 'SSVid is an all-in-one media downloader for Android devices. It enables users to search for content, stream it instantly, or download it for offline enjoyment. The app supports multiple quality options for streaming and downloading, offers background playback support, and allows users to create and manage playlists. It provides a clean, ad-free experience, making it an excellent choice for media enthusiasts.',
@@ -186,10 +157,14 @@ const androidApps = [
         version: '1.6.12',
         category: 'tools',
         icon: 'https://img.utdstc.com/icon/ca3/0e4/ca30e4b2f2d983f2f1b1436d64bca9be55e5b8f2a900b09bdee5e446b34bfd8c:200',
-        description: 'This is the very best application to edit your APK files easily. With this app, you can explore the contents of an APK file',
+        description: 'APK Editor Pro is an Android tool that enables users to edit and customize APK files on their device — modifying resources, permissions, UI elements, and more.',
+        fullDescription: 'APK Editor Pro lets users open APK files or applications installed on their device, make changes to parts such as layouts, images, string resources, manifest settings, and then recompile the APK into a modified version. It supports two modes: a simpler mode for resource replacements, and a full-edit / rebuild mode for deep modifications. It is useful for developers or tech-savvy users who want to tweak apps (e.g. change icons, remove ads, adjust permissions). Care must be taken, as improper edits may break the app; backups are recommended.',
         size: '5.31',
         downloadLink: 'https://www.mediafire.com/file/f1iczua6mblucyv/APK_Editor_Pro.ver.1.6.12.build.70.rar/file',
-        isModified: true
+        originalDownloadLink: 'https://www.mediafire.com/file/2q5gnrts3r00rh9/apk-editor-1-9-0.rar/file',
+        isModified: true,
+        screenshots: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJjajYbyp3oNnLBQ6Dv6iGWtZV28SzMykaEg&s', 'https://play-lh.googleusercontent.com/3G3dZQUtVxrXony7Lvf54xGI7cwWmwukXNF3emFf1RX-y_PYpwL7wch3lGDzaP_FGoAX=rw-w1200', 'https://img.utdstc.com/screen/855/3a6/8553a68c414ddf4bd2258083746a1a87b036d0dad42b20097fbed922ea52803b:600'],
+        features: ['Browse and inspect APK contents (resources, manifest, code)', 'Simple edit mode: replace resources (images, strings, layouts)', 'Full edit / rebuild mode: decompile, modify code/resources, recompile', 'Modify AndroidManifest settings (permissions, activities, etc.)', 'Remove or disable ads embedded in apps', 'Adjust or revoke permissions of apps', 'Customize app UI: change icons, backgrounds, strings', 'Backup original APK before editing and restore if needed', 'Work directly on mobile device without needing a PC for many changes', 'Support for multiple editing approaches (simple vs full)']
     },
     {
         id: 1760670709239,
@@ -197,21 +172,14 @@ const androidApps = [
         version: '2.1.1',
         category: 'tools',
         icon: 'https://media.infosec.exchange/infosec.exchange/media_attachments/files/109/483/691/260/285/976/original/c7166899de75f0e4.png',
-        description: 'App Cloner is a popular third-party app cloning tool to create multiple instances of an app for use with different accounts and logins',
+        description: 'App Cloner lets you create and install multiple modified copies of Android apps so you can run several accounts, tweak behavior, and protect privacy.',
+        fullDescription: 'App Cloner is a tool for Android that creates cloned instances of installed apps. Each clone is an independent install so you can run multiple accounts (for example two WhatsApp or Facebook logins) on the same device. In addition to simple cloning, App Cloner’s premium/VIP options add many modding features: change app name and icon, remove or disable permissions, prevent background auto-start, block analytics/ads, force a fresh data directory, spoof device identifiers, limit network access, and apply UI or behavior tweaks. Premium unlocks extra cloning options, more simultaneous clones, and advanced modifications not available in the free/basic edition. Cloned apps are installed separately and can be removed without affecting the original app.',
         size: '21.3',
         downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
-        isModified: true
-    },
-    {
-        id: 1760670886353,
-        name: 'NP Manager',
-        version: '3.1.25',
-        category: 'tools',
-        icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
-        description: 'Easily manage your Android media with NP Manager\nSimilar to MTManager',
-        size: '43.3',
-        downloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
-        isModified: false
+        originalDownloadLink: 'https://appcloner.app/',
+        isModified: true,
+        screenshots: ['https://liteapks.com/wp-content/uploads/2022/05/app-cloner.jpeg', 'https://appcloner.applisto.com/web/screenshots30/small/026.png', 'https://play-lh.googleusercontent.com/RjZbsmh22gbDGBsGPqVE16EkOX8h0wVJUm81lsJ79NA8AtSlPbzJv0U8rMH2e7oHmyE=w526-h296-rw'],
+        features: ['Create multiple independent clones of any compatible Android app.', 'Rename clones and change their app icons.', 'Toggle or remove app permissions for each clone.', 'Disable auto-start/background services and block background activity.', 'Remove or block analytics and certain ad components (where possible).', 'Limit network access for a clone (offline clones) or control notifications.', 'Spoof or reset identifiers for privacy (where supported).', 'Option to sign or re-sign cloned APKs for installation.', 'Premium/VIP add-ons unlock many additional mod options and increase number of allowed clones.', 'Backup and uninstall clones without affecting original app.', 'Useful for multi-account use, testing, privacy separation, and app customization.']
     },
     {
         id: 1760671090904,
@@ -219,10 +187,28 @@ const androidApps = [
         version: '1.0.8',
         category: 'tools',
         icon: 'https://appteka.store/get/e2Wp1PQuDKBDXQnr3xx9xFbvp_n8xmKoUUVKra4uCno41GZQ-konjdEB7zxrPUYmMNd5Nn6lB4mKl8BZNr2HRokU-I4=/51b296dd65d989fbd9b5c15b5b86b041c9ae3d49.png',
-        description: 'ZArchiver - is a program for archive management (including managing of application backups in archives)',
+        description: 'ZArchiver Pro is an advanced Android archive manager that allows you to create, extract, and manage compressed files such as ZIP, RAR, 7Z, and many more directly on your device.',
+        fullDescription: 'ZArchiver Pro is a professional and feature-rich file compression and extraction tool for Android. It allows users to create and decompress a wide range of archive formats including ZIP, RAR, 7Z, TAR, ISO, BZIP2, and more. The app offers complete control over archive creation parameters like compression level, password protection, and split volumes. Users can view, edit, and extract files without needing to decompress the entire archive, and can also add, delete, or rename files inside existing archives.\n\nZArchiver Pro supports working with encrypted archives and UTF-8 encoded filenames. It includes advanced file operations (cut, copy, paste, rename, delete), multi-threaded processing for better performance on multicore devices, and integration with file browsers for smooth navigation. The Pro version includes dark theme options, faster performance, and improved stability compared to the free version.\n\nIt’s a popular choice among Android users for managing and handling compressed files without needing a PC.',
         size: '4.84',
         downloadLink: 'https://www.mediafire.com/file/kkxv00vgfg0au2a/ZArchiver_Pro.rar/file',
-        isModified: false
+        isModified: true,
+        screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://imgcdn.latestmodapks.com/api/resize?url=https://www.latestmodapks.com/wp-content/uploads/2023/11/ZArchiver-7.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg'],
+        features: ['Create and extract archives (ZIP, RAR, 7Z, TAR, ISO, etc.)', 'View archive contents without extraction', 'Add or remove files inside existing archives', 'Create password-protected or encrypted archives', 'Support for multithreading and fast compression', 'UTF-8 filename support (for international characters)', 'File operations: copy, move, delete, rename', 'Compress multiple files or folders simultaneously', 'Split large archives into parts (volumes)', 'Dark and light themes', 'Ad-free interface (in Pro version)', 'Optimized for Android 11+ and 64-bit processors']
+    },
+    {
+        id: 1760730254180,
+        name: 'NP Manager',
+        version: '3.1.25',
+        category: 'tools',
+        icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
+        description: 'NP Manager is a tool on Android that acts as an advanced file manager and APK / code editing assistant, supporting operations on APK, DEX, Smali, JAR files along with general file management.',
+        fullDescription: 'NP Manager combines powerful file management and code-level capabilities in one app. It allows users to browse internal and external storage (SD, USB OTG), manage all file types (documents, media, archives, apps), and also perform more advanced operations: decompress/compress archives (ZIP, RAR), recycle bin to restore deleted files, hide/show files, manage installed apps, and preview large files. On the more technical side, it supports APK and DEX/Smali editing: conversion between Dex, JAR, Smali; obfuscation, encryption of strings; APK signing and removing signature verification; resource obfuscation; merging/splitting dex files; editing AXML, ARSC; video/audio transcoding or extraction; PDF operations (merge, split, encrypt, decrypt); and toolbox utilities like encoding (base64, MD5, etc.). Some builds include features like LOG injection, removal of popups, disabling VPN/proxy detection, and UI tweaks.\nBecause of its capabilities, it is often compared with “MT Manager” in terms of power and flexibility.',
+        size: '43.3 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
+        isModified: false,
+        screenshots: ['https://www.farsroid.com/wp-content/uploads/NP-Manager-Cover.jpg', 'https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
+        features: ['Support for many file types: documents, media, archives, apps', 'File browsing on internal, external storage, USB OTG', 'Compress / decompress archives (ZIP, RAR)', 'Recycle Bin for recovering deleted files', 'Show / hide hidden files', 'App management: list/uninstall apps', 'Preview large files or resource files', 'APK / DEX / Smali / JAR editing: convert between formats', 'Obfuscation and encryption (string encryption, resource obfuscation)', 'APK signing, removing signature verification', 'Merge / split DEX files', 'Editing AXML / ARSC resources', 'Video/audio transcoding, extraction of streams', 'PDF operations: merge, split, encrypt, decrypt, extract content', 'Utility toolbox: encoding/decoding (base64, MD5, etc.), LOG injection, popup removal', 'UI tweaks, protocol detections (VPN/proxy), disable popups']
     }
 ];
 
@@ -392,9 +378,219 @@ const frpTools = [
         size: '2.8 MB',
         downloadLink: 'undefined',
         isModified: false
+    },
+    {
+        id: 1760618652737,
+        name: 'Samsung FRP Tool',
+        version: '2.8',
+        category: 'samsung',
+        icon: 'fas fa-mobile-alt',
+        description: 'Remove FRP lock from Samsung devices running Android 5-13',
+        size: '15.2 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.google.com/?zx=1760730654315&no_sw_cr=1',
+        isModified: false
     }
 ];
 
 // ===== FRP Applications Data =====
 const frpApps = [
+    {
+        id: 1760618652737.7964,
+        name: 'FRP Bypass APK',
+        version: '2024.5',
+        category: 'universal',
+        icon: 'fas fa-unlock-alt',
+        description: 'Universal FRP bypass application for Android 5-14',
+        size: '4.8 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.1511,
+        name: 'Samsung FRP Helper',
+        version: '3.2.1',
+        category: 'samsung',
+        icon: 'fas fa-mobile-alt',
+        description: 'Specialized FRP bypass app for Samsung Galaxy devices',
+        size: '6.5 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.634,
+        name: 'Quick Shortcut Maker',
+        version: '2.4.0',
+        category: 'universal',
+        icon: 'fas fa-bolt',
+        description: 'Create shortcuts to bypass FRP lock screen',
+        size: '3.2 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.9023,
+        name: 'Xiaomi FRP Unlocker',
+        version: '2.0.8',
+        category: 'xiaomi',
+        icon: 'fas fa-key',
+        description: 'Remove Mi Account and FRP from Xiaomi devices',
+        size: '8.4 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.8284,
+        name: 'Pangu FRP Bypass',
+        version: '1.8.2',
+        category: 'universal',
+        icon: 'fas fa-shield-alt',
+        description: 'Advanced FRP removal tool for multiple brands',
+        size: '5.6 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.4976,
+        name: 'Huawei ID Bypass',
+        version: '1.5.4',
+        category: 'huawei',
+        icon: 'fas fa-unlock',
+        description: 'Remove Huawei ID and FRP lock',
+        size: '7.2 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.6384,
+        name: 'Oppo FRP Remover',
+        version: '2.3.1',
+        category: 'oppo',
+        icon: 'fas fa-lock-open',
+        description: 'Remove FRP and pattern lock from Oppo devices',
+        size: '6.8 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.605,
+        name: 'Test DPC',
+        version: '7.0.5',
+        category: 'universal',
+        icon: 'fas fa-vial',
+        description: 'Device Policy Controller for FRP bypass',
+        size: '4.1 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.7026,
+        name: 'Realme FRP Tool',
+        version: '1.9.2',
+        category: 'realme',
+        icon: 'fas fa-mobile',
+        description: 'FRP bypass and unlock tool for Realme devices',
+        size: '5.9 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.2854,
+        name: 'Samsung Bypass 2024',
+        version: '4.0.1',
+        category: 'samsung',
+        icon: 'fas fa-tools',
+        description: 'Latest Samsung FRP bypass for Android 14',
+        size: '7.8 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.334,
+        name: 'Alliance Shield',
+        version: '1.0.4',
+        category: 'universal',
+        icon: 'fas fa-user-shield',
+        description: 'Multiple FRP bypass methods in one app',
+        size: '9.2 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.4646,
+        name: 'Xiaomi Unlocker Pro',
+        version: '3.1.5',
+        category: 'xiaomi',
+        icon: 'fas fa-crown',
+        description: 'Professional Mi Account and FRP remover',
+        size: '10.5 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.3062,
+        name: 'FRP Skip',
+        version: '2.2.0',
+        category: 'universal',
+        icon: 'fas fa-forward',
+        description: 'Skip Google account verification on any device',
+        size: '3.8 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.81,
+        name: 'Huawei FRP Master',
+        version: '2.6.3',
+        category: 'huawei',
+        icon: 'fas fa-graduation-cap',
+        description: 'Complete FRP solution for Huawei and Honor',
+        size: '8.9 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.9365,
+        name: 'Realme Quick Bypass',
+        version: '1.4.7',
+        category: 'realme',
+        icon: 'fas fa-rocket',
+        description: 'Fast FRP bypass for all Realme models',
+        size: '5.3 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.658,
+        name: 'Samsung Knox Bypass',
+        version: '1.2.8',
+        category: 'samsung',
+        icon: 'fas fa-lock',
+        description: 'Bypass Samsung Knox and FRP protection',
+        size: '11.2 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.808,
+        name: 'Oppo ColorOS FRP',
+        version: '2.1.4',
+        category: 'oppo',
+        icon: 'fas fa-palette',
+        description: 'FRP bypass for ColorOS 7-13',
+        size: '7.6 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    },
+    {
+        id: 1760618652737.7043,
+        name: 'D&G FRP Tool',
+        version: '3.5.2',
+        category: 'universal',
+        icon: 'fas fa-wrench',
+        description: 'Professional FRP bypass for Android 8-14',
+        size: '6.4 MB',
+        downloadLink: 'undefined',
+        isModified: false
+    }
 ];

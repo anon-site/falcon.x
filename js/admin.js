@@ -118,18 +118,10 @@ function syncToGitHub() {
     const navigation = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
     const images = JSON.parse(localStorage.getItem('siteImages')) || {};
     
-    // Get categories from localStorage
-    const categories = {
-        windows: getAllCategories('windows'),
-        android: getAllCategories('android'),
-        'frp-tools': getAllCategories('frp-tools'),
-        'frp-apps': getAllCategories('frp-apps')
-    };
-    
     // Save both data.js and settings.json
     Promise.all([
         githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
-        githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images, categories)
+        githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
     ])
         .then(() => {
             statusDiv.style.background = '#10b981';
@@ -167,18 +159,10 @@ function manualSaveToGitHub() {
         const navigation = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
         const images = JSON.parse(localStorage.getItem('siteImages')) || {};
         
-        // Get categories from localStorage
-        const categories = {
-            windows: getAllCategories('windows'),
-            android: getAllCategories('android'),
-            'frp-tools': getAllCategories('frp-tools'),
-            'frp-apps': getAllCategories('frp-apps')
-        };
-        
         // Save both data.js and settings.json
         Promise.all([
             githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
-            githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images, categories)
+            githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
         ])
             .then(() => {
                 updateSyncStatus('ready', 'تم الحفظ على GitHub');
@@ -1006,13 +990,6 @@ async function loadSettingsFromGitHub() {
             if (settings.images) {
                 localStorage.setItem('siteImages', JSON.stringify(settings.images));
             }
-            if (settings.categories) {
-                // Load categories from GitHub settings
-                localStorage.setItem('falcon-x-categories-windows', JSON.stringify(settings.categories.windows || []));
-                localStorage.setItem('falcon-x-categories-android', JSON.stringify(settings.categories.android || []));
-                localStorage.setItem('falcon-x-categories-frp-tools', JSON.stringify(settings.categories['frp-tools'] || []));
-                localStorage.setItem('falcon-x-categories-frp-apps', JSON.stringify(settings.categories['frp-apps'] || []));
-            }
             
             console.log('✅ Settings loaded from GitHub');
             return true;
@@ -1326,299 +1303,6 @@ function exportToDataJS() {
     showToast('تم تصدير البيانات إلى ملف data.js', 'success');
 }
 
-// ============ Categories Management ============
-
-// In-memory storage for categories
-let categoriesData = {
-    windows: [],
-    android: [],
-    'frp-tools': [],
-    'frp-apps': []
-};
-
-let currentCategoryType = 'windows';
-let editingCategoryId = null;
-
-// Get default categories for each type
-function getDefaultCategories(type) {
-    const defaults = {
-        windows: [
-            { key: 'productivity', label: 'Productivity', icon: 'fas fa-briefcase' },
-            { key: 'security', label: 'Security', icon: 'fas fa-shield-alt' },
-            { key: 'multimedia', label: 'Multimedia', icon: 'fas fa-photo-video' },
-            { key: 'utilities', label: 'Utilities', icon: 'fas fa-tools' }
-        ],
-        android: [
-            { key: 'tools', label: 'Tools', icon: 'fas fa-wrench' },
-            { key: 'social', label: 'Social', icon: 'fas fa-users' },
-            { key: 'games', label: 'Games', icon: 'fas fa-gamepad' },
-            { key: 'customization', label: 'Customization', icon: 'fas fa-palette' }
-        ],
-        'frp-tools': [
-            { key: 'samsung', label: 'Samsung', icon: 'fab fa-android' },
-            { key: 'xiaomi', label: 'Xiaomi', icon: 'fas fa-mobile-alt' },
-            { key: 'oppo', label: 'Oppo', icon: 'fas fa-mobile' },
-            { key: 'universal', label: 'Universal', icon: 'fas fa-globe' }
-        ],
-        'frp-apps': [
-            { key: 'samsung', label: 'Samsung', icon: 'fab fa-android' },
-            { key: 'xiaomi', label: 'Xiaomi', icon: 'fas fa-mobile-alt' },
-            { key: 'huawei', label: 'Huawei', icon: 'fas fa-mobile' },
-            { key: 'oppo', label: 'Oppo', icon: 'fas fa-phone' },
-            { key: 'realme', label: 'Realme', icon: 'fas fa-mobile-alt' },
-            { key: 'universal', label: 'Universal', icon: 'fas fa-globe' }
-        ]
-    };
-    
-    return (defaults[type] || []).map((cat, index) => ({
-        id: Date.now() + index,
-        ...cat
-    }));
-}
-
-// Load categories from localStorage
-function loadCategoriesFromStorage() {
-    try {
-        const windows = localStorage.getItem('falcon-x-categories-windows');
-        const android = localStorage.getItem('falcon-x-categories-android');
-        const frpTools = localStorage.getItem('falcon-x-categories-frp-tools');
-        const frpApps = localStorage.getItem('falcon-x-categories-frp-apps');
-        
-        categoriesData.windows = windows ? JSON.parse(windows) : getDefaultCategories('windows');
-        categoriesData.android = android ? JSON.parse(android) : getDefaultCategories('android');
-        categoriesData['frp-tools'] = frpTools ? JSON.parse(frpTools) : getDefaultCategories('frp-tools');
-        categoriesData['frp-apps'] = frpApps ? JSON.parse(frpApps) : getDefaultCategories('frp-apps');
-        
-        console.log('✅ Categories loaded from localStorage');
-        return true;
-    } catch (error) {
-        console.error('❌ Error loading categories from localStorage:', error);
-        return false;
-    }
-}
-
-// Save categories to localStorage
-function saveCategoriesToStorage() {
-    try {
-        localStorage.setItem('falcon-x-categories-windows', JSON.stringify(categoriesData.windows));
-        localStorage.setItem('falcon-x-categories-android', JSON.stringify(categoriesData.android));
-        localStorage.setItem('falcon-x-categories-frp-tools', JSON.stringify(categoriesData['frp-tools']));
-        localStorage.setItem('falcon-x-categories-frp-apps', JSON.stringify(categoriesData['frp-apps']));
-        
-        console.log('✅ Categories saved to localStorage');
-        return true;
-    } catch (error) {
-        console.error('❌ Error saving categories to localStorage:', error);
-        return false;
-    }
-}
-
-// Get all categories for a type
-function getAllCategories(type) {
-    return categoriesData[type] || [];
-}
-
-// Switch category tabs
-function switchCategoryTab(type) {
-    currentCategoryType = type;
-    
-    // Update tab buttons
-    const tabButtons = document.querySelectorAll('#categories-management .tab-btn');
-    tabButtons.forEach((btn, index) => {
-        btn.classList.remove('active');
-        if ((type === 'windows' && index === 0) ||
-            (type === 'android' && index === 1) ||
-            (type === 'frp-tools' && index === 2) ||
-            (type === 'frp-apps' && index === 3)) {
-            btn.classList.add('active');
-        }
-    });
-    
-    // Update tab content
-    document.querySelectorAll('#categories-management .tab-pane').forEach(pane => {
-        pane.classList.remove('active');
-    });
-    document.getElementById(`${type}-categories-tab`).classList.add('active');
-    
-    // Load categories
-    loadCategories(type);
-}
-
-// Load categories for display
-function loadCategories(type) {
-    const categories = categoriesData[type] || [];
-    const container = document.getElementById(`${type}-categories-list`);
-    
-    if (categories.length === 0) {
-        container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>لا توجد فئات بعد</p></div>';
-        return;
-    }
-    
-    let html = '<div class="categories-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">';
-    
-    categories.forEach(cat => {
-        html += `
-            <div class="category-card" style="background: #1e2746; padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                        ${cat.icon ? `<i class="${cat.icon}" style="font-size: 1.5rem; color: #667eea;"></i>` : ''}
-                        <div>
-                            <h4 style="margin: 0; color: #fff; font-size: 1rem;">${cat.label}</h4>
-                            <p style="margin: 0.25rem 0 0; font-size: 0.85rem; color: #888;">${cat.key}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="category-actions" style="display: flex; gap: 0.5rem; justify-content: flex-end;">
-                    <button class="btn-icon btn-edit" onclick="editCategory('${type}', ${cat.id})" title="تعديل" style="padding: 0.5rem; background: #3b82f6; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn-icon btn-delete" onclick="deleteCategory('${type}', ${cat.id})" title="حذف" style="padding: 0.5rem; background: #ef4444; color: #fff; border: none; border-radius: 6px; cursor: pointer;">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    });
-    
-    html += '</div>';
-    container.innerHTML = html;
-}
-
-// Open category modal
-function openCategoryModal(type, categoryId = null) {
-    currentCategoryType = type;
-    editingCategoryId = categoryId;
-    
-    const modal = document.getElementById('categoryModal');
-    const form = document.getElementById('categoryForm');
-    
-    const titles = {
-        windows: 'Windows',
-        android: 'Android',
-        'frp-tools': 'FRP Tools',
-        'frp-apps': 'FRP Apps'
-    };
-    
-    document.getElementById('categoryModalTitle').textContent = categoryId 
-        ? `تعديل فئة ${titles[type]}` 
-        : `إضافة فئة ${titles[type]} جديدة`;
-    
-    // Load category data if editing
-    if (categoryId) {
-        const categories = categoriesData[type] || [];
-        const cat = categories.find(c => c.id === categoryId);
-        
-        if (cat) {
-            document.getElementById('categoryId').value = cat.id;
-            document.getElementById('categoryType').value = type;
-            document.getElementById('categoryKey').value = cat.key;
-            document.getElementById('categoryLabel').value = cat.label;
-            document.getElementById('categoryIcon').value = cat.icon || '';
-        }
-    } else {
-        form.reset();
-        document.getElementById('categoryId').value = '';
-        document.getElementById('categoryType').value = type;
-    }
-    
-    modal.style.display = 'flex';
-}
-
-// Close category modal
-function closeCategoryModal() {
-    document.getElementById('categoryModal').style.display = 'none';
-    document.getElementById('categoryForm').reset();
-    editingCategoryId = null;
-}
-
-// Initialize category form
-function initCategoryForm() {
-    const form = document.getElementById('categoryForm');
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const type = document.getElementById('categoryType').value;
-        const categoryId = document.getElementById('categoryId').value;
-        const isEditing = categoryId !== '';
-        
-        const categoryData = {
-            id: isEditing ? parseInt(categoryId) : Date.now(),
-            key: document.getElementById('categoryKey').value.toLowerCase().replace(/\s+/g, '-'),
-            label: document.getElementById('categoryLabel').value,
-            icon: document.getElementById('categoryIcon').value || 'fas fa-folder'
-        };
-        
-        // Check for duplicate key
-        const categories = categoriesData[type] || [];
-        const duplicate = categories.find(c => 
-            c.key === categoryData.key && 
-            (!isEditing || c.id !== categoryData.id)
-        );
-        
-        if (duplicate) {
-            showToast('مفتاح الفئة موجود مسبقاً. الرجاء اختيار مفتاح آخر', 'error');
-            return;
-        }
-        
-        let cats = [...categories];
-        
-        if (isEditing) {
-            const index = cats.findIndex(c => c.id === parseInt(categoryId));
-            if (index !== -1) {
-                cats[index] = categoryData;
-            }
-        } else {
-            cats.push(categoryData);
-        }
-        
-        categoriesData[type] = cats;
-        
-        // Update CATEGORIES constant for use in app form
-        CATEGORIES[type] = cats.map(c => c.key);
-        
-        // Save to localStorage
-        saveCategoriesToStorage();
-        updateSyncStatus('modified', 'تغييرات غير محفوظة');
-        
-        // Reload category dropdowns in app form
-        updateAppCategoryDropdown(type);
-        
-        closeCategoryModal();
-        loadCategories(type);
-        showToast(isEditing ? 'تم تحديث الفئة محلياً' : 'تمت إضافة الفئة محلياً', 'success');
-    });
-}
-
-// Update app category dropdown when categories change
-function updateAppCategoryDropdown(type) {
-    const categories = categoriesData[type] || [];
-    CATEGORIES[type] = categories.map(c => c.key);
-}
-
-// Edit category
-function editCategory(type, id) {
-    openCategoryModal(type, id);
-}
-
-// Delete category
-function deleteCategory(type, id) {
-    if (confirm('هل أنت متأكد من حذف هذه الفئة؟')) {
-        let categories = categoriesData[type] || [];
-        categories = categories.filter(cat => cat.id !== id);
-        categoriesData[type] = categories;
-        
-        // Update CATEGORIES constant
-        CATEGORIES[type] = categories.map(c => c.key);
-        
-        saveCategoriesToStorage();
-        updateSyncStatus('modified', 'تغييرات غير محفوظة');
-        
-        loadCategories(type);
-        showToast('تم حذف الفئة محلياً', 'success');
-    }
-}
-
 // ============ Dashboard Stats ============
 
 function updateDashboardStats() {
@@ -1661,21 +1345,12 @@ window.addEventListener('DOMContentLoaded', async function() {
         console.log('✅ Using data from localStorage');
     }
     
-    // Load categories from localStorage
-    loadCategoriesFromStorage();
-    
-    // Update CATEGORIES constant with loaded categories
-    Object.keys(categoriesData).forEach(type => {
-        CATEGORIES[type] = categoriesData[type].map(c => c.key);
-    });
-    
     // Initialize event listeners
     initGitHubSettingsForm();
     initAppForm();
     initNavForm();
     initSiteSettingsForm();
     initColorsForm();
-    initCategoryForm();
     
     // Load GitHub settings
     loadGitHubSettings();
@@ -1684,7 +1359,6 @@ window.addEventListener('DOMContentLoaded', async function() {
     loadNavigation();
     loadSiteSettings();
     loadColors();
-    loadCategories('windows');
     updateDashboardStats();
     
     // Modals will only close via X button or Cancel button

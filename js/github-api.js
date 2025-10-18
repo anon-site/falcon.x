@@ -261,19 +261,13 @@ class GitHubAPI {
     }
 
     // Save settings to GitHub
-    async saveSettingsToGitHub(siteSettings, colors, navigation, images, categories = null) {
+    async saveSettingsToGitHub(siteSettings, colors, navigation, images) {
         const settingsData = {
             siteSettings: siteSettings,
             colors: colors,
             navigation: navigation,
             images: images
         };
-        
-        // Add categories if provided
-        if (categories) {
-            settingsData.categories = categories;
-        }
-        
         const content = JSON.stringify(settingsData, null, 4);
         return await this.updateFile('js/settings.json', content, 'Update settings from Admin Panel');
     }
