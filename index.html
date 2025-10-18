@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falcon X</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png" alt="Falcon X" class="logo-image">
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="#home" class="menu-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span class="menu-text">Home</span>
+            </a>
+            <a href="#windows" class="menu-item" data-page="windows">
+                <i class="fab fa-windows"></i>
+                <span class="menu-text">Windows Software</span>
+            </a>
+            <a href="#android" class="menu-item" data-page="android">
+                <i class="fab fa-android"></i>
+                <span class="menu-text">Android Apps</span>
+            </a>
+            <a href="#frp" class="menu-item" data-page="frp">
+                <i class="fas fa-unlock-alt"></i>
+                <span class="menu-text">FRP Tools</span>
+            </a>
+            <a href="#frp-apps" class="menu-item" data-page="frp-apps">
+                <i class="fas fa-mobile-alt"></i>
+                <span class="menu-text">FRP Apps</span>
+            </a>
+            <a href="#about" class="menu-item" data-page="about">
+                <i class="fas fa-info-circle"></i>
+                <span class="menu-text">About Us</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <button class="theme-toggle desktop-theme-toggle" id="desktopThemeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="settings-toggle" id="settingsToggle">
+                <i class="fas fa-cog"></i>
+                <span class="menu-text">Settings</span>
+            </button>
+            <p class="version">Version 2.1</p>
+            <p class="copyright">© 2025 Falcon X. All rights reserved.<br>Designed and developed by <a href="https://anon-site.github.io" target="_blank" style="color: #667eea; text-decoration: none;">Anon Design</a></p>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="mobile-title-container">
+                <img src="images/6e89058a-eeee-45f5-9585-d26b3fb6fefc copy.png" alt="Falcon X" class="mobile-logo">
+            </div>
+            <button class="refresh-btn" onclick="refreshData()" title="Refresh data from admin panel">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </header>
+        
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Home Page -->
+            <section id="home" class="page active">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Welcome to <span class="gradient-text">Falcon X</span></h1>
+                        <p class="hero-subtitle">Advanced Software Solutions for Windows, Android, and FRP</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="navigateToPage('windows')">
+                                <i class="fab fa-windows"></i> Explore Windows
+                            </button>
+                            <button class="btn btn-secondary" onclick="navigateToPage('android')">
+                                <i class="fab fa-android"></i> Explore Android
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="floating-card">
+                            <img src="images/X.png" alt="Falcon X" class="hero-logo">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Features Section -->
+                <div class="features-section">
+                    <h2 class="section-title">Our Services</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fab fa-windows"></i>
+                            </div>
+                            <h3>Windows Software</h3>
+                            <p>Professional desktop applications and utilities for Windows systems</p>
+                            <a href="#windows" class="feature-link" onclick="navigateToPage('windows')">Learn More →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fab fa-android"></i>
+                            </div>
+                            <h3>Android Applications</h3>
+                            <p>Powerful mobile apps and tools for Android devices</p>
+                            <a href="#android" class="feature-link" onclick="navigateToPage('android')">Learn More →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-unlock-alt"></i>
+                            </div>
+                            <h3>FRP Tools</h3>
+                            <p>Factory Reset Protection bypass tools and solutions</p>
+                            <a href="#frp" class="feature-link" onclick="navigateToPage('frp')">Learn More →</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+            
+            <!-- Windows Software Page -->
+            <section id="windows" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">Windows Software</h1>
+                    <p class="page-subtitle">Professional desktop applications for Windows</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="windowsSearch" placeholder="Search Windows software...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="productivity">Productivity</button>
+                        <button class="filter-btn" data-category="security">Security</button>
+                        <button class="filter-btn" data-category="multimedia">Multimedia</button>
+                        <button class="filter-btn" data-category="utilities">Utilities</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="windowsSoftware">
+                    <!-- Software cards will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- Android Apps Page -->
+            <section id="android" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">Android Applications</h1>
+                    <p class="page-subtitle">Powerful apps for Android devices</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="androidSearch" placeholder="Search Android apps...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="tools">Tools</button>
+                        <button class="filter-btn" data-category="social">Social</button>
+                        <button class="filter-btn" data-category="games">Games</button>
+                        <button class="filter-btn" data-category="customization">Customization</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="androidApps">
+                    <!-- Android apps will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- FRP Tools Page -->
+            <section id="frp" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">FRP Tools</h1>
+                    <p class="page-subtitle">Factory Reset Protection bypass solutions for PC</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="frpSearch" placeholder="Search FRP tools...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="samsung">Samsung</button>
+                        <button class="filter-btn" data-category="xiaomi">Xiaomi</button>
+                        <button class="filter-btn" data-category="oppo">Oppo</button>
+                        <button class="filter-btn" data-category="universal">Universal</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="frpTools">
+                    <!-- FRP tools will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- FRP Apps Page -->
+            <section id="frp-apps" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">FRP Applications</h1>
+                    <p class="page-subtitle">Mobile FRP bypass applications for Android devices</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="frpAppsSearch" placeholder="Search FRP apps...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="samsung">Samsung</button>
+                        <button class="filter-btn" data-category="xiaomi">Xiaomi</button>
+                        <button class="filter-btn" data-category="huawei">Huawei</button>
+                        <button class="filter-btn" data-category="oppo">Oppo</button>
+                        <button class="filter-btn" data-category="realme">Realme</button>
+                        <button class="filter-btn" data-category="universal">Universal</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="frpApps">
+                    <!-- FRP apps will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- About Page -->
+            <section id="about" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">About <span class="gradient-text">Falcon X</span></h1>
+                    <p class="page-subtitle">Your trusted source for professional software solutions</p>
+                </div>
+                
+                <!-- Hero Section -->
+                <div class="about-hero">
+                    <div class="about-hero-content">
+                        <div class="about-hero-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h2>Empowering Your Digital Experience</h2>
+                        <p>We deliver cutting-edge software solutions that transform the way you work and interact with technology.</p>
+                    </div>
+                </div>
+                
+                <!-- Mission & Vision -->
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Our Mission</h3>
+                        <p>Falcon X is dedicated to providing high-quality software solutions for Windows and Android platforms. We specialize in developing tools that enhance productivity, security, and user experience across all devices.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Our Vision</h3>
+                        <p>To become the leading provider of innovative software solutions, recognized globally for excellence, reliability, and customer satisfaction in every product we deliver.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="about-card-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Our Values</h3>
+                        <p>Innovation, integrity, and customer-first approach guide everything we do. We believe in transparency, quality, and continuous improvement.</p>
+                    </div>
+                </div>
+                
+                <!-- What We Offer -->
+                <div class="about-services">
+                    <h2 class="section-title">What We Offer</h2>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fab fa-windows"></i>
+                            </div>
+                            <h4>Windows Software</h4>
+                            <p>Professional desktop applications for enhanced productivity and system optimization</p>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fab fa-android"></i>
+                            </div>
+                            <h4>Android Applications</h4>
+                            <p>Innovative mobile apps designed for performance and user satisfaction</p>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-unlock-alt"></i>
+                            </div>
+                            <h4>FRP Solutions</h4>
+                            <p>Advanced Factory Reset Protection bypass tools for professionals</p>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h4>24/7 Support</h4>
+                            <p>Dedicated technical support team ready to assist you anytime</p>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h4>Regular Updates</h4>
+                            <p>Continuous improvements and feature enhancements for all products</p>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Secure & Safe</h4>
+                            <p>All software is tested and verified for security and reliability</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact CTA -->
+                <div class="about-cta">
+                    <h2>Ready to Get Started?</h2>
+                    <p>Explore our collection of powerful tools and applications</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="navigateToPage('windows')">
+                            <i class="fab fa-windows"></i> Browse Windows Apps
+                        </button>
+                        <button class="btn btn-secondary" onclick="navigateToPage('android')">
+                            <i class="fab fa-android"></i> Browse Android Apps
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <button class="close-settings" id="closeSettings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-body">
+                <!-- Cursor Settings -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-mouse-pointer"></i> Cursor Style</h3>
+                    <div class="cursor-options">
+                        <div class="cursor-option" data-cursor="default">
+                            <i class="fas fa-desktop"></i>
+                            <span>Default</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="modern">
+                            <i class="fas fa-circle"></i>
+                            <span>Modern</span>
+                        </div>
+                        <div class="cursor-option active" data-cursor="neon">
+                            <i class="fas fa-circle" style="text-shadow: 0 0 10px currentColor;"></i>
+                            <span>Neon Glow</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="pointer">
+                            <i class="fas fa-hand-pointer"></i>
+                            <span>Pointer</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="crosshair">
+                            <i class="fas fa-crosshairs"></i>
+                            <span>Crosshair</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="dot">
+                            <i class="fas fa-dot-circle"></i>
+                            <span>Dot</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="ring">
+                            <i class="far fa-circle"></i>
+                            <span>Ring</span>
+                        </div>
+                        <div class="cursor-option" data-cursor="diamond">
+                            <i class="fas fa-gem"></i>
+                            <span>Diamond</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cursor Speed -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-tachometer-alt"></i> Cursor Speed</h3>
+                    <div class="speed-control">
+                        <button class="speed-btn" data-speed="0.3">Slow</button>
+                        <button class="speed-btn" data-speed="0.7">Normal</button>
+                        <button class="speed-btn active" data-speed="1">Fast</button>
+                    </div>
+                </div>
+
+                <!-- Color Presets -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-palette"></i> Color Theme</h3>
+                    <div class="color-presets">
+                        <div class="color-preset" data-color="blue" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="purple" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="green" style="background: linear-gradient(135deg, #059669, #34d399);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="red" style="background: linear-gradient(135deg, #dc2626, #f87171);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="pink" style="background: linear-gradient(135deg, #db2777, #f9a8d4);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="yellow" style="background: linear-gradient(135deg, #d97706, #fcd34d);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="teal" style="background: linear-gradient(135deg, #0d9488, #5eead4);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                        <div class="color-preset" data-color="orange" style="background: linear-gradient(135deg, #ea580c, #fb923c);">
+                            <span class="preset-check"><i class="fas fa-check"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Settings -->
+                <div class="settings-section">
+                    <button class="reset-settings-btn" id="resetSettings">
+                        <i class="fas fa-undo"></i> Reset to Default Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- App Details Modal -->
+    <div class="app-modal" id="appDetailsModal">
+        <div class="app-modal-overlay" onclick="closeAppDetails()"></div>
+        <div class="app-modal-content">
+            <button class="app-modal-close" onclick="closeAppDetails()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="app-modal-header">
+                <div class="app-modal-icon" id="modalAppIcon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="app-modal-info">
+                    <h2 id="modalAppName">App Name</h2>
+                    <div class="app-modal-meta">
+                        <span id="modalAppVersion">v1.0</span>
+                        <span id="modalAppSize">10 MB</span>
+                        <span id="modalAppBadge"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-modal-body">
+                <!-- Screenshots Gallery -->
+                <div class="app-screenshots-section" id="screenshotsSection">
+                    <h3><i class="fas fa-images"></i> Screenshots</h3>
+                    <div class="app-screenshots-gallery" id="screenshotsGallery">
+                        <!-- Screenshots will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="app-description-section">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p id="modalAppDescription">App description will appear here...</p>
+                </div>
+                
+                <!-- Features -->
+                <div class="app-features-section" id="featuresSection">
+                    <h3><i class="fas fa-star"></i> Features</h3>
+                    <ul id="modalAppFeatures">
+                        <!-- Features will be loaded here -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="app-modal-footer" id="modalFooter">
+                <!-- Buttons will be dynamically generated based on app type -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Lightbox -->
+    <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-prev" onclick="event.stopPropagation(); prevImage()">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-next" onclick="event.stopPropagation(); nextImage()">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <img id="lightboxImage" src="" alt="Screenshot">
+    </div>
+    
+    <!-- FRP Warning Modal -->
+    <div class="frp-warning-modal" id="frpWarningModal">
+        <div class="frp-warning-overlay" onclick="closeFrpWarning()"></div>
+        <div class="frp-warning-content">
+            <div class="frp-warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2 class="frp-warning-title">Important Warning</h2>
+            <div class="frp-warning-body">
+                <p class="frp-warning-text">
+                    These programs are professional tools and should not be used for entertainment purposes. 
+                    Be careful when using them to avoid legal liability.
+                </p>
+                <div class="frp-warning-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <p><strong>Important Note:</strong> You must disable your antivirus software for these programs to work properly.</p>
+                </div>
+            </div>
+            <div class="frp-warning-footer">
+                <label class="frp-warning-checkbox">
+                    <input type="checkbox" id="dontShowAgain">
+                    <span>Don't show this message again</span>
+                </label>
+                <button class="frp-warning-btn" onclick="closeFrpWarning()">
+                    <i class="fas fa-check"></i> I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
+</body>
+</html>
