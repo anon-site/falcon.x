@@ -101,6 +101,20 @@ const windowsSoftware = [
         isModified: false,
         screenshots: ['https://faststone-capture.fileion.com/curator/software/articles/featued-images/2025/08/faststone-capture-keyboard-shortcuts.webp?s=b3f309af83b4cfa8662ffb0fca48439a', 'https://blackjoomla.com/media/k2/items/cache/05a977f75c8bd421cf67e35678973f79_XL.jpg', 'https://faststone-capture.fileion.com/storage/software/screenshots/2025/07/faststone-capture-1.png'],
         features: ['Capture full screen, active window, object, menu, rectangular/freehand/fixed region, scrolling windows/web pages.', 'Record screen activities including on-screen changes, microphone audio, mouse movements/clicks and webcam (in recent versions).', 'Built-in editor: annotate images with text, arrowed lines, highlights, watermarks, shapes; apply effects (drop shadow, torn-edge, fade-edge).', 'Resize, crop, rotate, sharpen images; adjust brightness, colour, etc.', 'Save images in many formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF).', 'Built-in video editor allowing trimming, zoom effects, convert video to animated GIF (some versions) …', 'Support for global hotkeys, automatic filename generation, external editor integration, colour picker, screen magnifier, screen crosshair, screen ruler.', 'Lightweight, fast, efficient in system resources.']
+    },
+    {
+        id: 1760780470022,
+        name: 'IObit Driver Booster Silent',
+        version: '8.3',
+        category: 'utilities',
+        icon: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHM0OYfiFeMI2p9MWie0CvL99U4GA1gf6_kayTt_kBblFwHwo8BW8JXlqfnYxKPmmBR_lQTW0utfoTf1PCUV5Nj40Jn2ThHcxw5xDAwd6lbjK62aWliqpTTqG0qoBQHnTpPnFxjf3.9b74rW6xhvE7eA-&format=source',
+        description: 'IObit Driver Booster Silent is a powerful tool designed to automatically detect, download, and install the latest drivers for your computer in silent mode, without user interaction.',
+        fullDescription: 'IObit Driver Booster Silent is an advanced driver updating utility that helps keep your system stable and optimized. It automatically scans your PC for outdated, missing, or faulty drivers and updates them with one click. The “Silent” version performs all actions quietly in the background without showing notifications or requiring confirmation, making it ideal for technicians or users who prefer a fully automated process. It also helps improve gaming performance, fix system crashes, and ensure hardware compatibility.',
+        size: '28.8 MB',
+        downloadLink: 'https://www.mediafire.com/file/vfdbzjb0jpni92f/IObit_Driver_Booster_silent.rar/file',
+        isModified: true,
+        screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
+        features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process']
     }
 ];
 
