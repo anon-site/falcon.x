@@ -267,10 +267,10 @@ function initGitHubSettingsForm() {
 // ============ Apps Management ============
 
 const CATEGORIES = {
-    windows: ['productivity', 'security', 'multimedia', 'utilities'],
-    android: ['tools', 'social', 'games', 'customization'],
-    'frp-tools': ['samsung', 'xiaomi', 'oppo', 'universal'],
-    'frp-apps': ['samsung', 'xiaomi', 'huawei', 'oppo', 'realme', 'universal']
+    windows: ['Anti Virus', 'Convert', 'Designe', 'Desktop', 'Driver', 'Browser', 'Download App', 'Wifi', 'Multiplayer', 'Utilities', 'Programming', 'VPN'],
+    android: ['Anti Virus', 'Convert', 'Designe', 'Desktop', 'Driver', 'Browser', 'Download App', 'Wifi', 'Multiplayer', 'Utilities', 'Programming', 'VPN'],
+    'frp-tools': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Universal', 'iPhone'],
+    'frp-apps': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Universal']
 };
 
 // In-memory storage for apps
