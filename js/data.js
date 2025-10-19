@@ -351,5 +351,29 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.mi.android.globalFileexplorer/#Intent;scheme=android-app;end',
         isModified: false
+    },
+    {
+        id: 1760870931873,
+        name: 'Open YouTube',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/01/image.png',
+        description: 'Open the YouTube application for Android devices',
+        size: '0',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.google.android.youtube/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760870974710,
+        name: 'Open Activity Manager',
+        version: '1.0',
+        category: 'general',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2024/08/activity-manager.png',
+        description: 'No description provided',
+        size: '5 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.activitymanager/#Intent;scheme=android-app;end',
+        isModified: false
     }
 ];
