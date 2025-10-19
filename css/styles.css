@@ -1392,8 +1392,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .app-screenshots-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
     margin-top: 1rem;
 }
 
@@ -2077,8 +2077,8 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .app-screenshots-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.25rem;
     }
     
     .screenshot-item {
