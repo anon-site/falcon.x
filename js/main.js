@@ -554,6 +554,9 @@ function createFrpAppSimpleCard(app) {
         ? `<img src="${app.icon}" alt="${app.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
         : `<i class="${app.icon || 'fas fa-mobile-alt'}"></i>`;
     
+    // Check link type (direct or download)
+    const isDirect = app.linkType === 'direct';
+    
     // Modified badge
     const modifiedBadge = app.isModified 
         ? '<span class="modified-badge modified" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-star" style="font-size: 0.6rem;"></i>Modified</span>'
@@ -571,25 +574,25 @@ function createFrpAppSimpleCard(app) {
                 </div>
                 <div class="software-info">
                     <h3 style="font-size: 1rem; margin-bottom: 0.2rem;">${app.name}</h3>
-                    <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    ${!isDirect ? `<div style="display: flex; align-items: center; flex-wrap: wrap;">
                         <span class="software-version" style="font-size: 0.8rem;">v${app.version || '1.0'}</span>
                         ${modifiedBadge}
-                    </div>
+                    </div>` : `<div style="display: flex; align-items: center; flex-wrap: wrap;">${modifiedBadge}</div>`}
                 </div>
             </div>
             <p class="software-description" style="font-size: 0.85rem; line-height: 1.4; margin-bottom: 0.75rem;">${app.description}</p>
-            <div class="software-meta" style="padding-top: 0.75rem;">
+            ${!isDirect ? `<div class="software-meta" style="padding-top: 0.75rem;">
                 <span class="software-size" style="font-size: 0.8rem;"><i class="fas fa-hdd"></i> ${app.size || 'N/A'}</span>
-            </div>
+            </div>` : ''}
             <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center;">
                 ${hasDownloadLink 
                     ? `<button class="btn btn-primary" onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.3)';">
-                        <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>Open Modified
+                        <i class="fas fa-${isDirect ? 'external-link-alt' : 'download'}" style="margin-right: 0.5rem;"></i>${isDirect ? 'Open' : 'Download'} Modified
                     </button>`
                     : ''}
                 ${hasOriginalLink 
                     ? `<button class="btn" onclick="window.open('${app.originalDownloadLink}', '_blank'); event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.3)';">
-                        <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i>Open Original
+                        <i class="fas fa-${isDirect ? 'external-link-alt' : 'certificate'}" style="margin-right: 0.5rem;"></i>${isDirect ? 'Open' : 'Download'} Original
                     </button>`
                     : ''}
                 ${!hasDownloadLink && !hasOriginalLink 

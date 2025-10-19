@@ -530,6 +530,12 @@ function openAppModal(type, appId = null) {
     // Hide/Show fields based on type
     const isFrpApps = type === 'frp-apps';
     
+    // Show/Hide link type selector for FRP Apps only
+    const linkTypeGroup = document.getElementById('appLinkTypeGroup');
+    if (linkTypeGroup) {
+        linkTypeGroup.style.display = isFrpApps ? 'block' : 'none';
+    }
+    
     // Hide unnecessary fields for FRP Apps (keep version, size, modified, and original link)
     const fieldsToHide = [
         'appFullDescription',
@@ -569,6 +575,12 @@ function openAppModal(type, appId = null) {
             document.getElementById('appOriginalDownloadLink').value = app.originalDownloadLink || '';
             document.getElementById('appModified').value = app.isModified ? 'true' : 'false';
             
+            // Load link type for FRP Apps
+            if (type === 'frp-apps' && app.linkType) {
+                document.getElementById('appLinkType').value = app.linkType;
+                toggleFrpAppFields(); // Apply the field visibility
+            }
+            
             // Load screenshots (array to newline-separated text)
             if (app.screenshots && Array.isArray(app.screenshots)) {
                 document.getElementById('appScreenshots').value = app.screenshots.join('\n');
@@ -597,6 +609,8 @@ function openAppModal(type, appId = null) {
             document.getElementById('appScreenshots').value = '';
             document.getElementById('appFeatures').value = '';
             document.getElementById('appFullDescription').value = '';
+            document.getElementById('appLinkType').value = 'download'; // Default to download
+            toggleFrpAppFields(); // Apply default field visibility
         } else {
             document.getElementById('appModified').value = 'false';
             document.getElementById('appOriginalDownloadLink').value = '';
@@ -606,6 +620,23 @@ function openAppModal(type, appId = null) {
     }
     
     modal.style.display = 'flex';
+}
+
+// Toggle FRP App fields based on link type
+function toggleFrpAppFields() {
+    const linkType = document.getElementById('appLinkType').value;
+    const versionField = document.getElementById('appVersion').closest('.form-group');
+    const sizeField = document.getElementById('appSize').closest('.form-group');
+    
+    if (linkType === 'direct') {
+        // Hide version and size for direct links
+        if (versionField) versionField.style.display = 'none';
+        if (sizeField) sizeField.style.display = 'none';
+    } else {
+        // Show version and size for download links
+        if (versionField) versionField.style.display = 'block';
+        if (sizeField) sizeField.style.display = 'block';
+    }
 }
 
 // Close app modal
@@ -649,6 +680,10 @@ function initAppForm() {
         const featuresText = document.getElementById('appFeatures').value.trim();
         const features = featuresText ? featuresText.split('\n').map(f => f.trim()).filter(f => f) : [];
         
+        // Get link type for FRP Apps
+        const linkTypeElement = document.getElementById('appLinkType');
+        const linkType = linkTypeElement && type === 'frp-apps' ? linkTypeElement.value : '';
+        
         const appData = {
             id: isEditing ? parseInt(appId) : Date.now(),
             name: document.getElementById('appName').value || 'Untitled',
@@ -663,6 +698,7 @@ function initAppForm() {
             isModified: modifiedValue === 'true',
             screenshots: screenshots,
             features: features,
+            linkType: linkType, // Add link type for FRP Apps
             lastUpdated: new Date().toISOString() // Add timestamp
         };
         

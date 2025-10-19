@@ -545,6 +545,14 @@
                         </select>
                     </div>
                     
+                    <div class="form-group" id="appLinkTypeGroup" style="display: none;">
+                        <label for="appLinkType">نوع الرابط</label>
+                        <select id="appLinkType" onchange="toggleFrpAppFields()">
+                            <option value="download">تحميل</option>
+                            <option value="direct">مباشر</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="appVersion">الإصدار</label>
                         <input type="text" id="appVersion" placeholder="1.0">
