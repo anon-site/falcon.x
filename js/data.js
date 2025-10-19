@@ -112,6 +112,7 @@ const windowsSoftware = [
         fullDescription: 'IObit Driver Booster Silent is an advanced driver updating utility that helps keep your system stable and optimized. It automatically scans your PC for outdated, missing, or faulty drivers and updates them with one click. The “Silent” version performs all actions quietly in the background without showing notifications or requiring confirmation, making it ideal for technicians or users who prefer a fully automated process. It also helps improve gaming performance, fix system crashes, and ensure hardware compatibility.',
         size: '28.8 MB',
         downloadLink: 'https://www.mediafire.com/file/vfdbzjb0jpni92f/IObit_Driver_Booster_silent.rar/file',
+        originalDownloadLink: 'https://www.iobit.com/en/driver-booster.php',
         isModified: true,
         screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
         features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process']
