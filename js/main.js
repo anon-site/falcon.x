@@ -186,13 +186,6 @@ function initializeSidebar() {
     // Mobile overlay
     mobileOverlay?.addEventListener('click', closeSidebar);
     
-    // Close sidebar on mobile when clicking a menu item
-    if (window.innerWidth <= 768) {
-        menuItems.forEach(item => {
-            item.addEventListener('click', closeSidebar);
-        });
-    }
-    
     // Handle resize
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
@@ -265,6 +258,11 @@ function initializeNavigation() {
             e.preventDefault();
             const targetPage = item.dataset.page;
             navigateToPage(targetPage);
+            
+            // Close sidebar on mobile after clicking menu item
+            if (window.innerWidth <= 768) {
+                closeSidebar();
+            }
         });
     });
     
@@ -540,13 +538,45 @@ function getDataFromStorage(storageKey, fallbackData) {
 
 // ===== Refresh Data from Admin Panel =====
 function refreshData() {
-    // Show loading toast
-    showToast('Refreshing page to apply latest updates...', 'info');
+    // Show loading indicator
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    if (loadingIndicator) {
+        loadingIndicator.classList.add('show');
+        const loadingText = loadingIndicator.querySelector('.loading-text');
+        if (loadingText) {
+            loadingText.textContent = 'Clearing cache and refreshing...';
+        }
+    }
     
-    // Clear cache and reload the page
+    // Clear all falcon-x related data from localStorage
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('falcon-x-')) {
+            keysToRemove.push(key);
+        }
+    }
+    
+    // Remove all falcon-x keys
+    keysToRemove.forEach(key => {
+        localStorage.removeItem(key);
+        console.log(`🗑️ Removed cache: ${key}`);
+    });
+    
+    console.log(`✅ Cleared ${keysToRemove.length} cache items`);
+    
+    // Show success message
+    showToast('✨ Cache cleared! Reloading...', 'success');
+    
+    // Force hard reload after clearing cache
     setTimeout(() => {
-        window.location.reload(true);
-    }, 500);
+        // Try multiple methods to ensure hard reload
+        if (window.location.reload) {
+            window.location.reload(true);
+        } else {
+            window.location.href = window.location.href;
+        }
+    }, 800);
 }
 
 // ===== Create Software Card =====
