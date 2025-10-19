@@ -1252,6 +1252,7 @@ function importFromDataJS() {
             downloadLink: item.downloadUrl || item.downloadLink,
             originalDownloadLink: item.originalDownloadLink || '',
             isModified: item.isModified === true ? true : false,
+            linkType: item.linkType || 'download',
             screenshots: item.screenshots || [],
             features: item.features || []
         }));
@@ -1436,6 +1437,9 @@ function exportToDataJS() {
             output += `        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}',\n`;
         }
         output += `        isModified: ${item.isModified === true ? 'true' : 'false'}`;
+        if (item.linkType) {
+            output += `,\n        linkType: '${item.linkType}'`;
+        }
         if (item.screenshots && item.screenshots.length > 0) {
             output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
         }

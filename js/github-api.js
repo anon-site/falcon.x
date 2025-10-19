@@ -250,6 +250,9 @@ class GitHubAPI {
                 content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
             }
             content += `        isModified: ${app.isModified}`;
+            if (app.linkType) {
+                content += `,\n        linkType: '${app.linkType}'`;
+            }
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
             }
