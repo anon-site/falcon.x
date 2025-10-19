@@ -187,9 +187,12 @@ const androidApps = [
         category: 'Utilities',
         icon: 'https://img.utdstc.com/icon/ca3/0e4/ca30e4b2f2d983f2f1b1436d64bca9be55e5b8f2a900b09bdee5e446b34bfd8c:200',
         description: 'This is the very best application to edit your APK files easily. With this app, you can explore the contents of an APK file',
+        fullDescription: 'APK Editor Pro is a professional Android application designed for modifying APK files directly on your device. It enables users to edit app resources, change layouts, replace icons, modify strings, and even remove ads or permissions. The tool supports both full APK editing and simple file replacement, making it suitable for both beginners and advanced users. With an intuitive interface and robust functionality, it’s one of the best tools for customizing Android apps according to your needs.',
         size: '5.31',
         downloadLink: 'https://www.mediafire.com/file/f1iczua6mblucyv/APK_Editor_Pro.ver.1.6.12.build.70.rar/file',
-        isModified: true
+        isModified: true,
+        screenshots: ['https://apk-editor.com/wp-content/uploads/2025/05/APK-Editor-for-Pro-Mod-1024x550.webp', 'https://www.latestmodapks.com/wp-content/uploads/2022/08/apk-editor5.webp', 'https://imag.malavida.com/mvimgbig/download-fs/apk-editor-20899-1.jpg'],
+        features: ['Edit APK files easily and quickly.', 'Modify app resources, layouts, and images.', 'Remove unwanted ads and permissions.', 'Replace app icons and backgrounds.', 'Support for full APK rebuild or simple edit modes.', 'User-friendly interface.', 'Backup and restore feature for safety.', 'Works without requiring root (for most edits).']
     },
     {
         id: 1760670709239,
@@ -198,9 +201,12 @@ const androidApps = [
         category: 'Utilities',
         icon: 'https://media.infosec.exchange/infosec.exchange/media_attachments/files/109/483/691/260/285/976/original/c7166899de75f0e4.png',
         description: 'App Cloner is a popular third-party app cloning tool to create multiple instances of an app for use with different accounts and logins',
+        fullDescription: 'App Cloner (VIP / Premium) lets you duplicate Android apps and modify cloned instances with options such as changing the app name and icon, removing permissions, disabling auto-start, spoofing identifiers, adding privacy options (hide Android ID, Wi-Fi/Bluetooth MAC), password-protecting clones, and more. It supports both simple cloning and advanced modifications via add-ons; some advanced mods and large-scale cloning limits are unlocked in the VIP/Premium edition.',
         size: '21.3',
         downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
-        isModified: true
+        isModified: true,
+        screenshots: ['https://play-lh.googleusercontent.com/RjZbsmh22gbDGBsGPqVE16EkOX8h0wVJUm81lsJ79NA8AtSlPbzJv0U8rMH2e7oHmyE=w526-h296-rw', 'https://liteapks.com/wp-content/uploads/2022/05/app-cloner-1-e1653727930941.png', 'https://images.wondershare.com/drfone/article/2024/02/android-clone-apps-10.jpg'],
+        features: ['Create multiple independent clones of installed apps.', 'appcloner.app', 'Customize clone name, icon, and package signature.', 'APKMirror', 'Remove or limit permissions, disable auto-start and background services.', 'appcloner.app', 'Privacy & spoofing options (hide/switch Android ID, spoof MAC, fake GPS).', 'App Cloner', 'Password-protect clones and enable incognito/stealth modes.', 'appcloner.app', 'VIP/Premium unlocks advanced mods, more cloning limits, and add-ons.', 'LITEAPKS', '+1', 'Note: compatibility differs by target app — some apps (banking, DRM apps, Google Pay, etc.) may refuse to run under clones or require additional steps.']
     },
     {
         id: 1760670886353,
@@ -209,9 +215,12 @@ const androidApps = [
         category: 'Utilities',
         icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
         description: 'Easily manage your Android media with NP Manager\nSimilar to MTManager',
+        fullDescription: 'NP Manager is a multifunctional Android application designed for developers and advanced users who need to analyze and modify APK files. It integrates file management, decompiling, recompiling, signing, text editing, and patching features in one interface. With NP Manager, you can explore APK structures, edit Smali and XML files, change app permissions, remove ads, modify code, and rebuild applications. It’s particularly useful for those who work on app localization, debugging, or customization. The app supports both root and non-root modes, offering flexibility and control over Android packages.',
         size: '43.3',
         downloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
-        isModified: false
+        isModified: false,
+        screenshots: ['https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
+        features: ['Full-featured file manager with APK editing tools.', 'Decompile, recompile, and sign APK files easily.', 'Built-in Smali, XML, and text editor.', 'Patch apps and modify internal code.', 'Remove ads and unnecessary permissions.', 'Supports both root and non-root environments.', 'Customize and rebuild Android applications.', 'Fast and lightweight performance.']
     },
     {
         id: 1760671090904,
@@ -220,9 +229,12 @@ const androidApps = [
         category: 'Utilities',
         icon: 'https://appteka.store/get/e2Wp1PQuDKBDXQnr3xx9xFbvp_n8xmKoUUVKra4uCno41GZQ-konjdEB7zxrPUYmMNd5Nn6lB4mKl8BZNr2HRokU-I4=/51b296dd65d989fbd9b5c15b5b86b041c9ae3d49.png',
         description: 'ZArchiver - is a program for archive management (including managing of application backups in archives)',
+        fullDescription: 'ZArchiver Pro is an advanced Android application designed for handling compressed archives and file management. It supports a wide range of formats such as ZIP, RAR, 7z, TAR, ISO, and more. With its clean interface and powerful engine, users can create new archives, extract existing ones, add passwords, encrypt files, and manage multi-part archives directly from their device. The Pro version enhances performance, adds premium features such as dark mode themes, better compression speed, and full UTF-8 file name support. It’s an essential app for users who frequently manage compressed files on mobile devices.',
         size: '4.84',
         downloadLink: 'https://www.mediafire.com/file/kkxv00vgfg0au2a/ZArchiver_Pro.rar/file',
-        isModified: false
+        isModified: false,
+        screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg', 'https://img.utdstc.com/screen/227/2c1/2272c114a54839b3d40b4b497bc02be04900fd9cb0b3be5ea860fb500ae206ef:600'],
+        features: ['Create and extract archives in multiple formats (ZIP, RAR, 7z, TAR, etc.).', 'Compress files with password protection and encryption.', 'View and edit compressed file contents without extracting.', 'Support for multi-part and split archives.', 'Simple and modern user interface.', 'UTF-8 encoding support for non-Latin filenames.', 'Fast compression and decompression performance.', 'Full dark/light theme customization (Pro).', 'No ads and improved stability in Pro version.']
     }
 ];
 
@@ -242,7 +254,8 @@ const frpApps = [
         size: '0 MB',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.android.settings/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760868987987,
@@ -254,7 +267,8 @@ const frpApps = [
         size: '0 MB',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.sec.android.app.samsungapps/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760869067510,
@@ -266,7 +280,8 @@ const frpApps = [
         size: '0 MB',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.googlequicksearchbox/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760869141205,
@@ -278,7 +293,8 @@ const frpApps = [
         size: '0 MB',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.gms/#Intent;scheme=promote_smartlock_scheme;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760869804354,
@@ -290,7 +306,8 @@ const frpApps = [
         size: '1.17 MB',
         downloadLink: '#',
         originalDownloadLink: 'https://frpbypass.romstage.com/frp_bypass/',
-        isModified: false
+        isModified: false,
+        linkType: 'download'
     },
     {
         id: 1760869897074,
@@ -302,7 +319,8 @@ const frpApps = [
         size: '0',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.motorola.moto/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760869974405,
@@ -314,7 +332,8 @@ const frpApps = [
         size: '0',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.motorola.securityhub/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760870041088,
@@ -326,7 +345,8 @@ const frpApps = [
         size: '0',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.apps.googleassistant/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760870094155,
@@ -338,7 +358,8 @@ const frpApps = [
         size: '0',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.sec.android.app.myfiles/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760870234652,
@@ -350,7 +371,8 @@ const frpApps = [
         size: '0',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.mi.android.globalFileexplorer/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760870931873,
@@ -362,7 +384,8 @@ const frpApps = [
         size: '0',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.youtube/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     },
     {
         id: 1760870974710,
@@ -374,6 +397,7 @@ const frpApps = [
         size: '5 MB',
         downloadLink: '#',
         originalDownloadLink: 'intent://com.activitymanager/#Intent;scheme=android-app;end',
-        isModified: false
+        isModified: false,
+        linkType: 'direct'
     }
 ];
