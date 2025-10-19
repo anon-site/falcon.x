@@ -435,36 +435,77 @@ function applyFilter(page, category) {
 
 // ===== Load Software Data =====
 async function loadSoftwareData() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    
     try {
-        // Load Windows software - check localStorage first, then fallback to data.js
+        console.log('🔄 Loading software data...');
+        
+        // Try to load from GitHub first if configured
+        let githubData = null;
+        if (typeof githubAPI !== 'undefined' && githubAPI.isConfigured()) {
+            // Show loading indicator when fetching from GitHub
+            if (loadingIndicator) {
+                loadingIndicator.classList.add('show');
+            }
+            try {
+                console.log('🐙 Attempting to load data from GitHub...');
+                githubData = await githubAPI.loadDataFromGitHub();
+                
+                if (githubData) {
+                    console.log('✅ Successfully loaded data from GitHub, caching locally...');
+                    // Cache the GitHub data to localStorage for faster future loads
+                    localStorage.setItem('falcon-x-windows-apps', JSON.stringify(githubData.windowsSoftware || []));
+                    localStorage.setItem('falcon-x-android-apps', JSON.stringify(githubData.androidApps || []));
+                    localStorage.setItem('falcon-x-frp-tools', JSON.stringify(githubData.frpTools || []));
+                    localStorage.setItem('falcon-x-frp-apps', JSON.stringify(githubData.frpApps || []));
+                    localStorage.setItem('falcon-x-last-update', Date.now().toString());
+                    
+                    showToast('✨ Data loaded from GitHub!', 'success');
+                }
+            } catch (error) {
+                console.warn('⚠️ Failed to load from GitHub, using local data:', error);
+            }
+        } else {
+            console.log('📋 GitHub not configured, using local data');
+        }
+        
+        // Load Windows software - priority: GitHub > localStorage > data.js
         const windowsContainer = document.getElementById('windowsSoftware');
         if (windowsContainer) {
-            const windowsData = getDataFromStorage('windows-apps', windowsSoftware);
+            const windowsData = githubData ? githubData.windowsSoftware : getDataFromStorage('windows-apps', windowsSoftware);
             windowsContainer.innerHTML = windowsData.map(app => createSoftwareCard(app)).join('');
         }
         
         // Load Android apps
         const androidContainer = document.getElementById('androidApps');
         if (androidContainer) {
-            const androidData = getDataFromStorage('android-apps', androidApps);
+            const androidData = githubData ? githubData.androidApps : getDataFromStorage('android-apps', androidApps);
             androidContainer.innerHTML = androidData.map(app => createSoftwareCard(app)).join('');
         }
         
         // Load FRP tools
         const frpContainer = document.getElementById('frpTools');
         if (frpContainer) {
-            const frpData = getDataFromStorage('frp-tools-apps', frpTools);
+            const frpData = githubData ? githubData.frpTools : getDataFromStorage('frp-tools-apps', frpTools);
             frpContainer.innerHTML = frpData.map(app => createSoftwareCard(app)).join('');
         }
         
         // Load FRP apps - use simple card without modal
         const frpAppsContainer = document.getElementById('frpApps');
         if (frpAppsContainer) {
-            const frpAppsData = getDataFromStorage('frp-apps-apps', frpApps);
+            const frpAppsData = githubData ? githubData.frpApps : getDataFromStorage('frp-apps-apps', frpApps);
             frpAppsContainer.innerHTML = frpAppsData.map(app => createFrpAppSimpleCard(app)).join('');
         }
+        
+        console.log('✅ Software data loaded successfully');
     } catch (error) {
-        console.error('Error loading software data:', error);
+        console.error('❌ Error loading software data:', error);
+        showToast('Error loading data', 'error');
+    } finally {
+        // Hide loading indicator when done
+        if (loadingIndicator) {
+            loadingIndicator.classList.remove('show');
+        }
     }
 }
 
