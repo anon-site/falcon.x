@@ -291,8 +291,8 @@ function navigateToPage(pageId, pushState = true) {
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    // Show FRP warning for FRP pages
-    if (pageId === 'frp' || pageId === 'frp-apps') {
+    // Show FRP warning only for FRP Tools page
+    if (pageId === 'frp') {
         showFrpWarning();
     }
 }
