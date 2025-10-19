@@ -279,5 +279,77 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.gms/#Intent;scheme=promote_smartlock_scheme;end',
         isModified: false
+    },
+    {
+        id: 1760869804354,
+        name: 'FRP Bypass apk',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://cdn-icons-png.flaticon.com/512/8156/8156962.png',
+        description: 'Application to add a skip account to Android devices',
+        size: '1.17 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://frpbypass.romstage.com/frp_bypass/',
+        isModified: false
+    },
+    {
+        id: 1760869897074,
+        name: 'Motorola',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/11/unnamed-150x150.png',
+        description: 'Open device settings Motorola',
+        size: '0',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.motorola.moto/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760869974405,
+        name: 'Moto Secure',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2025/02/Moto-Secure-cpunlock.com_-150x150-1.png',
+        description: 'Open your security application Motorola',
+        size: '5 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.motorola.securityhub/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760870041088,
+        name: 'Open Google Assistant',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/11/unnamed-2-150x150.png',
+        description: 'Open Google Assistant for Android devices',
+        size: '0',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.google.android.apps.googleassistant/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760870094155,
+        name: 'Open Samsung My Files',
+        version: '1.0',
+        category: 'Samsung',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2023/09/Samsun-my-files-150x150.webp',
+        description: 'Open Samsung\'s Files app',
+        size: '0',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.sec.android.app.myfiles/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760870234652,
+        name: 'Open Mi File Manager',
+        version: '1.0',
+        category: 'Xiaomi',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/11/mi-file-menager-150x150.png',
+        description: 'Open the Files application for Xiaomi devices',
+        size: '0',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.mi.android.globalFileexplorer/#Intent;scheme=android-app;end',
+        isModified: false
     }
 ];
