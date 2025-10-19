@@ -294,10 +294,21 @@
                         <option value="" data-translate="select_repository">Select a repository...</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" id="testGithubConnection">
-                    <i class="fab fa-github"></i>
-                    <span data-translate="test_connection">Test Connection</span>
-                </button>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-primary" id="testGithubConnection">
+                        <i class="fab fa-github"></i>
+                        <span data-translate="test_connection">Test Connection</span>
+                    </button>
+                    <button class="btn btn-secondary" id="exportDataBtn">
+                        <i class="fas fa-download"></i>
+                        <span data-translate="export_data">Export Data</span>
+                    </button>
+                    <button class="btn btn-secondary" id="importDataBtn">
+                        <i class="fas fa-upload"></i>
+                        <span data-translate="import_data">Import Data</span>
+                    </button>
+                </div>
+                <input type="file" id="importFileInput" accept=".json" style="display: none;">
             </div>
         </section>
     </main>

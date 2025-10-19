@@ -174,6 +174,27 @@ class AdminApp {
             this.saveGitHubConfig();
         });
         
+        // Export/Import buttons
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const importDataBtn = document.getElementById('importDataBtn');
+        const importFileInput = document.getElementById('importFileInput');
+        
+        exportDataBtn?.addEventListener('click', () => {
+            this.exportData();
+        });
+        
+        importDataBtn?.addEventListener('click', () => {
+            importFileInput.click();
+        });
+        
+        importFileInput?.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                this.importData(file);
+                e.target.value = ''; // Reset input
+            }
+        });
+        
         // Filters
         const filterTab = document.getElementById('filterTab');
         const filterCategory = document.getElementById('filterCategory');
@@ -1166,6 +1187,68 @@ class AdminApp {
         } catch (error) {
             alert('Error: ' + error.message);
         }
+    }
+    
+    exportData() {
+        const data = {
+            apps: this.dataManager.data.apps,
+            categories: this.dataManager.data.categories,
+            tabs: this.dataManager.data.tabs
+        };
+        
+        const dataStr = JSON.stringify(data, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `falconx-data-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        alert('Data exported successfully!');
+    }
+    
+    importData(file) {
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result);
+                
+                // Validate data structure
+                if (!data.apps || !data.categories || !data.tabs) {
+                    alert('Invalid data file format!');
+                    return;
+                }
+                
+                // Confirm import
+                if (!confirm('This will replace all current data. Are you sure?')) {
+                    return;
+                }
+                
+                // Import data
+                this.dataManager.data.apps = data.apps;
+                this.dataManager.data.categories = data.categories;
+                this.dataManager.data.tabs = data.tabs;
+                this.dataManager.saveData();
+                
+                // Mark as unsaved for GitHub
+                this.markUnsaved();
+                
+                // Reload all sections
+                this.applyLanguage();
+                this.loadDashboard();
+                
+                alert('Data imported successfully!');
+            } catch (error) {
+                alert('Failed to import data: ' + error.message);
+            }
+        };
+        
+        reader.readAsText(file);
     }
 }
 

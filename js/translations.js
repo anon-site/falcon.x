@@ -114,6 +114,8 @@ const translations = {
         repository_name: "Repository Name",
         select_repository: "Select a repository...",
         test_connection: "Test Connection",
+        export_data: "Export Data",
+        import_data: "Import Data",
         
         // Messages
         confirm_delete: "Are you sure you want to delete this item?",
@@ -242,6 +244,8 @@ const translations = {
         repository_name: "اسم المستودع",
         select_repository: "اختر مستودع...",
         test_connection: "اختبار الاتصال",
+        export_data: "تصدير البيانات",
+        import_data: "استيراد البيانات",
         
         // Messages
         confirm_delete: "هل أنت متأكد من حذف هذا العنصر؟",
