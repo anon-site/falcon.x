@@ -1343,27 +1343,10 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
-.software-card::after {
-    content: 'View Details';
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    opacity: 0;
-    color: var(--primary-color);
-    font-size: 0.75rem;
-    font-weight: 600;
-    transition: opacity 0.3s;
-    pointer-events: none;
-}
-
 .software-card:hover {
     transform: translateY(-4px);
     border-color: var(--primary-color);
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-}
-
-.software-card:hover::after {
-    opacity: 1;
 }
 
 .software-header {

@@ -559,36 +559,44 @@ function createFrpAppSimpleCard(app) {
         ? '<span class="modified-badge modified" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-star" style="font-size: 0.6rem;"></i>Modified</span>'
         : '<span class="modified-badge unmodified" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-check-circle" style="font-size: 0.6rem;"></i>Original</span>';
     
-    // Check if link is valid
-    const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined' && app.downloadLink.trim() !== '';
+    // Check if links are valid
+    const hasDownloadLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined' && app.downloadLink.trim() !== '';
+    const hasOriginalLink = app.originalDownloadLink && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined' && app.originalDownloadLink.trim() !== '';
     
     return `
-        <div class="software-card" data-category="${app.category}" style="cursor: default;">
-            <div class="software-header">
-                <div class="software-icon">
+        <div class="software-card" data-category="${app.category}" style="cursor: default; padding: 1.25rem;">
+            <div class="software-header" style="margin-bottom: 0.75rem;">
+                <div class="software-icon" style="width: 42px; height: 42px; font-size: 1.1rem;">
                     ${iconHtml}
                 </div>
                 <div class="software-info">
-                    <h3>${app.name}</h3>
+                    <h3 style="font-size: 1rem; margin-bottom: 0.2rem;">${app.name}</h3>
                     <div style="display: flex; align-items: center; flex-wrap: wrap;">
-                        <span class="software-version">v${app.version || '1.0'}</span>
+                        <span class="software-version" style="font-size: 0.8rem;">v${app.version || '1.0'}</span>
                         ${modifiedBadge}
                     </div>
                 </div>
             </div>
-            <p class="software-description">${app.description}</p>
-            <div class="software-meta">
-                <span class="software-size"><i class="fas fa-hdd"></i> ${app.size || 'N/A'}</span>
+            <p class="software-description" style="font-size: 0.85rem; line-height: 1.4; margin-bottom: 0.75rem;">${app.description}</p>
+            <div class="software-meta" style="padding-top: 0.75rem;">
+                <span class="software-size" style="font-size: 0.8rem;"><i class="fas fa-hdd"></i> ${app.size || 'N/A'}</span>
             </div>
-            <div style="margin-top: 1rem;">
-                ${hasValidLink 
-                    ? `<button class="btn btn-primary" onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(102, 126, 234, 0.4)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+            <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center;">
+                ${hasDownloadLink 
+                    ? `<button class="btn btn-primary" onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.3)';">
                         <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>Open
                     </button>`
-                    : `<button class="btn" onclick="event.stopPropagation();" style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #6b7280, #4b5563); border: none; color: white; border-radius: 12px; font-weight: 600; cursor: not-allowed; opacity: 0.6;">
-                        <i class="fas fa-clock" style="margin-right: 0.5rem;"></i>Coming Soon
+                    : ''}
+                ${hasOriginalLink 
+                    ? `<button class="btn" onclick="window.open('${app.originalDownloadLink}', '_blank'); event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.3)';">
+                        <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i>Original
                     </button>`
-                }
+                    : ''}
+                ${!hasDownloadLink && !hasOriginalLink 
+                    ? `<button class="btn" onclick="event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, rgba(107, 114, 128, 0.2), rgba(75, 85, 99, 0.2)); border: 2px solid rgba(156, 163, 175, 0.3); color: rgba(156, 163, 175, 0.8); border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: not-allowed; backdrop-filter: blur(10px);">
+                        <i class="fas fa-clock" style="margin-right: 0.5rem; opacity: 0.6;"></i>Coming Soon
+                    </button>`
+                    : ''}
             </div>
         </div>
     `;
