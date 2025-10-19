@@ -584,12 +584,12 @@ function createFrpAppSimpleCard(app) {
             <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center;">
                 ${hasDownloadLink 
                     ? `<button class="btn btn-primary" onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(102, 126, 234, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.3)';">
-                        <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>Open
+                        <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>Open Modified
                     </button>`
                     : ''}
                 ${hasOriginalLink 
                     ? `<button class="btn" onclick="window.open('${app.originalDownloadLink}', '_blank'); event.stopPropagation();" style="padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.3)';">
-                        <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i>Original
+                        <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i>Open Original
                     </button>`
                     : ''}
                 ${!hasDownloadLink && !hasOriginalLink 
