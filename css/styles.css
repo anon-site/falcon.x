@@ -1485,11 +1485,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-large {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    min-width: 120px;
-    max-width: 180px;
     border-radius: 10px;
     transition: all 0.3s ease;
     display: inline-flex;
@@ -2105,11 +2103,10 @@ h1, h2, h3, h4, h5, h6 {
     }
     
     .btn-large {
-        flex: 1;
-        min-width: 140px;
-        max-width: 48%;
-        padding: 0.875rem 1.25rem;
-        font-size: 0.95rem;
+        flex: 1 1 auto;
+        min-width: 120px;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
     }
     
     /* Lightbox Responsive */
