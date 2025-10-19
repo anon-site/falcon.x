@@ -306,8 +306,8 @@ function initGitHubSettingsForm() {
 const CATEGORIES = {
     windows: ['Anti Virus', 'Convert', 'Designe', 'Desktop', 'Driver', 'Browser', 'Download App', 'Wifi', 'Multiplayer', 'Utilities', 'Programming', 'VPN'],
     android: ['Anti Virus', 'Convert', 'Designe', 'Desktop', 'Driver', 'Browser', 'Download App', 'Wifi', 'Multiplayer', 'Utilities', 'Programming', 'VPN'],
-    'frp-tools': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Universal', 'iPhone'],
-    'frp-apps': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Universal']
+    'frp-tools': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Moto', 'Universal', 'iPhone'],
+    'frp-apps': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Moto', 'Universal']
 };
 
 // In-memory storage for apps
