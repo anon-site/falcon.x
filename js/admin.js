@@ -244,9 +244,12 @@ class AdminApp {
         const saveBtn = document.getElementById('saveChanges');
         
         if (saveIndicator) {
-            saveIndicator.innerHTML = `<span>${window.languageManager.t('saved')}</span>`;
+            saveIndicator.innerHTML = `<span data-translate="saved">${window.languageManager.t('saved')}</span>`;
+            saveIndicator.style.display = 'block';
             setTimeout(() => {
                 saveIndicator.style.display = 'none';
+                // Reset to original text for next time
+                saveIndicator.innerHTML = `<span data-translate="unsaved_changes">${window.languageManager.t('unsaved_changes')}</span>`;
             }, 2000);
         }
         if (saveBtn) saveBtn.style.display = 'none';

@@ -11,10 +11,10 @@ class DataManager {
                 { id: 'frp-app', name: { en: 'FRP App', ar: 'تطبيقات FRP' } }
             ]
         };
-        this.loadData();
     }
     
-    loadData() {
+    async loadData() {
+        // Check localStorage first
         const storedData = localStorage.getItem('falconx_data');
         if (storedData) {
             const parsed = JSON.parse(storedData);
@@ -22,7 +22,23 @@ class DataManager {
             this.data.categories = parsed.categories || this.getDefaultCategories();
             this.data.tabs = parsed.tabs || this.data.tabs;
         } else {
-            this.data.categories = this.getDefaultCategories();
+            // Load from data.json if localStorage is empty
+            try {
+                const response = await fetch('data.json');
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    this.data.apps = jsonData.apps || [];
+                    this.data.categories = jsonData.categories || this.getDefaultCategories();
+                    this.data.tabs = jsonData.tabs || this.data.tabs;
+                    // Save to localStorage for future use
+                    this.saveData();
+                } else {
+                    this.data.categories = this.getDefaultCategories();
+                }
+            } catch (error) {
+                console.log('Could not load data.json, using defaults');
+                this.data.categories = this.getDefaultCategories();
+            }
         }
     }
     
@@ -62,7 +78,10 @@ class App {
         this.init();
     }
     
-    init() {
+    async init() {
+        // Wait for data to load
+        await this.dataManager.loadData();
+        
         this.applyTheme(this.currentTheme);
         this.setupEventListeners();
         this.loadApps();
