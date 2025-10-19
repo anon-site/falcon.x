@@ -458,11 +458,11 @@ async function loadSoftwareData() {
             frpContainer.innerHTML = frpData.map(app => createSoftwareCard(app)).join('');
         }
         
-        // Load FRP apps
+        // Load FRP apps - use simple card without modal
         const frpAppsContainer = document.getElementById('frpApps');
         if (frpAppsContainer) {
             const frpAppsData = getDataFromStorage('frp-apps-apps', frpApps);
-            frpAppsContainer.innerHTML = frpAppsData.map(app => createSoftwareCard(app)).join('');
+            frpAppsContainer.innerHTML = frpAppsData.map(app => createFrpAppSimpleCard(app)).join('');
         }
     } catch (error) {
         console.error('Error loading software data:', error);
@@ -540,6 +540,55 @@ function createSoftwareCard(software) {
             <p class="software-description">${software.description}</p>
             <div class="software-meta">
                 <span class="software-size"><i class="fas fa-hdd"></i> ${software.size}</span>
+            </div>
+        </div>
+    `;
+}
+
+// ===== Create Simple FRP App Card (No Modal) =====
+function createFrpAppSimpleCard(app) {
+    // Check if icon is a URL or Font Awesome class
+    const isImageUrl = app.icon && (app.icon.startsWith('http') || app.icon.startsWith('/') || app.icon.includes('.png') || app.icon.includes('.jpg') || app.icon.includes('.svg') || app.icon.includes('.gif'));
+    
+    const iconHtml = isImageUrl 
+        ? `<img src="${app.icon}" alt="${app.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
+        : `<i class="${app.icon || 'fas fa-mobile-alt'}"></i>`;
+    
+    // Modified badge
+    const modifiedBadge = app.isModified 
+        ? '<span class="modified-badge modified" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-star" style="font-size: 0.6rem;"></i>Modified</span>'
+        : '<span class="modified-badge unmodified" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; margin-left: 0.5rem;"><i class="fas fa-check-circle" style="font-size: 0.6rem;"></i>Original</span>';
+    
+    // Check if link is valid
+    const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined' && app.downloadLink.trim() !== '';
+    
+    return `
+        <div class="software-card" data-category="${app.category}" style="cursor: default;">
+            <div class="software-header">
+                <div class="software-icon">
+                    ${iconHtml}
+                </div>
+                <div class="software-info">
+                    <h3>${app.name}</h3>
+                    <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                        <span class="software-version">v${app.version || '1.0'}</span>
+                        ${modifiedBadge}
+                    </div>
+                </div>
+            </div>
+            <p class="software-description">${app.description}</p>
+            <div class="software-meta">
+                <span class="software-size"><i class="fas fa-hdd"></i> ${app.size || 'N/A'}</span>
+            </div>
+            <div style="margin-top: 1rem;">
+                ${hasValidLink 
+                    ? `<button class="btn btn-primary" onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #667eea, #764ba2); border: none; color: white; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(102, 126, 234, 0.4)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                        <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>Open
+                    </button>`
+                    : `<button class="btn" onclick="event.stopPropagation();" style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, #6b7280, #4b5563); border: none; color: white; border-radius: 12px; font-weight: 600; cursor: not-allowed; opacity: 0.6;">
+                        <i class="fas fa-clock" style="margin-right: 0.5rem;"></i>Coming Soon
+                    </button>`
+                }
             </div>
         </div>
     `;

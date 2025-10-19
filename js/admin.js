@@ -527,6 +527,23 @@ function openAppModal(type, appId = null) {
         ? `تعديل ${titles[type]}` 
         : `إضافة ${titles[type]} جديد`;
     
+    // Hide/Show fields based on type
+    const isFrpApps = type === 'frp-apps';
+    
+    // Hide unnecessary fields for FRP Apps (keep version, size, modified, and original link)
+    const fieldsToHide = [
+        'appFullDescription',
+        'appScreenshots', 'appFeatures'
+    ];
+    
+    fieldsToHide.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        const formGroup = field ? field.closest('.form-group') : null;
+        if (formGroup) {
+            formGroup.style.display = isFrpApps ? 'none' : 'block';
+        }
+    });
+    
     // Populate categories
     categorySelect.innerHTML = '<option value="">اختر الفئة</option>';
     CATEGORIES[type].forEach(cat => {
@@ -570,10 +587,22 @@ function openAppModal(type, appId = null) {
         form.reset();
         document.getElementById('appId').value = '';
         document.getElementById('appType').value = type;
-        document.getElementById('appModified').value = 'false';
-        document.getElementById('appOriginalDownloadLink').value = '';
-        document.getElementById('appScreenshots').value = '';
-        document.getElementById('appFeatures').value = '';
+        
+        // Set default values for FRP Apps
+        if (isFrpApps) {
+            document.getElementById('appVersion').value = '1.0';
+            document.getElementById('appSize').value = '5 MB';
+            document.getElementById('appModified').value = 'false';
+            document.getElementById('appOriginalDownloadLink').value = '';
+            document.getElementById('appScreenshots').value = '';
+            document.getElementById('appFeatures').value = '';
+            document.getElementById('appFullDescription').value = '';
+        } else {
+            document.getElementById('appModified').value = 'false';
+            document.getElementById('appOriginalDownloadLink').value = '';
+            document.getElementById('appScreenshots').value = '';
+            document.getElementById('appFeatures').value = '';
+        }
     }
     
     modal.style.display = 'flex';
