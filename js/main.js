@@ -1045,24 +1045,26 @@ function showAppDetails(appId) {
     // Update download buttons based on app type
     updateDownloadButtons(app);
     
-    // Reset scroll position to top
-    const modalContent = modal.querySelector('.app-modal-content');
-    if (modalContent) {
-        modalContent.scrollTop = 0;
-    }
-    
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    
+    // Reset scroll position to top for modal body
+    setTimeout(() => {
+        const modalBody = modal.querySelector('.app-modal-body');
+        if (modalBody) {
+            modalBody.scrollTop = 0;
+        }
+    }, 0);
 }
 
 function closeAppDetails() {
     const modal = document.getElementById('appDetailsModal');
     
     // Reset scroll position when closing
-    const modalContent = modal.querySelector('.app-modal-content');
-    if (modalContent) {
-        modalContent.scrollTop = 0;
+    const modalBody = modal.querySelector('.app-modal-body');
+    if (modalBody) {
+        modalBody.scrollTop = 0;
     }
     
     modal.classList.remove('active');
