@@ -361,6 +361,96 @@ class GitHubAPI {
             return { success: false, message: error.message };
         }
     }
+
+    // ===== NEW: Load data.js from GitHub =====
+    async loadDataFromGitHub() {
+        if (!this.isConfigured()) {
+            console.log('⚠️ GitHub not configured, skipping remote load');
+            return null;
+        }
+
+        try {
+            console.log('🔄 Loading data.js from GitHub...');
+            const { owner, repo } = this.getOwnerAndRepo();
+            
+            // Use raw.githubusercontent.com for direct file access (faster)
+            const url = `https://raw.githubusercontent.com/${owner}/${repo}/${this.config.branch}/js/data.js`;
+            
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${this.config.token}`,
+                    'Cache-Control': 'no-cache'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to load data: ${response.status}`);
+            }
+
+            const dataJsContent = await response.text();
+            
+            // Parse the data.js file
+            const data = this.parseDataJs(dataJsContent);
+            
+            console.log('✅ Successfully loaded data from GitHub');
+            return data;
+        } catch (error) {
+            console.error('❌ Error loading data from GitHub:', error);
+            return null;
+        }
+    }
+
+    // Parse data.js content to extract arrays
+    parseDataJs(content) {
+        try {
+            // Create a temporary scope to execute the data.js code safely
+            const windowsSoftware = [];
+            const androidApps = [];
+            const frpTools = [];
+            const frpApps = [];
+            
+            // Use eval in a controlled way (not ideal but works for our use case)
+            // Better approach: use Function constructor
+            const func = new Function('windowsSoftware', 'androidApps', 'frpTools', 'frpApps', 
+                content + '\nreturn { windowsSoftware, androidApps, frpTools, frpApps };'
+            );
+            
+            return func(windowsSoftware, androidApps, frpTools, frpApps);
+        } catch (error) {
+            console.error('Error parsing data.js:', error);
+            return null;
+        }
+    }
+
+    // Check if remote data is newer than local
+    async isRemoteDataNewer() {
+        if (!this.isConfigured()) return false;
+
+        try {
+            const { owner, repo } = this.getOwnerAndRepo();
+            const url = `https://api.github.com/repos/${owner}/${repo}/commits?path=js/data.js&per_page=1`;
+            
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${this.config.token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) return false;
+
+            const commits = await response.json();
+            if (commits.length === 0) return false;
+
+            const lastCommitDate = new Date(commits[0].commit.committer.date).getTime();
+            const localUpdate = parseInt(localStorage.getItem('falcon-x-last-update') || '0');
+
+            return lastCommitDate > localUpdate;
+        } catch (error) {
+            console.error('Error checking remote data:', error);
+            return false;
+        }
+    }
 }
 
 // Create global instance
