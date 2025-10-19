@@ -594,8 +594,9 @@ function createFrpAppSimpleCard(app) {
         ? `<img src="${app.icon}" alt="${app.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
         : `<i class="${app.icon || 'fas fa-mobile-alt'}"></i>`;
     
-    // Check link type (direct or download)
-    const isDirect = app.linkType === 'direct';
+    // Check link type (direct or download) - auto-detect from link content
+    const isDirect = app.linkType === 'direct' || 
+                     (app.originalDownloadLink && app.originalDownloadLink.startsWith('intent://'));
     
     // Modified badge
     const modifiedBadge = app.isModified 
