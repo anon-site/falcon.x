@@ -457,11 +457,23 @@ function loadApps(type) {
     }
     
     let html = '<table class="data-table"><thead><tr>';
-    html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>آخر تحديث</th><th>الإجراءات</th>';
+    // Add extra column for FRP Apps link type
+    if (type === 'frp-apps') {
+        html += '<th>الاسم</th><th>نوع الرابط</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>آخر تحديث</th><th>الإجراءات</th>';
+    } else {
+        html += '<th>الاسم</th><th>الفئة</th><th>الإصدار</th><th>الحجم</th><th>الحالة</th><th>آخر تحديث</th><th>الإجراءات</th>';
+    }
     html += '</tr></thead><tbody>';
     
     apps.forEach(app => {
         const modifiedBadge = app.isModified ? '<span class="badge" style="background: #f59e0b;">معدل</span>' : '<span class="badge" style="background: #10b981;">غير معدل</span>';
+        
+        // Link type badge for FRP Apps
+        const linkTypeBadge = type === 'frp-apps' && app.linkType 
+            ? (app.linkType === 'direct' 
+                ? '<span class="badge" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">مباشر</span>' 
+                : '<span class="badge" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white;">تحميل</span>')
+            : '<span class="badge" style="background: #6b7280;">غير محدد</span>';
         
         // Format last updated date
         let lastUpdatedText = 'غير محدد';
@@ -484,22 +496,43 @@ function loadApps(type) {
             }
         }
         
-        html += `<tr>
-            <td><strong>${app.name}</strong></td>
-            <td><span class="badge">${app.category}</span></td>
-            <td>${app.version}</td>
-            <td>${app.size}</td>
-            <td>${modifiedBadge}</td>
-            <td style="font-size: 0.85rem; color: #9ca3af;"><i class="fas fa-clock" style="margin-left: 0.3rem;"></i>${lastUpdatedText}</td>
-            <td class="actions">
-                <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon btn-delete" onclick="deleteApp('${type}', ${app.id})" title="حذف">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>`;
+        // Build table row with conditional link type column
+        if (type === 'frp-apps') {
+            html += `<tr>
+                <td><strong>${app.name}</strong></td>
+                <td>${linkTypeBadge}</td>
+                <td><span class="badge">${app.category}</span></td>
+                <td>${app.version}</td>
+                <td>${app.size}</td>
+                <td>${modifiedBadge}</td>
+                <td style="font-size: 0.85rem; color: #9ca3af;"><i class="fas fa-clock" style="margin-left: 0.3rem;"></i>${lastUpdatedText}</td>
+                <td class="actions">
+                    <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteApp('${type}', ${app.id})" title="حذف">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
+        } else {
+            html += `<tr>
+                <td><strong>${app.name}</strong></td>
+                <td><span class="badge">${app.category}</span></td>
+                <td>${app.version}</td>
+                <td>${app.size}</td>
+                <td>${modifiedBadge}</td>
+                <td style="font-size: 0.85rem; color: #9ca3af;"><i class="fas fa-clock" style="margin-left: 0.3rem;"></i>${lastUpdatedText}</td>
+                <td class="actions">
+                    <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteApp('${type}', ${app.id})" title="حذف">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
+        }
     });
     
     html += '</tbody></table>';
