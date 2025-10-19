@@ -81,8 +81,12 @@ class GitHubAPI {
         const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
         
         try {
+            console.log(`📤 Attempting to update ${path} on GitHub...`);
+            console.log(`   Owner: ${owner}, Repo: ${repo}, Branch: ${this.config.branch}`);
+            
             // First, get the current file to get its SHA
             const currentFile = await this.getFileContent(path);
+            console.log(`✅ Retrieved current file SHA: ${currentFile.sha}`);
             
             // Prepare the update
             const body = {
@@ -92,6 +96,7 @@ class GitHubAPI {
                 branch: this.config.branch
             };
 
+            console.log(`📝 Sending update request to GitHub...`);
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -103,7 +108,8 @@ class GitHubAPI {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({}));
+                console.error(`❌ GitHub API Error:`, errorData);
                 
                 // If 409 conflict and we haven't retried too many times, retry once
                 if (response.status === 409 && retryCount < 2) {
@@ -113,12 +119,25 @@ class GitHubAPI {
                     return await this.updateFile(path, content, message, retryCount + 1);
                 }
                 
-                throw new Error(`GitHub API Error: ${response.status} - ${errorData.message}`);
+                // Provide more detailed error messages
+                let errorMessage = `GitHub API Error (${response.status})`;
+                if (response.status === 401) {
+                    errorMessage += ': Invalid token - تحقق من صلاحية التوكن';
+                } else if (response.status === 403) {
+                    errorMessage += ': Permission denied - تحقق من صلاحيات التوكن (يجب أن يكون لديه صلاحية repo)';
+                } else if (response.status === 404) {
+                    errorMessage += ': Repository or file not found - تأكد من اسم Repository والـ Branch';
+                } else if (errorData.message) {
+                    errorMessage += `: ${errorData.message}`;
+                }
+                
+                throw new Error(errorMessage);
             }
 
+            console.log(`✅ Successfully updated ${path} on GitHub!`);
             return await response.json();
         } catch (error) {
-            console.error('Error updating file:', error);
+            console.error('❌ Error updating file:', error);
             throw error;
         }
     }
