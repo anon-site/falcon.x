@@ -243,5 +243,41 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.android.settings/#Intent;scheme=android-app;end',
         isModified: false
+    },
+    {
+        id: 1760868987987,
+        name: 'Galaxy Store',
+        version: '1.0',
+        category: 'Samsung',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/02/GLAXCY-min-300x77.jpg',
+        description: 'Open Galaxy Store',
+        size: '0 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.sec.android.app.samsungapps/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760869067510,
+        name: ' Google Search app',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/02/search-min-150x150.png',
+        description: 'Open Google search engine',
+        size: '0 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.google.android.googlequicksearchbox/#Intent;scheme=android-app;end',
+        isModified: false
+    },
+    {
+        id: 1760869141205,
+        name: 'Set Lock Screen',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2024/09/image.png',
+        description: 'Screen lock settings',
+        size: '0 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.google.android.gms/#Intent;scheme=promote_smartlock_scheme;end',
+        isModified: false
     }
 ];
