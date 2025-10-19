@@ -1,0 +1,218 @@
+{
+  "apps": [
+    {
+      "id": 1,
+      "name": {
+        "en": "Adobe Photoshop",
+        "ar": "أدوبي فوتوشوب"
+      },
+      "tab": "windows-app",
+      "category": 2,
+      "version": "2024",
+      "size": "3.2 GB",
+      "status": "modified",
+      "icon": "https://via.placeholder.com/100/6366f1/ffffff?text=PS",
+      "shortDescription": {
+        "en": "Professional image editing and graphic design software",
+        "ar": "برنامج احترافي لتحرير الصور والتصميم الجرافيكي"
+      },
+      "fullDescription": {
+        "en": "Adobe Photoshop is the industry-leading software for digital imaging, photo editing, and graphic design. With powerful tools and endless possibilities, create stunning artwork and professional compositions.",
+        "ar": "أدوبي فوتوشوب هو البرنامج الرائد في مجال التصوير الرقمي وتحرير الصور والتصميم الجرافيكي. مع أدوات قوية وإمكانيات لا حصر لها، يمكنك إنشاء أعمال فنية مذهلة وتركيبات احترافية."
+      },
+      "features": {
+        "en": [
+          "Advanced photo editing tools",
+          "AI-powered features",
+          "Layer-based editing",
+          "Professional color grading",
+          "3D design capabilities",
+          "Extensive plugin support"
+        ],
+        "ar": [
+          "أدوات تحرير صور متقدمة",
+          "ميزات مدعومة بالذكاء الاصطناعي",
+          "تحرير قائم على الطبقات",
+          "تدريج ألوان احترافي",
+          "قدرات تصميم ثلاثي الأبعاد",
+          "دعم واسع للإضافات"
+        ]
+      },
+      "screenshots": [
+        "https://via.placeholder.com/800x600/1e293b/cbd5e1?text=Screenshot+1",
+        "https://via.placeholder.com/800x600/1e293b/cbd5e1?text=Screenshot+2"
+      ],
+      "downloadOriginal": "https://example.com/photoshop-original",
+      "downloadModified": "https://example.com/photoshop-modified"
+    },
+    {
+      "id": 2,
+      "name": {
+        "en": "WhatsApp",
+        "ar": "واتساب"
+      },
+      "tab": "android-app",
+      "category": 3,
+      "version": "2.24.1.78",
+      "size": "65 MB",
+      "status": "modified",
+      "icon": "https://via.placeholder.com/100/25D366/ffffff?text=WA",
+      "shortDescription": {
+        "en": "Fast, simple, secure messaging and calling",
+        "ar": "مراسلة ومكالمات سريعة وبسيطة وآمنة"
+      },
+      "fullDescription": {
+        "en": "WhatsApp Messenger is a FREE messaging app available for Android and other smartphones. WhatsApp uses your phone's Internet connection to send messages so you can avoid SMS fees.",
+        "ar": "واتساب ميسنجر هو تطبيق مراسلة مجاني متاح لأندرويد والهواتف الذكية الأخرى. يستخدم واتساب اتصال الإنترنت بهاتفك لإرسال الرسائل حتى تتجنب رسوم الرسائل القصيرة."
+      },
+      "features": {
+        "en": [
+          "Free messaging and calling",
+          "End-to-end encryption",
+          "Group chats",
+          "Voice and video calls",
+          "Status updates",
+          "Document sharing"
+        ],
+        "ar": [
+          "مراسلة ومكالمات مجانية",
+          "تشفير شامل",
+          "محادثات جماعية",
+          "مكالمات صوتية وفيديو",
+          "تحديثات الحالة",
+          "مشاركة المستندات"
+        ]
+      },
+      "screenshots": [
+        "https://via.placeholder.com/800x600/1e293b/cbd5e1?text=Screenshot+1",
+        "https://via.placeholder.com/800x600/1e293b/cbd5e1?text=Screenshot+2"
+      ],
+      "downloadOriginal": "https://example.com/whatsapp-original",
+      "downloadModified": "https://example.com/whatsapp-gb"
+    },
+    {
+      "id": 3,
+      "name": {
+        "en": "FRP Bypass Tool",
+        "ar": "أداة تخطي FRP"
+      },
+      "tab": "frp-tools",
+      "category": 5,
+      "version": "5.2",
+      "size": "15 MB",
+      "status": "original",
+      "icon": "https://via.placeholder.com/100/ef4444/ffffff?text=FRP",
+      "shortDescription": {
+        "en": "Professional FRP bypass solution for Android devices",
+        "ar": "حل احترافي لتخطي حماية FRP على أجهزة أندرويد"
+      },
+      "fullDescription": {
+        "en": "A professional tool designed to bypass Factory Reset Protection (FRP) on Android devices. This tool should only be used on devices you own or have authorization to access.",
+        "ar": "أداة احترافية مصممة لتخطي حماية إعادة ضبط المصنع (FRP) على أجهزة أندرويد. يجب استخدام هذه الأداة فقط على الأجهزة التي تمتلكها أو لديك تصريح بالوصول إليها."
+      },
+      "features": {
+        "en": [
+          "Support for all Android versions",
+          "Easy-to-use interface",
+          "Fast bypass process",
+          "Regular updates",
+          "No root required",
+          "Compatible with most devices"
+        ],
+        "ar": [
+          "دعم جميع إصدارات أندرويد",
+          "واجهة سهلة الاستخدام",
+          "عملية تخطي سريعة",
+          "تحديثات منتظمة",
+          "لا يتطلب صلاحيات روت",
+          "متوافق مع معظم الأجهزة"
+        ]
+      },
+      "screenshots": [
+        "https://via.placeholder.com/800x600/1e293b/cbd5e1?text=Screenshot+1"
+      ],
+      "downloadOriginal": "https://example.com/frp-tool",
+      "downloadModified": ""
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": {
+        "en": "Productivity",
+        "ar": "الإنتاجية"
+      },
+      "tab": "windows-app"
+    },
+    {
+      "id": 2,
+      "name": {
+        "en": "Multimedia",
+        "ar": "الوسائط المتعددة"
+      },
+      "tab": "windows-app"
+    },
+    {
+      "id": 3,
+      "name": {
+        "en": "Social Media",
+        "ar": "وسائل التواصل"
+      },
+      "tab": "android-app"
+    },
+    {
+      "id": 4,
+      "name": {
+        "en": "Games",
+        "ar": "الألعاب"
+      },
+      "tab": "android-app"
+    },
+    {
+      "id": 5,
+      "name": {
+        "en": "FRP Tools",
+        "ar": "أدوات FRP"
+      },
+      "tab": "frp-tools"
+    },
+    {
+      "id": 6,
+      "name": {
+        "en": "FRP Bypass",
+        "ar": "تخطي FRP"
+      },
+      "tab": "frp-app"
+    }
+  ],
+  "tabs": [
+    {
+      "id": "windows-app",
+      "name": {
+        "en": "Windows App",
+        "ar": "تطبيقات ويندوز"
+      }
+    },
+    {
+      "id": "android-app",
+      "name": {
+        "en": "Android App",
+        "ar": "تطبيقات أندرويد"
+      }
+    },
+    {
+      "id": "frp-tools",
+      "name": {
+        "en": "FRP & Tools",
+        "ar": "FRP وأدوات"
+      }
+    },
+    {
+      "id": "frp-app",
+      "name": {
+        "en": "FRP App",
+        "ar": "تطبيقات FRP"
+      }
+    }
+  ]
+}
