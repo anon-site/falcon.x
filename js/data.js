@@ -232,4 +232,16 @@ const frpTools = [
 
 // ===== FRP Applications Data =====
 const frpApps = [
+    {
+        id: 1760868637661,
+        name: 'Settings',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'fa-solid fa-gear',
+        description: 'Open phone settings',
+        size: '0 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.android.settings/#Intent;scheme=android-app;end',
+        isModified: false
+    }
 ];
