@@ -87,19 +87,48 @@ function clearCacheAndReload() {
 
 function testGitHubConnection() {
     const statusDiv = document.getElementById('githubStatus');
+    const token = document.getElementById('githubToken').value.trim();
+    const repo = document.getElementById('githubRepo').value.trim();
+    const branch = document.getElementById('githubBranch').value.trim() || 'main';
+    
+    // Validate inputs first
+    if (!token) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = '#ef4444';
+        statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> الرجاء إدخال Token أولاً';
+        showToast('الرجاء إدخال Token', 'error');
+        return;
+    }
+    
+    if (!repo || !repo.includes('/')) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = '#ef4444';
+        statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> الرجاء اختيار Repository من القائمة';
+        showToast('الرجاء اختيار Repository', 'error');
+        return;
+    }
+    
     statusDiv.style.display = 'block';
     statusDiv.style.background = '#1e2746';
     statusDiv.style.color = '#fff';
     statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الاتصال بـ GitHub...';
     
+    // Temporarily update config for testing
+    const originalConfig = { ...githubAPI.config };
+    githubAPI.config = { token, repo, branch };
+    
     githubAPI.testConnection().then(result => {
         if (result.success) {
             statusDiv.style.background = '#10b981';
-            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> الاتصال ناجح! Repository: ' + repo;
+            showToast('تم الاتصال بنجاح مع GitHub', 'success');
         } else {
             statusDiv.style.background = '#ef4444';
             statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> ' + result.message;
+            showToast('فشل الاتصال: ' + result.message, 'error');
         }
+        // Restore original config (user needs to save settings to persist)
+        githubAPI.config = originalConfig;
     });
 }
 
