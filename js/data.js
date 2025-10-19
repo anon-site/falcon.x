@@ -190,6 +190,7 @@ const androidApps = [
         fullDescription: 'APK Editor Pro is a professional Android application designed for modifying APK files directly on your device. It enables users to edit app resources, change layouts, replace icons, modify strings, and even remove ads or permissions. The tool supports both full APK editing and simple file replacement, making it suitable for both beginners and advanced users. With an intuitive interface and robust functionality, it’s one of the best tools for customizing Android apps according to your needs.',
         size: '5.31',
         downloadLink: 'https://www.mediafire.com/file/f1iczua6mblucyv/APK_Editor_Pro.ver.1.6.12.build.70.rar/file',
+        originalDownloadLink: 'https://apk-editor.com/',
         isModified: true,
         screenshots: ['https://apk-editor.com/wp-content/uploads/2025/05/APK-Editor-for-Pro-Mod-1024x550.webp', 'https://www.latestmodapks.com/wp-content/uploads/2022/08/apk-editor5.webp', 'https://imag.malavida.com/mvimgbig/download-fs/apk-editor-20899-1.jpg'],
         features: ['Edit APK files easily and quickly.', 'Modify app resources, layouts, and images.', 'Remove unwanted ads and permissions.', 'Replace app icons and backgrounds.', 'Support for full APK rebuild or simple edit modes.', 'User-friendly interface.', 'Backup and restore feature for safety.', 'Works without requiring root (for most edits).']
@@ -204,6 +205,7 @@ const androidApps = [
         fullDescription: 'App Cloner (VIP / Premium) lets you duplicate Android apps and modify cloned instances with options such as changing the app name and icon, removing permissions, disabling auto-start, spoofing identifiers, adding privacy options (hide Android ID, Wi-Fi/Bluetooth MAC), password-protecting clones, and more. It supports both simple cloning and advanced modifications via add-ons; some advanced mods and large-scale cloning limits are unlocked in the VIP/Premium edition.',
         size: '21.3',
         downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
+        originalDownloadLink: 'https://appcloner.app/',
         isModified: true,
         screenshots: ['https://play-lh.googleusercontent.com/RjZbsmh22gbDGBsGPqVE16EkOX8h0wVJUm81lsJ79NA8AtSlPbzJv0U8rMH2e7oHmyE=w526-h296-rw', 'https://liteapks.com/wp-content/uploads/2022/05/app-cloner-1-e1653727930941.png', 'https://images.wondershare.com/drfone/article/2024/02/android-clone-apps-10.jpg'],
         features: ['Create multiple independent clones of installed apps.', 'appcloner.app', 'Customize clone name, icon, and package signature.', 'APKMirror', 'Remove or limit permissions, disable auto-start and background services.', 'appcloner.app', 'Privacy & spoofing options (hide/switch Android ID, spoof MAC, fake GPS).', 'App Cloner', 'Password-protect clones and enable incognito/stealth modes.', 'appcloner.app', 'VIP/Premium unlocks advanced mods, more cloning limits, and add-ons.', 'LITEAPKS', '+1', 'Note: compatibility differs by target app — some apps (banking, DRM apps, Google Pay, etc.) may refuse to run under clones or require additional steps.']
