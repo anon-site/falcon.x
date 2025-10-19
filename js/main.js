@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSearch();
     initializeFilters();
     loadSoftwareData();
-    initializeCustomCursor();
     initializeSettings();
     initializeStorageListener();
 });
@@ -729,180 +728,6 @@ function showToast(message, type = 'success') {
 }
 
 
-// ===== Custom Cursor =====
-let cursorSpeed = 1;
-
-function initializeCustomCursor() {
-    // Don't initialize on mobile devices
-    if (window.innerWidth <= 768) return;
-    
-    // Load saved cursor settings
-    const savedCursorStyle = localStorage.getItem('cursor-style') || 'neon';
-    const savedCursorSpeed = localStorage.getItem('cursor-speed') || '0.2';
-    cursorSpeed = parseFloat(savedCursorSpeed);
-    applyCursorStyle(savedCursorStyle);
-    
-    // Create cursor element
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.id = 'customCursor';
-    document.body.appendChild(cursor);
-    
-    // Ensure cursor is always visible
-    cursor.style.opacity = '1';
-    cursor.style.display = 'block';
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    
-    // Track mouse position
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    // Smooth cursor animation
-    function animateCursor() {
-        // Check if cursor should be visible
-        const isDefaultCursor = document.body.classList.contains('cursor-default');
-        if (isDefaultCursor) {
-            cursor.style.display = 'none';
-            requestAnimationFrame(animateCursor);
-            return;
-        }
-        
-        cursorX += (mouseX - cursorX) * cursorSpeed;
-        cursorY += (mouseY - cursorY) * cursorSpeed;
-        
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        
-        // Ensure cursor stays visible
-        if (cursor.style.display !== 'block') {
-            cursor.style.display = 'block';
-            cursor.style.opacity = '1';
-            cursor.style.visibility = 'visible';
-        }
-        
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-    
-    // Add hover effect for interactive elements
-    const linkElements = 'a, .menu-item, .feature-link, .social-link';
-    const buttonElements = 'button, .btn, .filter-btn, .download-btn, .cursor-option, .speed-btn, .color-preset, .reset-settings-btn, .software-card';
-    const textElements = 'input, textarea, select';
-    
-    document.addEventListener('mouseover', (e) => {
-        // Check for text input fields
-        if (e.target.closest(textElements)) {
-            cursor.classList.add('text');
-            cursor.classList.remove('hover', 'link');
-        }
-        // Check for links
-        else if (e.target.closest(linkElements)) {
-            cursor.classList.add('link');
-            cursor.classList.remove('hover', 'text');
-        }
-        // Check for buttons
-        else if (e.target.closest(buttonElements)) {
-            cursor.classList.add('hover');
-            cursor.classList.remove('link', 'text');
-        }
-    });
-    
-    document.addEventListener('mouseout', (e) => {
-        const target = e.target;
-        const relatedTarget = e.relatedTarget;
-        
-        // Check if we're leaving an interactive element
-        if (target.closest(linkElements + ',' + buttonElements + ',' + textElements)) {
-            // Only remove classes if we're not entering another interactive element
-            if (!relatedTarget || !relatedTarget.closest(linkElements + ',' + buttonElements + ',' + textElements)) {
-                cursor.classList.remove('hover', 'link', 'text');
-            }
-        }
-    });
-    
-    // Add click effect
-    document.addEventListener('mousedown', () => {
-        cursor.classList.add('click');
-    });
-    
-    document.addEventListener('mouseup', () => {
-        cursor.classList.remove('click');
-    });
-    
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-        cursor.style.display = 'none';
-    });
-    
-    document.addEventListener('mouseenter', () => {
-        cursor.style.display = 'block';
-        cursor.style.opacity = '1';
-    });
-    
-    // Ensure cursor stays visible in modals and settings
-    const ensureCursorVisible = () => {
-        const cursor = document.getElementById('customCursor');
-        if (cursor && cursor.style.display !== 'none') {
-            cursor.style.opacity = '1';
-            cursor.style.visibility = 'visible';
-        }
-    };
-    
-    // Monitor for modal and settings opening
-    const settingsModal = document.getElementById('settingsModal');
-    const appDetailsModal = document.getElementById('appDetailsModal');
-    
-    if (settingsModal) {
-        const observer = new MutationObserver(() => {
-            ensureCursorVisible();
-            // Re-apply cursor classes when modal opens
-            if (settingsModal.classList.contains('active')) {
-                const savedStyle = localStorage.getItem('cursor-style') || 'neon';
-                setTimeout(() => applyCursorStyle(savedStyle), 100);
-            }
-        });
-        observer.observe(settingsModal, { attributes: true, attributeFilter: ['class'] });
-    }
-    
-    if (appDetailsModal) {
-        const observer = new MutationObserver(ensureCursorVisible);
-        observer.observe(appDetailsModal, { attributes: true, attributeFilter: ['class'] });
-    }
-}
-
-function applyCursorStyle(style) {
-    // Remove all cursor classes
-    const cursorClasses = [
-        'cursor-default', 'cursor-modern', 'cursor-neon', 'cursor-pointer',
-        'cursor-crosshair', 'cursor-dot', 'cursor-ring', 'cursor-diamond'
-    ];
-    
-    cursorClasses.forEach(cls => document.body.classList.remove(cls));
-    document.body.classList.add(`cursor-${style}`);
-    
-    // Force cursor visibility for non-default styles
-    const cursor = document.getElementById('customCursor');
-    if (cursor) {
-        if (style === 'default') {
-            cursor.style.display = 'none';
-            cursor.style.opacity = '0';
-        } else {
-            cursor.style.display = 'block';
-            cursor.style.opacity = '1';
-            cursor.style.visibility = 'visible';
-        }
-    }
-}
-
-function updateCursorSpeed(speed) {
-    cursorSpeed = speed;
-}
 
 
 // ===== Settings Management =====
@@ -931,29 +756,6 @@ function initializeSettings() {
         }
     });
     
-    // Cursor style options
-    const cursorOptions = document.querySelectorAll('.cursor-option');
-    cursorOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            cursorOptions.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            const cursorStyle = option.dataset.cursor;
-            applyCursorStyle(cursorStyle);
-            localStorage.setItem('cursor-style', cursorStyle);
-        });
-    });
-    
-    // Cursor speed options
-    const speedBtns = document.querySelectorAll('.speed-btn');
-    speedBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            speedBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const speed = parseFloat(btn.dataset.speed);
-            updateCursorSpeed(speed);
-            localStorage.setItem('cursor-speed', speed.toString());
-        });
-    });
     
     // Color presets
     const colorPresets = document.querySelectorAll('.color-preset');
@@ -978,25 +780,6 @@ function initializeSettings() {
 }
 
 function loadSettings() {
-    // Load cursor style
-    const savedCursorStyle = localStorage.getItem('cursor-style') || 'neon';
-    document.querySelectorAll('.cursor-option').forEach(option => {
-        if (option.dataset.cursor === savedCursorStyle) {
-            option.classList.add('active');
-        } else {
-            option.classList.remove('active');
-        }
-    });
-    
-    // Load cursor speed
-    const savedCursorSpeed = localStorage.getItem('cursor-speed') || '1';
-    document.querySelectorAll('.speed-btn').forEach(btn => {
-        if (btn.dataset.speed === savedCursorSpeed) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
     
     // Load color scheme
     const savedColorScheme = localStorage.getItem('color-scheme') || 'blue';
@@ -1064,29 +847,7 @@ function applyColorScheme(scheme) {
 
 function resetToDefaultSettings() {
     // Clear all settings from localStorage
-    localStorage.removeItem('cursor-style');
-    localStorage.removeItem('cursor-speed');
     localStorage.removeItem('color-scheme');
-    
-    // Reset cursor style to neon
-    applyCursorStyle('neon');
-    document.querySelectorAll('.cursor-option').forEach(option => {
-        if (option.dataset.cursor === 'neon') {
-            option.classList.add('active');
-        } else {
-            option.classList.remove('active');
-        }
-    });
-    
-    // Reset cursor speed to smooth
-    updateCursorSpeed(0.2);
-    document.querySelectorAll('.speed-btn').forEach(btn => {
-        if (btn.dataset.speed === '0.2') {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
     
     // Reset color scheme to blue
     applyColorScheme('blue');
