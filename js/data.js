@@ -249,7 +249,7 @@ const frpApps = [
         name: 'Galaxy Store',
         version: '1.0',
         category: 'Samsung',
-        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/02/GLAXCY-min-300x77.jpg',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Galaxy_store_logo.png',
         description: 'Open Galaxy Store',
         size: '0 MB',
         downloadLink: '#',
