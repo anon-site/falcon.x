@@ -258,6 +258,21 @@ const androidApps = [
 
 // ===== FRP Tools Data =====
 const frpTools = [
+    {
+        id: 1760951936012,
+        name: 'TFT Unlock Tool',
+        version: '6.2.1.1',
+        category: 'Universal',
+        icon: 'https://iranxda.ir/wp-content/uploads/2022/08/tft-unlocker-cracked.webp',
+        description: 'Here we will know what TFT tools is and how it works. TFT is the name of a software that can be installed on a computer or laptop. With its help, you can repair mobile OS. It is very easy to use. You can also use the tool for free but with some limits.',
+        fullDescription: 'To use all its features, you will have to purchase it. But if you have one or two mobiles, then you can very easily use it for free. Or many of its free versions are available on the Internet. There are many versions of TFT Tool. And from here you will be able to download the Latest Version.\n\nWhat is the minimum system requirement to run this software tools? This has been explained in details here. There are very few requirements to use TFT Unlock Tool Crack. Below we have explained in detail that this software can be used at least during retirement. Its details are available below.\n\nWindows PC (Windows 7 or later)\n1GB of available disk space\nUSB ports for device connection\nAt least 4GB of RAM\n\nCompatibility with Operating Systems\nTFT Tool can be installed on the following operating systems:\n\nWindows 7, 8, 10, and 11\nMac OS (with emulator)\nLinux (with emulator)\n\nWinrar password: 123\nInstallation password: TFT',
+        size: '310 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/5xxyloukdhhdqof/TFTUnlock+Tool+V6.2.1.1.zip/file',
+        isModified: false,
+        screenshots: ['https://i.ytimg.com/vi/MQPHKfumOOc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC8rzhNfuRzQ7Lf2G05H2uPAnxM6Q', 'https://media.licdn.com/dms/image/sync/v2/D4D27AQFlskt6L_e7KA/articleshare-shrink_800/articleshare-shrink_800/0/1746558211000?e=2147483647&v=beta&t=GmhuVm0t604xnckNemaWa0lOnRhpLtjufzO_RqMOeyU', 'https://pbs.twimg.com/media/GLltenJbkAAp1LV.jpg'],
+        features: ['TFT Tool is a software that can be installed on your computer or laptop to repair mobile operating systems. It is user-friendly and can be used for free with certain limitations. However, to access all the features, you may need to make a purchase. If you only have one or two mobile devices, the free version should suffice. Alternatively, you can find various versions of TFT Tool online, including the latest one for download.']
+    }
 ];
 
 // ===== FRP Applications Data =====
