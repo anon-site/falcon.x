@@ -136,7 +136,7 @@ const windowsSoftware = [
         name: 'Internet Download Manager',
         version: '6.42',
         category: 'Download App',
-        icon: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/05d3ee64-dfca-465f-b034-132a9bd7ad2a/d7kl15b-a5576e96-f86b-476f-8faf-49132cdb4884.png',
+        icon: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a6eb73dd-df6f-44d9-ba21-3acddd6e1c9e/dch035l-88748f22-11f5-44d8-a5c7-c677e2fd6a06.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9hNmViNzNkZC1kZjZmLTQ0ZDktYmEyMS0zYWNkZGQ2ZTFjOWUvZGNoMDM1bC04ODc0OGYyMi0xMWY1LTQ0ZDgtYTVjNy1jNjc3ZTJmZDZhMDYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.YhVDLSiriEmPCOgeNtGv-oly7FynROeL42XRBm4XBM8',
         description: 'Internet Download Manager (IDM) is a powerful tool for increasing download speeds, resuming, and scheduling downloads with ease and efficiency.',
         fullDescription: 'Internet Download Manager (IDM) is one of the most popular and reliable download management software for Windows. It allows users to download files from the internet at high speeds by using dynamic file segmentation and multipart downloading technology. IDM supports all major browsers and integrates automatically for seamless downloads. It also offers features like download scheduling, error recovery, pause and resume, and the ability to grab videos from streaming sites. Its simple interface and advanced control options make it ideal for managing large or multiple downloads efficiently.',
         size: '23.3 MB',
