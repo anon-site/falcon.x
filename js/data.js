@@ -466,5 +466,19 @@ const frpApps = [
         isModified: false,
         linkType: 'direct',
         lastUpdated: '2025-10-20T13:48:05.526Z'
+    },
+    {
+        id: 1760973993195,
+        name: ' (Enable adb Tecno/Infinix)',
+        version: '1.0',
+        category: 'general',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/01/open-dial-pade.jpg',
+        description: 'This is only for Infinix devices',
+        size: '5 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'tel:100-000-000/#Intent;scheme=android-app;end',
+        isModified: false,
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T15:27:22.851Z'
     }
 ];
