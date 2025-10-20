@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Navigation</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .result {
+            background: #2a2a2a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .success { border-left-color: #10b981; }
+        .error { border-left-color: #ef4444; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Navigation Debug Tool</h1>
+    
+    <button onclick="testSettingsJson()">Test settings.json</button>
+    <button onclick="testLocalStorage()">Test localStorage</button>
+    <button onclick="clearCache()">Clear Cache</button>
+    <button onclick="window.location.href='index.html'">Go to Main Site</button>
+    
+    <div id="output"></div>
+    
+    <script>
+        function log(message, type = 'result') {
+            const output = document.getElementById('output');
+            const div = document.createElement('div');
+            div.className = 'result ' + type;
+            div.innerHTML = message;
+            output.appendChild(div);
+        }
+        
+        async function testSettingsJson() {
+            log('🔄 Testing settings.json...');
+            
+            try {
+                const response = await fetch('js/settings.json');
+                
+                if (!response.ok) {
+                    log(`❌ Error: ${response.status} ${response.statusText}`, 'error');
+                    return;
+                }
+                
+                const settings = await response.json();
+                
+                log(`✅ settings.json loaded successfully!`, 'success');
+                log(`Navigation items: ${settings.navigation ? settings.navigation.length : 0}`);
+                
+                if (settings.navigation && settings.navigation.length > 0) {
+                    log(`<h3>Navigation Items:</h3><pre>${JSON.stringify(settings.navigation, null, 2)}</pre>`);
+                }
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function testLocalStorage() {
+            log('🔄 Testing localStorage...');
+            
+            const navigation = localStorage.getItem('navigation');
+            
+            if (navigation) {
+                try {
+                    const parsed = JSON.parse(navigation);
+                    log(`✅ localStorage has navigation data`, 'success');
+                    log(`Items: ${parsed.length}`);
+                    log(`<pre>${JSON.stringify(parsed, null, 2)}</pre>`);
+                } catch (e) {
+                    log(`❌ Invalid JSON in localStorage: ${e.message}`, 'error');
+                }
+            } else {
+                log(`⚠️ No navigation data in localStorage`, 'error');
+            }
+        }
+        
+        function clearCache() {
+            localStorage.removeItem('navigation');
+            log('✅ Navigation cache cleared!', 'success');
+        }
+    </script>
+</body>
+</html>
