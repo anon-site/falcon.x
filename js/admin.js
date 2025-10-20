@@ -77,9 +77,15 @@ function showToast(message, type = 'success') {
 
 // Clear cache and reload
 function clearCacheAndReload() {
-    if (confirm('سيتم إعادة تحميل الصفحة لتطبيق آخر التحديثات. هل تريد المتابعة؟')) {
-        // Clear cache for this site by reloading with cache bypass
-        window.location.reload(true);
+    if (confirm('سيتم مسح ذاكرة التخزين وإعادة تحميل الصفحة. هل تريد المتابعة؟')) {
+        // Remove navigation cache
+        localStorage.removeItem('navigation');
+        showToast('✨ تم مسح ذاكرة التبويبات! جاري إعادة التحميل...', 'success');
+        
+        // Reload page after a short delay
+        setTimeout(() => {
+            window.location.reload(true);
+        }, 800);
     }
 }
 
@@ -960,48 +966,151 @@ function loadNavigation() {
         return;
     }
     
-    let html = '<div class="navigation-items">';
+    let html = `
+        <div class="nav-table-container" style="background: var(--bg-secondary); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color);">
+            <table class="nav-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: rgba(102, 126, 234, 0.1); border-bottom: 2px solid var(--border-color);">
+                        <th style="padding: 15px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-secondary); width: 80px;">الترتيب</th>
+                        <th style="padding: 15px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-secondary); width: 60px;">الأيقونة</th>
+                        <th style="padding: 15px; text-align: right; font-size: 13px; font-weight: 600; color: var(--text-secondary);">العنوان</th>
+                        <th style="padding: 15px; text-align: right; font-size: 13px; font-weight: 600; color: var(--text-secondary);">الرابط</th>
+                        <th style="padding: 15px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-secondary); width: 100px;">الحالة</th>
+                        <th style="padding: 15px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-secondary); width: 220px;">الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="sortable-navigation">
+    `;
     
-    navItems.sort((a, b) => a.order - b.order).forEach(item => {
+    navItems.sort((a, b) => a.order - b.order).forEach((item, index) => {
         const statusBadge = item.active 
-            ? '<span class="badge" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;"><i class="fas fa-check-circle" style="margin-left: 0.3rem;"></i>مفعل</span>'
-            : '<span class="badge" style="background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;"><i class="fas fa-times-circle" style="margin-left: 0.3rem;"></i>معطل</span>';
+            ? '<span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 12px; font-size: 11px; font-weight: 600;"><i class="fas fa-check-circle" style="font-size: 10px;"></i>مفعل</span>'
+            : '<span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; border-radius: 12px; font-size: 11px; font-weight: 600;"><i class="fas fa-times-circle" style="font-size: 10px;"></i>معطل</span>';
+        
+        const isFirst = index === 0;
+        const isLast = index === navItems.length - 1;
         
         html += `
-            <div class="nav-item-card ${item.active ? 'active' : 'inactive'}" style="background: var(--bg-secondary); border: 2px solid ${item.active ? 'var(--primary-color)' : 'var(--border-color)'}; border-radius: 15px; padding: 25px; transition: all 0.3s ease;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div class="nav-item-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+            <tr class="nav-row ${item.active ? '' : 'inactive'}" 
+                data-id="${item.id}" 
+                style="border-bottom: 1px solid var(--border-color); transition: all 0.2s ease;">
+                <td style="padding: 12px 15px; text-align: center;">
+                    <div style="display: inline-flex; gap: 4px; align-items: center;">
+                        <button onclick="moveNavItem(${item.id}, 'up')" ${isFirst ? 'disabled' : ''} style="background: ${isFirst ? '#4b5563' : 'var(--info-color)'}; color: white; border: none; padding: 6px 8px; border-radius: 6px; cursor: ${isFirst ? 'not-allowed' : 'pointer'}; transition: all 0.2s; font-size: 12px;" title="صعود">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 8px; font-size: 13px; font-weight: 600; padding: 0 8px;">${item.order}</span>
+                        <button onclick="moveNavItem(${item.id}, 'down')" ${isLast ? 'disabled' : ''} style="background: ${isLast ? '#4b5563' : 'var(--info-color)'}; color: white; border: none; padding: 6px 8px; border-radius: 6px; cursor: ${isLast ? 'not-allowed' : 'pointer'}; transition: all 0.2s; font-size: 12px;" title="نزول">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </td>
+                <td style="padding: 12px 15px; text-align: center;">
+                    <div style="width: 38px; height: 38px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: white;">
                         <i class="${item.icon}"></i>
                     </div>
-                    <div class="nav-item-info" style="flex: 1;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                            <h3 style="margin: 0; font-size: 18px; font-weight: 600;">${item.title}</h3>
-                            ${statusBadge}
-                        </div>
-                        <p style="margin: 0; color: var(--text-muted); font-size: 14px; display: flex; align-items: center; gap: 5px;">
-                            <i class="fas fa-link" style="font-size: 12px;"></i>
-                            ${item.link}
-                        </p>
-                        <p style="margin: 5px 0 0 0; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; gap: 5px;">
-                            <i class="fas fa-sort-numeric-up" style="font-size: 12px;"></i>
-                            الترتيب: ${item.order}
-                        </p>
-                    </div>
-                    <div class="nav-item-actions" style="display: flex; gap: 10px;">
-                        <button class="btn-icon btn-edit" onclick="editNavItem(${item.id})" title="تعديل" style="background: var(--info-color); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                </td>
+                <td style="padding: 12px 15px;">
+                    <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">${item.title}</span>
+                </td>
+                <td style="padding: 12px 15px;">
+                    <code style="font-size: 12px; color: var(--text-muted); background: rgba(102, 126, 234, 0.1); padding: 4px 8px; border-radius: 6px;">${item.link}</code>
+                </td>
+                <td style="padding: 12px 15px; text-align: center;">
+                    ${statusBadge}
+                </td>
+                <td style="padding: 12px 15px; text-align: center;">
+                    <div style="display: inline-flex; gap: 6px;">
+                        <button class="btn-icon" onclick="toggleNavItem(${item.id})" title="${item.active ? 'تعطيل' : 'تفعيل'}" style="background: ${item.active ? '#f59e0b' : '#10b981'}; color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-size: 13px;">
+                            <i class="fas fa-${item.active ? 'eye-slash' : 'eye'}"></i>
+                        </button>
+                        <button class="btn-icon btn-edit" onclick="editNavItem(${item.id})" title="تعديل" style="background: var(--info-color); color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-size: 13px;">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn-icon btn-delete" onclick="deleteNavItem(${item.id})" title="حذف" style="background: var(--danger-color); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                        <button class="btn-icon btn-delete" onclick="deleteNavItem(${item.id})" title="حذف" style="background: var(--danger-color); color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-size: 13px;">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
-                </div>
-            </div>
+                </td>
+            </tr>
         `;
     });
     
-    html += '</div>';
+    html += `
+                </tbody>
+            </table>
+        </div>
+        <style>
+            .nav-row:hover {
+                background: rgba(102, 126, 234, 0.05) !important;
+            }
+            .nav-row.inactive {
+                opacity: 0.6;
+            }
+            .nav-row:active,
+            .nav-row.dragging {
+                opacity: 0.5;
+            }
+            .btn-icon:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+        </style>
+    `;
     container.innerHTML = html;
+}
+
+// Move navigation item up or down
+function moveNavItem(id, direction) {
+    let navItems = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
+    
+    // Sort by order first
+    navItems.sort((a, b) => a.order - b.order);
+    
+    // Find current index
+    const currentIndex = navItems.findIndex(item => item.id === id);
+    
+    if (currentIndex === -1) return;
+    
+    // Calculate new index
+    let newIndex;
+    if (direction === 'up') {
+        if (currentIndex === 0) return; // Already at top
+        newIndex = currentIndex - 1;
+    } else {
+        if (currentIndex === navItems.length - 1) return; // Already at bottom
+        newIndex = currentIndex + 1;
+    }
+    
+    // Swap items
+    const temp = navItems[currentIndex];
+    navItems[currentIndex] = navItems[newIndex];
+    navItems[newIndex] = temp;
+    
+    // Update order numbers
+    navItems.forEach((item, index) => {
+        item.order = index + 1;
+    });
+    
+    // Save and reload
+    localStorage.setItem('navigation', JSON.stringify(navItems));
+    updateSyncStatus('modified', 'تغييرات غير محفوظة');
+    loadNavigation();
+    showToast('تم تغيير الترتيب - اضغط "حفظ" للمزامنة', 'success');
+}
+
+// Toggle navigation item active status
+function toggleNavItem(id) {
+    let navItems = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
+    const item = navItems.find(n => n.id === id);
+    
+    if (item) {
+        item.active = !item.active;
+        localStorage.setItem('navigation', JSON.stringify(navItems));
+        updateSyncStatus('modified', 'تغييرات غير محفوظة');
+        loadNavigation();
+        showToast(`تم ${item.active ? 'تفعيل' : 'تعطيل'} التبويب - اضغط "حفظ" للمزامنة`, 'success');
+    }
 }
 
 function getDefaultNavigation() {

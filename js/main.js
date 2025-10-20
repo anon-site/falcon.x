@@ -564,6 +564,10 @@ function refreshData() {
         console.log(`🗑️ Removed cache: ${key}`);
     });
     
+    // Also remove navigation cache to show updated menu items
+    localStorage.removeItem('navigation');
+    console.log(`🗑️ Removed navigation cache`);
+    
     console.log(`✅ Cleared ${keysToRemove.length} cache items`);
     
     // Show success message
