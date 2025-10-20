@@ -9,8 +9,11 @@ const windowsSoftware = [
         description: 'A free, lightweight, and powerful code editor developed by Microsoft, supporting multiple programming languages and extensions for modern development.',
         fullDescription: 'Visual Studio Code (VS Code) is a free and open-source code editor developed by Microsoft. It supports multiple programming languages, extensions, and debugging tools. VS Code is known for its lightweight performance, smart code completion (IntelliSense), built-in Git support, and customizable interface. It runs on Windows, macOS, and Linux, making it one of the most popular editors among developers worldwide.',
         size: '88.2 MB',
-        downloadLink: 'https://code.visualstudio.com/',
+        downloadLink: '#',
+        originalDownloadLink: 'https://code.visualstudio.com/',
         isModified: false,
+        tutorialLink: 'https://www.youtube.com/watch?v=cu_ykIfBprI&t=30s',
+        systemRequirements: 'Windows 7/8/10/11\nOperating System: Windows 10 or later (64-bit)\nProcessor: 1.6 GHz or faster processor\nMemory (RAM): At least 1 GB (4 GB or more recommended)\nStorage: 200–500 MB of free disk space\nDisplay: 1024×768 resolution or higher\nNET Framework 4.5 or later\nPowerShell 5 (included in Windows 10 by default)',
         screenshots: ['https://code.visualstudio.com/opengraphimg/opengraph-home.png', 'https://preview.redd.it/thats-how-my-vs-code-looks-for-web-development-v0-crpvcfy73djd1.png?width=640&crop=smart&auto=webp&s=43a8e7a288d1f79b66df8d60acedaaf59bfd4750', 'https://code.visualstudio.com/assets/docs/configure/extensions/extension-marketplace/extensions-popular.png'],
         features: ['Free & Open Source: Completely free and open for customization.', 'Multi-language Support: Works with many languages like Python, JavaScript, C++, HTML, and more.', 'IntelliSense: Smart code completion and suggestions.', 'Built-in Git Integration: Manage version control directly inside the editor.', 'Extensions Marketplace: Thousands of plugins for themes, languages, and tools.', 'Debugging Tools: Built-in debugger for various programming languages.', 'Customizable Interface: Change themes, icons, and layout easily.', 'Cross-platform: Runs on Windows, macOS, and Linux.', 'Terminal Integration: Built-in terminal for quick commands.']
     },
@@ -23,7 +26,8 @@ const windowsSoftware = [
         description: 'A fast, secure, and intelligent web browser by Google, offering seamless browsing, syncing, and advanced privacy protection across devices.',
         fullDescription: 'Google Chrome is a free, fast, and secure web browser developed by Google. It is designed for simplicity and speed, offering features like synchronization across devices, built-in security, extensions, and automatic updates. Chrome supports modern web technologies, providing users with a smooth browsing experience on Windows, macOS, Linux, Android, and iOS.',
         size: '112.5',
-        downloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
         isModified: false,
         screenshots: ['https://eshop.macsales.com/blog/wp-content/uploads/2018/09/screenshot_122.png', 'https://developer.chrome.com/static/images/2025_ai-challenge.jpg', 'https://img.utdstc.com/screen/fee/785/fee7859e412b27d8527813ab6d0c3242b78de46b2fc51e97f62672ad6c042f0a:600'],
         features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.']
@@ -67,7 +71,8 @@ const windowsSoftware = [
         description: 'A fast, private, and secure web browser that blocks ads and trackers by default, providing a safer and faster browsing experience.',
         fullDescription: 'Brave Browser is a free, open-source web browser developed by Brave Software. It focuses on privacy, speed, and security by blocking ads and trackers by default. Brave also includes a built-in cryptocurrency wallet and a system that rewards users with Basic Attention Tokens (BAT) for viewing privacy-respecting ads. It’s available on Windows, macOS, Linux, Android, and iOS.',
         size: '28',
-        downloadLink: 'https://brave.com/',
+        downloadLink: '#',
+        originalDownloadLink: 'https://laptop-updates.brave.com/download/BRV040?bitness=64',
         isModified: false,
         screenshots: ['https://iili.io/KvFSXEl.png', 'https://iili.io/KvFSWB4.png', 'https://iili.io/KvFSMQf.png'],
         features: ['Privacy-focused: Blocks ads and trackers by default.', 'Fast Performance: Loads pages faster by removing unnecessary content.', 'Built-in Ad Blocker: No need for extra extensions.', 'Rewards System: Earn Basic Attention Tokens (BAT) for viewing privacy-safe ads.', 'Integrated Crypto Wallet: Manage and store cryptocurrencies directly in the browser.', 'Cross-platform: Available on Windows, macOS, Linux, Android, and iOS.', 'HTTPS Everywhere: Automatically upgrades connections to secure HTTPS.', 'Customizable Settings: Control privacy, appearance, and performance easily.', 'Open Source: Transparent and community-driven development.']
@@ -116,6 +121,20 @@ const windowsSoftware = [
         isModified: true,
         screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
         features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process']
+    },
+    {
+        id: 1760957861498,
+        name: 'Internet Download Manager',
+        version: '6.42',
+        category: 'Download App',
+        icon: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/05d3ee64-dfca-465f-b034-132a9bd7ad2a/d7kl15b-a5576e96-f86b-476f-8faf-49132cdb4884.png',
+        description: 'Internet Download Manager (IDM) is a powerful tool for increasing download speeds, resuming, and scheduling downloads with ease and efficiency.',
+        fullDescription: 'Internet Download Manager (IDM) is one of the most popular and reliable download management software for Windows. It allows users to download files from the internet at high speeds by using dynamic file segmentation and multipart downloading technology. IDM supports all major browsers and integrates automatically for seamless downloads. It also offers features like download scheduling, error recovery, pause and resume, and the ability to grab videos from streaming sites. Its simple interface and advanced control options make it ideal for managing large or multiple downloads efficiently.',
+        size: '23.3 MB',
+        downloadLink: '#',
+        isModified: false,
+        screenshots: ['https://repository-images.githubusercontent.com/917908947/91aaf1aa-55f4-4e56-870b-04ab2244d2b5', 'https://www.internetdownloadmanager.com/images/dynamic.jpg', 'https://www.internetdownloadmanager.com/images/idm_custom.gif'],
+        features: ['Accelerates download speed up to 5 times.', 'Supports pause and resume of downloads.', 'Automatically integrates with popular browsers.', 'Built-in scheduler for automatic downloads.', 'Supports HTTPS, FTP, and proxy servers.', 'Captures streaming videos from websites.', 'Provides error recovery and resume capability.', 'Simple and user-friendly interface.', 'Smart file segmentation technology.', 'Multilingual support.']
     }
 ];
 
