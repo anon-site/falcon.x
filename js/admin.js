@@ -473,8 +473,8 @@ function loadApps(type) {
                 : '<span class="badge" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white;">تحميل</span>')
             : '<span class="badge" style="background: #6b7280;">غير محدد</span>';
         
-        // Format last updated date
-        let lastUpdatedText = 'غير محدد';
+        // Format last updated date professionally
+        let lastUpdatedText = '<span style="color: #6b7280;">غير محدد</span>';
         if (app.lastUpdated) {
             const date = new Date(app.lastUpdated);
             const now = new Date();
@@ -483,15 +483,35 @@ function loadApps(type) {
             const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
             const diffMinutes = Math.floor(diffTime / (1000 * 60));
             
+            // Format date: dd/mm/yyyy HH:MM
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}`;
+            
+            // Create tooltip with relative time
+            let relativeTime = '';
             if (diffDays > 0) {
-                lastUpdatedText = `قبل ${diffDays} يوم`;
+                relativeTime = `قبل ${diffDays} يوم`;
             } else if (diffHours > 0) {
-                lastUpdatedText = `قبل ${diffHours} ساعة`;
-            } else if (diffMinutes > 0) {
-                lastUpdatedText = `قبل ${diffMinutes} دقيقة`;
+                relativeTime = `قبل ${diffHours} ساعة`;
+            } else if (diffMinutes > 5) {
+                relativeTime = `قبل ${diffMinutes} دقيقة`;
             } else {
-                lastUpdatedText = 'الآن';
+                relativeTime = 'الآن';
             }
+            
+            // Color based on recency
+            let color = '#10b981'; // green for recent
+            if (diffDays > 30) {
+                color = '#ef4444'; // red for old
+            } else if (diffDays > 7) {
+                color = '#f59e0b'; // orange for medium
+            }
+            
+            lastUpdatedText = `<span style="color: ${color};" title="${relativeTime}">${formattedDate}</span>`;
         }
         
         // Build table row with conditional link type column
@@ -503,7 +523,7 @@ function loadApps(type) {
                 <td>${app.version}</td>
                 <td>${app.size}</td>
                 <td>${modifiedBadge}</td>
-                <td style="font-size: 0.85rem; color: #9ca3af;"><i class="fas fa-clock" style="margin-left: 0.3rem;"></i>${lastUpdatedText}</td>
+                <td style="font-size: 0.8rem; white-space: nowrap;"><i class="fas fa-clock" style="margin-left: 0.3rem; color: #6b7280;"></i>${lastUpdatedText}</td>
                 <td class="actions">
                     <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                         <i class="fas fa-edit"></i>
@@ -520,7 +540,7 @@ function loadApps(type) {
                 <td>${app.version}</td>
                 <td>${app.size}</td>
                 <td>${modifiedBadge}</td>
-                <td style="font-size: 0.85rem; color: #9ca3af;"><i class="fas fa-clock" style="margin-left: 0.3rem;"></i>${lastUpdatedText}</td>
+                <td style="font-size: 0.8rem; white-space: nowrap;"><i class="fas fa-clock" style="margin-left: 0.3rem; color: #6b7280;"></i>${lastUpdatedText}</td>
                 <td class="actions">
                     <button class="btn-icon btn-edit" onclick="editApp('${type}', ${app.id})" title="تعديل">
                         <i class="fas fa-edit"></i>
@@ -795,15 +815,8 @@ function initAppForm() {
         const passwordEl = document.getElementById('appPassword');
         const systemReqEl = document.getElementById('appSystemRequirements');
         
-        // Get existing lastUpdated if editing
-        let existingLastUpdated = null;
-        if (isEditing) {
-            const apps = appsData[type] || [];
-            const existingApp = apps.find(a => a.id === parseInt(appId));
-            if (existingApp && existingApp.lastUpdated) {
-                existingLastUpdated = existingApp.lastUpdated;
-            }
-        }
+        // Always update lastUpdated timestamp when saving (adding or editing)
+        const currentTimestamp = new Date().toISOString();
         
         // Swap the values when saving:
         // Form field "appDownloadLink" (Original) -> save to "originalDownloadLink"
@@ -823,7 +836,7 @@ function initAppForm() {
             screenshots: screenshots,
             features: features,
             linkType: linkType, // Add link type for FRP Apps
-            lastUpdated: isEditing && existingLastUpdated ? existingLastUpdated : new Date().toISOString(), // Keep old timestamp when editing
+            lastUpdated: currentTimestamp, // Always update to current time
             // New fields - also swap these
             downloadLink2: downloadLink3El ? downloadLink3El.value.trim() : '', // Modified 2
             downloadLink3: downloadLink2El ? downloadLink2El.value.trim() : '', // Original 2
