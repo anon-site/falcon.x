@@ -1174,11 +1174,26 @@ function showAppDetails(appId) {
         `;
     }
     
+    // Helper function to check if text is a contact message (Arabic or English)
+    const isContactMessage = (text) => {
+        if (!text || typeof text !== 'string') return false;
+        const lowerText = text.toLowerCase().trim();
+        const contactKeywords = [
+            'راسل', 'تواصل', 'اتصل', 'ادمن', 'المسؤول', 'المدير',
+            'contact', 'admin', 'message', 'reach', 'connect', 'dm'
+        ];
+        return contactKeywords.some(keyword => lowerText.includes(keyword));
+    };
+    
     // Check for download links
-    const hasOriginalLink1 = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined';
-    const hasOriginalLink2 = app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '';
-    const hasModifiedLink1 = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
-    const hasModifiedLink2 = app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '';
+    const hasOriginalLink1 = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined' && !isContactMessage(app.originalDownloadLink);
+    const hasOriginalLink2 = app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '' && !isContactMessage(app.downloadLink3);
+    const hasModifiedLink1 = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined' && !isContactMessage(app.downloadLink);
+    const hasModifiedLink2 = app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '' && !isContactMessage(app.downloadLink2);
+    
+    // Check if any link is a contact message
+    const hasContactMessage = isContactMessage(app.originalDownloadLink) || isContactMessage(app.downloadLink3) || 
+                              isContactMessage(app.downloadLink) || isContactMessage(app.downloadLink2);
     
     const totalOriginalLinks = (hasOriginalLink1 ? 1 : 0) + (hasOriginalLink2 ? 1 : 0);
     const totalModifiedLinks = (hasModifiedLink1 ? 1 : 0) + (hasModifiedLink2 ? 1 : 0);
@@ -1231,6 +1246,31 @@ function showAppDetails(appId) {
         }
         
         additionalInfoHTML += `</div>`;
+    } else if (hasContactMessage) {
+        // Show Contact Admin button with Telegram and WhatsApp links
+        additionalInfoHTML += `
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                <div style="text-align: center; padding: 1rem; background: rgba(59, 130, 246, 0.08); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2);">
+                    <i class="fas fa-info-circle" style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.5rem;"></i>
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">للحصول على رابط التحميل، يرجى التواصل مع الأدمن</p>
+                    <p style="margin: 0.25rem 0 0; color: var(--text-secondary); font-size: 0.85rem; opacity: 0.8;">To get the download link, please contact the admin</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                    <button onclick="window.open('https://t.me/anon_design', '_blank'); event.stopPropagation();" 
+                        style="padding: 0.75rem 1.25rem; background: linear-gradient(135deg, #0088cc 0%, #006699 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);" 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 136, 204, 0.4)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 136, 204, 0.3)';">
+                        <i class="fab fa-telegram" style="margin-right: 0.5rem; font-size: 1.1rem;"></i>Telegram
+                    </button>
+                    <button onclick="window.open('https://wa.me/306972462001', '_blank'); event.stopPropagation();" 
+                        style="padding: 0.75rem 1.25rem; background: linear-gradient(135deg, #25D366 0%, #1DA851 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);" 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(37, 211, 102, 0.3)';">
+                        <i class="fab fa-whatsapp" style="margin-right: 0.5rem; font-size: 1.1rem;"></i>WhatsApp
+                    </button>
+                </div>
+            </div>
+        `;
     } else {
         // Show Coming Soon button when no links available - same position as other buttons
         additionalInfoHTML += `
