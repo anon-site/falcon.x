@@ -121,7 +121,7 @@ const windowsSoftware = [
         id: 1760950347948,
         name: 'Adobe Animate 2024',
         version: '2024.0.5.40',
-        category: 'general',
+        category: 'Designe',
         icon: 'https://wifi4soft.com/_next/image?url=https%3A%2F%2Fcms.wifi4soft.com%2Fassets%2F95bc3df6-af83-4f86-bd5f-62faa9a7a131%2F11111111111.png&w=96&q=90',
         description: 'Adobe Animate 2024 is a professional software for creating interactive animations, vector graphics, and multimedia content for web, TV, and mobile platforms.',
         fullDescription: 'Adobe Animate 2024 is one of the most powerful animation tools developed by Adobe, designed to create engaging animations, vector illustrations, and interactive content. It allows artists, designers, and animators to bring characters and graphics to life with fluid motion, advanced rigging tools, and timeline-based animation. The software supports HTML5 Canvas, WebGL, and other modern formats, making it perfect for creating animations that work smoothly across browsers and devices. With improved performance, AI-assisted features, and seamless integration with other Adobe Creative Cloud apps, Animate 2024 provides an efficient and creative workflow for both professionals and beginners.\n\nDecompression password: 123',
