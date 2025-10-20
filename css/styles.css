@@ -911,6 +911,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .software-meta {
+    display: none;
+}
+
+/* Show size only for FRP Applications */
+.software-card[data-frp-app="true"] .software-meta {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -918,7 +923,7 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 1px solid var(--dark-border);
 }
 
-.software-size {
+.software-card[data-frp-app="true"] .software-size {
     font-size: 0.875rem;
     color: var(--text-secondary);
     display: flex;
@@ -926,8 +931,17 @@ h1, h2, h3, h4, h5, h6 {
     gap: 0.5rem;
 }
 
-.software-size i {
+.software-card[data-frp-app="true"] .software-size i {
     color: var(--primary-color);
+    display: inline;
+}
+
+.software-size {
+    display: none;
+}
+
+.software-size i {
+    display: none;
 }
 
 .download-btn {

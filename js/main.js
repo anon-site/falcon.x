@@ -638,7 +638,7 @@ function createFrpAppSimpleCard(app) {
     const hasOriginalLink = app.originalDownloadLink && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined' && app.originalDownloadLink.trim() !== '';
     
     return `
-        <div class="software-card" data-category="${app.category}" style="cursor: default; padding: 1.25rem;">
+        <div class="software-card" data-category="${app.category}" data-frp-app="true" style="cursor: default; padding: 1.25rem;">
             <div class="software-header" style="margin-bottom: 0.75rem;">
                 <div class="software-icon" style="width: 42px; height: 42px; font-size: 1.1rem;">
                     ${iconHtml}
