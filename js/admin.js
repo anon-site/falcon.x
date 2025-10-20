@@ -389,20 +389,11 @@ function loadFromLocalStorage() {
         const frpTools = localStorage.getItem('falcon-x-frp-tools');
         const frpApps = localStorage.getItem('falcon-x-frp-apps');
         
-        // Helper function to add lastUpdated if missing
-        const addTimestampIfMissing = (apps) => {
-            return apps.map(app => {
-                if (!app.lastUpdated) {
-                    app.lastUpdated = new Date().toISOString();
-                }
-                return app;
-            });
-        };
-        
-        if (windows) appsData.windows = addTimestampIfMissing(JSON.parse(windows));
-        if (android) appsData.android = addTimestampIfMissing(JSON.parse(android));
-        if (frpTools) appsData['frp-tools'] = addTimestampIfMissing(JSON.parse(frpTools));
-        if (frpApps) appsData['frp-apps'] = addTimestampIfMissing(JSON.parse(frpApps));
+        // Load data as-is without modifying lastUpdated
+        if (windows) appsData.windows = JSON.parse(windows);
+        if (android) appsData.android = JSON.parse(android);
+        if (frpTools) appsData['frp-tools'] = JSON.parse(frpTools);
+        if (frpApps) appsData['frp-apps'] = JSON.parse(frpApps);
         
         console.log('✅ Data loaded from localStorage');
         return true;
