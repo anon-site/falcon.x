@@ -12,11 +12,10 @@ const windowsSoftware = [
         downloadLink: '#',
         originalDownloadLink: 'https://code.visualstudio.com/',
         isModified: false,
-        tutorialLink: 'https://www.youtube.com/watch?v=cu_ykIfBprI&t=30s',
         systemRequirements: 'Windows 7/8/10/11\nOperating System: Windows 10 or later (64-bit)\nProcessor: 1.6 GHz or faster processor\nMemory (RAM): At least 1 GB (4 GB or more recommended)\nStorage: 200–500 MB of free disk space\nDisplay: 1024×768 resolution or higher\nNET Framework 4.5 or later\nPowerShell 5 (included in Windows 10 by default)',
         screenshots: ['https://code.visualstudio.com/opengraphimg/opengraph-home.png', 'https://iili.io/KSzwOiP.png', 'https://code.visualstudio.com/assets/docs/configure/extensions/extension-marketplace/extensions-popular.png'],
         features: ['Free & Open Source: Completely free and open for customization.', 'Multi-language Support: Works with many languages like Python, JavaScript, C++, HTML, and more.', 'IntelliSense: Smart code completion and suggestions.', 'Built-in Git Integration: Manage version control directly inside the editor.', 'Extensions Marketplace: Thousands of plugins for themes, languages, and tools.', 'Debugging Tools: Built-in debugger for various programming languages.', 'Customizable Interface: Change themes, icons, and layout easily.', 'Cross-platform: Runs on Windows, macOS, and Linux.', 'Terminal Integration: Built-in terminal for quick commands.'],
-        lastUpdated: '2025-10-20T13:06:51.959Z'
+        lastUpdated: '2025-10-20T15:23:57.391Z'
     },
     {
         id: 1760625972079,
