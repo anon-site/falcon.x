@@ -1154,16 +1154,18 @@ function showAppDetails(appId) {
         systemRequirementsSection.style.display = 'none';
     }
     
-    // Set additional info (password, links)
+    // Build download section with password and download buttons
     let additionalInfoHTML = '';
     
+    // Password section with simple design
     if (app.password && app.password.trim() !== '') {
         additionalInfoHTML += `
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-key"></i> Extract Password:</div>
-                <div class="info-value password-value">
-                    <code>${app.password}</code>
-                    <button class="copy-btn" onclick="copyToClipboard('${app.password}'); event.stopPropagation();" title="Copy to clipboard">
+            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Extract Password</div>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <code style="flex: 1; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 0.95rem; color: var(--text-primary);">${app.password}</code>
+                    <button onclick="copyToClipboard('${app.password}'); event.stopPropagation();" 
+                        style="padding: 0.75rem 1rem; background: var(--primary-color); border: none; border-radius: 6px; color: white; cursor: pointer; font-size: 0.9rem;">
                         <i class="fas fa-copy"></i>
                     </button>
                 </div>
@@ -1171,30 +1173,67 @@ function showAppDetails(appId) {
         `;
     }
     
-    if (app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '') {
-        additionalInfoHTML += `
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 1:</div>
-                <div class="info-value">
-                    <a href="${app.downloadLink2}" target="_blank" class="link-btn">
-                        <i class="fas fa-external-link-alt"></i> Open Link
-                    </a>
-                </div>
-            </div>
-        `;
-    }
+    // Check for download links
+    const hasOriginalLink1 = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined';
+    const hasOriginalLink2 = app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '';
+    const hasModifiedLink1 = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
+    const hasModifiedLink2 = app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '';
     
-    if (app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '') {
-        additionalInfoHTML += `
-            <div class="info-item">
-                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 2:</div>
-                <div class="info-value">
-                    <a href="${app.downloadLink3}" target="_blank" class="link-btn">
-                        <i class="fas fa-external-link-alt"></i> Open Link
-                    </a>
-                </div>
-            </div>
-        `;
+    const totalOriginalLinks = (hasOriginalLink1 ? 1 : 0) + (hasOriginalLink2 ? 1 : 0);
+    const totalModifiedLinks = (hasModifiedLink1 ? 1 : 0) + (hasModifiedLink2 ? 1 : 0);
+    const totalLinks = totalOriginalLinks + totalModifiedLinks;
+    
+    // Download buttons section
+    if (totalLinks > 0) {
+        const gridStyle = totalLinks >= 3 
+            ? 'display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem;' 
+            : 'display: flex; flex-direction: column; gap: 0.75rem;';
+        
+        additionalInfoHTML += `<div style="${gridStyle}">`;
+        
+        // Original links - Purple
+        if (hasOriginalLink1) {
+            additionalInfoHTML += `
+                <button onclick="window.open('${app.originalDownloadLink}', '_blank'); event.stopPropagation();" 
+                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    onmouseover="this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.transform='translateY(0)';">
+                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Original
+                </button>`;
+        }
+        
+        if (hasOriginalLink2) {
+            additionalInfoHTML += `
+                <button onclick="window.open('${app.downloadLink3}', '_blank'); event.stopPropagation();" 
+                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    onmouseover="this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.transform='translateY(0)';">
+                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Original
+                </button>`;
+        }
+        
+        // Modified links - Blue
+        if (hasModifiedLink1) {
+            additionalInfoHTML += `
+                <button onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" 
+                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    onmouseover="this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.transform='translateY(0)';">
+                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Modified
+                </button>`;
+        }
+        
+        if (hasModifiedLink2) {
+            additionalInfoHTML += `
+                <button onclick="window.open('${app.downloadLink2}', '_blank'); event.stopPropagation();" 
+                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    onmouseover="this.style.transform='translateY(-2px)';" 
+                    onmouseout="this.style.transform='translateY(0)';">
+                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Modified
+                </button>`;
+        }
+        
+        additionalInfoHTML += `</div>`;
     }
     
     if (additionalInfoHTML !== '') {
@@ -1431,83 +1470,8 @@ function updateDownloadButtons(app) {
     const modalFooter = document.getElementById('modalFooter');
     if (!modalFooter) return;
     
-    let buttonsHTML = '';
-    
-    // Debug: Log the app data
-    console.log('App data:', {
-        name: app.name,
-        downloadLink: app.downloadLink,
-        originalDownloadLink: app.originalDownloadLink,
-        isModified: app.isModified
-    });
-    
-    // Now: downloadLink = Modified, originalDownloadLink = Original
-    currentAppLinks.downloadLink = app.downloadLink || '';
-    currentAppLinks.originalDownloadLink = app.originalDownloadLink || '';
-    
-    const hasValidModifiedLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
-    const hasValidOriginalLink = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined';
-    
-    // Check if we have both modified and original links
-    if (app.isModified && hasValidModifiedLink && hasValidOriginalLink) {
-        // Modified version with both links - Show two buttons
-        buttonsHTML = `
-            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
-                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
-                <span class="original-badge">100%</span>
-            </button>
-            <button class="btn btn-primary btn-large" onclick="downloadModified(currentAppLinks.downloadLink)">
-                <i class="fas fa-download"></i> Download Modified
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    } else if (app.isModified && hasValidModifiedLink && !hasValidOriginalLink) {
-        // Modified version with modified link only
-        buttonsHTML = `
-            <button class="btn btn-primary btn-large" onclick="downloadModified(currentAppLinks.downloadLink)">
-                <i class="fas fa-download"></i> Download Modified
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    } else if (!app.isModified && hasValidOriginalLink) {
-        // Original version with original link
-        buttonsHTML = `
-            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
-                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
-                <span class="original-badge">100%</span>
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    } else if (!app.isModified && hasValidModifiedLink && !hasValidOriginalLink) {
-        // Original state but only has modified link (fallback)
-        buttonsHTML = `
-            <button class="btn btn-large" onclick="downloadModified(currentAppLinks.downloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
-                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download
-                <span class="original-badge">100%</span>
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    } else {
-        // No valid link at all
-        buttonsHTML = `
-            <button class="btn btn-large" onclick="showToast('Coming Soon!', 'warning')" style="background: linear-gradient(135deg, #6b7280, #4b5563); color: white; border: none;">
-                <i class="fas fa-clock"></i> Coming Soon
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    }
-    
-    modalFooter.innerHTML = buttonsHTML;
+    // Hide footer completely since close button is in header and download buttons are in Download Section
+    modalFooter.style.display = 'none';
 }
 
 // ===== FRP Warning Modal =====
