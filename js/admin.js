@@ -1495,6 +1495,9 @@ function exportToDataJS() {
         if (item.features && item.features.length > 0) {
             output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
         }
+        if (item.lastUpdated) {
+            output += `,\n        lastUpdated: '${item.lastUpdated}'`;
+        }
         output += `\n    }${index < windows.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
@@ -1538,6 +1541,9 @@ function exportToDataJS() {
         if (item.features && item.features.length > 0) {
             output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
         }
+        if (item.lastUpdated) {
+            output += `,\n        lastUpdated: '${item.lastUpdated}'`;
+        }
         output += `\n    }${index < android.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
@@ -1580,6 +1586,9 @@ function exportToDataJS() {
         }
         if (item.features && item.features.length > 0) {
             output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
+        }
+        if (item.lastUpdated) {
+            output += `,\n        lastUpdated: '${item.lastUpdated}'`;
         }
         output += `\n    }${index < frpToolsData.length - 1 ? ',' : ''}\n`;
     });
@@ -1626,6 +1635,9 @@ function exportToDataJS() {
         }
         if (item.features && item.features.length > 0) {
             output += `,\n        features: [${item.features.map(f => `'${escapeStr(f)}'`).join(', ')}]`;
+        }
+        if (item.lastUpdated) {
+            output += `,\n        lastUpdated: '${item.lastUpdated}'`;
         }
         output += `\n    }${index < frpAppsData.length - 1 ? ',' : ''}\n`;
     });
