@@ -46,7 +46,7 @@ const windowsSoftware = [
         downloadLink: '#',
         originalDownloadLink: 'https://www.videolan.org/',
         isModified: false,
-        systemRequirements: 'Operating System: Windows 10/11 (64-bit) or macOS 11 and later\nProcessor: Intel Core i5 or higher\nRAM: Minimum 8 GB (16 GB recommended)\nStorage: At least 4 GB of free disk space\nGPU: DirectX 12 compatible GPU with 2 GB VRAM or higher',
+        systemRequirements: 'Operating System: Windows 10/11, macOS 10.15+, or Linux\nProcessor: Intel or AMD CPU with SSE2 support\nRAM: 2 GB minimum (4 GB recommended)\nStorage: At least 100 MB of free space\nDisplay: 1024×768 resolution or higher',
         screenshots: ['https://game-experience.it/wp-content/uploads/2019/01/vlc-media-player.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/c2/VLC_3.0.10_running_on_Linux_and_GNOME_Shell.png', 'https://cdn2.portableapps.com/VLCPortable.png'],
         features: ['Playback of most video and audio formats without the need for additional codecs.', 'AI-powered automatic subtitles support for over 100 languages.', 'Playback speed control, seek, and jump features.', 'Advanced subtitle support, including SSA.', 'Network streaming capabilities with support for multiple protocols.', 'Customizable user interface.'],
         lastUpdated: '2025-10-20T13:48:05.526Z'
