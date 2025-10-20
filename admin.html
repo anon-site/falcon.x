@@ -559,13 +559,13 @@
                         <div class="tab-content-scroll">
                             <div class="input-group">
                                 <label for="appName">اسم البرنامج/التطبيق <span class="required">*</span></label>
-                                <input type="text" id="appName" required placeholder="مثال: Adobe Photoshop 2024">
+                                <input type="text" id="appName" placeholder="مثال: Adobe Photoshop 2024">
                             </div>
                             
                             <div class="input-row">
                                 <div class="input-group">
-                                    <label for="appCategory">الفئة <span class="required">*</span></label>
-                                    <select id="appCategory" required>
+                                    <label for="appCategory">الفئة</label>
+                                    <select id="appCategory">
                                         <option value="">اختر الفئة</option>
                                     </select>
                                 </div>
@@ -590,16 +590,16 @@
                             </div>
                             
                             <div class="input-group">
-                                <label for="appModified">الحالة <span class="required">*</span></label>
-                                <select id="appModified" required>
+                                <label for="appModified">الحالة</label>
+                                <select id="appModified">
                                     <option value="false">غير معدل (Original)</option>
                                     <option value="true">معدل (Modified)</option>
                                 </select>
                             </div>
                             
                             <div class="input-group">
-                                <label for="appIcon">رابط الأيقونة <span class="required">*</span></label>
-                                <input type="text" id="appIcon" required placeholder="https://example.com/icon.png">
+                                <label for="appIcon">رابط الأيقونة</label>
+                                <input type="text" id="appIcon" placeholder="https://example.com/icon.png">
                                 <small>يمكنك استخدام رابط صورة أو أيقونة Font Awesome مثل: fas fa-windows</small>
                             </div>
                             
@@ -619,8 +619,8 @@
                     <div class="form-tab-pane" data-pane="description">
                         <div class="tab-content-scroll">
                             <div class="input-group">
-                                <label for="appDescription">الوصف المختصر <span class="required">*</span></label>
-                                <textarea id="appDescription" rows="3" required placeholder="وصف قصير يظهر في بطاقة البرنامج على الصفحة الرئيسية..."></textarea>
+                                <label for="appDescription">الوصف المختصر</label>
+                                <textarea id="appDescription" rows="3" placeholder="وصف قصير يظهر في بطاقة البرنامج على الصفحة الرئيسية..."></textarea>
                                 <small>سيظهر هذا الوصف في البطاقة على الصفحة الرئيسية</small>
                             </div>
                             
@@ -646,42 +646,42 @@
                         <div class="tab-content-scroll">
                             <div class="input-group">
                                 <label for="appDownloadLink">
-                                    <i class="fas fa-download"></i>
-                                    رابط التحميل الرئيسي <span class="required">*</span>
+                                    <i class="fas fa-certificate"></i>
+                                    رابط تحميل الأصلي
                                 </label>
-                                <input type="text" id="appDownloadLink" required placeholder="https://example.com/download/app.zip">
-                                <small>رابط التحميل الأساسي للبرنامج (معدل أو أصلي)</small>
-                            </div>
-                            
-                            <div class="input-group">
-                                <label for="appOriginalDownloadLink">
-                                    <i class="fas fa-external-link-alt"></i>
-                                    رابط التحميل الأصلي
-                                </label>
-                                <input type="text" id="appOriginalDownloadLink" placeholder="https://original-site.com/download">
-                                <small>اختياري - رابط النسخة الأصلية، يظهر فقط إذا كانت الحالة "معدل"</small>
-                            </div>
-                            
-                            <div class="links-divider">
-                                <span>روابط التحميل البديلة</span>
+                                <input type="text" id="appDownloadLink" placeholder="https://example.com/download/original.zip">
+                                <small>رابط النسخة الأصلية من البرنامج</small>
                             </div>
                             
                             <div class="input-group">
                                 <label for="appDownloadLink2">
-                                    <i class="fas fa-link"></i>
-                                    رابط تحميل إضافي 1
+                                    <i class="fas fa-certificate"></i>
+                                    رابط تحميل أصلي 2
                                 </label>
-                                <input type="text" id="appDownloadLink2" placeholder="https://mirror1.com/download">
-                                <small>اختياري - رابط مرآة بديل أول</small>
+                                <input type="text" id="appDownloadLink2" placeholder="https://mirror1.com/original">
+                                <small>اختياري - رابط بديل للنسخة الأصلية</small>
+                            </div>
+                            
+                            <div class="links-divider">
+                                <span>روابط النسخة المعدلة</span>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appOriginalDownloadLink">
+                                    <i class="fas fa-download"></i>
+                                    رابط تحميل النسخة المعدلة
+                                </label>
+                                <input type="text" id="appOriginalDownloadLink" placeholder="https://modified-site.com/download">
+                                <small>اختياري - رابط النسخة المعدلة من البرنامج</small>
                             </div>
                             
                             <div class="input-group">
                                 <label for="appDownloadLink3">
-                                    <i class="fas fa-link"></i>
-                                    رابط تحميل إضافي 2
+                                    <i class="fas fa-download"></i>
+                                    رابط تحميل النسخة المعدلة 2
                                 </label>
-                                <input type="text" id="appDownloadLink3" placeholder="https://mirror2.com/download">
-                                <small>اختياري - رابط مرآة بديل ثاني</small>
+                                <input type="text" id="appDownloadLink3" placeholder="https://mirror2.com/modified">
+                                <small>اختياري - رابط بديل للنسخة المعدلة</small>
                             </div>
                             
                             <div class="links-divider" style="margin-top: 30px;">

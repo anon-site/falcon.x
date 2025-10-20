@@ -614,16 +614,17 @@ function openAppModal(type, appId = null) {
             document.getElementById('appDescription').value = app.description;
             document.getElementById('appFullDescription').value = app.fullDescription || '';
             document.getElementById('appIcon').value = app.icon || '';
-            document.getElementById('appDownloadLink').value = app.downloadLink;
-            document.getElementById('appOriginalDownloadLink').value = app.originalDownloadLink || '';
+            // Swap the values: downloadLink in DB is now Original, originalDownloadLink is Modified
+            document.getElementById('appDownloadLink').value = app.originalDownloadLink || ''; // Original
+            document.getElementById('appOriginalDownloadLink').value = app.downloadLink || ''; // Modified
             document.getElementById('appModified').value = app.isModified ? 'true' : 'false';
             
-            // Load additional download links
+            // Load additional download links (swapped)
             if (document.getElementById('appDownloadLink2')) {
-                document.getElementById('appDownloadLink2').value = app.downloadLink2 || '';
+                document.getElementById('appDownloadLink2').value = app.downloadLink3 || ''; // Original 2
             }
             if (document.getElementById('appDownloadLink3')) {
-                document.getElementById('appDownloadLink3').value = app.downloadLink3 || '';
+                document.getElementById('appDownloadLink3').value = app.downloadLink2 || ''; // Modified 2
             }
             
             // Load tutorial link
@@ -796,6 +797,9 @@ function initAppForm() {
         const passwordEl = document.getElementById('appPassword');
         const systemReqEl = document.getElementById('appSystemRequirements');
         
+        // Swap the values when saving:
+        // Form field "appDownloadLink" (Original) -> save to "originalDownloadLink"
+        // Form field "appOriginalDownloadLink" (Modified) -> save to "downloadLink"
         const appData = {
             id: isEditing ? parseInt(appId) : Date.now(),
             name: document.getElementById('appName').value || 'Untitled',
@@ -805,16 +809,16 @@ function initAppForm() {
             description: document.getElementById('appDescription').value || 'No description provided',
             fullDescription: document.getElementById('appFullDescription').value.trim() || '',
             icon: document.getElementById('appIcon').value || 'fas fa-cube',
-            downloadLink: document.getElementById('appDownloadLink').value || '#',
-            originalDownloadLink: document.getElementById('appOriginalDownloadLink').value.trim() || '',
+            downloadLink: document.getElementById('appOriginalDownloadLink').value.trim() || '#', // Modified version
+            originalDownloadLink: document.getElementById('appDownloadLink').value.trim() || '', // Original version
             isModified: modifiedValue === 'true',
             screenshots: screenshots,
             features: features,
             linkType: linkType, // Add link type for FRP Apps
             lastUpdated: new Date().toISOString(), // Add timestamp
-            // New fields
-            downloadLink2: downloadLink2El ? downloadLink2El.value.trim() : '',
-            downloadLink3: downloadLink3El ? downloadLink3El.value.trim() : '',
+            // New fields - also swap these
+            downloadLink2: downloadLink3El ? downloadLink3El.value.trim() : '', // Modified 2
+            downloadLink3: downloadLink2El ? downloadLink2El.value.trim() : '', // Original 2
             tutorialLink: tutorialLinkEl ? tutorialLinkEl.value.trim() : '',
             password: passwordEl ? passwordEl.value.trim() : '',
             systemRequirements: systemReqEl ? systemReqEl.value.trim() : ''

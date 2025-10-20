@@ -1019,25 +1019,26 @@ function refreshModalData() {
             </div>
         `;
     }
-    if (app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '') {
+    // downloadLink2 is now Modified 2, downloadLink3 is Original 2
+    if (app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '') {
         additionalInfoHTML += `
             <div class="info-item">
-                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 1:</div>
+                <div class="info-label"><i class="fas fa-certificate"></i> Alternative Original Link:</div>
                 <div class="info-value">
-                    <a href="${app.downloadLink2}" target="_blank" class="link-btn">
-                        <i class="fas fa-external-link-alt"></i> Open Link
+                    <a href="${app.downloadLink3}" target="_blank" class="link-btn" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">
+                        <i class="fas fa-certificate"></i> Download
                     </a>
                 </div>
             </div>
         `;
     }
-    if (app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '') {
+    if (app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '') {
         additionalInfoHTML += `
             <div class="info-item">
-                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 2:</div>
+                <div class="info-label"><i class="fas fa-download"></i> Alternative Modified Link:</div>
                 <div class="info-value">
-                    <a href="${app.downloadLink3}" target="_blank" class="link-btn">
-                        <i class="fas fa-external-link-alt"></i> Open Link
+                    <a href="${app.downloadLink2}" target="_blank" class="link-btn" style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white;">
+                        <i class="fas fa-download"></i> Download
                     </a>
                 </div>
             </div>
@@ -1254,6 +1255,12 @@ function showAppDetails(appId) {
 function closeAppDetails() {
     const modal = document.getElementById('appDetailsModal');
     
+    // Stop tutorial video by clearing its content
+    const modalTutorialVideo = document.getElementById('modalTutorialVideo');
+    if (modalTutorialVideo) {
+        modalTutorialVideo.innerHTML = ''; // Remove iframe to stop video
+    }
+    
     // Reset scroll position when closing
     const modalBody = modal.querySelector('.app-modal-body');
     if (modalBody) {
@@ -1434,41 +1441,30 @@ function updateDownloadButtons(app) {
         isModified: app.isModified
     });
     
-    // Store links globally
+    // Now: downloadLink = Modified, originalDownloadLink = Original
     currentAppLinks.downloadLink = app.downloadLink || '';
     currentAppLinks.originalDownloadLink = app.originalDownloadLink || '';
     
-    const hasValidLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
+    const hasValidModifiedLink = app.downloadLink && app.downloadLink !== '#' && app.downloadLink !== 'undefined';
     const hasValidOriginalLink = app.originalDownloadLink && app.originalDownloadLink !== '' && app.originalDownloadLink !== '#' && app.originalDownloadLink !== 'undefined';
     
     // Check if we have both modified and original links
-    if (app.isModified && hasValidLink && hasValidOriginalLink) {
-        // Modified version with original link - Show two buttons
+    if (app.isModified && hasValidModifiedLink && hasValidOriginalLink) {
+        // Modified version with both links - Show two buttons
         buttonsHTML = `
+            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
+                <span class="original-badge">100%</span>
+            </button>
             <button class="btn btn-primary btn-large" onclick="downloadModified(currentAppLinks.downloadLink)">
                 <i class="fas fa-download"></i> Download Modified
             </button>
-            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; position: relative; overflow: visible;">
-                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
-                <span class="original-badge">100%</span>
-            </button>
             <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
                 <i class="fas fa-times"></i> Close
             </button>
         `;
-    } else if (!app.isModified && hasValidOriginalLink && !hasValidLink) {
-        // Original version with original link only (downloadLink is #)
-        buttonsHTML = `
-            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; position: relative; overflow: visible;">
-                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
-                <span class="original-badge">100%</span>
-            </button>
-            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
-                <i class="fas fa-times"></i> Close
-            </button>
-        `;
-    } else if (app.isModified && hasValidLink) {
-        // Modified version without original link
+    } else if (app.isModified && hasValidModifiedLink && !hasValidOriginalLink) {
+        // Modified version with modified link only
         buttonsHTML = `
             <button class="btn btn-primary btn-large" onclick="downloadModified(currentAppLinks.downloadLink)">
                 <i class="fas fa-download"></i> Download Modified
@@ -1477,11 +1473,22 @@ function updateDownloadButtons(app) {
                 <i class="fas fa-times"></i> Close
             </button>
         `;
-    } else if (!app.isModified && hasValidLink) {
-        // Original version with valid downloadLink
+    } else if (!app.isModified && hasValidOriginalLink) {
+        // Original version with original link
         buttonsHTML = `
-            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.downloadLink)" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; position: relative; overflow: visible;">
+            <button class="btn btn-large" onclick="downloadOriginal(currentAppLinks.originalDownloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
                 <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download Original
+                <span class="original-badge">100%</span>
+            </button>
+            <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
+                <i class="fas fa-times"></i> Close
+            </button>
+        `;
+    } else if (!app.isModified && hasValidModifiedLink && !hasValidOriginalLink) {
+        // Original state but only has modified link (fallback)
+        buttonsHTML = `
+            <button class="btn btn-large" onclick="downloadModified(currentAppLinks.downloadLink)" style="background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; position: relative; overflow: visible;">
+                <i class="fas fa-certificate" style="margin-right: 0.5rem;"></i> Download
                 <span class="original-badge">100%</span>
             </button>
             <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
@@ -1491,7 +1498,7 @@ function updateDownloadButtons(app) {
     } else {
         // No valid link at all
         buttonsHTML = `
-            <button class="btn btn-large" onclick="showToast('Download link will be available soon!', 'warning')" style="background: linear-gradient(135deg, #6b7280, #4b5563); color: white; border: none;">
+            <button class="btn btn-large" onclick="showToast('Coming Soon!', 'warning')" style="background: linear-gradient(135deg, #6b7280, #4b5563); color: white; border: none;">
                 <i class="fas fa-clock"></i> Coming Soon
             </button>
             <button class="btn btn-secondary btn-large" onclick="closeAppDetails()">
