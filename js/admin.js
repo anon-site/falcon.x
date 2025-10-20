@@ -957,7 +957,30 @@ function addNewApp(type) {
 
 // ============ Navigation Management ============
 
-function loadNavigation() {
+// Load navigation from GitHub settings.json
+async function loadNavigationFromGitHub() {
+    try {
+        const settings = await githubAPI.getSettingsFromGitHub();
+        
+        if (settings && settings.navigation && Array.isArray(settings.navigation)) {
+            localStorage.setItem('navigation', JSON.stringify(settings.navigation));
+            console.log('✅ Navigation loaded from GitHub:', settings.navigation.length, 'items');
+            return true;
+        }
+        
+        console.log('ℹ️ No navigation found in settings.json');
+        return false;
+    } catch (error) {
+        console.log('ℹ️ Could not load navigation from GitHub:', error.message);
+        return false;
+    }
+}
+
+async function loadNavigation() {
+    // Clear cache and load from GitHub first
+    localStorage.removeItem('navigation');
+    await loadNavigationFromGitHub();
+    
     const navItems = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
     const container = document.getElementById('navigation-list');
     
