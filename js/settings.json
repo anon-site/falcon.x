@@ -54,19 +54,11 @@
             "active": true
         },
         {
-            "id": 1760980616611,
-            "title": "Sam Fw",
-            "icon": "fas fa-cube",
-            "link": "#sam-fw",
-            "order": 6,
-            "active": true
-        },
-        {
             "id": 6,
             "title": "About Us",
             "icon": "fas fa-info-circle",
             "link": "#about",
-            "order": 7,
+            "order": 6,
             "active": true
         }
     ],
