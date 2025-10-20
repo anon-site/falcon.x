@@ -15,7 +15,8 @@ const windowsSoftware = [
         tutorialLink: 'https://www.youtube.com/watch?v=cu_ykIfBprI&t=30s',
         systemRequirements: 'Windows 7/8/10/11\nOperating System: Windows 10 or later (64-bit)\nProcessor: 1.6 GHz or faster processor\nMemory (RAM): At least 1 GB (4 GB or more recommended)\nStorage: 200–500 MB of free disk space\nDisplay: 1024×768 resolution or higher\nNET Framework 4.5 or later\nPowerShell 5 (included in Windows 10 by default)',
         screenshots: ['https://code.visualstudio.com/opengraphimg/opengraph-home.png', 'https://preview.redd.it/thats-how-my-vs-code-looks-for-web-development-v0-crpvcfy73djd1.png?width=640&crop=smart&auto=webp&s=43a8e7a288d1f79b66df8d60acedaaf59bfd4750', 'https://code.visualstudio.com/assets/docs/configure/extensions/extension-marketplace/extensions-popular.png'],
-        features: ['Free & Open Source: Completely free and open for customization.', 'Multi-language Support: Works with many languages like Python, JavaScript, C++, HTML, and more.', 'IntelliSense: Smart code completion and suggestions.', 'Built-in Git Integration: Manage version control directly inside the editor.', 'Extensions Marketplace: Thousands of plugins for themes, languages, and tools.', 'Debugging Tools: Built-in debugger for various programming languages.', 'Customizable Interface: Change themes, icons, and layout easily.', 'Cross-platform: Runs on Windows, macOS, and Linux.', 'Terminal Integration: Built-in terminal for quick commands.']
+        features: ['Free & Open Source: Completely free and open for customization.', 'Multi-language Support: Works with many languages like Python, JavaScript, C++, HTML, and more.', 'IntelliSense: Smart code completion and suggestions.', 'Built-in Git Integration: Manage version control directly inside the editor.', 'Extensions Marketplace: Thousands of plugins for themes, languages, and tools.', 'Debugging Tools: Built-in debugger for various programming languages.', 'Customizable Interface: Change themes, icons, and layout easily.', 'Cross-platform: Runs on Windows, macOS, and Linux.', 'Terminal Integration: Built-in terminal for quick commands.'],
+        lastUpdated: '2025-10-20T13:06:51.959Z'
     },
     {
         id: 1760625972079,
@@ -30,12 +31,13 @@ const windowsSoftware = [
         originalDownloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
         isModified: false,
         screenshots: ['https://eshop.macsales.com/blog/wp-content/uploads/2018/09/screenshot_122.png', 'https://developer.chrome.com/static/images/2025_ai-challenge.jpg', 'https://img.utdstc.com/screen/fee/785/fee7859e412b27d8527813ab6d0c3242b78de46b2fc51e97f62672ad6c042f0a:600'],
-        features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.']
+        features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760626067691,
         name: ' VLC Media Player',
-        version: '3.0.22 RC1',
+        version: '3.0.22',
         category: 'Multiplayer',
         icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/250px-VLC_Icon.svg.png',
         description: 'VLC is a versatile, free, and open-source media player that supports playback of most video and audio formats without the need for additional codecs.',
@@ -44,8 +46,10 @@ const windowsSoftware = [
         downloadLink: '#',
         originalDownloadLink: 'https://www.videolan.org/',
         isModified: false,
+        systemRequirements: 'Operating System: Windows 10/11, macOS 10.15+, or Linux\nProcessor: Intel or AMD CPU with SSE2 support\nRAM: 2 GB minimum (4 GB recommended)\nStorage: At least 100 MB of free space\nDisplay: 1024×768 resolution or higher',
         screenshots: ['https://game-experience.it/wp-content/uploads/2019/01/vlc-media-player.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/c2/VLC_3.0.10_running_on_Linux_and_GNOME_Shell.png', 'https://cdn2.portableapps.com/VLCPortable.png'],
-        features: ['Playback of most video and audio formats without the need for additional codecs.', 'AI-powered automatic subtitles support for over 100 languages.', 'Playback speed control, seek, and jump features.', 'Advanced subtitle support, including SSA.', 'Network streaming capabilities with support for multiple protocols.', 'Customizable user interface.']
+        features: ['Playback of most video and audio formats without the need for additional codecs.', 'AI-powered automatic subtitles support for over 100 languages.', 'Playback speed control, seek, and jump features.', 'Advanced subtitle support, including SSA.', 'Network streaming capabilities with support for multiple protocols.', 'Customizable user interface.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760627710498,
@@ -60,7 +64,8 @@ const windowsSoftware = [
         originalDownloadLink: 'https://www.remotemouse.net/',
         isModified: false,
         screenshots: ['https://fossbytes.com/wp-content/uploads/2015/02/Remote-Mouse-iPhone-iPad-App.jpg', 'https://www.remotemouse.net/public/img/cover-rm.jpg', 'https://s3b.cashify.in/gpro/uploads/2023/01/02022209/How-To-Use-Remote-Mouse-App_3-1024x512.jpg'],
-        features: ['Transforms mobile device into a wireless mouse, keyboard, and touchpad.', 'Supports voice typing via speech recognition.', 'Controls volume and changes slides in presentations.', 'Supports multi-touch touchpad.', 'Enables cross-device copy and paste functionality.', 'Supports Windows, macOS, and Linux operating systems.']
+        features: ['Transforms mobile device into a wireless mouse, keyboard, and touchpad.', 'Supports voice typing via speech recognition.', 'Controls volume and changes slides in presentations.', 'Supports multi-touch touchpad.', 'Enables cross-device copy and paste functionality.', 'Supports Windows, macOS, and Linux operating systems.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760677535105,
@@ -75,7 +80,8 @@ const windowsSoftware = [
         originalDownloadLink: 'https://laptop-updates.brave.com/download/BRV040?bitness=64',
         isModified: false,
         screenshots: ['https://iili.io/KvFSXEl.png', 'https://iili.io/KvFSWB4.png', 'https://iili.io/KvFSMQf.png'],
-        features: ['Privacy-focused: Blocks ads and trackers by default.', 'Fast Performance: Loads pages faster by removing unnecessary content.', 'Built-in Ad Blocker: No need for extra extensions.', 'Rewards System: Earn Basic Attention Tokens (BAT) for viewing privacy-safe ads.', 'Integrated Crypto Wallet: Manage and store cryptocurrencies directly in the browser.', 'Cross-platform: Available on Windows, macOS, Linux, Android, and iOS.', 'HTTPS Everywhere: Automatically upgrades connections to secure HTTPS.', 'Customizable Settings: Control privacy, appearance, and performance easily.', 'Open Source: Transparent and community-driven development.']
+        features: ['Privacy-focused: Blocks ads and trackers by default.', 'Fast Performance: Loads pages faster by removing unnecessary content.', 'Built-in Ad Blocker: No need for extra extensions.', 'Rewards System: Earn Basic Attention Tokens (BAT) for viewing privacy-safe ads.', 'Integrated Crypto Wallet: Manage and store cryptocurrencies directly in the browser.', 'Cross-platform: Available on Windows, macOS, Linux, Android, and iOS.', 'HTTPS Everywhere: Automatically upgrades connections to secure HTTPS.', 'Customizable Settings: Control privacy, appearance, and performance easily.', 'Open Source: Transparent and community-driven development.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760688301831,
@@ -90,7 +96,8 @@ const windowsSoftware = [
         originalDownloadLink: 'https://www.win-rar.com/download.html?&L=0',
         isModified: true,
         screenshots: ['https://www.dignited.com/wp-content/uploads/2022/08/WinRAR_.png', 'https://www.win-rar.com/uploads/pics/open-zip-files-extract-files_08.png', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgoZDj2T37WzE_HWvIIO7sJI1ZlQfeuZzag5A-1E7i-zOowbEiAOLa-IT0mTc258QiSLwPXNje9g96S9oSqkz6_XD3W0b0uJ8bdKLBg3ImnYBxATLgZYPWHOKDeAlzxT6KTIbeL8nDXClnOlr62puxTt5u_hFq9q_dGN8EahSIJDnyANwUR35AhfRWYzi0/s1600/Echo%20Chamber%20(2)%20(1).webp'],
-        features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.']
+        features: ['Powerful Compression: Reduces file sizes efficiently.', 'Supports Multiple Formats: Works with RAR, ZIP, 7Z, TAR, ISO, and more.', 'Strong Encryption: Uses AES-256-bit encryption to protect data.', 'Easy Extraction: Extract files with one click.', 'Password Protection: Secure archives with passwords.', 'Split Archives: Divide large files into smaller parts for easier sharing.', 'Repair Tool: Fix damaged or corrupted archives.', 'User-friendly Interface: Simple and easy to navigate.', 'Multi-language Support: Available in many languages.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760780124868,
@@ -105,7 +112,8 @@ const windowsSoftware = [
         originalDownloadLink: 'https://www.mediafire.com/file/ed3wps0320yr2uu/FastStone+Capture+v10.9.rar/file',
         isModified: false,
         screenshots: ['https://faststone-capture.fileion.com/curator/software/articles/featued-images/2025/08/faststone-capture-keyboard-shortcuts.webp?s=b3f309af83b4cfa8662ffb0fca48439a', 'https://blackjoomla.com/media/k2/items/cache/05a977f75c8bd421cf67e35678973f79_XL.jpg', 'https://faststone-capture.fileion.com/storage/software/screenshots/2025/07/faststone-capture-1.png'],
-        features: ['Capture full screen, active window, object, menu, rectangular/freehand/fixed region, scrolling windows/web pages.', 'Record screen activities including on-screen changes, microphone audio, mouse movements/clicks and webcam (in recent versions).', 'Built-in editor: annotate images with text, arrowed lines, highlights, watermarks, shapes; apply effects (drop shadow, torn-edge, fade-edge).', 'Resize, crop, rotate, sharpen images; adjust brightness, colour, etc.', 'Save images in many formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF).', 'Built-in video editor allowing trimming, zoom effects, convert video to animated GIF (some versions) …', 'Support for global hotkeys, automatic filename generation, external editor integration, colour picker, screen magnifier, screen crosshair, screen ruler.', 'Lightweight, fast, efficient in system resources.']
+        features: ['Capture full screen, active window, object, menu, rectangular/freehand/fixed region, scrolling windows/web pages.', 'Record screen activities including on-screen changes, microphone audio, mouse movements/clicks and webcam (in recent versions).', 'Built-in editor: annotate images with text, arrowed lines, highlights, watermarks, shapes; apply effects (drop shadow, torn-edge, fade-edge).', 'Resize, crop, rotate, sharpen images; adjust brightness, colour, etc.', 'Save images in many formats (BMP, GIF, JPEG, PCX, PNG, TGA, TIFF, PDF).', 'Built-in video editor allowing trimming, zoom effects, convert video to animated GIF (some versions) …', 'Support for global hotkeys, automatic filename generation, external editor integration, colour picker, screen magnifier, screen crosshair, screen ruler.', 'Lightweight, fast, efficient in system resources.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760780470022,
@@ -120,7 +128,8 @@ const windowsSoftware = [
         originalDownloadLink: 'https://www.iobit.com/en/driver-booster.php',
         isModified: true,
         screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
-        features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process']
+        features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760957861498,
@@ -134,7 +143,8 @@ const windowsSoftware = [
         downloadLink: '#',
         isModified: false,
         screenshots: ['https://repository-images.githubusercontent.com/917908947/91aaf1aa-55f4-4e56-870b-04ab2244d2b5', 'https://www.internetdownloadmanager.com/images/dynamic.jpg', 'https://www.internetdownloadmanager.com/images/idm_custom.gif'],
-        features: ['Accelerates download speed up to 5 times.', 'Supports pause and resume of downloads.', 'Automatically integrates with popular browsers.', 'Built-in scheduler for automatic downloads.', 'Supports HTTPS, FTP, and proxy servers.', 'Captures streaming videos from websites.', 'Provides error recovery and resume capability.', 'Simple and user-friendly interface.', 'Smart file segmentation technology.', 'Multilingual support.']
+        features: ['Accelerates download speed up to 5 times.', 'Supports pause and resume of downloads.', 'Automatically integrates with popular browsers.', 'Built-in scheduler for automatic downloads.', 'Supports HTTPS, FTP, and proxy servers.', 'Captures streaming videos from websites.', 'Provides error recovery and resume capability.', 'Simple and user-friendly interface.', 'Smart file segmentation technology.', 'Multilingual support.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     }
 ];
 
@@ -153,7 +163,8 @@ const androidApps = [
         originalDownloadLink: 'https://www.mediafire.com/file/j1n11da8u310wyk/mt-manager-2-19-2-orgenal.rar/file',
         isModified: true,
         screenshots: ['https://www.mtmanagerapks.com/wp-content/uploads/2024/07/mt-manager-features.jpg', 'https://images.sftcdn.net/images/t_app-cover-s,f_auto/p/a619d768-3717-4b1b-95df-6990ba44b07a/2318019397/mt-manager-screenshot.png', 'https://i.imgur.com/IdqadjV.png'],
-        features: ['File Management: Copy, move, delete, rename files and folders.', 'Dual Window / Split View: View two directories at once to ease file operations.', 'Archive / ZIP Handling: View, extract, compress files in ZIP, RAR, TAR, 7z, etc., and even manipulate contents inside archives without full extraction.', 'Text Editor: Full-featured editor supporting search, replace, syntax, etc.', 'XML, DEX, ARSC Editing: Decompile, edit, and recompile XML, DEX, ARSC files in APKs.', 'LatestModAPKs', 'APK Operations: Sign APKs, clone apps, optimize, remove signature verification, resource obfuscation, translation support.', 'Script Executor: Execute custom scripts (system or extension environment)', 'Hex Editor / Binary Editing: Edit files at the binary (hex) level.', 'Font & SVG Viewing/Editing: Preview fonts, work with SVG, 9-patch graphics, etc.', 'Batch Operations: Select multiple files for mass operations like delete, move, rename.', 'Search & Filter: Find inside XML, search by ID, filter results, etc.', 'Root Access Support: If device is rooted, can access system directories, remount file systems, change permissions.', 'Cloud Integration & FTP: Some versions or plugins may support cloud storage or FTP connection.']
+        features: ['File Management: Copy, move, delete, rename files and folders.', 'Dual Window / Split View: View two directories at once to ease file operations.', 'Archive / ZIP Handling: View, extract, compress files in ZIP, RAR, TAR, 7z, etc., and even manipulate contents inside archives without full extraction.', 'Text Editor: Full-featured editor supporting search, replace, syntax, etc.', 'XML, DEX, ARSC Editing: Decompile, edit, and recompile XML, DEX, ARSC files in APKs.', 'LatestModAPKs', 'APK Operations: Sign APKs, clone apps, optimize, remove signature verification, resource obfuscation, translation support.', 'Script Executor: Execute custom scripts (system or extension environment)', 'Hex Editor / Binary Editing: Edit files at the binary (hex) level.', 'Font & SVG Viewing/Editing: Preview fonts, work with SVG, 9-patch graphics, etc.', 'Batch Operations: Select multiple files for mass operations like delete, move, rename.', 'Search & Filter: Find inside XML, search by ID, filter results, etc.', 'Root Access Support: If device is rooted, can access system directories, remount file systems, change permissions.', 'Cloud Integration & FTP: Some versions or plugins may support cloud storage or FTP connection.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760627051300,
@@ -168,7 +179,8 @@ const androidApps = [
         originalDownloadLink: 'https://www.mediafire.com/file/rhl3d8hxlce1i4e/SSVID_1.4.0.apks/file',
         isModified: false,
         screenshots: ['https://image.winudf.com/v2/image1/Y29tLmFsbHZpZGVvZG93bmxvYWRlci51Y2Rvd25sb2FkZXJfc2NyZWVuXzBfMTY2MTU4MzQ3Ml8wOTY/screen-0.jpg?fakeurl=1&type=.jpg', 'https://play-lh.googleusercontent.com/6AgmhIONW2oII1hhgiQGZlL0-OtarEFU7-qn6_i8wX9GyEn9RiSXZVjzUVFRbdLZvA=w526-h296-rw', 'https://www.techuseful.com/wp-content/uploads/2020/12/Allvideodownloader.jpg'],
-        features: ['Fast and reliable media search', 'Stream videos in multiple quality options', 'Download videos and audio in various formats', 'Background playback support', 'Create and manage playlists', 'Clean, ad-free experience']
+        features: ['Fast and reliable media search', 'Stream videos in multiple quality options', 'Download videos and audio in various formats', 'Background playback support', 'Create and manage playlists', 'Clean, ad-free experience'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760627555294,
@@ -183,7 +195,8 @@ const androidApps = [
         originalDownloadLink: 'https://www.remotemouse.net/',
         isModified: true,
         screenshots: ['https://fossbytes.com/wp-content/uploads/2015/02/Remote-Mouse-iPhone-iPad-App.jpg', 'https://www.remotemouse.net/public/img/cover-rm.jpg', 'https://www.remotemouse.net/public/img/rm-feature1.png'],
-        features: ['Transforms your phone into a wireless mouse, keyboard, and touchpad.', 'Supports multi-touch gestures for smooth control.', 'Controls media playback such as play/pause, volume adjustment, and skip forward/backward.', 'Allows shutting down, restarting, or putting the computer to sleep remotely.', 'Enables clipboard synchronization between phone and computer.', 'User-friendly and intuitive interface.']
+        features: ['Transforms your phone into a wireless mouse, keyboard, and touchpad.', 'Supports multi-touch gestures for smooth control.', 'Controls media playback such as play/pause, volume adjustment, and skip forward/backward.', 'Allows shutting down, restarting, or putting the computer to sleep remotely.', 'Enables clipboard synchronization between phone and computer.', 'User-friendly and intuitive interface.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760628063597,
@@ -198,7 +211,8 @@ const androidApps = [
         originalDownloadLink: 'https://www.mediafire.com/file/e7y23htnzsoygf8/Hail_1.8.1.zip/file',
         isModified: false,
         screenshots: ['https://i.ytimg.com/vi/fI0D6c4VNZA/maxresdefault.jpg', 'https://droidwin.com/wp-content/uploads/2024/09/hail-app.jpg', 'https://f-droid.org/repo/com.aistra.hail/en-US/phoneScreenshots/3.png'],
-        features: ['Freeze / unfreeze apps (disable, hide, suspend)', 'GrapheneOS Discussion Forum', 'Support for different working modes: Device Owner, Root, Shizuku, Dhizuku', 'Revert changes (unfreeze) easily when needed', 'Hide apps (so they don’t appear in launcher or app list)', 'Suspend apps (icon turns grayscale; background and notifications are blocked) on supported versions', 'Works without root for many features (via Shizuku / Dhizuku)', 'GrapheneOS Discussion Forum', 'Free and open source (GPL-3.0)']
+        features: ['Freeze / unfreeze apps (disable, hide, suspend)', 'GrapheneOS Discussion Forum', 'Support for different working modes: Device Owner, Root, Shizuku, Dhizuku', 'Revert changes (unfreeze) easily when needed', 'Hide apps (so they don’t appear in launcher or app list)', 'Suspend apps (icon turns grayscale; background and notifications are blocked) on supported versions', 'Works without root for many features (via Shizuku / Dhizuku)', 'GrapheneOS Discussion Forum', 'Free and open source (GPL-3.0)'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760670417792,
@@ -213,7 +227,8 @@ const androidApps = [
         originalDownloadLink: 'https://apk-editor.com/',
         isModified: true,
         screenshots: ['https://apk-editor.com/wp-content/uploads/2025/05/APK-Editor-for-Pro-Mod-1024x550.webp', 'https://www.latestmodapks.com/wp-content/uploads/2022/08/apk-editor5.webp', 'https://imag.malavida.com/mvimgbig/download-fs/apk-editor-20899-1.jpg'],
-        features: ['Edit APK files easily and quickly.', 'Modify app resources, layouts, and images.', 'Remove unwanted ads and permissions.', 'Replace app icons and backgrounds.', 'Support for full APK rebuild or simple edit modes.', 'User-friendly interface.', 'Backup and restore feature for safety.', 'Works without requiring root (for most edits).']
+        features: ['Edit APK files easily and quickly.', 'Modify app resources, layouts, and images.', 'Remove unwanted ads and permissions.', 'Replace app icons and backgrounds.', 'Support for full APK rebuild or simple edit modes.', 'User-friendly interface.', 'Backup and restore feature for safety.', 'Works without requiring root (for most edits).'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760670709239,
@@ -228,7 +243,8 @@ const androidApps = [
         originalDownloadLink: 'https://appcloner.app/',
         isModified: true,
         screenshots: ['https://play-lh.googleusercontent.com/RjZbsmh22gbDGBsGPqVE16EkOX8h0wVJUm81lsJ79NA8AtSlPbzJv0U8rMH2e7oHmyE=w526-h296-rw', 'https://liteapks.com/wp-content/uploads/2022/05/app-cloner-1-e1653727930941.png', 'https://images.wondershare.com/drfone/article/2024/02/android-clone-apps-10.jpg'],
-        features: ['Create multiple independent clones of installed apps.', 'appcloner.app', 'Customize clone name, icon, and package signature.', 'APKMirror', 'Remove or limit permissions, disable auto-start and background services.', 'appcloner.app', 'Privacy & spoofing options (hide/switch Android ID, spoof MAC, fake GPS).', 'App Cloner', 'Password-protect clones and enable incognito/stealth modes.', 'appcloner.app', 'VIP/Premium unlocks advanced mods, more cloning limits, and add-ons.', 'LITEAPKS', '+1', 'Note: compatibility differs by target app — some apps (banking, DRM apps, Google Pay, etc.) may refuse to run under clones or require additional steps.']
+        features: ['Create multiple independent clones of installed apps.', 'appcloner.app', 'Customize clone name, icon, and package signature.', 'APKMirror', 'Remove or limit permissions, disable auto-start and background services.', 'appcloner.app', 'Privacy & spoofing options (hide/switch Android ID, spoof MAC, fake GPS).', 'App Cloner', 'Password-protect clones and enable incognito/stealth modes.', 'appcloner.app', 'VIP/Premium unlocks advanced mods, more cloning limits, and add-ons.', 'LITEAPKS', '+1', 'Note: compatibility differs by target app — some apps (banking, DRM apps, Google Pay, etc.) may refuse to run under clones or require additional steps.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760670886353,
@@ -242,7 +258,8 @@ const androidApps = [
         downloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
         isModified: false,
         screenshots: ['https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
-        features: ['Full-featured file manager with APK editing tools.', 'Decompile, recompile, and sign APK files easily.', 'Built-in Smali, XML, and text editor.', 'Patch apps and modify internal code.', 'Remove ads and unnecessary permissions.', 'Supports both root and non-root environments.', 'Customize and rebuild Android applications.', 'Fast and lightweight performance.']
+        features: ['Full-featured file manager with APK editing tools.', 'Decompile, recompile, and sign APK files easily.', 'Built-in Smali, XML, and text editor.', 'Patch apps and modify internal code.', 'Remove ads and unnecessary permissions.', 'Supports both root and non-root environments.', 'Customize and rebuild Android applications.', 'Fast and lightweight performance.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760671090904,
@@ -256,7 +273,8 @@ const androidApps = [
         downloadLink: 'https://www.mediafire.com/file/kkxv00vgfg0au2a/ZArchiver_Pro.rar/file',
         isModified: false,
         screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg', 'https://img.utdstc.com/screen/227/2c1/2272c114a54839b3d40b4b497bc02be04900fd9cb0b3be5ea860fb500ae206ef:600'],
-        features: ['Create and extract archives in multiple formats (ZIP, RAR, 7z, TAR, etc.).', 'Compress files with password protection and encryption.', 'View and edit compressed file contents without extracting.', 'Support for multi-part and split archives.', 'Simple and modern user interface.', 'UTF-8 encoding support for non-Latin filenames.', 'Fast compression and decompression performance.', 'Full dark/light theme customization (Pro).', 'No ads and improved stability in Pro version.']
+        features: ['Create and extract archives in multiple formats (ZIP, RAR, 7z, TAR, etc.).', 'Compress files with password protection and encryption.', 'View and edit compressed file contents without extracting.', 'Support for multi-part and split archives.', 'Simple and modern user interface.', 'UTF-8 encoding support for non-Latin filenames.', 'Fast compression and decompression performance.', 'Full dark/light theme customization (Pro).', 'No ads and improved stability in Pro version.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     }
 ];
 
@@ -275,7 +293,8 @@ const frpTools = [
         originalDownloadLink: 'https://www.mediafire.com/file/5xxyloukdhhdqof/TFTUnlock+Tool+V6.2.1.1.zip/file',
         isModified: false,
         screenshots: ['https://i.ytimg.com/vi/MQPHKfumOOc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC8rzhNfuRzQ7Lf2G05H2uPAnxM6Q', 'https://media.licdn.com/dms/image/sync/v2/D4D27AQFlskt6L_e7KA/articleshare-shrink_800/articleshare-shrink_800/0/1746558211000?e=2147483647&v=beta&t=GmhuVm0t604xnckNemaWa0lOnRhpLtjufzO_RqMOeyU', 'https://pbs.twimg.com/media/GLltenJbkAAp1LV.jpg'],
-        features: ['Unlocking and Security Removal', 'Remove screen locks (pattern, PIN, password, or fingerprint).', 'Bypass FRP (Factory Reset Protection) after a factory reset.', 'Unlock OEM and Bootloader on supported devices.', 'Repair and Maintenance Tools', 'Perform a full format or factory reset.', 'Flash firmware (ROM) or install the official system software.', 'Repair network or IMEI on supported devices.', 'Recover bricked or dead devices (Unbrick / Recovery Mode).', 'Broad Device and Chipset Support', 'Supports devices powered by Qualcomm, MediaTek, Spreadtrum (UniSoc), and Kirin chipsets.', 'Read detailed device information (model, CPU, Android version, lock status).', 'Professional Utilities', 'Built-in account management system (login / activation).', 'Ability to work with multiple devices simultaneously.', 'Option to back up user data before performing operations.', 'Interface and Usability', 'Simple, user-friendly interface for Windows PCs.', 'Does not require advanced technical skills.', 'Regular updates to support new devices and security patches.']
+        features: ['Unlocking and Security Removal', 'Remove screen locks (pattern, PIN, password, or fingerprint).', 'Bypass FRP (Factory Reset Protection) after a factory reset.', 'Unlock OEM and Bootloader on supported devices.', 'Repair and Maintenance Tools', 'Perform a full format or factory reset.', 'Flash firmware (ROM) or install the official system software.', 'Repair network or IMEI on supported devices.', 'Recover bricked or dead devices (Unbrick / Recovery Mode).', 'Broad Device and Chipset Support', 'Supports devices powered by Qualcomm, MediaTek, Spreadtrum (UniSoc), and Kirin chipsets.', 'Read detailed device information (model, CPU, Android version, lock status).', 'Professional Utilities', 'Built-in account management system (login / activation).', 'Ability to work with multiple devices simultaneously.', 'Option to back up user data before performing operations.', 'Interface and Usability', 'Simple, user-friendly interface for Windows PCs.', 'Does not require advanced technical skills.', 'Regular updates to support new devices and security patches.'],
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     }
 ];
 
@@ -292,7 +311,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.android.settings/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760868987987,
@@ -305,7 +325,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.sec.android.app.samsungapps/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760869067510,
@@ -318,7 +339,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.googlequicksearchbox/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760869141205,
@@ -331,7 +353,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.gms/#Intent;scheme=promote_smartlock_scheme;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760869804354,
@@ -344,7 +367,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'https://frpbypass.romstage.com/frp_bypass/',
         isModified: false,
-        linkType: 'download'
+        linkType: 'download',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760869897074,
@@ -357,7 +381,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.motorola.moto/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760869974405,
@@ -370,7 +395,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.motorola.securityhub/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760870041088,
@@ -383,7 +409,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.apps.googleassistant/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760870094155,
@@ -396,7 +423,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.sec.android.app.myfiles/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760870234652,
@@ -409,7 +437,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.mi.android.globalFileexplorer/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760870931873,
@@ -422,7 +451,8 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.google.android.youtube/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     },
     {
         id: 1760870974710,
@@ -435,6 +465,7 @@ const frpApps = [
         downloadLink: '#',
         originalDownloadLink: 'intent://com.activitymanager/#Intent;scheme=android-app;end',
         isModified: false,
-        linkType: 'direct'
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T13:48:05.526Z'
     }
 ];
