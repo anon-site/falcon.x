@@ -163,6 +163,21 @@ class GitHubAPI {
                 content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
             }
             content += `        isModified: ${app.isModified}`;
+            if (app.downloadLink2 && app.downloadLink2.trim() !== '') {
+                content += `,\n        downloadLink2: '${this.escapeString(app.downloadLink2)}'`;
+            }
+            if (app.downloadLink3 && app.downloadLink3.trim() !== '') {
+                content += `,\n        downloadLink3: '${this.escapeString(app.downloadLink3)}'`;
+            }
+            if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+                content += `,\n        tutorialLink: '${this.escapeString(app.tutorialLink)}'`;
+            }
+            if (app.password && app.password.trim() !== '') {
+                content += `,\n        password: '${this.escapeString(app.password)}'`;
+            }
+            if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+                content += `,\n        systemRequirements: '${this.escapeString(app.systemRequirements)}'`;
+            }
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
             }
@@ -192,6 +207,21 @@ class GitHubAPI {
                 content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
             }
             content += `        isModified: ${app.isModified}`;
+            if (app.downloadLink2 && app.downloadLink2.trim() !== '') {
+                content += `,\n        downloadLink2: '${this.escapeString(app.downloadLink2)}'`;
+            }
+            if (app.downloadLink3 && app.downloadLink3.trim() !== '') {
+                content += `,\n        downloadLink3: '${this.escapeString(app.downloadLink3)}'`;
+            }
+            if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+                content += `,\n        tutorialLink: '${this.escapeString(app.tutorialLink)}'`;
+            }
+            if (app.password && app.password.trim() !== '') {
+                content += `,\n        password: '${this.escapeString(app.password)}'`;
+            }
+            if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+                content += `,\n        systemRequirements: '${this.escapeString(app.systemRequirements)}'`;
+            }
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
             }
@@ -221,6 +251,21 @@ class GitHubAPI {
                 content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
             }
             content += `        isModified: ${app.isModified}`;
+            if (app.downloadLink2 && app.downloadLink2.trim() !== '') {
+                content += `,\n        downloadLink2: '${this.escapeString(app.downloadLink2)}'`;
+            }
+            if (app.downloadLink3 && app.downloadLink3.trim() !== '') {
+                content += `,\n        downloadLink3: '${this.escapeString(app.downloadLink3)}'`;
+            }
+            if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+                content += `,\n        tutorialLink: '${this.escapeString(app.tutorialLink)}'`;
+            }
+            if (app.password && app.password.trim() !== '') {
+                content += `,\n        password: '${this.escapeString(app.password)}'`;
+            }
+            if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+                content += `,\n        systemRequirements: '${this.escapeString(app.systemRequirements)}'`;
+            }
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
             }
@@ -252,6 +297,21 @@ class GitHubAPI {
             content += `        isModified: ${app.isModified}`;
             if (app.linkType) {
                 content += `,\n        linkType: '${app.linkType}'`;
+            }
+            if (app.downloadLink2 && app.downloadLink2.trim() !== '') {
+                content += `,\n        downloadLink2: '${this.escapeString(app.downloadLink2)}'`;
+            }
+            if (app.downloadLink3 && app.downloadLink3.trim() !== '') {
+                content += `,\n        downloadLink3: '${this.escapeString(app.downloadLink3)}'`;
+            }
+            if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+                content += `,\n        tutorialLink: '${this.escapeString(app.tutorialLink)}'`;
+            }
+            if (app.password && app.password.trim() !== '') {
+                content += `,\n        password: '${this.escapeString(app.password)}'`;
+            }
+            if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+                content += `,\n        systemRequirements: '${this.escapeString(app.systemRequirements)}'`;
             }
             if (app.screenshots && app.screenshots.length > 0) {
                 content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
