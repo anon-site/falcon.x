@@ -7,11 +7,11 @@ const menuItems = document.querySelectorAll('.menu-item');
 const pages = document.querySelectorAll('.page');
 
 // ===== Initialize App =====
-document.addEventListener('DOMContentLoaded', () => {
-    loadNavigationFromStorage(); // Load custom navigation first
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadNavigationFromStorage(); // Load custom navigation first (wait for it)
     initializeTheme();
     initializeSidebar();
-    initializeNavigation();
+    initializeNavigation(); // Now navigation items are loaded
     initializeStatCounters();
     initializeSearch();
     initializeFilters();
@@ -290,19 +290,25 @@ function initializeNavigation() {
     // Re-query menu items after they may have been dynamically loaded
     const dynamicMenuItems = document.querySelectorAll('.menu-item');
     
-    // Handle menu item clicks
-    dynamicMenuItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetPage = item.dataset.page;
-            navigateToPage(targetPage);
-            
-            // Close sidebar on mobile after clicking menu item
-            if (window.innerWidth <= 768) {
-                closeSidebar();
+    console.log('🔗 Initializing navigation, found', dynamicMenuItems.length, 'menu items');
+    
+    // Use event delegation on the sidebar instead of individual items
+    const sidebarMenu = document.querySelector('.sidebar-menu');
+    if (sidebarMenu) {
+        sidebarMenu.addEventListener('click', (e) => {
+            const menuItem = e.target.closest('.menu-item');
+            if (menuItem) {
+                e.preventDefault();
+                const targetPage = menuItem.dataset.page;
+                navigateToPage(targetPage);
+                
+                // Close sidebar on mobile after clicking menu item
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
             }
         });
-    });
+    }
     
     // Handle browser back/forward
     window.addEventListener('popstate', (e) => {
@@ -343,7 +349,9 @@ function showPage(pageId) {
 }
 
 function updateActiveMenuItem(pageId) {
-    menuItems.forEach(item => {
+    // Re-query menu items each time (in case they were dynamically loaded)
+    const currentMenuItems = document.querySelectorAll('.menu-item');
+    currentMenuItems.forEach(item => {
         if (item.dataset.page === pageId) {
             item.classList.add('active');
         } else {
