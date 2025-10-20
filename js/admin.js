@@ -162,9 +162,9 @@ function syncToGitHub() {
     ])
         .then(() => {
             statusDiv.style.background = '#10b981';
-            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> تم حفظ جميع البيانات والإعدادات على GitHub بنجاح!';
-            showToast('تم حفظ جميع البيانات والإعدادات على GitHub', 'success');
-            updateSyncStatus('ready', 'تم الحفظ على GitHub');
+            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> ✓ تم حفظ جميع البيانات والإعدادات على GitHub بنجاح!';
+            showToast('✓ تم مزامنة جميع البيانات والإعدادات مع GitHub بنجاح!', 'success');
+            updateSyncStatus('ready', 'محفوظ ومزامن بنجاح ✓');
         })
         .catch(error => {
             statusDiv.style.background = '#ef4444';
@@ -202,8 +202,8 @@ function manualSaveToGitHub() {
             githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
         ])
             .then(() => {
-                updateSyncStatus('ready', 'تم الحفظ على GitHub');
-                showToast('تم حفظ جميع التغييرات والإعدادات على GitHub بنجاح!', 'success');
+                updateSyncStatus('ready', 'محفوظ ومزامن بنجاح ✓');
+                showToast('✓ تم مزامنة جميع التغييرات والإعدادات مع GitHub بنجاح!', 'success');
             })
             .catch(error => {
                 updateSyncStatus('modified', 'فشل الحفظ');
@@ -334,17 +334,19 @@ function updateSyncStatus(status, message) {
     if (status === 'saving') {
         icon.className = 'fas fa-sync fa-spin';
         icon.style.color = '#3b82f6';
-        text.textContent = message || 'جاري الحفظ محلياً...';
+        text.textContent = message || 'جاري الحفظ...';
         syncStatus.style.background = '#1e3a8a';
     } else if (status === 'saved') {
         icon.className = 'fas fa-check-circle';
         icon.style.color = '#10b981';
-        text.textContent = message || 'محفوظ محلياً';
+        text.textContent = message || 'تم الحفظ محلياً';
         syncStatus.style.background = '#1e2746';
+        // تلقائياً عرض "تغييرات غير محفوظة" بعد الحفظ المحلي
+        setTimeout(() => updateSyncStatus('modified'), 500);
     } else if (status === 'modified') {
         icon.className = 'fas fa-exclamation-circle';
         icon.style.color = '#f59e0b';
-        text.textContent = message || 'تغييرات غير محفوظة';
+        text.textContent = message || 'تغييرات غير محفوظة على GitHub';
         syncStatus.style.background = '#78350f';
     } else if (status === 'error') {
         icon.className = 'fas fa-times-circle';
@@ -354,8 +356,8 @@ function updateSyncStatus(status, message) {
     } else if (status === 'ready') {
         icon.className = 'fas fa-check-circle';
         icon.style.color = '#10b981';
-        text.textContent = message || 'جاهز للحفظ';
-        syncStatus.style.background = '#1e2746';
+        text.textContent = message || 'محفوظ ومزامن بنجاح ✓';
+        syncStatus.style.background = '#065f46';
     }
 }
 
@@ -363,6 +365,8 @@ function updateSyncStatus(status, message) {
 function saveToLocalStorage() {
     try {
         updateSyncStatus('saving');
+        
+        // حفظ البيانات في localStorage
         localStorage.setItem('falcon-x-windows-apps', JSON.stringify(appsData.windows));
         localStorage.setItem('falcon-x-android-apps', JSON.stringify(appsData.android));
         localStorage.setItem('falcon-x-frp-tools', JSON.stringify(appsData['frp-tools']));
@@ -371,12 +375,15 @@ function saveToLocalStorage() {
         // Set a timestamp to track last update
         localStorage.setItem('falcon-x-last-update', Date.now().toString());
         
-        console.log('✅ Data saved to localStorage');
-        setTimeout(() => updateSyncStatus('modified', 'تغييرات غير محفوظة'), 300);
+        console.log('✅ Data saved to localStorage successfully');
+        
+        // عرض حالة الحفظ المحلي بنجاح ثم التحول لحالة التغييرات غير المحفوظة على GitHub
+        updateSyncStatus('saved');
         return true;
     } catch (error) {
         console.error('❌ Error saving to localStorage:', error);
-        updateSyncStatus('error');
+        updateSyncStatus('error', 'فشل الحفظ المحلي');
+        showToast('خطأ في الحفظ المحلي', 'error');
         return false;
     }
 }
@@ -853,7 +860,7 @@ function initAppForm() {
         closeAppModal();
         loadApps(type);
         updateDashboardStats();
-        showToast(isEditing ? 'تم التحديث محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات' : 'تمت الإضافة محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
+        showToast(isEditing ? '✓ تم التحديث بنجاح! اضغط زر "حفظ" لمزامنة التغييرات مع GitHub' : '✓ تمت الإضافة بنجاح! اضغط زر "حفظ" لمزامنة التغييرات مع GitHub', 'success');
     };
     
     // Add the event listener
@@ -877,7 +884,7 @@ function deleteApp(type, id) {
         
         loadApps(type);
         updateDashboardStats();
-        showToast('تم الحذف محلياً - اضغط "حفظ على GitHub" لحفظ التغييرات', 'success');
+        showToast('✓ تم الحذف بنجاح! اضغط زر "حفظ" لمزامنة التغييرات مع GitHub', 'success');
     }
 }
 

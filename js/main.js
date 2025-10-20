@@ -1231,6 +1231,16 @@ function showAppDetails(appId) {
         }
         
         additionalInfoHTML += `</div>`;
+    } else {
+        // Show Coming Soon button when no links available - same position as other buttons
+        additionalInfoHTML += `
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button onclick="event.stopPropagation();" 
+                    style="padding: 0.65rem 1rem; background: linear-gradient(135deg, rgba(107, 114, 128, 0.2), rgba(75, 85, 99, 0.2)); border: 2px solid rgba(156, 163, 175, 0.3); color: rgba(156, 163, 175, 0.8); border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: not-allowed; backdrop-filter: blur(10px);">
+                    <i class="fas fa-clock" style="margin-right: 0.4rem; opacity: 0.6;"></i>Coming Soon
+                </button>
+            </div>
+        `;
     }
     
     // Last Updated is now shown in Share Section, not here
