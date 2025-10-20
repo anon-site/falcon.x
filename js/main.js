@@ -960,6 +960,12 @@ function refreshModalData() {
     const screenshotsGallery = document.getElementById('screenshotsGallery');
     const featuresSection = document.getElementById('featuresSection');
     const modalFeatures = document.getElementById('modalAppFeatures');
+    const systemRequirementsSection = document.getElementById('systemRequirementsSection');
+    const modalSystemRequirements = document.getElementById('modalSystemRequirements');
+    const additionalInfoSection = document.getElementById('additionalInfoSection');
+    const modalAdditionalInfo = document.getElementById('modalAdditionalInfo');
+    const tutorialSection = document.getElementById('tutorialSection');
+    const modalTutorialVideo = document.getElementById('modalTutorialVideo');
     
     // Update icon
     const isImageUrl = app.icon && (app.icon.startsWith('http') || app.icon.startsWith('/') || app.icon.includes('.png') || app.icon.includes('.jpg') || app.icon.includes('.svg') || app.icon.includes('.gif'));
@@ -982,6 +988,68 @@ function refreshModalData() {
     // Update description
     modalDescription.textContent = app.fullDescription || app.description;
     
+    // Update features
+    if (app.features && app.features.length > 0) {
+        featuresSection.style.display = 'block';
+        modalFeatures.innerHTML = app.features.map(feature => `<li>${feature}</li>`).join('');
+    } else {
+        featuresSection.style.display = 'none';
+    }
+    
+    // Update system requirements
+    if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+        systemRequirementsSection.style.display = 'block';
+        modalSystemRequirements.innerHTML = `<pre style="white-space: pre-wrap; color: var(--text-secondary); line-height: 1.8; margin: 0;">${app.systemRequirements}</pre>`;
+    } else {
+        systemRequirementsSection.style.display = 'none';
+    }
+    
+    // Update additional info
+    let additionalInfoHTML = '';
+    if (app.password && app.password.trim() !== '') {
+        additionalInfoHTML += `
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-key"></i> Extract Password:</div>
+                <div class="info-value password-value">
+                    <code>${app.password}</code>
+                    <button class="copy-btn" onclick="copyToClipboard('${app.password}'); event.stopPropagation();" title="Copy to clipboard">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    if (app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '') {
+        additionalInfoHTML += `
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 1:</div>
+                <div class="info-value">
+                    <a href="${app.downloadLink2}" target="_blank" class="link-btn">
+                        <i class="fas fa-external-link-alt"></i> Open Link
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    if (app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '') {
+        additionalInfoHTML += `
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 2:</div>
+                <div class="info-value">
+                    <a href="${app.downloadLink3}" target="_blank" class="link-btn">
+                        <i class="fas fa-external-link-alt"></i> Open Link
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    if (additionalInfoHTML !== '') {
+        additionalInfoSection.style.display = 'block';
+        modalAdditionalInfo.innerHTML = additionalInfoHTML;
+    } else {
+        additionalInfoSection.style.display = 'none';
+    }
+    
     // Update screenshots
     if (app.screenshots && app.screenshots.length > 0) {
         screenshotsSection.style.display = 'block';
@@ -994,12 +1062,23 @@ function refreshModalData() {
         screenshotsSection.style.display = 'none';
     }
     
-    // Update features
-    if (app.features && app.features.length > 0) {
-        featuresSection.style.display = 'block';
-        modalFeatures.innerHTML = app.features.map(feature => `<li>${feature}</li>`).join('');
+    // Update tutorial video
+    if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+        tutorialSection.style.display = 'block';
+        let videoEmbed = '';
+        if (app.tutorialLink.includes('youtube.com') || app.tutorialLink.includes('youtu.be')) {
+            const videoId = app.tutorialLink.includes('youtu.be') 
+                ? app.tutorialLink.split('youtu.be/')[1]?.split('?')[0]
+                : new URLSearchParams(new URL(app.tutorialLink).search).get('v');
+            if (videoId) {
+                videoEmbed = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+            }
+        } else {
+            videoEmbed = `<iframe src="${app.tutorialLink}" frameborder="0" allowfullscreen></iframe>`;
+        }
+        modalTutorialVideo.innerHTML = videoEmbed;
     } else {
-        featuresSection.style.display = 'none';
+        tutorialSection.style.display = 'none';
     }
     
     // Update download buttons
@@ -1030,6 +1109,12 @@ function showAppDetails(appId) {
     const screenshotsGallery = document.getElementById('screenshotsGallery');
     const featuresSection = document.getElementById('featuresSection');
     const modalFeatures = document.getElementById('modalAppFeatures');
+    const systemRequirementsSection = document.getElementById('systemRequirementsSection');
+    const modalSystemRequirements = document.getElementById('modalSystemRequirements');
+    const additionalInfoSection = document.getElementById('additionalInfoSection');
+    const modalAdditionalInfo = document.getElementById('modalAdditionalInfo');
+    const tutorialSection = document.getElementById('tutorialSection');
+    const modalTutorialVideo = document.getElementById('modalTutorialVideo');
     
     // Set app icon
     const isImageUrl = app.icon && (app.icon.startsWith('http') || app.icon.startsWith('/') || app.icon.includes('.png') || app.icon.includes('.jpg') || app.icon.includes('.svg') || app.icon.includes('.gif'));
@@ -1052,6 +1137,72 @@ function showAppDetails(appId) {
     // Set description (use fullDescription if available, otherwise use description)
     modalDescription.textContent = app.fullDescription || app.description;
     
+    // Set features
+    if (app.features && app.features.length > 0) {
+        featuresSection.style.display = 'block';
+        modalFeatures.innerHTML = app.features.map(feature => `<li>${feature}</li>`).join('');
+    } else {
+        featuresSection.style.display = 'none';
+    }
+    
+    // Set system requirements
+    if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+        systemRequirementsSection.style.display = 'block';
+        modalSystemRequirements.innerHTML = `<pre style="white-space: pre-wrap; color: var(--text-secondary); line-height: 1.8; margin: 0;">${app.systemRequirements}</pre>`;
+    } else {
+        systemRequirementsSection.style.display = 'none';
+    }
+    
+    // Set additional info (password, links)
+    let additionalInfoHTML = '';
+    
+    if (app.password && app.password.trim() !== '') {
+        additionalInfoHTML += `
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-key"></i> Extract Password:</div>
+                <div class="info-value password-value">
+                    <code>${app.password}</code>
+                    <button class="copy-btn" onclick="copyToClipboard('${app.password}'); event.stopPropagation();" title="Copy to clipboard">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    if (app.downloadLink2 && app.downloadLink2 !== '#' && app.downloadLink2.trim() !== '') {
+        additionalInfoHTML += `
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 1:</div>
+                <div class="info-value">
+                    <a href="${app.downloadLink2}" target="_blank" class="link-btn">
+                        <i class="fas fa-external-link-alt"></i> Open Link
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    
+    if (app.downloadLink3 && app.downloadLink3 !== '#' && app.downloadLink3.trim() !== '') {
+        additionalInfoHTML += `
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-link"></i> Alternative Link 2:</div>
+                <div class="info-value">
+                    <a href="${app.downloadLink3}" target="_blank" class="link-btn">
+                        <i class="fas fa-external-link-alt"></i> Open Link
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    
+    if (additionalInfoHTML !== '') {
+        additionalInfoSection.style.display = 'block';
+        modalAdditionalInfo.innerHTML = additionalInfoHTML;
+    } else {
+        additionalInfoSection.style.display = 'none';
+    }
+    
     // Set screenshots
     if (app.screenshots && app.screenshots.length > 0) {
         screenshotsSection.style.display = 'block';
@@ -1064,12 +1215,24 @@ function showAppDetails(appId) {
         screenshotsSection.style.display = 'none';
     }
     
-    // Set features
-    if (app.features && app.features.length > 0) {
-        featuresSection.style.display = 'block';
-        modalFeatures.innerHTML = app.features.map(feature => `<li>${feature}</li>`).join('');
+    // Set tutorial video
+    if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+        tutorialSection.style.display = 'block';
+        // Extract YouTube video ID if it's a YouTube link
+        let videoEmbed = '';
+        if (app.tutorialLink.includes('youtube.com') || app.tutorialLink.includes('youtu.be')) {
+            const videoId = app.tutorialLink.includes('youtu.be') 
+                ? app.tutorialLink.split('youtu.be/')[1]?.split('?')[0]
+                : new URLSearchParams(new URL(app.tutorialLink).search).get('v');
+            if (videoId) {
+                videoEmbed = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+            }
+        } else {
+            videoEmbed = `<iframe src="${app.tutorialLink}" frameborder="0" allowfullscreen></iframe>`;
+        }
+        modalTutorialVideo.innerHTML = videoEmbed;
     } else {
-        featuresSection.style.display = 'none';
+        tutorialSection.style.display = 'none';
     }
     
     // Update download buttons based on app type
@@ -1371,6 +1534,19 @@ function closeFrpWarning() {
     }
 }
 
+// ===== Copy to Clipboard Function =====
+function copyToClipboard(text) {
+    // Create temporary input element
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    
+    showToast('Password copied to clipboard!', 'success');
+}
+
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
 window.downloadSoftware = downloadSoftware;
@@ -1385,3 +1561,4 @@ window.prevImage = prevImage;
 window.closeFrpWarning = closeFrpWarning;
 window.downloadOriginal = downloadOriginal;
 window.downloadModified = downloadModified;
+window.copyToClipboard = copyToClipboard;
