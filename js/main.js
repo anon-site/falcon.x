@@ -1270,13 +1270,41 @@ function showAppDetails(appId) {
             </div>
         `;
     } else if (hasContactMessage) {
+        // Determine app type dynamically
+        const appType = findAppById(currentAppId);
+        let appTypeArabic = 'البرنامج/التطبيق'; // default
+        let appTypeEnglish = 'program/app';
+        
+        if (appType) {
+            // Check which category the app belongs to
+            const windowsLS = localStorage.getItem('falcon-x-windows-apps');
+            const androidLS = localStorage.getItem('falcon-x-android-apps');
+            const frpToolsLS = localStorage.getItem('falcon-x-frp-tools');
+            const frpAppsLS = localStorage.getItem('falcon-x-frp-apps');
+            
+            if (windowsLS && JSON.parse(windowsLS).find(a => a.id == currentAppId)) {
+                appTypeArabic = 'البرنامج';
+                appTypeEnglish = 'program';
+            } else if (androidLS && JSON.parse(androidLS).find(a => a.id == currentAppId)) {
+                appTypeArabic = 'التطبيق';
+                appTypeEnglish = 'app';
+            } else if (frpToolsLS && JSON.parse(frpToolsLS).find(a => a.id == currentAppId)) {
+                appTypeArabic = 'البرنامج';
+                appTypeEnglish = 'program';
+            } else if (frpAppsLS && JSON.parse(frpAppsLS).find(a => a.id == currentAppId)) {
+                appTypeArabic = 'التطبيق';
+                appTypeEnglish = 'app';
+            }
+        }
+        
         // Show Contact Admin button with Telegram and WhatsApp links when no download links
         additionalInfoHTML += `
             <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-                <div style="text-align: center; padding: 1rem; background: rgba(59, 130, 246, 0.08); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                    <i class="fas fa-info-circle" style="color: var(--primary-color); font-size: 1.2rem; margin-bottom: 0.5rem;"></i>
-                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">للحصول على رابط التحميل، يرجى التواصل مع الأدمن</p>
-                    <p style="margin: 0.25rem 0 0; color: var(--text-secondary); font-size: 0.85rem; opacity: 0.8;">To get the download link, please contact the admin</p>
+                <div style="text-align: center; padding: 1.25rem; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05)); border-radius: 12px; border: 2px solid rgba(239, 68, 68, 0.3); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);">
+                    <i class="fas fa-dollar-sign" style="color: #ef4444; font-size: 1.5rem; margin-bottom: 0.75rem;"></i>
+                    <p style="margin: 0; color: var(--text-primary); font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">هذا ${appTypeArabic} غير مجاني</p>
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem;">يرجى التواصل مع الأدمن للحصول على معلومات التسعير</p>
+                    <p style="margin: 0.5rem 0 0; color: var(--text-secondary); font-size: 0.85rem; opacity: 0.8;">This ${appTypeEnglish} is not free. Please contact admin for pricing info</p>
                 </div>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
                     <button onclick="window.open('https://t.me/anon_design', '_blank'); event.stopPropagation();" 
