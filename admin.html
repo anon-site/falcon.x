@@ -532,92 +532,196 @@
                 <input type="hidden" id="appId">
                 <input type="hidden" id="appType">
                 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="appName">اسم البرنامج/التطبيق*</label>
-                        <input type="text" id="appName" required>
+                <!-- Form Tabs Navigation -->
+                <div class="form-tabs-nav">
+                    <button type="button" class="form-tab-btn active" data-tab="basic-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>المعلومات الأساسية</span>
+                    </button>
+                    <button type="button" class="form-tab-btn" data-tab="description">
+                        <i class="fas fa-align-left"></i>
+                        <span>الوصف</span>
+                    </button>
+                    <button type="button" class="form-tab-btn" data-tab="links">
+                        <i class="fas fa-link"></i>
+                        <span>الروابط</span>
+                    </button>
+                    <button type="button" class="form-tab-btn" data-tab="media">
+                        <i class="fas fa-images"></i>
+                        <span>الوسائط</span>
+                    </button>
+                </div>
+                
+                <!-- Form Tabs Content -->
+                <div class="form-tabs-content">
+                    <!-- Tab 1: Basic Info -->
+                    <div class="form-tab-pane active" data-pane="basic-info">
+                        <div class="tab-content-scroll">
+                            <div class="input-group">
+                                <label for="appName">اسم البرنامج/التطبيق <span class="required">*</span></label>
+                                <input type="text" id="appName" required placeholder="مثال: Adobe Photoshop 2024">
+                            </div>
+                            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="appCategory">الفئة <span class="required">*</span></label>
+                                    <select id="appCategory" required>
+                                        <option value="">اختر الفئة</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" id="appLinkTypeGroup" style="display: none;">
+                                    <label for="appLinkType">نوع الرابط</label>
+                                    <select id="appLinkType" onchange="toggleFrpAppFields()">
+                                        <option value="download">تحميل</option>
+                                        <option value="direct">مباشر</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="appVersion">الإصدار</label>
+                                    <input type="text" id="appVersion" placeholder="1.0.0">
+                                </div>
+                                <div class="input-group">
+                                    <label for="appSize">الحجم</label>
+                                    <input type="text" id="appSize" placeholder="50 MB">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appModified">الحالة <span class="required">*</span></label>
+                                <select id="appModified" required>
+                                    <option value="false">غير معدل (Original)</option>
+                                    <option value="true">معدل (Modified)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appIcon">رابط الأيقونة <span class="required">*</span></label>
+                                <input type="text" id="appIcon" required placeholder="https://example.com/icon.png">
+                                <small>يمكنك استخدام رابط صورة أو أيقونة Font Awesome مثل: fas fa-windows</small>
+                            </div>
+                            
+                            <!-- System Requirements -->
+                            <div class="input-group">
+                                <label for="appSystemRequirements">
+                                    <i class="fas fa-cogs"></i>
+                                    متطلبات التشغيل
+                                </label>
+                                <textarea id="appSystemRequirements" rows="5" placeholder="للبرامج:&#10;نظام التشغيل: Windows 10/11 (64-bit)&#10;المعالج: Intel Core i5&#10;الذاكرة: 8 GB RAM&#10;&#10;للتطبيقات:&#10;Android 5.0+&#10;2 GB RAM"></textarea>
+                                <small>اختياري - ضع متطلبات التشغيل للبرنامج أو التطبيق</small>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="appCategory">الفئة</label>
-                        <select id="appCategory">
-                            <option value="">اختر الفئة</option>
-                        </select>
+                    <!-- Tab 2: Description -->
+                    <div class="form-tab-pane" data-pane="description">
+                        <div class="tab-content-scroll">
+                            <div class="input-group">
+                                <label for="appDescription">الوصف المختصر <span class="required">*</span></label>
+                                <textarea id="appDescription" rows="3" required placeholder="وصف قصير يظهر في بطاقة البرنامج على الصفحة الرئيسية..."></textarea>
+                                <small>سيظهر هذا الوصف في البطاقة على الصفحة الرئيسية</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appFullDescription">الوصف الكامل</label>
+                                <textarea id="appFullDescription" rows="6" placeholder="وصف مفصّل ومطوّل يظهر عند فتح النافذة المنبثقة...&#10;&#10;يمكنك كتابة عدة فقرات هنا لشرح مفصل عن البرنامج ومميزاته..."></textarea>
+                                <small>اختياري - إذا لم يتم تعبئته سيُستخدم الوصف المختصر</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appFeatures">
+                                    <i class="fas fa-star"></i>
+                                    المميزات (Features)
+                                </label>
+                                <textarea id="appFeatures" rows="7" placeholder="ضع كل ميزة في سطر منفصل:&#10;&#10;واجهة مستخدم حديثة وسهلة الاستخدام&#10;دعم جميع صيغ الملفات الشائعة&#10;أداء سريع وخفيف على النظام&#10;تحديثات مستمرة ودعم فني متوفر"></textarea>
+                                <small>اختياري - كل سطر يمثل ميزة واحدة، ستظهر كنقاط في النافذة المنبثقة</small>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group" id="appLinkTypeGroup" style="display: none;">
-                        <label for="appLinkType">نوع الرابط</label>
-                        <select id="appLinkType" onchange="toggleFrpAppFields()">
-                            <option value="download">تحميل</option>
-                            <option value="direct">مباشر</option>
-                        </select>
+                    <!-- Tab 3: Links -->
+                    <div class="form-tab-pane" data-pane="links">
+                        <div class="tab-content-scroll">
+                            <div class="input-group">
+                                <label for="appDownloadLink">
+                                    <i class="fas fa-download"></i>
+                                    رابط التحميل الرئيسي <span class="required">*</span>
+                                </label>
+                                <input type="text" id="appDownloadLink" required placeholder="https://example.com/download/app.zip">
+                                <small>رابط التحميل الأساسي للبرنامج (معدل أو أصلي)</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appOriginalDownloadLink">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    رابط التحميل الأصلي
+                                </label>
+                                <input type="text" id="appOriginalDownloadLink" placeholder="https://original-site.com/download">
+                                <small>اختياري - رابط النسخة الأصلية، يظهر فقط إذا كانت الحالة "معدل"</small>
+                            </div>
+                            
+                            <div class="links-divider">
+                                <span>روابط التحميل البديلة</span>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appDownloadLink2">
+                                    <i class="fas fa-link"></i>
+                                    رابط تحميل إضافي 1
+                                </label>
+                                <input type="text" id="appDownloadLink2" placeholder="https://mirror1.com/download">
+                                <small>اختياري - رابط مرآة بديل أول</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appDownloadLink3">
+                                    <i class="fas fa-link"></i>
+                                    رابط تحميل إضافي 2
+                                </label>
+                                <input type="text" id="appDownloadLink3" placeholder="https://mirror2.com/download">
+                                <small>اختياري - رابط مرآة بديل ثاني</small>
+                            </div>
+                            
+                            <div class="links-divider" style="margin-top: 30px;">
+                                <span>معلومات إضافية</span>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appPassword">
+                                    <i class="fas fa-key"></i>
+                                    كلمة المرور
+                                </label>
+                                <input type="text" id="appPassword" placeholder="مثال: 123456">
+                                <small>اختياري - إذا تم تعبئتها ستظهر بوضوح للمستخدم في النافذة المنبثقة</small>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="appVersion">الإصدار</label>
-                        <input type="text" id="appVersion" placeholder="1.0">
+                    <!-- Tab 4: Media -->
+                    <div class="form-tab-pane" data-pane="media">
+                        <div class="tab-content-scroll">
+                            <div class="input-group">
+                                <label for="appScreenshots">
+                                    <i class="fas fa-images"></i>
+                                    روابط صور الشاشة (Screenshots)
+                                </label>
+                                <textarea id="appScreenshots" rows="6" placeholder="ضع كل رابط صورة في سطر منفصل:&#10;&#10;https://i.imgur.com/screenshot1.png&#10;https://i.imgur.com/screenshot2.png&#10;https://i.imgur.com/screenshot3.png"></textarea>
+                                <small>اختياري - كل سطر يمثل رابط صورة واحدة، ستظهر في معرض الصور</small>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="appTutorialLink">
+                                    <i class="fas fa-play-circle"></i>
+                                    رابط الشرح (فيديو)
+                                </label>
+                                <input type="text" id="appTutorialLink" placeholder="https://youtube.com/watch?v=xxxxx">
+                                <small>اختياري - يدعم YouTube وجميع أنواع الفيديو القابلة للتشغيل في iframe</small>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="appSize">الحجم</label>
-                        <input type="text" id="appSize" placeholder="مثال: 25 MB">
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="appDescription">الوصف المختصر</label>
-                        <textarea id="appDescription" rows="2" placeholder="وصف قصير يظهر في الكارد..."></textarea>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="appFullDescription">الوصف الكامل</label>
-                        <textarea id="appFullDescription" rows="4" placeholder="وصف مفصل يظهر في النافذة المنبثقة..."></textarea>
-                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - إذا لم يتم تعبئته سيتم استخدام الوصف المختصر</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="appIcon">رابط الأيقونة</label>
-                        <input type="text" id="appIcon" placeholder="https://... أو fas fa-icon">
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="appDownloadLink">
-                            <i class="fas fa-download"></i> رابط تحميل النسخة (المعدلة)
-                        </label>
-                        <input type="text" id="appDownloadLink" placeholder="https://...">
-                        <small style="color: #888; display: block; margin-top: 0.3rem;">رابط التحميل الرئيسي - يُستخدم للنسخة المعدلة إذا كانت معدلة</small>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="appOriginalDownloadLink">
-                            <i class="fas fa-link"></i> رابط التحميل الأصلي (Original)
-                        </label>
-                        <input type="text" id="appOriginalDownloadLink" placeholder="https://...">
-                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - رابط النسخة الأصلية، يظهر فقط إذا كانت الحالة "معدل"</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="appModified">الحالة</label>
-                        <select id="appModified">
-                            <option value="false">غير معدل (Original)</option>
-                            <option value="true">معدل (Modified)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="appScreenshots">
-                            <i class="fas fa-images"></i> روابط الصور (Screenshots)
-                        </label>
-                        <textarea id="appScreenshots" rows="3" placeholder="ضع كل رابط صورة في سطر منفصل&#10;https://example.com/screenshot1.png&#10;https://example.com/screenshot2.png"></textarea>
-                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - روابط الصور للمعرض (سطر واحد لكل رابط)</small>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="appFeatures">
-                            <i class="fas fa-star"></i> المميزات (Features)
-                        </label>
-                        <textarea id="appFeatures" rows="4" placeholder="ضع كل ميزة في سطر منفصل&#10;ميزة رائعة أولى&#10;ميزة مذهلة ثانية&#10;ميزة احترافية ثالثة"></textarea>
-                        <small style="color: #888; display: block; margin-top: 0.3rem;">اختياري - قائمة المميزات (سطر واحد لكل ميزة)</small>
-                    </div>
                 </div>
                 
                 <div class="modal-actions">

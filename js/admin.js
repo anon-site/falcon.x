@@ -562,6 +562,7 @@ function openAppModal(type, appId = null) {
     
     // Hide/Show fields based on type
     const isFrpApps = type === 'frp-apps';
+    const isWindows = type === 'windows';
     
     // Show/Hide link type selector for FRP Apps only
     const linkTypeGroup = document.getElementById('appLinkTypeGroup');
@@ -569,7 +570,9 @@ function openAppModal(type, appId = null) {
         linkTypeGroup.style.display = isFrpApps ? 'block' : 'none';
     }
     
-    // Hide unnecessary fields for FRP Apps (keep version, size, modified, and original link)
+    // System requirements now available for all types (no restriction)
+    
+    // Hide unnecessary fields for FRP Apps
     const fieldsToHide = [
         'appFullDescription',
         'appScreenshots', 'appFeatures'
@@ -577,11 +580,18 @@ function openAppModal(type, appId = null) {
     
     fieldsToHide.forEach(fieldId => {
         const field = document.getElementById(fieldId);
-        const formGroup = field ? field.closest('.form-group') : null;
-        if (formGroup) {
-            formGroup.style.display = isFrpApps ? 'none' : 'block';
+        const inputGroup = field ? field.closest('.input-group') : null;
+        
+        if (inputGroup) {
+            inputGroup.style.display = isFrpApps ? 'none' : 'block';
         }
     });
+    
+    // Hide entire Media tab for FRP Apps
+    const mediaTabBtn = document.querySelector('[data-tab="media"]');
+    if (mediaTabBtn) {
+        mediaTabBtn.style.display = isFrpApps ? 'none' : 'flex';
+    }
     
     // Populate categories
     categorySelect.innerHTML = '<option value="">اختر الفئة</option>';
@@ -607,6 +617,29 @@ function openAppModal(type, appId = null) {
             document.getElementById('appDownloadLink').value = app.downloadLink;
             document.getElementById('appOriginalDownloadLink').value = app.originalDownloadLink || '';
             document.getElementById('appModified').value = app.isModified ? 'true' : 'false';
+            
+            // Load additional download links
+            if (document.getElementById('appDownloadLink2')) {
+                document.getElementById('appDownloadLink2').value = app.downloadLink2 || '';
+            }
+            if (document.getElementById('appDownloadLink3')) {
+                document.getElementById('appDownloadLink3').value = app.downloadLink3 || '';
+            }
+            
+            // Load tutorial link
+            if (document.getElementById('appTutorialLink')) {
+                document.getElementById('appTutorialLink').value = app.tutorialLink || '';
+            }
+            
+            // Load password
+            if (document.getElementById('appPassword')) {
+                document.getElementById('appPassword').value = app.password || '';
+            }
+            
+            // Load system requirements (Windows only)
+            if (document.getElementById('appSystemRequirements')) {
+                document.getElementById('appSystemRequirements').value = app.systemRequirements || '';
+            }
             
             // Load link type for FRP Apps
             if (type === 'frp-apps' && app.linkType) {
@@ -658,17 +691,21 @@ function openAppModal(type, appId = null) {
 // Toggle FRP App fields based on link type
 function toggleFrpAppFields() {
     const linkType = document.getElementById('appLinkType').value;
-    const versionField = document.getElementById('appVersion').closest('.form-group');
-    const sizeField = document.getElementById('appSize').closest('.form-group');
+    const versionField = document.getElementById('appVersion');
+    const sizeField = document.getElementById('appSize');
+    
+    // Find the parent input-group elements
+    const versionGroup = versionField ? versionField.closest('.input-group') : null;
+    const sizeGroup = sizeField ? sizeField.closest('.input-group') : null;
     
     if (linkType === 'direct') {
         // Hide version and size for direct links
-        if (versionField) versionField.style.display = 'none';
-        if (sizeField) sizeField.style.display = 'none';
+        if (versionGroup) versionGroup.style.display = 'none';
+        if (sizeGroup) sizeGroup.style.display = 'none';
     } else {
         // Show version and size for download links
-        if (versionField) versionField.style.display = 'block';
-        if (sizeField) sizeField.style.display = 'block';
+        if (versionGroup) versionGroup.style.display = 'block';
+        if (sizeGroup) sizeGroup.style.display = 'block';
     }
 }
 
@@ -681,6 +718,41 @@ function closeAppModal() {
     document.getElementById('appId').value = '';
     document.getElementById('appType').value = '';
     editingAppId = null;
+    
+    // Reset to first tab
+    const firstTabBtn = document.querySelector('.form-tab-btn[data-tab="basic-info"]');
+    const firstPane = document.querySelector('.form-tab-pane[data-pane="basic-info"]');
+    
+    document.querySelectorAll('.form-tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.form-tab-pane').forEach(pane => pane.classList.remove('active'));
+    
+    if (firstTabBtn) firstTabBtn.classList.add('active');
+    if (firstPane) firstPane.classList.add('active');
+}
+
+// Initialize Form Tabs
+function initFormTabs() {
+    const tabButtons = document.querySelectorAll('.form-tab-btn');
+    const tabPanes = document.querySelectorAll('.form-tab-pane');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all buttons and panes
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanes.forEach(pane => pane.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding pane
+            const targetPane = document.querySelector(`[data-pane="${targetTab}"]`);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+        });
+    });
 }
 
 // Save app - will be initialized in DOMContentLoaded
@@ -717,6 +789,13 @@ function initAppForm() {
         const linkTypeElement = document.getElementById('appLinkType');
         const linkType = linkTypeElement && type === 'frp-apps' ? linkTypeElement.value : '';
         
+        // Get additional fields
+        const downloadLink2El = document.getElementById('appDownloadLink2');
+        const downloadLink3El = document.getElementById('appDownloadLink3');
+        const tutorialLinkEl = document.getElementById('appTutorialLink');
+        const passwordEl = document.getElementById('appPassword');
+        const systemReqEl = document.getElementById('appSystemRequirements');
+        
         const appData = {
             id: isEditing ? parseInt(appId) : Date.now(),
             name: document.getElementById('appName').value || 'Untitled',
@@ -732,7 +811,13 @@ function initAppForm() {
             screenshots: screenshots,
             features: features,
             linkType: linkType, // Add link type for FRP Apps
-            lastUpdated: new Date().toISOString() // Add timestamp
+            lastUpdated: new Date().toISOString(), // Add timestamp
+            // New fields
+            downloadLink2: downloadLink2El ? downloadLink2El.value.trim() : '',
+            downloadLink3: downloadLink3El ? downloadLink3El.value.trim() : '',
+            tutorialLink: tutorialLinkEl ? tutorialLinkEl.value.trim() : '',
+            password: passwordEl ? passwordEl.value.trim() : '',
+            systemRequirements: systemReqEl ? systemReqEl.value.trim() : ''
         };
         
         // Get a fresh copy of apps array
@@ -1505,6 +1590,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     }
     
     // Initialize event listeners
+    initFormTabs();
     initGitHubSettingsForm();
     initAppForm();
     initNavForm();
