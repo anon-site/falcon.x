@@ -1233,6 +1233,8 @@ function showAppDetails(appId) {
         additionalInfoHTML += `</div>`;
     }
     
+    // Last Updated is now shown in Share Section, not here
+    
     if (additionalInfoHTML !== '') {
         additionalInfoSection.style.display = 'block';
         modalAdditionalInfo.innerHTML = additionalInfoHTML;
@@ -1301,6 +1303,22 @@ function showAppDetails(appId) {
     
     // Update download buttons based on app type
     updateDownloadButtons(app);
+    
+    // Add Last Updated in Share Section
+    const lastUpdatedDisplay = document.getElementById('lastUpdatedDisplay');
+    if (lastUpdatedDisplay) {
+        if (app.lastUpdated) {
+            const lastUpdatedText = formatLastUpdated(app.lastUpdated);
+            lastUpdatedDisplay.innerHTML = `
+                <div style="padding: 0.5rem 0.85rem; background: rgba(59, 130, 246, 0.06); border-radius: 8px; display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; color: var(--text-secondary);">
+                    <i class="fas fa-clock" style="color: var(--primary-color); font-size: 0.75rem;"></i>
+                    <span>Last Updated: <strong style="color: var(--text-primary);">${lastUpdatedText}</strong></span>
+                </div>
+            `;
+        } else {
+            lastUpdatedDisplay.innerHTML = '';
+        }
+    }
     
     // Show modal
     modal.classList.add('active');
@@ -1555,6 +1573,25 @@ function playVideo(containerId, videoId) {
             </iframe>
         `;
         container.style.cursor = 'default';
+    }
+}
+
+// ===== Format Last Updated Date =====
+function formatLastUpdated(dateString) {
+    if (!dateString) return 'Not specified';
+    
+    try {
+        const date = new Date(dateString);
+        
+        // Format: dd/mm/yyyy
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        
+        return `${day}/${month}/${year}`;
+    } catch (error) {
+        console.error('Error formatting date:', error);
+        return 'Not specified';
     }
 }
 

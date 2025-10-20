@@ -797,6 +797,16 @@ function initAppForm() {
         const passwordEl = document.getElementById('appPassword');
         const systemReqEl = document.getElementById('appSystemRequirements');
         
+        // Get existing lastUpdated if editing
+        let existingLastUpdated = null;
+        if (isEditing) {
+            const apps = appsData[type] || [];
+            const existingApp = apps.find(a => a.id === parseInt(appId));
+            if (existingApp && existingApp.lastUpdated) {
+                existingLastUpdated = existingApp.lastUpdated;
+            }
+        }
+        
         // Swap the values when saving:
         // Form field "appDownloadLink" (Original) -> save to "originalDownloadLink"
         // Form field "appOriginalDownloadLink" (Modified) -> save to "downloadLink"
@@ -815,7 +825,7 @@ function initAppForm() {
             screenshots: screenshots,
             features: features,
             linkType: linkType, // Add link type for FRP Apps
-            lastUpdated: new Date().toISOString(), // Add timestamp
+            lastUpdated: isEditing && existingLastUpdated ? existingLastUpdated : new Date().toISOString(), // Keep old timestamp when editing
             // New fields - also swap these
             downloadLink2: downloadLink3El ? downloadLink3El.value.trim() : '', // Modified 2
             downloadLink3: downloadLink2El ? downloadLink2El.value.trim() : '', // Original 2
@@ -1290,7 +1300,8 @@ function importFromDataJS() {
             password: item.password || '',
             systemRequirements: item.systemRequirements || '',
             screenshots: item.screenshots || [],
-            features: item.features || []
+            features: item.features || [],
+            lastUpdated: item.lastUpdated || new Date().toISOString()
         }));
     }
     
@@ -1314,7 +1325,8 @@ function importFromDataJS() {
             password: item.password || '',
             systemRequirements: item.systemRequirements || '',
             screenshots: item.screenshots || [],
-            features: item.features || []
+            features: item.features || [],
+            lastUpdated: item.lastUpdated || new Date().toISOString()
         }));
     }
     
@@ -1338,7 +1350,8 @@ function importFromDataJS() {
             password: item.password || '',
             systemRequirements: item.systemRequirements || '',
             screenshots: item.screenshots || [],
-            features: item.features || []
+            features: item.features || [],
+            lastUpdated: item.lastUpdated || new Date().toISOString()
         }));
     }
     
@@ -1363,7 +1376,8 @@ function importFromDataJS() {
             password: item.password || '',
             systemRequirements: item.systemRequirements || '',
             screenshots: item.screenshots || [],
-            features: item.features || []
+            features: item.features || [],
+            lastUpdated: item.lastUpdated || new Date().toISOString()
         }));
     }
 }

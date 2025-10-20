@@ -184,6 +184,9 @@ class GitHubAPI {
             if (app.features && app.features.length > 0) {
                 content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
             }
+            if (app.lastUpdated) {
+                content += `,\n        lastUpdated: '${app.lastUpdated}'`;
+            }
             content += `\n    }${index < windowsApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
@@ -228,6 +231,9 @@ class GitHubAPI {
             if (app.features && app.features.length > 0) {
                 content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
             }
+            if (app.lastUpdated) {
+                content += `,\n        lastUpdated: '${app.lastUpdated}'`;
+            }
             content += `\n    }${index < androidApps.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
@@ -271,6 +277,9 @@ class GitHubAPI {
             }
             if (app.features && app.features.length > 0) {
                 content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            if (app.lastUpdated) {
+                content += `,\n        lastUpdated: '${app.lastUpdated}'`;
             }
             content += `\n    }${index < frpToolsApps.length - 1 ? ',' : ''}\n`;
         });
@@ -318,6 +327,9 @@ class GitHubAPI {
             }
             if (app.features && app.features.length > 0) {
                 content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            if (app.lastUpdated) {
+                content += `,\n        lastUpdated: '${app.lastUpdated}'`;
             }
             content += `\n    }${index < frpAppsApps.length - 1 ? ',' : ''}\n`;
         });

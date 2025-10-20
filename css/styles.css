@@ -1489,8 +1489,17 @@ h1, h2, h3, h4, h5, h6 {
 /* ===== Share Section ===== */
 .app-share-section {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .app-share-section {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .share-btn {
