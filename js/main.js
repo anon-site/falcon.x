@@ -207,9 +207,19 @@ function closeSidebar() {
     document.body.style.overflow = '';
 }
 
-// ===== Load Navigation from localStorage =====
-function loadNavigationFromStorage() {
+// ===== Load Navigation from localStorage or GitHub =====
+async function loadNavigationFromStorage() {
     try {
+        // First, try to load from GitHub if available
+        const githubNavigation = await loadNavigationFromGitHub();
+        
+        // If GitHub has navigation, save it to localStorage
+        if (githubNavigation && githubNavigation.length > 0) {
+            localStorage.setItem('navigation', JSON.stringify(githubNavigation));
+            console.log('✅ Navigation loaded from GitHub:', githubNavigation.length, 'items');
+        }
+        
+        // Now load from localStorage (which may have been updated from GitHub)
         const savedNavigation = localStorage.getItem('navigation');
         if (!savedNavigation) {
             console.log('ℹ️ No custom navigation found, using default');
@@ -242,9 +252,33 @@ function loadNavigationFromStorage() {
             sidebarMenu.appendChild(menuItem);
         });
         
-        console.log('✅ Navigation loaded from localStorage:', activeItems.length, 'items');
+        console.log('✅ Navigation loaded:', activeItems.length, 'items');
     } catch (error) {
         console.error('❌ Error loading navigation:', error);
+    }
+}
+
+// Load navigation from GitHub settings.json
+async function loadNavigationFromGitHub() {
+    try {
+        // Try to load settings.json from GitHub
+        const response = await fetch('js/settings.json');
+        
+        if (!response.ok) {
+            console.log('ℹ️ settings.json not found, using default navigation');
+            return null;
+        }
+        
+        const settings = await response.json();
+        
+        if (settings.navigation && Array.isArray(settings.navigation)) {
+            return settings.navigation;
+        }
+        
+        return null;
+    } catch (error) {
+        console.log('ℹ️ Could not load navigation from GitHub:', error.message);
+        return null;
     }
 }
 
