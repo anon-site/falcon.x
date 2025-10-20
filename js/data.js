@@ -140,7 +140,7 @@ const windowsSoftware = [
         description: 'Internet Download Manager (IDM) is a powerful tool for increasing download speeds, resuming, and scheduling downloads with ease and efficiency.',
         fullDescription: 'Internet Download Manager (IDM) is one of the most popular and reliable download management software for Windows. It allows users to download files from the internet at high speeds by using dynamic file segmentation and multipart downloading technology. IDM supports all major browsers and integrates automatically for seamless downloads. It also offers features like download scheduling, error recovery, pause and resume, and the ability to grab videos from streaming sites. Its simple interface and advanced control options make it ideal for managing large or multiple downloads efficiently.',
         size: '23.3 MB',
-        downloadLink: '#',
+        downloadLink: 'https://www.mediafire.com/file/wl1d6yl16qy40jx/Internet_Download_Manager_6.42_Build_26.rar/file',
         isModified: false,
         screenshots: ['https://repository-images.githubusercontent.com/917908947/91aaf1aa-55f4-4e56-870b-04ab2244d2b5', 'https://www.internetdownloadmanager.com/images/dynamic.jpg', 'https://www.internetdownloadmanager.com/images/idm_custom.gif'],
         features: ['Accelerates download speed up to 5 times.', 'Supports pause and resume of downloads.', 'Automatically integrates with popular browsers.', 'Built-in scheduler for automatic downloads.', 'Supports HTTPS, FTP, and proxy servers.', 'Captures streaming videos from websites.', 'Provides error recovery and resume capability.', 'Simple and user-friendly interface.', 'Smart file segmentation technology.', 'Multilingual support.'],
