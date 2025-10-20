@@ -648,5 +648,33 @@ const frpApps = [
         isModified: false,
         linkType: 'download',
         lastUpdated: '2025-10-20T15:44:15.454Z'
+    },
+    {
+        id: 1760975154483,
+        name: 'Alliance Shield',
+        version: '1.0',
+        category: 'Samsung',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2022/01/Alliance-Shield.webp',
+        description: 'Alliance Shield is an application for Android devices,',
+        size: '5 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'intent://com.rrivenllc.shieldx/#Intent;scheme=android-app;end',
+        isModified: false,
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T15:45:54.483Z'
+    },
+    {
+        id: 1760975231040,
+        name: '(OPEN)All Setting/Apps Tap to Open',
+        version: '1.0',
+        category: 'Universal',
+        icon: 'fas fa-cube',
+        description: 'Information is not currently available',
+        size: '5 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://frpbypass.romstage.com/frp-lock-bypass-tap-to-open-apps/',
+        isModified: false,
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T15:47:11.040Z'
     }
 ];
