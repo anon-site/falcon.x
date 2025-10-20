@@ -480,5 +480,19 @@ const frpApps = [
         isModified: false,
         linkType: 'direct',
         lastUpdated: '2025-10-20T15:27:22.851Z'
+    },
+    {
+        id: 1760974104122,
+        name: 'Samsung Internet',
+        version: '1.0',
+        category: 'Samsung',
+        icon: 'https://frpbypass.romstage.com/wp-content/uploads/2024/08/samsung-internet-1.png',
+        description: 'Open the browser for Samsung devices',
+        size: '5 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://apps.samsung.com/appquery/appDetail.as?appId=com.sec.android.app.sbrowser&cld-000005006635',
+        isModified: false,
+        linkType: 'direct',
+        lastUpdated: '2025-10-20T15:28:56.986Z'
     }
 ];
