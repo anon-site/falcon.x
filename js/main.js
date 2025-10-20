@@ -1246,8 +1246,31 @@ function showAppDetails(appId) {
         }
         
         additionalInfoHTML += `</div>`;
+        
+        // Add contact section below download buttons
+        additionalInfoHTML += `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <p style="margin: 0 0 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">If the link doesn't work or to request an app:</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                    <button onclick="window.open('https://t.me/anon_design', '_blank'); event.stopPropagation();" 
+                        style="padding: 0.7rem 1.2rem; background: linear-gradient(135deg, #0088cc 0%, #006699 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);" 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 136, 204, 0.4)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 136, 204, 0.3)';">
+                        <i class="fab fa-telegram" style="margin-right: 0.5rem; font-size: 1rem;"></i>Telegram
+                    </button>
+                    <button onclick="window.open('https://wa.me/306972462001', '_blank'); event.stopPropagation();" 
+                        style="padding: 0.7rem 1.2rem; background: linear-gradient(135deg, #25D366 0%, #1DA851 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);" 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(37, 211, 102, 0.3)';">
+                        <i class="fab fa-whatsapp" style="margin-right: 0.5rem; font-size: 1rem;"></i>WhatsApp
+                    </button>
+                </div>
+            </div>
+        `;
     } else if (hasContactMessage) {
-        // Show Contact Admin button with Telegram and WhatsApp links
+        // Show Contact Admin button with Telegram and WhatsApp links when no download links
         additionalInfoHTML += `
             <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
                 <div style="text-align: center; padding: 1rem; background: rgba(59, 130, 246, 0.08); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.2);">
@@ -1279,6 +1302,29 @@ function showAppDetails(appId) {
                     style="padding: 0.65rem 1rem; background: linear-gradient(135deg, rgba(107, 114, 128, 0.2), rgba(75, 85, 99, 0.2)); border: 2px solid rgba(156, 163, 175, 0.3); color: rgba(156, 163, 175, 0.8); border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: not-allowed; backdrop-filter: blur(10px);">
                     <i class="fas fa-clock" style="margin-right: 0.4rem; opacity: 0.6;"></i>Coming Soon
                 </button>
+            </div>
+        `;
+        
+        // Add contact section below Coming Soon button
+        additionalInfoHTML += `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <p style="margin: 0 0 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">If the link doesn't work or to request an app:</p>
+                </div>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+                    <button onclick="window.open('https://t.me/anon_design', '_blank'); event.stopPropagation();" 
+                        style="padding: 0.7rem 1.2rem; background: linear-gradient(135deg, #0088cc 0%, #006699 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);" 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 136, 204, 0.4)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 136, 204, 0.3)';">
+                        <i class="fab fa-telegram" style="margin-right: 0.5rem; font-size: 1rem;"></i>Telegram
+                    </button>
+                    <button onclick="window.open('https://wa.me/306972462001', '_blank'); event.stopPropagation();" 
+                        style="padding: 0.7rem 1.2rem; background: linear-gradient(135deg, #25D366 0%, #1DA851 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);" 
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 211, 102, 0.4)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(37, 211, 102, 0.3)';">
+                        <i class="fab fa-whatsapp" style="margin-right: 0.5rem; font-size: 1rem;"></i>WhatsApp
+                    </button>
+                </div>
             </div>
         `;
     }
