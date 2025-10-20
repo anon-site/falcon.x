@@ -116,6 +116,21 @@ const windowsSoftware = [
         isModified: true,
         screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
         features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process']
+    },
+    {
+        id: 1760950347948,
+        name: 'Adobe Animate 2024',
+        version: '2024.0.5.40',
+        category: 'general',
+        icon: 'https://wifi4soft.com/_next/image?url=https%3A%2F%2Fcms.wifi4soft.com%2Fassets%2F95bc3df6-af83-4f86-bd5f-62faa9a7a131%2F11111111111.png&w=96&q=90',
+        description: 'Adobe Animate 2024 is a professional software for creating interactive animations, vector graphics, and multimedia content for web, TV, and mobile platforms.',
+        fullDescription: 'Adobe Animate 2024 is one of the most powerful animation tools developed by Adobe, designed to create engaging animations, vector illustrations, and interactive content. It allows artists, designers, and animators to bring characters and graphics to life with fluid motion, advanced rigging tools, and timeline-based animation. The software supports HTML5 Canvas, WebGL, and other modern formats, making it perfect for creating animations that work smoothly across browsers and devices. With improved performance, AI-assisted features, and seamless integration with other Adobe Creative Cloud apps, Animate 2024 provides an efficient and creative workflow for both professionals and beginners.\n\nDecompression password: 123',
+        size: '5.7 GB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://azure.wifi4soft.com/adobe-animate/2024.0.5.40[wifi4soft].rar',
+        isModified: false,
+        screenshots: ['https://wifi4soft.com/_next/image?url=https%3A%2F%2Fcms.wifi4soft.com%2Fassets%2F86911869-92d4-4af0-9563-4f627918ef29%2F22222222222222.jpeg&w=640&q=90', 'https://wifi4soft.com/_next/image?url=https%3A%2F%2Fcms.wifi4soft.com%2Fassets%2Fc89c0dd3-20fa-4311-8f02-b4848f557d81%2F3333333333333333.png&w=750&q=90', 'https://wifi4soft.com/_next/image?url=https%3A%2F%2Fcms.wifi4soft.com%2Fassets%2Fe0ebe7ec-0f3b-4ef4-aeb7-a3be97fab435%2F4444444444444444.png&w=640&q=90'],
+        features: ['Create high-quality 2D animations for web, TV, and games.', 'Support for HTML5 Canvas, WebGL, and SVG formats.', 'Advanced bone rigging and motion tweening tools.', 'Integration with Adobe Photoshop, Illustrator, and After Effects.', 'AI-powered auto lip-sync and motion detection.', 'Enhanced performance and rendering speed.', 'Export animations to multiple platforms including mobile apps.', 'Intuitive timeline and user-friendly interface.']
     }
 ];
 
