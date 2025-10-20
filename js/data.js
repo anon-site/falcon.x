@@ -644,10 +644,10 @@ const frpApps = [
         description: 'An application to create icons for applications on the Android phone',
         size: '2.01 MB',
         downloadLink: '#',
-        originalDownloadLink: 'https://frpbypass.romstage.com/quick-shortcutmaker-apk/',
+        originalDownloadLink: 'https://romstage.com/wp-content/uploads/2020/05/QuickShortcutMaker_2.4.0.apk',
         isModified: false,
         linkType: 'download',
-        lastUpdated: '2025-10-20T15:44:15.454Z'
+        lastUpdated: '2025-10-20T15:48:53.627Z'
     },
     {
         id: 1760975154483,
@@ -676,5 +676,33 @@ const frpApps = [
         isModified: false,
         linkType: 'direct',
         lastUpdated: '2025-10-20T15:47:11.040Z'
+    },
+    {
+        id: 1760975467799,
+        name: 'Google Account Manager Android 14',
+        version: '14',
+        category: 'Universal',
+        icon: 'fas fa-cube',
+        description: 'No description provided',
+        size: '7.9 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://frpbypass.romstage.com/android_14-0_gam-2/',
+        isModified: false,
+        linkType: 'download',
+        lastUpdated: '2025-10-20T15:52:35.386Z'
+    },
+    {
+        id: 1760975547134,
+        name: 'Google Account Manager Android 13.',
+        version: '13',
+        category: 'Universal',
+        icon: 'fas fa-cube',
+        description: 'No description provided',
+        size: '7.9 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://frpbypass.romstage.com/android_13-0_gam/',
+        isModified: false,
+        linkType: 'download',
+        lastUpdated: '2025-10-20T15:52:27.134Z'
     }
 ];
