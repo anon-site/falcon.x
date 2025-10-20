@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSoftwareData();
     initializeSettings();
     initializeStorageListener();
+    checkSharedAppLink(); // Check if URL contains shared app link
 });
 
 // ===== Storage Change Listener =====
@@ -1557,6 +1558,171 @@ function playVideo(containerId, videoId) {
     }
 }
 
+// ===== Check Shared App Link =====
+function checkSharedAppLink() {
+    // Check if URL contains app ID hash
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#app-')) {
+        const appId = hash.replace('#app-', '');
+        
+        // Wait a bit for data to load
+        setTimeout(() => {
+            const app = findAppById(appId);
+            if (app) {
+                // Navigate to the correct page based on app type
+                const pageMap = {
+                    'windows': 'windows',
+                    'android': 'android',
+                    'frp-tool': 'frp',
+                    'frp-app': 'frp-apps'
+                };
+                
+                // Determine which page the app belongs to
+                let targetPage = 'windows'; // default
+                
+                // Check in which array the app exists
+                const windowsLS = localStorage.getItem('falcon-x-windows-apps');
+                if (windowsLS) {
+                    const windows = JSON.parse(windowsLS);
+                    if (windows.find(a => a.id == appId)) {
+                        targetPage = 'windows';
+                    }
+                }
+                
+                const androidLS = localStorage.getItem('falcon-x-android-apps');
+                if (androidLS) {
+                    const android = JSON.parse(androidLS);
+                    if (android.find(a => a.id == appId)) {
+                        targetPage = 'android';
+                    }
+                }
+                
+                const frpToolsLS = localStorage.getItem('falcon-x-frp-tools');
+                if (frpToolsLS) {
+                    const frpT = JSON.parse(frpToolsLS);
+                    if (frpT.find(a => a.id == appId)) {
+                        targetPage = 'frp';
+                    }
+                }
+                
+                const frpAppsLS = localStorage.getItem('falcon-x-frp-apps');
+                if (frpAppsLS) {
+                    const frpA = JSON.parse(frpAppsLS);
+                    if (frpA.find(a => a.id == appId)) {
+                        targetPage = 'frp-apps';
+                    }
+                }
+                
+                // Navigate to the page
+                navigateToPage(targetPage);
+                
+                // Wait for page to load then open modal
+                setTimeout(() => {
+                    showAppDetails(appId);
+                    // Clear the hash to avoid re-opening on refresh
+                    history.replaceState(null, null, ' ');
+                }, 300);
+            } else {
+                console.log('App not found with ID:', appId);
+                showToast('App not found!', 'error');
+            }
+        }, 500);
+    }
+}
+
+// ===== Share App Function =====
+function shareApp() {
+    if (!currentAppId) {
+        showToast('No app selected to share!', 'error');
+        return;
+    }
+    
+    const app = findAppById(currentAppId);
+    if (!app) {
+        showToast('App not found!', 'error');
+        return;
+    }
+    
+    // Build detailed share content
+    const appName = `${app.name} v${app.version}`;
+    const appDescription = app.description || '';
+    const appSize = app.size || 'N/A';
+    const appCategory = app.category || '';
+    
+    // Create share text with app details
+    let shareText = `${appName}\n`;
+    shareText += `\n${appDescription}`;
+    if (appSize !== 'N/A') {
+        shareText += `\nSize: ${appSize}`;
+    }
+    if (appCategory) {
+        shareText += `\nCategory: ${appCategory}`;
+    }
+    shareText += `\n\nGet it from Falcon X:`;
+    
+    const shareUrl = window.location.href.split('#')[0] + `#app-${currentAppId}`;
+    
+    // Check if Web Share API is supported
+    if (navigator.share) {
+        navigator.share({
+            title: appName,
+            text: shareText,
+            url: shareUrl
+        })
+        .then(() => showToast('✓ Shared successfully!', 'success'))
+        .catch((error) => {
+            if (error.name !== 'AbortError') {
+                fallbackShare(shareText, shareUrl, app.name);
+            }
+        });
+    } else {
+        fallbackShare(shareText, shareUrl, app.name);
+    }
+}
+
+function fallbackShare(text, url, appName) {
+    // Copy to clipboard as fallback
+    const shareContent = `${text}\n${url}`;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareContent)
+            .then(() => {
+                showToast('✓ Link copied to clipboard!', 'success');
+            })
+            .catch(() => {
+                // Fallback for older browsers
+                legacyCopyToClipboard(shareContent, appName);
+            });
+    } else {
+        // Fallback for browsers without Clipboard API
+        legacyCopyToClipboard(shareContent, appName);
+    }
+}
+
+function legacyCopyToClipboard(text, appName) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showToast('✓ Link copied to clipboard!', 'success');
+        } else {
+            showToast('Unable to copy. Please copy manually.', 'error');
+        }
+    } catch (err) {
+        showToast('Unable to share. Please copy manually.', 'error');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
 // ===== Export Functions =====
 window.navigateToPage = navigateToPage;
 window.downloadSoftware = downloadSoftware;
@@ -1573,3 +1739,4 @@ window.downloadOriginal = downloadOriginal;
 window.downloadModified = downloadModified;
 window.copyToClipboard = copyToClipboard;
 window.playVideo = playVideo;
+window.shareApp = shareApp;

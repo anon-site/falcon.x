@@ -1486,6 +1486,70 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--success-color);
 }
 
+/* ===== Share Section ===== */
+.app-share-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.share-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.share-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.share-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+.share-btn i {
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.share-btn span {
+    position: relative;
+    z-index: 1;
+}
+
 /* ===== System Requirements Section ===== */
 .app-system-requirements-section {
     margin-bottom: 2rem;
@@ -3713,6 +3777,14 @@ body.light-theme .app-features-section li {
     background: rgba(59, 130, 246, 0.05);
     border-left: 3px solid var(--primary-color);
     color: #374151;
+}
+
+body.light-theme .share-btn {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+}
+
+body.light-theme .share-btn:hover {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
 }
 
 body.light-theme .system-requirements-content pre {
