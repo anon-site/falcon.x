@@ -210,6 +210,9 @@ function closeSidebar() {
 // ===== Load Navigation from localStorage or GitHub =====
 async function loadNavigationFromStorage() {
     try {
+        // Always clear navigation cache first to force reload from GitHub
+        localStorage.removeItem('navigation');
+        
         // First, try to load from GitHub if available
         const githubNavigation = await loadNavigationFromGitHub();
         
