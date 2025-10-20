@@ -1270,37 +1270,29 @@ function showAppDetails(appId) {
             if (videoId) {
                 const uniqueId = `video-${videoId}-${Date.now()}`;
                 videoEmbed = `
-                    <div style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3); background: #000;">
-                        <div id="${uniqueId}" style="position: relative; width: 100%; aspect-ratio: 16/9; background: url('https://img.youtube.com/vi/${videoId}/maxresdefault.jpg') center/cover; cursor: pointer;" onclick="playVideo('${uniqueId}', '${videoId}')">
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; pointer-events: none;">
-                                <i class="fas fa-play" style="color: white; font-size: 2rem; margin-left: 0.3rem;"></i>
+                    <div style="max-width: 720px; margin: 0 auto;">
+                        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+                            <div id="${uniqueId}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://img.youtube.com/vi/${videoId}/maxresdefault.jpg') center/cover; cursor: pointer;" onclick="playVideo('${uniqueId}', '${videoId}')">
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255, 0, 0, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; pointer-events: none;">
+                                    <i class="fas fa-play" style="color: white; font-size: 2rem; margin-left: 0.3rem;"></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="margin-top: 1rem; padding: 0.875rem 1rem; background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; border-radius: 6px;">
-                        <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                            <i class="fas fa-play-circle" style="margin-right: 0.5rem; color: #3b82f6;"></i>
-                            <strong>Watch the tutorial:</strong> Click the play button above to start.
-                        </p>
                     </div>
                 `;
             }
         } else {
             // For non-YouTube videos
             videoEmbed = `
-                <div style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3); background: #000;">
-                    <iframe src="${app.tutorialLink}" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen 
-                        style="width: 100%; aspect-ratio: 16/9; display: block;">
-                    </iframe>
-                </div>
-                <div style="margin-top: 1rem; padding: 0.875rem 1rem; background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; border-radius: 6px;">
-                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                        <i class="fas fa-play-circle" style="margin-right: 0.5rem; color: #3b82f6;"></i>
-                        <strong>Watch the tutorial:</strong> Click play button above to start the video.
-                    </p>
+                <div style="max-width: 720px; margin: 0 auto;">
+                    <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+                        <iframe src="${app.tutorialLink}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                        </iframe>
+                    </div>
                 </div>
             `;
         }
