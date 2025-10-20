@@ -1160,10 +1160,10 @@ function showAppDetails(appId) {
     // Password section with simple design
     if (app.password && app.password.trim() !== '') {
         additionalInfoHTML += `
-            <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 1rem;">
+            <div style="display: inline-block; padding: 1rem; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 1rem;">
                 <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Extract Password</div>
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <code style="flex: 1; padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 0.95rem; color: var(--text-primary);">${app.password}</code>
+                    <code style="padding: 0.75rem; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 0.95rem; color: var(--text-primary);">${app.password}</code>
                     <button onclick="copyToClipboard('${app.password}'); event.stopPropagation();" 
                         style="padding: 0.75rem 1rem; background: var(--primary-color); border: none; border-radius: 6px; color: white; cursor: pointer; font-size: 0.9rem;">
                         <i class="fas fa-copy"></i>
@@ -1185,30 +1185,26 @@ function showAppDetails(appId) {
     
     // Download buttons section
     if (totalLinks > 0) {
-        const gridStyle = totalLinks >= 3 
-            ? 'display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem;' 
-            : 'display: flex; flex-direction: column; gap: 0.75rem;';
-        
-        additionalInfoHTML += `<div style="${gridStyle}">`;
+        additionalInfoHTML += `<div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">`;
         
         // Original links - Purple
         if (hasOriginalLink1) {
             additionalInfoHTML += `
                 <button onclick="window.open('${app.originalDownloadLink}', '_blank'); event.stopPropagation();" 
-                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    style="padding: 0.65rem 1rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s ease;" 
                     onmouseover="this.style.transform='translateY(-2px)';" 
                     onmouseout="this.style.transform='translateY(0)';">
-                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Original
+                    <i class="fas fa-download" style="margin-right: 0.4rem;"></i>Download Original
                 </button>`;
         }
         
         if (hasOriginalLink2) {
             additionalInfoHTML += `
                 <button onclick="window.open('${app.downloadLink3}', '_blank'); event.stopPropagation();" 
-                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    style="padding: 0.65rem 1rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s ease;" 
                     onmouseover="this.style.transform='translateY(-2px)';" 
                     onmouseout="this.style.transform='translateY(0)';">
-                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Original
+                    <i class="fas fa-download" style="margin-right: 0.4rem;"></i>Download Original
                 </button>`;
         }
         
@@ -1216,20 +1212,20 @@ function showAppDetails(appId) {
         if (hasModifiedLink1) {
             additionalInfoHTML += `
                 <button onclick="window.open('${app.downloadLink}', '_blank'); event.stopPropagation();" 
-                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    style="padding: 0.65rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s ease;" 
                     onmouseover="this.style.transform='translateY(-2px)';" 
                     onmouseout="this.style.transform='translateY(0)';">
-                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Modified
+                    <i class="fas fa-download" style="margin-right: 0.4rem;"></i>Download Modified
                 </button>`;
         }
         
         if (hasModifiedLink2) {
             additionalInfoHTML += `
                 <button onclick="window.open('${app.downloadLink2}', '_blank'); event.stopPropagation();" 
-                    style="padding: 0.875rem 1.25rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 8px; color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease;" 
+                    style="padding: 0.65rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 20px; color: white; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s ease;" 
                     onmouseover="this.style.transform='translateY(-2px)';" 
                     onmouseout="this.style.transform='translateY(0)';">
-                    <i class="fas fa-download" style="margin-right: 0.5rem;"></i>Download Modified
+                    <i class="fas fa-download" style="margin-right: 0.4rem;"></i>Download Modified
                 </button>`;
         }
         
