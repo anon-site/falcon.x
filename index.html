@@ -48,16 +48,8 @@
         </div>
         
         <div class="sidebar-footer">
-            <button class="theme-toggle desktop-theme-toggle" id="desktopThemeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-            <button class="settings-toggle" id="settingsToggle">
+            <button class="settings-toggle-small" id="settingsToggle" title="Settings">
                 <i class="fas fa-cog"></i>
-                <span class="menu-text">Settings</span>
-            </button>
-            <button class="settings-toggle" onclick="refreshData()" style="background: linear-gradient(135deg, #667eea, #764ba2); margin-top: 0.5rem;" title="Clear cache and reload">
-                <i class="fas fa-sync-alt"></i>
-                <span class="menu-text">Refresh</span>
             </button>
             <p class="version">Version 2.3</p>
             <p class="copyright">© 2025 Falcon X. All rights reserved.<br>Designed and developed by <a href="https://anon-site.github.io" target="_blank" style="color: #667eea; text-decoration: none;">Anon Design</a></p>
@@ -426,6 +418,23 @@
                 </button>
             </div>
             <div class="settings-body">
+                <!-- Dark Mode Toggle -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-moon"></i> Dark Mode</h3>
+                    <button class="theme-toggle-settings" id="desktopThemeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Toggle Dark Mode</span>
+                    </button>
+                </div>
+
+                <!-- Refresh Data -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-sync-alt"></i> Refresh Data</h3>
+                    <button class="refresh-settings-btn" onclick="refreshData()" title="Clear cache and reload">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Clear Cache & Reload</span>
+                    </button>
+                </div>
 
                 <!-- Color Presets -->
                 <div class="settings-section">
