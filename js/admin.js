@@ -1146,6 +1146,126 @@ function openNavModal(id = null) {
         form.reset();
         document.getElementById('navModalTitle').textContent = 'إضافة تبويب جديد';
         document.getElementById('navActive').checked = true;
+        
+        // Auto-fill functionality when adding new tab
+        const titleInput = document.getElementById('navTitle');
+        const iconInput = document.getElementById('navIcon');
+        const linkInput = document.getElementById('navLink');
+        const orderInput = document.getElementById('navOrder');
+        
+        // Get next order number
+        const navItems = JSON.parse(localStorage.getItem('navigation')) || getDefaultNavigation();
+        const nextOrder = Math.max(...navItems.map(item => item.order || 0), 0) + 1;
+        orderInput.value = nextOrder;
+        
+        // Auto-fill on title input
+        titleInput.addEventListener('input', function autoFillFields() {
+            const title = this.value.trim();
+            
+            if (!title) {
+                iconInput.value = '';
+                linkInput.value = '';
+                return;
+            }
+            
+            // Auto-generate icon based on title keywords
+            const iconMap = {
+                'home': 'fas fa-home',
+                'windows': 'fab fa-windows',
+                'android': 'fab fa-android',
+                'frp': 'fas fa-unlock-alt',
+                'tools': 'fas fa-tools',
+                'apps': 'fas fa-mobile-alt',
+                'about': 'fas fa-info-circle',
+                'contact': 'fas fa-envelope',
+                'settings': 'fas fa-cog',
+                'user': 'fas fa-user',
+                'profile': 'fas fa-user-circle',
+                'download': 'fas fa-download',
+                'upload': 'fas fa-upload',
+                'store': 'fas fa-store',
+                'shop': 'fas fa-shopping-cart',
+                'game': 'fas fa-gamepad',
+                'music': 'fas fa-music',
+                'video': 'fas fa-video',
+                'photo': 'fas fa-image',
+                'image': 'fas fa-images',
+                'file': 'fas fa-file',
+                'folder': 'fas fa-folder',
+                'search': 'fas fa-search',
+                'help': 'fas fa-question-circle',
+                'support': 'fas fa-life-ring',
+                'blog': 'fas fa-blog',
+                'news': 'fas fa-newspaper',
+                'star': 'fas fa-star',
+                'heart': 'fas fa-heart',
+                'favorite': 'fas fa-heart',
+                'bookmark': 'fas fa-bookmark',
+                'tag': 'fas fa-tag',
+                'category': 'fas fa-th-large',
+                'menu': 'fas fa-bars',
+                'list': 'fas fa-list',
+                'grid': 'fas fa-th',
+                'dashboard': 'fas fa-tachometer-alt',
+                'chart': 'fas fa-chart-bar',
+                'report': 'fas fa-chart-line',
+                'calendar': 'fas fa-calendar',
+                'clock': 'fas fa-clock',
+                'bell': 'fas fa-bell',
+                'notification': 'fas fa-bell',
+                'message': 'fas fa-comment',
+                'chat': 'fas fa-comments',
+                'mail': 'fas fa-envelope',
+                'email': 'fas fa-envelope',
+                'phone': 'fas fa-phone',
+                'map': 'fas fa-map-marker-alt',
+                'location': 'fas fa-map-marker-alt',
+                'globe': 'fas fa-globe',
+                'world': 'fas fa-globe-americas',
+                'language': 'fas fa-language',
+                'translate': 'fas fa-language',
+                'lock': 'fas fa-lock',
+                'unlock': 'fas fa-unlock',
+                'key': 'fas fa-key',
+                'shield': 'fas fa-shield-alt',
+                'security': 'fas fa-shield-alt',
+                'check': 'fas fa-check',
+                'times': 'fas fa-times',
+                'plus': 'fas fa-plus',
+                'minus': 'fas fa-minus',
+                'edit': 'fas fa-edit',
+                'trash': 'fas fa-trash',
+                'delete': 'fas fa-trash-alt',
+                'save': 'fas fa-save',
+                'print': 'fas fa-print',
+                'share': 'fas fa-share-alt',
+                'link': 'fas fa-link',
+                'external': 'fas fa-external-link-alt'
+            };
+            
+            // Find matching icon
+            let selectedIcon = 'fas fa-cube'; // default
+            const lowerTitle = title.toLowerCase();
+            
+            for (const [keyword, icon] of Object.entries(iconMap)) {
+                if (lowerTitle.includes(keyword)) {
+                    selectedIcon = icon;
+                    break;
+                }
+            }
+            
+            iconInput.value = selectedIcon;
+            
+            // Auto-generate link from title
+            // Convert to lowercase, replace spaces with hyphens, remove special chars
+            const link = '#' + title.toLowerCase()
+                .replace(/\s+/g, '-')           // Replace spaces with hyphens
+                .replace(/[^a-z0-9\-]/g, '')    // Remove special characters
+                .replace(/\-+/g, '-')           // Replace multiple hyphens with single
+                .replace(/^\-|\-$/g, '');       // Remove leading/trailing hyphens
+            
+            linkInput.value = link;
+        });
     }
     
     modal.style.display = 'flex';
