@@ -783,6 +783,12 @@ function getDataFromStorage(storageKey, fallbackData) {
                 console.log(`✅ Loaded ${parsedData.length} items from localStorage (${storageKey})`);
                 return parsedData;
             }
+            
+            // If not in localStorage, cache fallback data for future use
+            if (fallbackData && fallbackData.length > 0) {
+                console.log(`💾 Caching ${fallbackData.length} items from data.js to localStorage (${storageKey})`);
+                localStorage.setItem(localStorageKey, JSON.stringify(fallbackData));
+            }
         }
     } catch (error) {
         console.error('Error reading from localStorage:', error);
@@ -1683,6 +1689,17 @@ function showAppDetails(appId) {
         additionalInfoSection.style.display = 'none';
     }
     
+    // Set screenshots with lazy loading
+    if (app.screenshots && app.screenshots.length > 0) {
+        screenshotsSection.style.display = 'block';
+        screenshotsGallery.innerHTML = app.screenshots.map((screenshot, index) => 
+            `<div class="screenshot-item" onclick="openLightbox(${index})">
+                <img src="${screenshot}" alt="Screenshot ${index + 1}" loading="lazy">
+            </div>`
+        ).join('');
+    } else {
+        screenshotsSection.style.display = 'none';
+    }
     
     // Set tutorial video with enhanced design
     if (app.tutorialLink && app.tutorialLink.trim() !== '') {
