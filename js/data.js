@@ -163,6 +163,27 @@ const windowsSoftware = [
     }
 ];
 
+// ===== Windows Games Data =====
+const windowsGames = [
+    {
+        id: 1761089106024,
+        name: 'Microsoft Solitaire Collection',
+        version: '4.23.9180.0',
+        category: 'Puzzle',
+        icon: 'https://img.utdstc.com/icon/894/db5/894db51d46188764dbb9257b7f33cc666a34e4265bd5bb42897a869d8a77e030:100',
+        description: 'Microsoft Solitaire Collection is a digital collection of classic solitaire card games, including Klondike, Spider, FreeCell, Pyramid, and TriPeaks. It offers a relaxing way to play with daily challenges and rewards to keep players engaged.',
+        fullDescription: 'Microsoft Solitaire Collection is a popular video game developed by Microsoft Casual Games and published by Xbox Game Studios. It combines beloved solitaire variants from previous Windows versions, such as Klondike Solitaire, Spider Solitaire, and FreeCell Solitaire, while introducing Pyramid and TriPeaks for the first time on Windows. Designed as a freemium app with Xbox Live integration, it features ad-supported gameplay that can be upgraded via in-app purchases to remove ads and unlock premium content. Players can enjoy fullscreen or snapped modes on Windows, with card animations inspired by classic versions. The app tracks statistics across all game modes, including Daily Challenges and Star Club progress. Celebrating over 35 years of solitaire fun, it has become one of the most played games worldwide, suitable for quick sessions or extended play to sharpen the mind and compete on global leaderboards.',
+        size: '140 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://dw.uptodown.com/dwn/5yV3Ymz_qhNv5NIwMvRLJi9z-g1IaXNtXjELHHaU_TiyintGoehxVNjEN4qxYUODIPhOKMz0Pxq3Uqg5TL-vbruL-G5-jhcSqQ-GeBMF2QcnqPnvrZtCQ9Xx89lzKobH/96w_Ca4IptM0Ak1vECyPiJXoYnCq6z3MMKBXrSeNCvkqCb5tRKTk9SA_DbH1S0GRs5RMUbzqzhP4tR1fR3f3vlUZXoU5UlQMXZGmJfID1bbhWe6m5xISt5Qf3DayvVdc/1kHogqScPbga5d8FkHi6PXZnve3AuPU5rM_Y0Lu0ogCHM2OsKKnJ2luA8nqL4Aq4Of-aXNXzoO5aQgzTaUbRjsFOcMnDlzk1_A4WJKD39i239oRFUntOa8DKCOXFu8d7/9MWUN8MYtcPuk9H8CYevgy_lF4W72xMzxwAbqTjI6r0=/',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 10 version 17763.0 or higher (for PC); iOS 15.0 or later (for mobile); Android 5.0 or higher.\nProcessor: 1 GHz or faster.\nRAM: 4 GB (8 GB recommended).\nStorage: At least 180 MB free space.\nGraphics: DirectX 9 compatible with WDDM 1.0 driver.\nInternet connection required for online features like challenges and syncing.',
+        screenshots: ['https://img.utdstc.com/screen/b7d/60a/b7d60ac41d907f07e5f266d3642e72242e8bd174a51c0873db3432a040fe1d89:200', 'https://img.utdstc.com/screen/72c/83d/72c83df882377a582421082d34521c18ffae425c0b5c2399d00d3b02f8a8b7d1:200', 'https://img.utdstc.com/screen/171/9c0/1719c01313e44ab94790708c991e6deb7cca59ac59a5edb7881905f6ba6a0ee9:200'],
+        features: ['Classic solitaire games: Klondike, Spider, FreeCell, Pyramid, and TriPeaks.', 'Daily Challenges: New puzzles every day to test skills and earn rewards.', 'Events and Star Club: Participate in limited-time events and climb ranks for badges and points.', 'Xbox Live Integration: Sync progress, achievements, and compete on leaderboards across devices.', 'Customizable themes and card backs for personalized gameplay.', 'Statistics tracking for all modes, including win rates and streaks.', 'Freemium model with optional premium subscription for ad-free play and exclusive items.'],
+        lastUpdated: '2025-10-21T23:25:06.024Z'
+    }
+];
+
 // ===== Android Applications Data =====
 const androidApps = [
     {
@@ -293,44 +314,8 @@ const androidApps = [
     }
 ];
 
-// ===== Windows Games Data =====
-const windowsGames = [
-    // Add Windows games here
-    // Example:
-    // {
-    //     id: Date.now(),
-    //     name: 'Game Name',
-    //     version: '1.0',
-    //     category: 'Action',
-    //     icon: 'fa-solid fa-gamepad',
-    //     description: 'Game description...',
-    //     size: '1GB',
-    //     downloadLink: '#',
-    //     isModified: false,
-    //     screenshots: [],
-    //     features: [],
-    //     lastUpdated: new Date().toISOString()
-    // }
-];
-
 // ===== Android Games Data =====
 const androidGames = [
-    // Add Android games here
-    // Example:
-    // {
-    //     id: Date.now(),
-    //     name: 'Game Name',
-    //     version: '1.0',
-    //     category: 'Action',
-    //     icon: 'fa-solid fa-gamepad',
-    //     description: 'Game description...',
-    //     size: '500MB',
-    //     downloadLink: '#',
-    //     isModified: false,
-    //     screenshots: [],
-    //     features: [],
-    //     lastUpdated: new Date().toISOString()
-    // }
 ];
 
 // ===== FRP Tools Data =====
