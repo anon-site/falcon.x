@@ -159,7 +159,7 @@ const windowsSoftware = [
         systemRequirements: 'Operating System: Windows 7, 8, 8.1, 10, or 11 (32-bit or 64-bit).\nProcessor: Any modern CPU (e.g., Intel Celeron or equivalent).\nRAM: Minimum 192 MB (recommended 512 MB or more).\nDisk Space: At least 100 MB free space.\nInternet connection required for torrent functionality.',
         screenshots: ['https://img.lazcdn.com/g/p/a624edc48cc12d54b899a5e237e173ca.jpg_720x720q80.jpg', 'https://cdn.neowin.com/news/images/uploaded/2015/03/utorrent.jpg', 'https://www.utorrent.com/static/ui-classic-pro-1705a5f569f2ad6b987b8f835803019d.png'],
         features: ['Supports parallel downloads of multiple torrents simultaneously.', 'Customizable bandwidth allocation to prioritize traffic and adjust speeds.', 'Built-in scheduler for managing download tasks at specific times.', 'Quick resume function for interrupted transfers.', 'Low resource consumption, using minimal CPU, memory, and disk space.', 'RSS feed support for automatic torrent discovery and downloading.', 'UPnP and NAT-PMP compatibility for easy network setup.', 'Ad-free interface with integrated antivirus protection for safe downloads.', 'Protocol encryption and peer exchange for enhanced privacy.', 'Streaming support to play media files while downloading.'],
-        lastUpdated: '2025-10-21T07:08:10.394Z'
+        lastUpdated: '2025-10-21T07:46:47.249Z'
     }
 ];
 
@@ -289,7 +289,7 @@ const androidApps = [
         isModified: false,
         screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg', 'https://img.utdstc.com/screen/227/2c1/2272c114a54839b3d40b4b497bc02be04900fd9cb0b3be5ea860fb500ae206ef:600'],
         features: ['Create and extract archives in multiple formats (ZIP, RAR, 7z, TAR, etc.).', 'Compress files with password protection and encryption.', 'View and edit compressed file contents without extracting.', 'Support for multi-part and split archives.', 'Simple and modern user interface.', 'UTF-8 encoding support for non-Latin filenames.', 'Fast compression and decompression performance.', 'Full dark/light theme customization (Pro).', 'No ads and improved stability in Pro version.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-21T07:46:56.286Z'
     }
 ];
 
