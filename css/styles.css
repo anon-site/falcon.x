@@ -1809,10 +1809,48 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
-.app-description-section p {
+.app-description-section p,
+#modalAppDescription {
     color: var(--text-secondary);
     line-height: 1.8;
     font-size: 1rem;
+}
+
+/* Note Highlight Styling */
+.note-highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    color: var(--text-primary);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
+    transition: all 0.3s ease;
+}
+
+.note-highlight:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.note-highlight i {
+    color: #ef4444;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    animation: pulse-warning 2s ease-in-out infinite;
+}
+
+@keyframes pulse-warning {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
 }
 
 .app-features-section ul {
@@ -4233,6 +4271,25 @@ body.light-theme .news-item-badge.updated {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+/* ===== Light Theme for Note Highlight ===== */
+body.light-theme .note-highlight {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(220, 38, 38, 0.12));
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-left: 4px solid #ef4444;
+    color: #1f2937;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.12);
+}
+
+body.light-theme .note-highlight:hover {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(220, 38, 38, 0.18));
+    border-color: rgba(239, 68, 68, 0.35);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+body.light-theme .note-highlight i {
+    color: #dc2626;
 }
 
 /* ===== Light Theme for App Modal ===== */

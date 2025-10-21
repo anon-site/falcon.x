@@ -1040,8 +1040,9 @@ function refreshModalData() {
         ? '<span style="background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-star" style="font-size: 0.7rem;"></i>Modified</span>'
         : '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-check-circle" style="font-size: 0.7rem;"></i>Original</span>';
     
-    // Update description
-    modalDescription.textContent = app.fullDescription || app.description;
+    // Update description with formatted notes
+    const description = app.fullDescription || app.description;
+    modalDescription.innerHTML = formatDescriptionWithNotes(description);
     
     // Update features
     if (app.features && app.features.length > 0) {
@@ -1191,7 +1192,8 @@ function showAppDetails(appId) {
         : '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fas fa-check-circle" style="font-size: 0.7rem;"></i>Original</span>';
     
     // Set description (use fullDescription if available, otherwise use description)
-    modalDescription.textContent = app.fullDescription || app.description;
+    const description = app.fullDescription || app.description;
+    modalDescription.innerHTML = formatDescriptionWithNotes(description);
     
     // Set features
     if (app.features && app.features.length > 0) {
@@ -1936,6 +1938,23 @@ function legacyCopyToClipboard(text, appName) {
     }
     
     document.body.removeChild(textArea);
+}
+
+// ===== Format Description with Highlighted Notes =====
+function formatDescriptionWithNotes(description) {
+    if (!description) return '';
+    
+    // Replace text within parentheses that starts with "Note:" or "ملاحظة:"
+    const formatted = description.replace(
+        /\((Note:|ملاحظة:)([^)]+)\)/gi,
+        '<span class="note-highlight"><i class="fas fa-exclamation-circle"></i> $1$2</span>'
+    );
+    
+    // Also handle notes without parentheses at the beginning of lines
+    return formatted.replace(
+        /(^|\n)(Note:|ملاحظة:)([^\n]+)/gi,
+        '$1<span class="note-highlight"><i class="fas fa-exclamation-circle"></i> $2$3</span>'
+    );
 }
 
 // ===== News Ticker Functions =====
