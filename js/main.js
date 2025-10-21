@@ -1,3 +1,49 @@
+// ===== Performance Utilities =====
+// Debounce function for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Throttle function for scroll events
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// Detect low-end devices
+function isLowEndDevice() {
+    // Check for reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return true;
+    }
+    
+    // Check hardware concurrency (CPU cores)
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) {
+        return true;
+    }
+    
+    // Check device memory (if available)
+    if (navigator.deviceMemory && navigator.deviceMemory <= 2) {
+        return true;
+    }
+    
+    return false;
+}
+
 // ===== DOM Elements =====
 const sidebar = document.getElementById('sidebar');
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -8,6 +54,18 @@ const pages = document.querySelectorAll('.page');
 
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', async () => {
+    // Apply performance mode if low-end device detected
+    if (isLowEndDevice()) {
+        console.log('Low-end device detected, enabling performance mode');
+        document.body.classList.add('performance-mode');
+        localStorage.setItem('performance-mode', 'true');
+    }
+    
+    // Check saved performance mode
+    if (localStorage.getItem('performance-mode') === 'true') {
+        document.body.classList.add('performance-mode');
+    }
+    
     await loadNavigationFromStorage(); // Load custom navigation first (wait for it)
     initializeTheme();
     initializeSidebar();
@@ -44,41 +102,52 @@ function initializeStorageListener() {
         }
     });
     
-    // Check for updates periodically (every 2 seconds)
+    // Check for updates periodically - adjust interval based on performance mode
+    const updateInterval = document.body.classList.contains('performance-mode') ? 10000 : 5000;
+    
     setInterval(() => {
         const currentUpdate = localStorage.getItem('falcon-x-last-update') || '0';
         if (currentUpdate !== lastKnownUpdate && currentUpdate !== '0') {
             console.log('🔄 Data updated, reloading...');
             
-            // Add visual feedback - fade effect on containers
-            const containers = [
-                document.getElementById('windowsSoftware'),
-                document.getElementById('androidApps'),
-                document.getElementById('frpTools'),
-                document.getElementById('frpApps')
-            ];
-            
-            containers.forEach(container => {
-                if (container) {
-                    container.style.opacity = '0.5';
-                    container.style.transition = 'opacity 0.3s';
-                }
-            });
-            
-            // Reload data
-            setTimeout(() => {
-                loadSoftwareData();
+            // Skip visual effects in performance mode
+            if (!document.body.classList.contains('performance-mode')) {
+                // Add visual feedback - fade effect on containers
+                const containers = [
+                    document.getElementById('windowsSoftware'),
+                    document.getElementById('androidApps'),
+                    document.getElementById('frpTools'),
+                    document.getElementById('frpApps')
+                ];
+                
                 containers.forEach(container => {
                     if (container) {
-                        container.style.opacity = '1';
+                        container.style.opacity = '0.5';
+                        container.style.transition = 'opacity 0.3s';
                     }
                 });
                 
-                // Update modal if it's open
+                // Reload data with delay
+                setTimeout(() => {
+                    loadSoftwareData();
+                    containers.forEach(container => {
+                        if (container) {
+                            container.style.opacity = '1';
+                        }
+                    });
+                    
+                    // Update modal if it's open
+                    if (currentAppId) {
+                        refreshModalData();
+                    }
+                }, 300);
+            } else {
+                // Instant reload in performance mode
+                loadSoftwareData();
                 if (currentAppId) {
                     refreshModalData();
                 }
-            }, 300);
+            }
             
             lastKnownUpdate = currentUpdate;
             showToast('✨ Data refreshed automatically!', 'success');
@@ -86,7 +155,7 @@ function initializeStorageListener() {
             // Update news ticker
             updateNewsTicker();
         }
-    }, 2000);
+    }, updateInterval);
     
     // Also check for changes on focus (when returning to the tab)
     window.addEventListener('focus', () => {
@@ -413,9 +482,16 @@ function initializeSearch() {
     };
     
     Object.entries(searchInputs).forEach(([type, input]) => {
-        input?.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
+        if (!input) return;
+        
+        // Use debounce for better performance
+        const debouncedFilter = debounce((searchTerm) => {
             filterSoftware(type, searchTerm);
+        }, 300);
+        
+        input.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            debouncedFilter(searchTerm);
         });
     });
 }
@@ -863,9 +939,41 @@ function initializeSettings() {
     const settingsToggle = document.getElementById('settingsToggle');
     const settingsModal = document.getElementById('settingsModal');
     const closeSettings = document.getElementById('closeSettings');
+    const performanceModeToggle = document.getElementById('performanceModeToggle');
+    const performanceModeText = document.getElementById('performanceModeText');
     
     // Load saved settings
     loadSettings();
+    
+    // Performance Mode Toggle
+    if (performanceModeToggle) {
+        // Update button text based on current state
+        const updatePerformanceModeUI = () => {
+            const isEnabled = document.body.classList.contains('performance-mode');
+            performanceModeText.textContent = isEnabled ? 'Disable Performance Mode' : 'Enable Performance Mode';
+            performanceModeToggle.style.background = isEnabled ? 
+                'linear-gradient(135deg, #10b981, #059669)' : 
+                'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+        };
+        
+        updatePerformanceModeUI();
+        
+        performanceModeToggle.addEventListener('click', () => {
+            const isEnabled = document.body.classList.contains('performance-mode');
+            
+            if (isEnabled) {
+                document.body.classList.remove('performance-mode');
+                localStorage.removeItem('performance-mode');
+                showToast('Performance mode disabled', 'success');
+            } else {
+                document.body.classList.add('performance-mode');
+                localStorage.setItem('performance-mode', 'true');
+                showToast('Performance mode enabled - Animations disabled', 'success');
+            }
+            
+            updatePerformanceModeUI();
+        });
+    }
     
     // Open settings modal
     settingsToggle?.addEventListener('click', () => {
@@ -2052,13 +2160,28 @@ function createNewsItem(app, badgeType) {
     const badgeClass = badgeType === 'new' ? 'new' : 'updated';
     const badgeText = badgeType === 'new' ? 'NEW' : 'UPDATED';
     
+    // Determine platform badge
+    let platformBadge = '';
+    let platformClass = '';
+    if (app.type === 'windows') {
+        platformBadge = '<i class="fab fa-windows"></i>';
+        platformClass = 'platform-windows';
+    } else if (app.type === 'android') {
+        platformBadge = '<i class="fab fa-android"></i>';
+        platformClass = 'platform-android';
+    } else if (app.type === 'frp' || app.type === 'frp-apps') {
+        platformBadge = '<i class="fas fa-unlock-alt"></i>';
+        platformClass = 'platform-frp';
+    }
+    
     // Determine icon
     let iconHtml = '';
     if (app.icon) {
         if (app.icon.startsWith('http') || app.icon.startsWith('data:')) {
-            // Escape quotes properly for HTML attribute
-            const escapedName = (app.name || '').replace(/"/g, '&quot;');
-            iconHtml = `<img src="${app.icon}" alt="${escapedName}" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-cube&quot;></i>'">`;
+            // Escape quotes and special characters properly
+            const escapedName = String(app.name || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            const escapedIcon = String(app.icon).replace(/"/g, '&quot;');
+            iconHtml = `<img src="${escapedIcon}" alt="${escapedName}" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-cube&quot;></i>'">`;
         } else if (app.icon.startsWith('fa-')) {
             iconHtml = `<i class="${app.icon}"></i>`;
         } else {
@@ -2069,8 +2192,9 @@ function createNewsItem(app, badgeType) {
     }
     
     return `
-        <div class="news-item" onclick="showAppDetails(${app.id})" data-app-id="${app.id}">
+        <div class="news-item ${platformClass}" onclick="showAppDetails(${app.id})" data-app-id="${app.id}">
             <span class="news-item-badge ${badgeClass}">${badgeText}</span>
+            <span class="news-item-platform">${platformBadge}</span>
             <div class="news-item-icon">${iconHtml}</div>
             <div class="news-item-text">
                 <span class="news-item-name">${app.name}</span>

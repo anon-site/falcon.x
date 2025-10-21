@@ -34,6 +34,43 @@ body {
     overflow-x: hidden;
 }
 
+/* Performance Optimizations */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Performance mode class */
+body.performance-mode * {
+    animation: none !important;
+    transition: none !important;
+}
+
+body.performance-mode .floating-card,
+body.performance-mode .hero-logo,
+body.performance-mode .news-ticker-track {
+    animation: none !important;
+}
+
+body.performance-mode .software-card,
+body.performance-mode .feature-card,
+body.performance-mode .news-item {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
 
 
 }
@@ -1017,6 +1054,31 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-secondary);
 }
 
+.news-item-platform {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    flex-shrink: 0;
+}
+
+.news-item.platform-windows .news-item-platform {
+    background: linear-gradient(135deg, #0078d4, #00a4ef);
+}
+
+.news-item.platform-android .news-item-platform {
+    background: linear-gradient(135deg, #3ddc84, #2db870);
+}
+
+.news-item.platform-frp .news-item-platform {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+}
+
 /* ===== Features Section ===== */
 .features-section {
     margin-bottom: 4rem;
@@ -1818,29 +1880,23 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Note Highlight Styling */
 .note-highlight {
-    display: inline-block;
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-left: 4px solid #ef4444;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    margin: 0.5rem 0;
-    color: var(--text-primary);
+    display: inline;
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
     transition: all 0.3s ease;
 }
 
 .note-highlight:hover {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
-    border-color: rgba(239, 68, 68, 0.4);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    background: rgba(245, 158, 11, 0.25);
 }
 
 .note-highlight i {
-    color: #ef4444;
-    margin-right: 0.5rem;
-    font-size: 1rem;
+    color: #f59e0b;
+    margin-right: 0.35rem;
+    font-size: 0.9rem;
     animation: pulse-warning 2s ease-in-out infinite;
 }
 
@@ -1849,7 +1905,7 @@ h1, h2, h3, h4, h5, h6 {
         opacity: 1;
     }
     50% {
-        opacity: 0.6;
+        opacity: 0.7;
     }
 }
 
@@ -2334,6 +2390,13 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
+}
+
+.settings-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
 }
 
 /* Theme Options */
@@ -3129,64 +3192,89 @@ body.no-animations * {
 @media (max-width: 768px) {
     /* News Ticker Mobile */
     .news-ticker-section {
-        padding: 0 0.75rem;
-        margin: 1.5rem auto;
+        padding: 0 0.5rem;
+        margin: 1rem auto;
     }
     
     .news-ticker-container {
-        flex-direction: column;
+        flex-direction: row;
+        border-radius: 12px;
     }
     
     .news-ticker-header {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        padding: 0.75rem 1rem;
-        justify-content: center;
+        padding: 0.65rem 0.75rem;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+        border-bottom: none;
+        flex-direction: column;
+        gap: 0.35rem;
+        min-width: fit-content;
     }
     
     .news-ticker-label {
-        font-size: 0.8rem;
-        letter-spacing: 0.5px;
+        font-size: 0.65rem;
+        letter-spacing: 0.3px;
+        writing-mode: horizontal-tb;
+        white-space: nowrap;
     }
     
     .news-ticker-icon {
-        width: 30px;
-        height: 30px;
-        font-size: 1rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
     }
     
     .news-ticker-content {
-        padding: 0.75rem 0;
+        padding: 0.5rem 0;
+        flex: 1;
+    }
+    
+    .news-ticker-content::before,
+    .news-ticker-content::after {
+        width: 40px;
     }
     
     .news-ticker-track {
-        gap: 2rem;
-        animation: scroll-news 45s linear infinite;
+        gap: 1.5rem;
+        animation: scroll-news 40s linear infinite;
+        padding: 0 1rem;
     }
     
     .news-item {
-        padding: 0.35rem 0.9rem;
-        gap: 0.5rem;
+        padding: 0.4rem 0.75rem;
+        gap: 0.45rem;
+        border-radius: 6px;
     }
     
     .news-item-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 0.8rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.75rem;
+    }
+    
+    .news-item-icon img {
+        border-radius: 4px;
     }
     
     .news-item-badge {
-        padding: 0.2rem 0.5rem;
-        font-size: 0.6rem;
+        padding: 0.15rem 0.4rem;
+        font-size: 0.55rem;
+        border-radius: 4px;
     }
     
     .news-item-name {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        font-weight: 600;
     }
     
     .news-item-version {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
+    }
+    
+    .news-item-platform {
+        width: 18px;
+        height: 18px;
+        font-size: 0.6rem;
+        border-radius: 4px;
     }
     
     /* Settings Modal Mobile */
@@ -3445,6 +3533,62 @@ body.no-animations * {
 }
 
 @media (max-width: 480px) {
+    /* News Ticker Extra Small */
+    .news-ticker-section {
+        padding: 0 0.35rem;
+        margin: 0.75rem auto;
+    }
+    
+    .news-ticker-header {
+        padding: 0.5rem 0.6rem;
+        gap: 0.25rem;
+    }
+    
+    .news-ticker-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+    }
+    
+    .news-ticker-label {
+        font-size: 0.6rem;
+    }
+    
+    .news-ticker-track {
+        gap: 1.25rem;
+        padding: 0 0.75rem;
+    }
+    
+    .news-item {
+        padding: 0.35rem 0.6rem;
+        gap: 0.4rem;
+    }
+    
+    .news-item-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
+    
+    .news-item-badge {
+        padding: 0.12rem 0.35rem;
+        font-size: 0.5rem;
+    }
+    
+    .news-item-platform {
+        width: 16px;
+        height: 16px;
+        font-size: 0.55rem;
+    }
+    
+    .news-item-name {
+        font-size: 0.7rem;
+    }
+    
+    .news-item-version {
+        font-size: 0.55rem;
+    }
+    
     .page-container {
         padding: 0.25rem;
     }
@@ -3520,6 +3664,65 @@ body.no-animations * {
 
 /* تحسينات للهواتف الصغيرة جداً */
 @media (max-width: 360px) {
+    /* News Ticker Tiny */
+    .news-ticker-section {
+        padding: 0 0.25rem;
+        margin: 0.5rem auto;
+    }
+    
+    .news-ticker-container {
+        border-radius: 10px;
+    }
+    
+    .news-ticker-header {
+        padding: 0.4rem 0.5rem;
+    }
+    
+    .news-ticker-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 0.75rem;
+    }
+    
+    .news-ticker-label {
+        font-size: 0.55rem;
+    }
+    
+    .news-ticker-track {
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    .news-item {
+        padding: 0.3rem 0.5rem;
+        gap: 0.35rem;
+    }
+    
+    .news-item-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 0.65rem;
+    }
+    
+    .news-item-badge {
+        padding: 0.1rem 0.3rem;
+        font-size: 0.48rem;
+    }
+    
+    .news-item-platform {
+        width: 15px;
+        height: 15px;
+        font-size: 0.5rem;
+    }
+    
+    .news-item-name {
+        font-size: 0.65rem;
+    }
+    
+    .news-item-version {
+        font-size: 0.52rem;
+    }
+    
     .hero-section {
         padding: 0.75rem 0.5rem;
         gap: 1rem;
@@ -4275,21 +4478,37 @@ body.light-theme .news-item-badge.updated {
 
 /* ===== Light Theme for Note Highlight ===== */
 body.light-theme .note-highlight {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(220, 38, 38, 0.12));
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    border-left: 4px solid #ef4444;
-    color: #1f2937;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.12);
+    background: rgba(245, 158, 11, 0.2);
+    color: #d97706;
 }
 
 body.light-theme .note-highlight:hover {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(220, 38, 38, 0.18));
-    border-color: rgba(239, 68, 68, 0.35);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    background: rgba(245, 158, 11, 0.3);
 }
 
 body.light-theme .note-highlight i {
-    color: #dc2626;
+    color: #d97706;
+}
+
+/* ===== Light Theme for Platform Badges ===== */
+body.light-theme .news-item-platform {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--primary-color);
+}
+
+body.light-theme .news-item.platform-windows .news-item-platform {
+    background: linear-gradient(135deg, #0078d4, #00a4ef);
+    color: white;
+}
+
+body.light-theme .news-item.platform-android .news-item-platform {
+    background: linear-gradient(135deg, #3ddc84, #2db870);
+    color: white;
+}
+
+body.light-theme .news-item.platform-frp .news-item-platform {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
 }
 
 /* ===== Light Theme for App Modal ===== */
