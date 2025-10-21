@@ -52,6 +52,67 @@ const desktopThemeToggle = document.getElementById('desktopThemeToggle');
 const menuItems = document.querySelectorAll('.menu-item');
 const pages = document.querySelectorAll('.page');
 
+// ===== Auto Update System =====
+function checkAutoUpdate() {
+    const lastUpdateTime = localStorage.getItem('falcon-x-last-cache-update');
+    const now = Date.now();
+    const updateInterval = 10 * 60 * 1000; // 10 minutes in milliseconds
+    
+    // If no last update or more than 24 hours passed
+    if (!lastUpdateTime || (now - parseInt(lastUpdateTime)) > updateInterval) {
+        console.log('🔄 Auto-update: Cache is older than 10 minutes, clearing and refreshing...');
+        
+        // Clear only data cache, keep settings
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('falcon-x-') && 
+                key !== 'falcon-x-last-cache-update' && 
+                !key.includes('theme') && 
+                !key.includes('performance') && 
+                !key.includes('color-scheme')) {
+                keysToRemove.push(key);
+            }
+        }
+        
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+        localStorage.setItem('falcon-x-last-cache-update', now.toString());
+        
+        console.log(`✅ Auto-update: Cleared ${keysToRemove.length} cached items`);
+        showToast('🔄 Updating data from server...', 'success');
+        
+        return true; // Indicates update happened
+    }
+    
+    return false; // No update needed
+}
+
+// Get time until next auto-update
+function getNextUpdateTime() {
+    const lastUpdateTime = localStorage.getItem('falcon-x-last-cache-update');
+    if (!lastUpdateTime) return 'Next update: on next visit';
+    
+    const now = Date.now();
+    const lastUpdate = parseInt(lastUpdateTime);
+    const updateInterval = 10 * 60 * 1000; // 10 minutes
+    const nextUpdate = lastUpdate + updateInterval;
+    const timeLeft = nextUpdate - now;
+    
+    if (timeLeft <= 0) return 'Next update: now';
+    
+    const minutesLeft = Math.floor(timeLeft / (60 * 1000));
+    const secondsLeft = Math.floor((timeLeft % (60 * 1000)) / 1000);
+    
+    return `Next auto-update: in ${minutesLeft}m ${secondsLeft}s`;
+}
+
+// Display auto-update info in console
+function logAutoUpdateInfo() {
+    const info = getNextUpdateTime();
+    console.log(`🕒 ${info}`);
+    console.log('💡 Tip: Data updates automatically every 10 minutes. Use refresh button for manual update.');
+}
+
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', async () => {
     // Apply performance mode if low-end device detected
@@ -72,6 +133,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.body.classList.add('performance-mode');
     }
     
+    // Check for automatic data update (every 24 hours)
+    const wasUpdated = checkAutoUpdate();
+    
     await loadNavigationFromStorage(); // Load custom navigation first (wait for it)
     initializeTheme();
     initializeSidebar();
@@ -83,6 +147,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     initializeSettings();
     initializeStorageListener();
     checkSharedAppLink(); // Check if URL contains shared app link
+    
+    // Show success message after auto-update
+    if (wasUpdated) {
+        setTimeout(() => {
+            showToast('✨ Data updated successfully!', 'success');
+        }, 1500);
+    }
+    
+    // Log auto-update information
+    logAutoUpdateInfo();
 });
 
 // ===== Storage Change Listener =====
