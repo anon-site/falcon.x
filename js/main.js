@@ -2056,7 +2056,9 @@ function createNewsItem(app, badgeType) {
     let iconHtml = '';
     if (app.icon) {
         if (app.icon.startsWith('http') || app.icon.startsWith('data:')) {
-            iconHtml = `<img src="${app.icon}" alt="${app.name}" onerror="this.parentElement.innerHTML='<i class=\"fas fa-cube\"></i>'"/>`;
+            // Escape quotes properly for HTML attribute
+            const escapedName = (app.name || '').replace(/"/g, '&quot;');
+            iconHtml = `<img src="${app.icon}" alt="${escapedName}" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-cube&quot;></i>'">`;
         } else if (app.icon.startsWith('fa-')) {
             iconHtml = `<i class="${app.icon}"></i>`;
         } else {
