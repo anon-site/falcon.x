@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initializeSearch();
     initializeFilters();
     loadSoftwareData();
+    initializeNewsTicker(); // Initialize news ticker
     initializeSettings();
     initializeStorageListener();
     checkSharedAppLink(); // Check if URL contains shared app link
@@ -81,6 +82,9 @@ function initializeStorageListener() {
             
             lastKnownUpdate = currentUpdate;
             showToast('✨ Data refreshed automatically!', 'success');
+            
+            // Update news ticker
+            updateNewsTicker();
         }
     }, 2000);
     
@@ -541,6 +545,9 @@ async function loadSoftwareData() {
         }
         
         console.log('✅ Software data loaded successfully');
+        
+        // Update news ticker after loading data
+        updateNewsTicker();
     } catch (error) {
         console.error('❌ Error loading software data:', error);
         showToast('Error loading data', 'error');
@@ -1929,6 +1936,127 @@ function legacyCopyToClipboard(text, appName) {
     }
     
     document.body.removeChild(textArea);
+}
+
+// ===== News Ticker Functions =====
+function initializeNewsTicker() {
+    // Initial load
+    updateNewsTicker();
+    
+    // Update every 30 seconds to check for new updates
+    setInterval(updateNewsTicker, 30000);
+}
+
+function updateNewsTicker() {
+    const newsTrack = document.getElementById('newsTickerTrack');
+    if (!newsTrack) return;
+    
+    // Get all apps from storage
+    const allApps = getAllAppsForNewsTicker();
+    
+    // Sort by lastUpdated (newest first)
+    const sortedApps = allApps.sort((a, b) => {
+        const dateA = new Date(a.lastUpdated || 0);
+        const dateB = new Date(b.lastUpdated || 0);
+        return dateB - dateA;
+    });
+    
+    // Get latest 15 items
+    const latestApps = sortedApps.slice(0, 15);
+    
+    // Determine which are "new" (added in last 7 days) vs "updated"
+    const now = new Date();
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    const newsItems = latestApps.map(app => {
+        const lastUpdated = new Date(app.lastUpdated || 0);
+        const isNew = lastUpdated > sevenDaysAgo;
+        
+        return createNewsItem(app, isNew ? 'new' : 'updated');
+    }).join('');
+    
+    // Duplicate items for seamless infinite scroll
+    newsTrack.innerHTML = newsItems + newsItems;
+}
+
+function getAllAppsForNewsTicker() {
+    const allApps = [];
+    
+    // Get Windows apps
+    try {
+        const windowsData = localStorage.getItem('falcon-x-windows-apps');
+        if (windowsData) {
+            const apps = JSON.parse(windowsData);
+            allApps.push(...apps.map(app => ({...app, type: 'windows'})));
+        }
+    } catch (e) {
+        console.error('Error loading windows apps for ticker:', e);
+    }
+    
+    // Get Android apps
+    try {
+        const androidData = localStorage.getItem('falcon-x-android-apps');
+        if (androidData) {
+            const apps = JSON.parse(androidData);
+            allApps.push(...apps.map(app => ({...app, type: 'android'})));
+        }
+    } catch (e) {
+        console.error('Error loading android apps for ticker:', e);
+    }
+    
+    // Get FRP Tools
+    try {
+        const frpData = localStorage.getItem('falcon-x-frp-tools');
+        if (frpData) {
+            const apps = JSON.parse(frpData);
+            allApps.push(...apps.map(app => ({...app, type: 'frp'})));
+        }
+    } catch (e) {
+        console.error('Error loading frp tools for ticker:', e);
+    }
+    
+    // Get FRP Apps
+    try {
+        const frpAppsData = localStorage.getItem('falcon-x-frp-apps');
+        if (frpAppsData) {
+            const apps = JSON.parse(frpAppsData);
+            allApps.push(...apps.map(app => ({...app, type: 'frp-apps'})));
+        }
+    } catch (e) {
+        console.error('Error loading frp apps for ticker:', e);
+    }
+    
+    return allApps;
+}
+
+function createNewsItem(app, badgeType) {
+    const badgeClass = badgeType === 'new' ? 'new' : 'updated';
+    const badgeText = badgeType === 'new' ? 'NEW' : 'UPDATED';
+    
+    // Determine icon
+    let iconHtml = '';
+    if (app.icon) {
+        if (app.icon.startsWith('http') || app.icon.startsWith('data:')) {
+            iconHtml = `<img src="${app.icon}" alt="${app.name}" onerror="this.parentElement.innerHTML='<i class=\"fas fa-cube\"></i>'"/>`;
+        } else if (app.icon.startsWith('fa-')) {
+            iconHtml = `<i class="${app.icon}"></i>`;
+        } else {
+            iconHtml = `<i class="fas ${app.icon}"></i>`;
+        }
+    } else {
+        iconHtml = `<i class="fas fa-cube"></i>`;
+    }
+    
+    return `
+        <div class="news-item" onclick="showAppDetails(${app.id})" data-app-id="${app.id}">
+            <span class="news-item-badge ${badgeClass}">${badgeText}</span>
+            <div class="news-item-icon">${iconHtml}</div>
+            <div class="news-item-text">
+                <span class="news-item-name">${app.name}</span>
+                <span class="news-item-version">v${app.version}</span>
+            </div>
+        </div>
+    `;
 }
 
 // ===== Export Functions =====
