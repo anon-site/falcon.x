@@ -971,10 +971,26 @@ function downloadSoftware(softwareId) {
     }
     
     if (!software) {
+        const windowsGamesLS = localStorage.getItem('falcon-x-windows-games');
+        if (windowsGamesLS) {
+            const windowsG = JSON.parse(windowsGamesLS);
+            software = findInArray(windowsG, softwareId);
+        }
+    }
+    
+    if (!software) {
         const androidLS = localStorage.getItem('falcon-x-android-apps');
         if (androidLS) {
             const android = JSON.parse(androidLS);
             software = findInArray(android, softwareId);
+        }
+    }
+    
+    if (!software) {
+        const androidGamesLS = localStorage.getItem('falcon-x-android-games');
+        if (androidGamesLS) {
+            const androidG = JSON.parse(androidGamesLS);
+            software = findInArray(androidG, softwareId);
         }
     }
     
@@ -999,8 +1015,16 @@ function downloadSoftware(softwareId) {
         software = findInArray(windowsSoftware, softwareId);
     }
     
+    if (!software && typeof windowsGames !== 'undefined') {
+        software = findInArray(windowsGames, softwareId);
+    }
+    
     if (!software && typeof androidApps !== 'undefined') {
         software = findInArray(androidApps, softwareId);
+    }
+    
+    if (!software && typeof androidGames !== 'undefined') {
+        software = findInArray(androidGames, softwareId);
     }
     
     if (!software && typeof frpTools !== 'undefined') {
@@ -1779,9 +1803,21 @@ function findAppById(appId) {
         if (app) return app;
     }
     
+    const windowsGamesLS = localStorage.getItem('falcon-x-windows-games');
+    if (windowsGamesLS) {
+        const app = findInArray(JSON.parse(windowsGamesLS), appId);
+        if (app) return app;
+    }
+    
     const androidLS = localStorage.getItem('falcon-x-android-apps');
     if (androidLS) {
         const app = findInArray(JSON.parse(androidLS), appId);
+        if (app) return app;
+    }
+    
+    const androidGamesLS = localStorage.getItem('falcon-x-android-games');
+    if (androidGamesLS) {
+        const app = findInArray(JSON.parse(androidGamesLS), appId);
         if (app) return app;
     }
     
@@ -1803,8 +1839,18 @@ function findAppById(appId) {
         if (app) return app;
     }
     
+    if (typeof windowsGames !== 'undefined') {
+        const app = findInArray(windowsGames, appId);
+        if (app) return app;
+    }
+    
     if (typeof androidApps !== 'undefined') {
         const app = findInArray(androidApps, appId);
+        if (app) return app;
+    }
+    
+    if (typeof androidGames !== 'undefined') {
+        const app = findInArray(androidGames, appId);
         if (app) return app;
     }
     
