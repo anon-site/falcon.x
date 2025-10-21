@@ -284,6 +284,12 @@ function closeSidebar() {
 
 // ===== Load Navigation from localStorage or GitHub =====
 async function loadNavigationFromStorage() {
+    // تم تعطيل تحميل Navigation من GitHub للحفاظ على القوائم المنسدلة
+    // إذا أردت استخدام تبويبات مخصصة، يمكنك إعادة تفعيل هذا الكود
+    console.log('✅ Using default HTML navigation with dropdown menus');
+    return;
+    
+    /* Uncomment this if you want to use custom navigation from GitHub
     try {
         // Always clear navigation cache first to force reload from GitHub
         localStorage.removeItem('navigation');
@@ -304,6 +310,7 @@ async function loadNavigationFromStorage() {
         console.error('❌ Error loading navigation:', error);
         console.log('ℹ️ Keeping default HTML navigation due to error');
     }
+    */
 }
 
 // Render navigation items
