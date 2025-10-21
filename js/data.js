@@ -121,14 +121,14 @@ const windowsSoftware = [
         category: 'Driver',
         icon: 'https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHM0OYfiFeMI2p9MWie0CvL99U4GA1gf6_kayTt_kBblFwHwo8BW8JXlqfnYxKPmmBR_lQTW0utfoTf1PCUV5Nj40Jn2ThHcxw5xDAwd6lbjK62aWliqpTTqG0qoBQHnTpPnFxjf3.9b74rW6xhvE7eA-&format=source',
         description: 'A professional tool to scan, update, and manage outdated or missing drivers on Windows silently without user intervention.',
-        fullDescription: 'IObit Driver Booster Silent is an advanced driver updating utility that helps keep your system stable and optimized. It automatically scans your PC for outdated, missing, or faulty drivers and updates them with one click. The “Silent” version performs all actions quietly in the background without showing notifications or requiring confirmation, making it ideal for technicians or users who prefer a fully automated process. It also helps improve gaming performance, fix system crashes, and ensure hardware compatibility.',
+        fullDescription: 'IObit Driver Booster Silent is an advanced driver updating utility that helps keep your system stable and optimized. It automatically scans your PC for outdated, missing, or faulty drivers and updates them with one click. The “Silent” version performs all actions quietly in the background without showing notifications or requiring confirmation, making it ideal for technicians or users who prefer a fully automated process. It also helps improve gaming performance, fix system crashes, and ensure hardware compatibility.\n(Note: You must turn off the antivirus when installing it.)',
         size: '28.8 MB',
         downloadLink: 'https://www.mediafire.com/file/vfdbzjb0jpni92f/IObit_Driver_Booster_silent.rar/file',
         originalDownloadLink: 'https://www.iobit.com/en/driver-booster.php',
         isModified: true,
         screenshots: ['https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863', 'https://www.iobit.com/tpl/images/screenshot/db/tools_510.png', 'https://www.iobit.com/tpl/images/screenshot/db/scaning_117.png'],
         features: ['Automatic detection and update of outdated drivers', 'Silent installation mode with no user interaction', 'Improved system stability and performance', 'Game-ready driver optimization', 'Backup and restore drivers easily', 'Fixes hardware issues caused by faulty drivers', 'Simple and user-friendly interface', 'Fast download and installation process'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-21T07:08:29.552Z'
     },
     {
         id: 1760957861498,
@@ -137,13 +137,29 @@ const windowsSoftware = [
         category: 'Download App',
         icon: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a6eb73dd-df6f-44d9-ba21-3acddd6e1c9e/dch035l-88748f22-11f5-44d8-a5c7-c677e2fd6a06.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9hNmViNzNkZC1kZjZmLTQ0ZDktYmEyMS0zYWNkZGQ2ZTFjOWUvZGNoMDM1bC04ODc0OGYyMi0xMWY1LTQ0ZDgtYTVjNy1jNjc3ZTJmZDZhMDYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.YhVDLSiriEmPCOgeNtGv-oly7FynROeL42XRBm4XBM8',
         description: 'Internet Download Manager (IDM) is a powerful tool for increasing download speeds, resuming, and scheduling downloads with ease and efficiency.',
-        fullDescription: 'Internet Download Manager (IDM) is one of the most popular and reliable download management software for Windows. It allows users to download files from the internet at high speeds by using dynamic file segmentation and multipart downloading technology. IDM supports all major browsers and integrates automatically for seamless downloads. It also offers features like download scheduling, error recovery, pause and resume, and the ability to grab videos from streaming sites. Its simple interface and advanced control options make it ideal for managing large or multiple downloads efficiently.',
+        fullDescription: 'Internet Download Manager (IDM) is one of the most popular and reliable download management software for Windows. It allows users to download files from the internet at high speeds by using dynamic file segmentation and multipart downloading technology. IDM supports all major browsers and integrates automatically for seamless downloads. It also offers features like download scheduling, error recovery, pause and resume, and the ability to grab videos from streaming sites. Its simple interface and advanced control options make it ideal for managing large or multiple downloads efficiently.\n(Note: You must turn off the antivirus when installing it.)',
         size: '23.3 MB',
         downloadLink: 'https://www.mediafire.com/file/wl1d6yl16qy40jx/Internet_Download_Manager_6.42_Build_26.rar/file',
         isModified: true,
         screenshots: ['https://repository-images.githubusercontent.com/917908947/91aaf1aa-55f4-4e56-870b-04ab2244d2b5', 'https://www.internetdownloadmanager.com/images/dynamic.jpg', 'https://www.internetdownloadmanager.com/images/idm_custom.gif'],
         features: ['Accelerates download speed up to 5 times.', 'Supports pause and resume of downloads.', 'Automatically integrates with popular browsers.', 'Built-in scheduler for automatic downloads.', 'Supports HTTPS, FTP, and proxy servers.', 'Captures streaming videos from websites.', 'Provides error recovery and resume capability.', 'Simple and user-friendly interface.', 'Smart file segmentation technology.', 'Multilingual support.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-21T07:08:40.757Z'
+    },
+    {
+        id: 1761030490394,
+        name: 'UTorrent Pro Silent',
+        version: '3.5.5',
+        category: 'general',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/UTorrent_current_logo.svg/1028px-UTorrent_current_logo.svg.png',
+        description: 'uTorrent Pro Silent is a lightweight, ad-free torrent client that installs quietly in the background without user prompts, enabling efficient peer-to-peer file sharing on the BitTorrent network.',
+        fullDescription: 'uTorrent Pro Silent is an optimized version of the popular uTorrent client, designed for seamless, unattended installation. It combines minimal resource usage with advanced functionality, allowing users to download and manage large files quickly and securely. The \"Silent\" mode ensures a hassle-free setup, bypassing traditional installation dialogs. As a pro edition, it eliminates advertisements, includes built-in antivirus scanning, and supports streaming media directly during downloads. Ideal for users seeking a compact tool that runs efficiently without interrupting daily computer activities, it supports multiple simultaneous downloads, bandwidth customization, and integration with RSS feeds for automated torrent management.\n(Note: You must turn off the antivirus when installing it.)',
+        size: '19.6 MB',
+        downloadLink: 'https://www.mediafire.com/file/l47uu7zgjnlg2ds/uTorrent.Pro.3.5.5.45828.Silent.Install.rar/file',
+        isModified: true,
+        systemRequirements: 'Operating System: Windows 7, 8, 8.1, 10, or 11 (32-bit or 64-bit).\nProcessor: Any modern CPU (e.g., Intel Celeron or equivalent).\nRAM: Minimum 192 MB (recommended 512 MB or more).\nDisk Space: At least 100 MB free space.\nInternet connection required for torrent functionality.',
+        screenshots: ['https://img.lazcdn.com/g/p/a624edc48cc12d54b899a5e237e173ca.jpg_720x720q80.jpg', 'https://cdn.neowin.com/news/images/uploaded/2015/03/utorrent.jpg', 'https://www.utorrent.com/static/ui-classic-pro-1705a5f569f2ad6b987b8f835803019d.png'],
+        features: ['Supports parallel downloads of multiple torrents simultaneously.', 'Customizable bandwidth allocation to prioritize traffic and adjust speeds.', 'Built-in scheduler for managing download tasks at specific times.', 'Quick resume function for interrupted transfers.', 'Low resource consumption, using minimal CPU, memory, and disk space.', 'RSS feed support for automatic torrent discovery and downloading.', 'UPnP and NAT-PMP compatibility for easy network setup.', 'Ad-free interface with integrated antivirus protection for safe downloads.', 'Protocol encryption and peer exchange for enhanced privacy.', 'Streaming support to play media files while downloading.'],
+        lastUpdated: '2025-10-21T07:08:10.394Z'
     }
 ];
 
