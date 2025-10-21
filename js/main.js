@@ -55,10 +55,16 @@ const pages = document.querySelectorAll('.page');
 // ===== Initialize App =====
 document.addEventListener('DOMContentLoaded', async () => {
     // Apply performance mode if low-end device detected
-    if (isLowEndDevice()) {
+    if (isLowEndDevice() && !localStorage.getItem('performance-mode-notified')) {
         console.log('Low-end device detected, enabling performance mode');
         document.body.classList.add('performance-mode');
         localStorage.setItem('performance-mode', 'true');
+        localStorage.setItem('performance-mode-notified', 'true');
+        
+        // Show notification after everything loads
+        setTimeout(() => {
+            showToast('⚡ Performance mode enabled automatically for better experience', 'success');
+        }, 2000);
     }
     
     // Check saved performance mode
@@ -103,7 +109,7 @@ function initializeStorageListener() {
     });
     
     // Check for updates periodically - adjust interval based on performance mode
-    const updateInterval = document.body.classList.contains('performance-mode') ? 10000 : 5000;
+    const updateInterval = document.body.classList.contains('performance-mode') ? 60000 : 30000;
     
     setInterval(() => {
         const currentUpdate = localStorage.getItem('falcon-x-last-update') || '0';
@@ -454,6 +460,13 @@ function initializeStatCounters() {
 }
 
 function animateCounter(element) {
+    // Skip animation in performance mode
+    if (document.body.classList.contains('performance-mode')) {
+        const target = parseFloat(element.dataset.target);
+        element.textContent = target % 1 === 0 ? target.toLocaleString() : target.toFixed(1);
+        return;
+    }
+    
     const target = parseFloat(element.dataset.target);
     const duration = 2000;
     const increment = target / (duration / 16);
@@ -717,7 +730,7 @@ function createSoftwareCard(software) {
     const isImageUrl = software.icon && (software.icon.startsWith('http') || software.icon.startsWith('/') || software.icon.includes('.png') || software.icon.includes('.jpg') || software.icon.includes('.svg') || software.icon.includes('.gif'));
     
     const iconHtml = isImageUrl 
-        ? `<img src="${software.icon}" alt="${software.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
+        ? `<img src="${software.icon}" alt="${software.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">` 
         : `<i class="${software.icon || 'fas fa-cube'}"></i>`;
     
     // Modified badge
@@ -753,7 +766,7 @@ function createFrpAppSimpleCard(app) {
     const isImageUrl = app.icon && (app.icon.startsWith('http') || app.icon.startsWith('/') || app.icon.includes('.png') || app.icon.includes('.jpg') || app.icon.includes('.svg') || app.icon.includes('.gif'));
     
     const iconHtml = isImageUrl 
-        ? `<img src="${app.icon}" alt="${app.name}" style="width: 100%; height: 100%; object-fit: contain;">` 
+        ? `<img src="${app.icon}" alt="${app.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">` 
         : `<i class="${app.icon || 'fas fa-mobile-alt'}"></i>`;
     
     // Check link type (direct or download) - auto-detect from link content
@@ -1215,12 +1228,12 @@ function refreshModalData() {
         additionalInfoSection.style.display = 'none';
     }
     
-    // Update screenshots
+    // Update screenshots with lazy loading
     if (app.screenshots && app.screenshots.length > 0) {
         screenshotsSection.style.display = 'block';
         screenshotsGallery.innerHTML = app.screenshots.map((screenshot, index) => 
             `<div class="screenshot-item" onclick="openLightbox(${index})">
-                <img src="${screenshot}" alt="Screenshot ${index + 1}">
+                <img src="${screenshot}" alt="Screenshot ${index + 1}" loading="lazy">
             </div>`
         ).join('');
     } else {
@@ -1530,17 +1543,6 @@ function showAppDetails(appId) {
         additionalInfoSection.style.display = 'none';
     }
     
-    // Set screenshots
-    if (app.screenshots && app.screenshots.length > 0) {
-        screenshotsSection.style.display = 'block';
-        screenshotsGallery.innerHTML = app.screenshots.map((screenshot, index) => 
-            `<div class="screenshot-item" onclick="openLightbox(${index})">
-                <img src="${screenshot}" alt="Screenshot ${index + 1}">
-            </div>`
-        ).join('');
-    } else {
-        screenshotsSection.style.display = 'none';
-    }
     
     // Set tutorial video with enhanced design
     if (app.tutorialLink && app.tutorialLink.trim() !== '') {
@@ -2070,8 +2072,8 @@ function initializeNewsTicker() {
     // Initial load
     updateNewsTicker();
     
-    // Update every 30 seconds to check for new updates
-    setInterval(updateNewsTicker, 30000);
+    // Only update ticker when data actually changes (no polling)
+    // It will be updated automatically via updateNewsTicker() call in storage listener
 }
 
 function updateNewsTicker() {
@@ -2104,6 +2106,13 @@ function updateNewsTicker() {
     
     // Duplicate items for seamless infinite scroll
     newsTrack.innerHTML = newsItems + newsItems;
+    
+    // Reduce animation on low-end devices
+    if (document.body.classList.contains('performance-mode')) {
+        newsTrack.style.animationDuration = '90s';
+    } else {
+        newsTrack.style.animationDuration = '';
+    }
 }
 
 function getAllAppsForNewsTicker() {
@@ -2181,7 +2190,7 @@ function createNewsItem(app, badgeType) {
             // Escape quotes and special characters properly
             const escapedName = String(app.name || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             const escapedIcon = String(app.icon).replace(/"/g, '&quot;');
-            iconHtml = `<img src="${escapedIcon}" alt="${escapedName}" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-cube&quot;></i>'">`;
+            iconHtml = `<img src="${escapedIcon}" alt="${escapedName}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=&quot;fas fa-cube&quot;></i>'">`;
         } else if (app.icon.startsWith('fa-')) {
             iconHtml = `<i class="${app.icon}"></i>`;
         } else {
