@@ -229,6 +229,72 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--primary-color);
 }
 
+/* Dropdown Menu Styles */
+.menu-dropdown {
+    position: relative;
+}
+
+.menu-dropdown .dropdown-icon {
+    margin-left: auto;
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.menu-dropdown.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: rgba(10, 14, 26, 0.5);
+}
+
+.menu-dropdown.active .dropdown-content {
+    max-height: 500px;
+}
+
+.submenu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem 0.75rem 3rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    font-size: 0.9rem;
+}
+
+.submenu-item:hover {
+    color: var(--text-primary);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.submenu-item.active {
+    color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.submenu-item.active::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary-color);
+}
+
+.submenu-item i {
+    width: 16px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
 .menu-item i {
     width: 20px;
     text-align: center;

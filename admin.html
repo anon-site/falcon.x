@@ -185,7 +185,9 @@
                 
                 <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab('windows')">برامج Windows</button>
+                    <button class="tab-btn" onclick="switchTab('windows-games')">ألعاب Windows</button>
                     <button class="tab-btn" onclick="switchTab('android')">تطبيقات Android</button>
+                    <button class="tab-btn" onclick="switchTab('android-games')">ألعاب Android</button>
                     <button class="tab-btn" onclick="switchTab('frp-tools')">أدوات FRP</button>
                     <button class="tab-btn" onclick="switchTab('frp-apps')">تطبيقات FRP</button>
                 </div>
@@ -206,6 +208,21 @@
                         <div id="windows-list" class="apps-table"></div>
                     </div>
                     
+                    <!-- Windows Games Tab -->
+                    <div id="windows-games-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openAppModal('windows-games')">
+                                <i class="fas fa-plus"></i>
+                                إضافة لعبة جديدة
+                            </button>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="بحث..." onkeyup="filterApps('windows-games', this.value)">
+                            </div>
+                        </div>
+                        <div id="windows-games-list" class="apps-table"></div>
+                    </div>
+                    
                     <!-- Android Apps Tab -->
                     <div id="android-tab" class="tab-pane">
                         <div class="table-actions">
@@ -219,6 +236,21 @@
                             </div>
                         </div>
                         <div id="android-list" class="apps-table"></div>
+                    </div>
+                    
+                    <!-- Android Games Tab -->
+                    <div id="android-games-tab" class="tab-pane">
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="openAppModal('android-games')">
+                                <i class="fas fa-plus"></i>
+                                إضافة لعبة جديدة
+                            </button>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="بحث..." onkeyup="filterApps('android-games', this.value)">
+                            </div>
+                        </div>
+                        <div id="android-games-list" class="apps-table"></div>
                     </div>
                     
                     <!-- FRP Tools Tab -->

@@ -25,14 +25,45 @@
                 <i class="fas fa-home"></i>
                 <span class="menu-text">Home</span>
             </a>
-            <a href="#windows" class="menu-item" data-page="windows">
-                <i class="fab fa-windows"></i>
-                <span class="menu-text">Windows Software</span>
-            </a>
-            <a href="#android" class="menu-item" data-page="android">
-                <i class="fab fa-android"></i>
-                <span class="menu-text">Android Apps</span>
-            </a>
+            
+            <!-- Windows Dropdown -->
+            <div class="menu-dropdown">
+                <a href="#" class="menu-item" data-dropdown="windows">
+                    <i class="fab fa-windows"></i>
+                    <span class="menu-text">Windows</span>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                </a>
+                <div class="dropdown-content" id="windows-dropdown">
+                    <a href="#windows-programs" class="submenu-item" data-page="windows-programs">
+                        <i class="fas fa-desktop"></i>
+                        <span class="menu-text">Programs</span>
+                    </a>
+                    <a href="#windows-games" class="submenu-item" data-page="windows-games">
+                        <i class="fas fa-gamepad"></i>
+                        <span class="menu-text">Games</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Android Dropdown -->
+            <div class="menu-dropdown">
+                <a href="#" class="menu-item" data-dropdown="android">
+                    <i class="fab fa-android"></i>
+                    <span class="menu-text">Android</span>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                </a>
+                <div class="dropdown-content" id="android-dropdown">
+                    <a href="#android-apps" class="submenu-item" data-page="android-apps">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span class="menu-text">Apps</span>
+                    </a>
+                    <a href="#android-games" class="submenu-item" data-page="android-games">
+                        <i class="fas fa-gamepad"></i>
+                        <span class="menu-text">Games</span>
+                    </a>
+                </div>
+            </div>
+            
             <a href="#frp" class="menu-item" data-page="frp">
                 <i class="fas fa-unlock-alt"></i>
                 <span class="menu-text">FRP Tools</span>
@@ -180,17 +211,17 @@
                 
             </section>
             
-            <!-- Windows Software Page -->
-            <section id="windows" class="page">
+            <!-- Windows Programs Page -->
+            <section id="windows-programs" class="page">
                 <div class="page-header">
-                    <h1 class="page-title">Windows Software</h1>
+                    <h1 class="page-title">Windows Programs</h1>
                     <p class="page-subtitle">Professional desktop applications for Windows</p>
                 </div>
                 
                 <div class="filter-section">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="windowsSearch" placeholder="Search Windows software...">
+                        <input type="text" id="windowsProgramsSearch" placeholder="Search Windows programs...">
                     </div>
                     <div class="filter-buttons">
                         <button class="filter-btn active" data-category="all">All</button>
@@ -209,13 +240,44 @@
                     </div>
                 </div>
                 
-                <div class="software-grid" id="windowsSoftware">
+                <div class="software-grid" id="windowsPrograms">
                     <!-- Software cards will be loaded here -->
                 </div>
             </section>
             
+            <!-- Windows Games Page -->
+            <section id="windows-games" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">Windows Games</h1>
+                    <p class="page-subtitle">Exciting games for Windows platform</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="windowsGamesSearch" placeholder="Search Windows games...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="Action">Action</button>
+                        <button class="filter-btn" data-category="Adventure">Adventure</button>
+                        <button class="filter-btn" data-category="RPG">RPG</button>
+                        <button class="filter-btn" data-category="Strategy">Strategy</button>
+                        <button class="filter-btn" data-category="Simulation">Simulation</button>
+                        <button class="filter-btn" data-category="Sports">Sports</button>
+                        <button class="filter-btn" data-category="Racing">Racing</button>
+                        <button class="filter-btn" data-category="Puzzle">Puzzle</button>
+                        <button class="filter-btn" data-category="Horror">Horror</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="windowsGames">
+                    <!-- Games will be loaded here -->
+                </div>
+            </section>
+            
             <!-- Android Apps Page -->
-            <section id="android" class="page">
+            <section id="android-apps" class="page">
                 <div class="page-header">
                     <h1 class="page-title">Android Applications</h1>
                     <p class="page-subtitle">Powerful apps for Android devices</p>
@@ -224,7 +286,7 @@
                 <div class="filter-section">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="androidSearch" placeholder="Search Android apps...">
+                        <input type="text" id="androidAppsSearch" placeholder="Search Android apps...">
                     </div>
                     <div class="filter-buttons">
                         <button class="filter-btn active" data-category="all">All</button>
@@ -245,6 +307,37 @@
                 
                 <div class="software-grid" id="androidApps">
                     <!-- Android apps will be loaded here -->
+                </div>
+            </section>
+            
+            <!-- Android Games Page -->
+            <section id="android-games" class="page">
+                <div class="page-header">
+                    <h1 class="page-title">Android Games</h1>
+                    <p class="page-subtitle">Exciting games for Android devices</p>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="androidGamesSearch" placeholder="Search Android games...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="Action">Action</button>
+                        <button class="filter-btn" data-category="Adventure">Adventure</button>
+                        <button class="filter-btn" data-category="RPG">RPG</button>
+                        <button class="filter-btn" data-category="Strategy">Strategy</button>
+                        <button class="filter-btn" data-category="Simulation">Simulation</button>
+                        <button class="filter-btn" data-category="Sports">Sports</button>
+                        <button class="filter-btn" data-category="Racing">Racing</button>
+                        <button class="filter-btn" data-category="Puzzle">Puzzle</button>
+                        <button class="filter-btn" data-category="Casual">Casual</button>
+                    </div>
+                </div>
+                
+                <div class="software-grid" id="androidGames">
+                    <!-- Games will be loaded here -->
                 </div>
             </section>
             

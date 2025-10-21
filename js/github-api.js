@@ -143,7 +143,7 @@ class GitHubAPI {
     }
 
     // Generate data.js content from current data
-    generateDataJsContent(windowsApps, androidApps, frpToolsApps, frpAppsApps) {
+    generateDataJsContent(windowsApps, windowsGames, androidApps, androidGames, frpToolsApps, frpAppsApps) {
         let content = '// ===== Windows Software Data =====\n';
         content += 'const windowsSoftware = [\n';
         windowsApps.forEach((app, index) => {
@@ -188,6 +188,53 @@ class GitHubAPI {
                 content += `,\n        lastUpdated: '${app.lastUpdated}'`;
             }
             content += `\n    }${index < windowsApps.length - 1 ? ',' : ''}\n`;
+        });
+        content += '];\n\n';
+        
+        content += '// ===== Windows Games Data =====\n';
+        content += 'const windowsGames = [\n';
+        windowsGames.forEach((app, index) => {
+            content += '    {\n';
+            content += `        id: ${app.id},\n`;
+            content += `        name: '${this.escapeString(app.name)}',\n`;
+            content += `        version: '${this.escapeString(app.version)}',\n`;
+            content += `        category: '${app.category}',\n`;
+            content += `        icon: '${app.icon}',\n`;
+            content += `        description: '${this.escapeString(app.description)}',\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+            }
+            content += `        size: '${app.size}',\n`;
+            content += `        downloadLink: '${app.downloadLink}',\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+            }
+            content += `        isModified: ${app.isModified}`;
+            if (app.downloadLink2 && app.downloadLink2.trim() !== '') {
+                content += `,\n        downloadLink2: '${this.escapeString(app.downloadLink2)}'`;
+            }
+            if (app.downloadLink3 && app.downloadLink3.trim() !== '') {
+                content += `,\n        downloadLink3: '${this.escapeString(app.downloadLink3)}'`;
+            }
+            if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+                content += `,\n        tutorialLink: '${this.escapeString(app.tutorialLink)}'`;
+            }
+            if (app.password && app.password.trim() !== '') {
+                content += `,\n        password: '${this.escapeString(app.password)}'`;
+            }
+            if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+                content += `,\n        systemRequirements: '${this.escapeString(app.systemRequirements)}'`;
+            }
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            if (app.lastUpdated) {
+                content += `,\n        lastUpdated: '${app.lastUpdated}'`;
+            }
+            content += `\n    }${index < windowsGames.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
 
@@ -235,6 +282,53 @@ class GitHubAPI {
                 content += `,\n        lastUpdated: '${app.lastUpdated}'`;
             }
             content += `\n    }${index < androidApps.length - 1 ? ',' : ''}\n`;
+        });
+        content += '];\n\n';
+        
+        content += '// ===== Android Games Data =====\n';
+        content += 'const androidGames = [\n';
+        androidGames.forEach((app, index) => {
+            content += '    {\n';
+            content += `        id: ${app.id},\n`;
+            content += `        name: '${this.escapeString(app.name)}',\n`;
+            content += `        version: '${this.escapeString(app.version)}',\n`;
+            content += `        category: '${app.category}',\n`;
+            content += `        icon: '${app.icon}',\n`;
+            content += `        description: '${this.escapeString(app.description)}',\n`;
+            if (app.fullDescription) {
+                content += `        fullDescription: '${this.escapeString(app.fullDescription)}',\n`;
+            }
+            content += `        size: '${app.size}',\n`;
+            content += `        downloadLink: '${app.downloadLink}',\n`;
+            if (app.originalDownloadLink) {
+                content += `        originalDownloadLink: '${app.originalDownloadLink}',\n`;
+            }
+            content += `        isModified: ${app.isModified}`;
+            if (app.downloadLink2 && app.downloadLink2.trim() !== '') {
+                content += `,\n        downloadLink2: '${this.escapeString(app.downloadLink2)}'`;
+            }
+            if (app.downloadLink3 && app.downloadLink3.trim() !== '') {
+                content += `,\n        downloadLink3: '${this.escapeString(app.downloadLink3)}'`;
+            }
+            if (app.tutorialLink && app.tutorialLink.trim() !== '') {
+                content += `,\n        tutorialLink: '${this.escapeString(app.tutorialLink)}'`;
+            }
+            if (app.password && app.password.trim() !== '') {
+                content += `,\n        password: '${this.escapeString(app.password)}'`;
+            }
+            if (app.systemRequirements && app.systemRequirements.trim() !== '') {
+                content += `,\n        systemRequirements: '${this.escapeString(app.systemRequirements)}'`;
+            }
+            if (app.screenshots && app.screenshots.length > 0) {
+                content += `,\n        screenshots: [${app.screenshots.map(s => `'${this.escapeString(s)}'`).join(', ')}]`;
+            }
+            if (app.features && app.features.length > 0) {
+                content += `,\n        features: [${app.features.map(f => `'${this.escapeString(f)}'`).join(', ')}]`;
+            }
+            if (app.lastUpdated) {
+                content += `,\n        lastUpdated: '${app.lastUpdated}'`;
+            }
+            content += `\n    }${index < androidGames.length - 1 ? ',' : ''}\n`;
         });
         content += '];\n\n';
 
@@ -349,8 +443,8 @@ class GitHubAPI {
     }
 
     // Save all data to GitHub
-    async saveAllDataToGitHub(windowsApps, androidApps, frpToolsApps, frpAppsApps) {
-        const content = this.generateDataJsContent(windowsApps, androidApps, frpToolsApps, frpAppsApps);
+    async saveAllDataToGitHub(windowsApps, windowsGames, androidApps, androidGames, frpToolsApps, frpAppsApps) {
+        const content = this.generateDataJsContent(windowsApps, windowsGames, androidApps, androidGames, frpToolsApps, frpAppsApps);
         return await this.updateFile('js/data.js', content, 'Update data.js from Admin Panel');
     }
 
@@ -483,11 +577,14 @@ class GitHubAPI {
             
             // Use eval in a controlled way (not ideal but works for our use case)
             // Better approach: use Function constructor
-            const func = new Function('windowsSoftware', 'androidApps', 'frpTools', 'frpApps', 
-                content + '\nreturn { windowsSoftware, androidApps, frpTools, frpApps };'
+            const windowsGames = [];
+            const androidGames = [];
+            
+            const func = new Function('windowsSoftware', 'windowsGames', 'androidApps', 'androidGames', 'frpTools', 'frpApps', 
+                content + '\nreturn { windowsSoftware, windowsGames, androidApps, androidGames, frpTools, frpApps };'
             );
             
-            return func(windowsSoftware, androidApps, frpTools, frpApps);
+            return func(windowsSoftware, windowsGames, androidApps, androidGames, frpTools, frpApps);
         } catch (error) {
             console.error('Error parsing data.js:', error);
             return null;

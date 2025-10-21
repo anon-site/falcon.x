@@ -151,7 +151,9 @@ function syncToGitHub() {
     statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المزامنة مع GitHub...';
     
     const windowsApps = getAllApps('windows');
+    const windowsGames = getAllApps('windows-games');
     const androidApps = getAllApps('android');
+    const androidGames = getAllApps('android-games');
     const frpTools = getAllApps('frp-tools');
     const frpApps = getAllApps('frp-apps');
     
@@ -163,7 +165,7 @@ function syncToGitHub() {
     
     // Save both data.js and settings.json
     Promise.all([
-        githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
+        githubAPI.saveAllDataToGitHub(windowsApps, windowsGames, androidApps, androidGames, frpTools, frpApps),
         githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
     ])
         .then(() => {
@@ -192,7 +194,9 @@ function manualSaveToGitHub() {
         updateSyncStatus('saving', 'جاري الحفظ على GitHub...');
         
         const windowsApps = getAllApps('windows');
+        const windowsGames = getAllApps('windows-games');
         const androidApps = getAllApps('android');
+        const androidGames = getAllApps('android-games');
         const frpTools = getAllApps('frp-tools');
         const frpApps = getAllApps('frp-apps');
         
@@ -204,7 +208,7 @@ function manualSaveToGitHub() {
         
         // Save both data.js and settings.json
         Promise.all([
-            githubAPI.saveAllDataToGitHub(windowsApps, androidApps, frpTools, frpApps),
+            githubAPI.saveAllDataToGitHub(windowsApps, windowsGames, androidApps, androidGames, frpTools, frpApps),
             githubAPI.saveSettingsToGitHub(siteSettings, colors, navigation, images)
         ])
             .then(() => {
@@ -311,7 +315,9 @@ function initGitHubSettingsForm() {
 
 const CATEGORIES = {
     windows: ['Anti Virus', 'Convert', 'Designe', 'Desktop', 'Driver', 'Browser', 'Download App', 'Wifi', 'Multiplayer', 'Utilities', 'Programming', 'VPN'],
+    'windows-games': ['Action', 'Adventure', 'RPG', 'Strategy', 'Simulation', 'Sports', 'Racing', 'Puzzle', 'Horror'],
     android: ['Anti Virus', 'Convert', 'Designe', 'Desktop', 'Driver', 'Browser', 'Download App', 'Wifi', 'Multiplayer', 'Utilities', 'Programming', 'VPN'],
+    'android-games': ['Action', 'Adventure', 'RPG', 'Strategy', 'Simulation', 'Sports', 'Racing', 'Puzzle', 'Casual'],
     'frp-tools': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Moto', 'Universal', 'iPhone'],
     'frp-apps': ['Samsung', 'Xiaomi', 'Huawei', 'Oppo', 'Realme', 'Moto', 'Universal']
 };
@@ -319,7 +325,9 @@ const CATEGORIES = {
 // In-memory storage for apps
 let appsData = {
     windows: [],
+    'windows-games': [],
     android: [],
+    'android-games': [],
     'frp-tools': [],
     'frp-apps': []
 };
@@ -374,7 +382,9 @@ function saveToLocalStorage() {
         
         // حفظ البيانات في localStorage
         localStorage.setItem('falcon-x-windows-apps', JSON.stringify(appsData.windows));
+        localStorage.setItem('falcon-x-windows-games', JSON.stringify(appsData['windows-games']));
         localStorage.setItem('falcon-x-android-apps', JSON.stringify(appsData.android));
+        localStorage.setItem('falcon-x-android-games', JSON.stringify(appsData['android-games']));
         localStorage.setItem('falcon-x-frp-tools', JSON.stringify(appsData['frp-tools']));
         localStorage.setItem('falcon-x-frp-apps', JSON.stringify(appsData['frp-apps']));
         
@@ -398,13 +408,17 @@ function saveToLocalStorage() {
 function loadFromLocalStorage() {
     try {
         const windows = localStorage.getItem('falcon-x-windows-apps');
+        const windowsGames = localStorage.getItem('falcon-x-windows-games');
         const android = localStorage.getItem('falcon-x-android-apps');
+        const androidGames = localStorage.getItem('falcon-x-android-games');
         const frpTools = localStorage.getItem('falcon-x-frp-tools');
         const frpApps = localStorage.getItem('falcon-x-frp-apps');
         
         // Load data as-is without modifying lastUpdated
         if (windows) appsData.windows = JSON.parse(windows);
+        if (windowsGames) appsData['windows-games'] = JSON.parse(windowsGames);
         if (android) appsData.android = JSON.parse(android);
+        if (androidGames) appsData['android-games'] = JSON.parse(androidGames);
         if (frpTools) appsData['frp-tools'] = JSON.parse(frpTools);
         if (frpApps) appsData['frp-apps'] = JSON.parse(frpApps);
         
@@ -430,10 +444,8 @@ function switchTab(type) {
     tabButtons.forEach((btn, index) => {
         btn.classList.remove('active');
         // Check button text to match type
-        if ((type === 'windows' && index === 0) ||
-            (type === 'android' && index === 1) ||
-            (type === 'frp-tools' && index === 2) ||
-            (type === 'frp-apps' && index === 3)) {
+        const typeIndex = ['windows', 'windows-games', 'android', 'android-games', 'frp-tools', 'frp-apps'];
+        if (typeIndex[index] === type) {
             btn.classList.add('active');
         }
     });
@@ -575,7 +587,9 @@ function openAppModal(type, appId = null) {
     // Set modal title
     const titles = {
         windows: 'برنامج Windows',
+        'windows-games': 'لعبة Windows',
         android: 'تطبيق Android',
+        'android-games': 'لعبة Android',
         'frp-tools': 'أداة FRP',
         'frp-apps': 'تطبيق FRP'
     };
@@ -1924,12 +1938,16 @@ function exportToDataJS() {
 
 function updateDashboardStats() {
     const windowsApps = appsData.windows || [];
+    const windowsGames = appsData['windows-games'] || [];
     const androidApps = appsData.android || [];
+    const androidGames = appsData['android-games'] || [];
     const frpTools = appsData['frp-tools'] || [];
     const frpApps = appsData['frp-apps'] || [];
     
-    document.getElementById('windowsCount').textContent = windowsApps.length;
-    document.getElementById('androidCount').textContent = androidApps.length;
+    // جمع برامج Windows و الألعاب
+    document.getElementById('windowsCount').textContent = windowsApps.length + windowsGames.length;
+    // جمع تطبيقات Android و الألعاب
+    document.getElementById('androidCount').textContent = androidApps.length + androidGames.length;
     document.getElementById('frpToolsCount').textContent = frpTools.length;
     document.getElementById('frpAppsCount').textContent = frpApps.length;
 }

@@ -293,6 +293,46 @@ const androidApps = [
     }
 ];
 
+// ===== Windows Games Data =====
+const windowsGames = [
+    // Add Windows games here
+    // Example:
+    // {
+    //     id: Date.now(),
+    //     name: 'Game Name',
+    //     version: '1.0',
+    //     category: 'Action',
+    //     icon: 'fa-solid fa-gamepad',
+    //     description: 'Game description...',
+    //     size: '1GB',
+    //     downloadLink: '#',
+    //     isModified: false,
+    //     screenshots: [],
+    //     features: [],
+    //     lastUpdated: new Date().toISOString()
+    // }
+];
+
+// ===== Android Games Data =====
+const androidGames = [
+    // Add Android games here
+    // Example:
+    // {
+    //     id: Date.now(),
+    //     name: 'Game Name',
+    //     version: '1.0',
+    //     category: 'Action',
+    //     icon: 'fa-solid fa-gamepad',
+    //     description: 'Game description...',
+    //     size: '500MB',
+    //     downloadLink: '#',
+    //     isModified: false,
+    //     screenshots: [],
+    //     features: [],
+    //     lastUpdated: new Date().toISOString()
+    // }
+];
+
 // ===== FRP Tools Data =====
 const frpTools = [
     {

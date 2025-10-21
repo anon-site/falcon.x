@@ -366,19 +366,46 @@ function initializeNavigation() {
     
     console.log('🔗 Initializing navigation, found', dynamicMenuItems.length, 'menu items');
     
+    // Initialize dropdown menus
+    initializeDropdowns();
+    
     // Use event delegation on the sidebar instead of individual items
     const sidebarMenu = document.querySelector('.sidebar-menu');
     if (sidebarMenu) {
         sidebarMenu.addEventListener('click', (e) => {
             const menuItem = e.target.closest('.menu-item');
-            if (menuItem) {
+            const submenuItem = e.target.closest('.submenu-item');
+            
+            if (submenuItem) {
                 e.preventDefault();
-                const targetPage = menuItem.dataset.page;
+                const targetPage = submenuItem.dataset.page;
                 navigateToPage(targetPage);
                 
                 // Close sidebar on mobile after clicking menu item
                 if (window.innerWidth <= 768) {
                     closeSidebar();
+                }
+            } else if (menuItem) {
+                // Check if it's a dropdown toggle
+                const dropdown = menuItem.dataset.dropdown;
+                if (dropdown) {
+                    e.preventDefault();
+                    toggleDropdown(dropdown);
+                } else {
+                    e.preventDefault();
+                    
+                    // إغلاق جميع القوائم المنسدلة عند الضغط على أي زر عادي
+                    document.querySelectorAll('.menu-dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                    
+                    const targetPage = menuItem.dataset.page;
+                    navigateToPage(targetPage);
+                    
+                    // Close sidebar on mobile after clicking menu item
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
                 }
             }
         });
@@ -394,6 +421,35 @@ function initializeNavigation() {
     // Set initial page based on URL hash
     const initialPage = window.location.hash.slice(1) || 'home';
     navigateToPage(initialPage, false);
+}
+
+// ===== Dropdown Menu Functions =====
+function initializeDropdowns() {
+    const dropdowns = document.querySelectorAll('.menu-dropdown');
+    console.log('📂 Initializing', dropdowns.length, 'dropdown menus');
+}
+
+function toggleDropdown(dropdownId) {
+    const dropdown = document.querySelector(`[data-dropdown="${dropdownId}"]`)?.parentElement;
+    if (!dropdown) return;
+    
+    const isCurrentlyActive = dropdown.classList.contains('active');
+    
+    // إغلاق جميع القوائم المنسدلة الأخرى
+    document.querySelectorAll('.menu-dropdown').forEach(item => {
+        if (item !== dropdown) {
+            item.classList.remove('active');
+        }
+    });
+    
+    // Toggle active class للقائمة الحالية
+    if (isCurrentlyActive) {
+        dropdown.classList.remove('active');
+    } else {
+        dropdown.classList.add('active');
+    }
+    
+    console.log('🔽 Toggled dropdown:', dropdownId, dropdown.classList.contains('active') ? 'open' : 'closed');
 }
 
 function navigateToPage(pageId, pushState = true) {
@@ -423,13 +479,29 @@ function showPage(pageId) {
 }
 
 function updateActiveMenuItem(pageId) {
-    // Re-query menu items each time (in case they were dynamically loaded)
+    // Re-query menu items and submenu items
     const currentMenuItems = document.querySelectorAll('.menu-item');
+    const currentSubmenuItems = document.querySelectorAll('.submenu-item');
+    
+    // Remove active from all items
+    currentMenuItems.forEach(item => item.classList.remove('active'));
+    currentSubmenuItems.forEach(item => item.classList.remove('active'));
+    
+    // Add active to current item
     currentMenuItems.forEach(item => {
         if (item.dataset.page === pageId) {
             item.classList.add('active');
-        } else {
-            item.classList.remove('active');
+        }
+    });
+    
+    currentSubmenuItems.forEach(item => {
+        if (item.dataset.page === pageId) {
+            item.classList.add('active');
+            // Also open the parent dropdown
+            const parentDropdown = item.closest('.menu-dropdown');
+            if (parentDropdown) {
+                parentDropdown.classList.add('active');
+            }
         }
     });
 }
@@ -484,8 +556,10 @@ function animateCounter(element) {
 // ===== Search Functionality =====
 function initializeSearch() {
     const searchInputs = {
-        windows: document.getElementById('windowsSearch'),
-        android: document.getElementById('androidSearch'),
+        'windows-programs': document.getElementById('windowsProgramsSearch'),
+        'windows-games': document.getElementById('windowsGamesSearch'),
+        'android-apps': document.getElementById('androidAppsSearch'),
+        'android-games': document.getElementById('androidGamesSearch'),
         frp: document.getElementById('frpSearch'),
         'frp-apps': document.getElementById('frpAppsSearch')
     };
@@ -506,12 +580,16 @@ function initializeSearch() {
 }
 
 function filterSoftware(type, searchTerm) {
-    const container = document.getElementById(
-        type === 'windows' ? 'windowsSoftware' :
-        type === 'android' ? 'androidApps' :
-        type === 'frp' ? 'frpTools' :
-        'frpApps'
-    );
+    const containerMap = {
+        'windows-programs': 'windowsPrograms',
+        'windows-games': 'windowsGames',
+        'android-apps': 'androidApps',
+        'android-games': 'androidGames',
+        'frp': 'frpTools',
+        'frp-apps': 'frpApps'
+    };
+    
+    const container = document.getElementById(containerMap[type]);
     
     if (!container) return;
     
@@ -587,7 +665,9 @@ async function loadSoftwareData() {
                     console.log('✅ Successfully loaded data from GitHub, caching locally...');
                     // Cache the GitHub data to localStorage for faster future loads
                     localStorage.setItem('falcon-x-windows-apps', JSON.stringify(githubData.windowsSoftware || []));
+                    localStorage.setItem('falcon-x-windows-games', JSON.stringify(githubData.windowsGames || []));
                     localStorage.setItem('falcon-x-android-apps', JSON.stringify(githubData.androidApps || []));
+                    localStorage.setItem('falcon-x-android-games', JSON.stringify(githubData.androidGames || []));
                     localStorage.setItem('falcon-x-frp-tools', JSON.stringify(githubData.frpTools || []));
                     localStorage.setItem('falcon-x-frp-apps', JSON.stringify(githubData.frpApps || []));
                     localStorage.setItem('falcon-x-last-update', Date.now().toString());
@@ -601,11 +681,11 @@ async function loadSoftwareData() {
             console.log('📋 GitHub not configured, using local data');
         }
         
-        // Load Windows software - priority: GitHub > localStorage > data.js
-        const windowsContainer = document.getElementById('windowsSoftware');
-        if (windowsContainer) {
+        // Load Windows Programs - priority: GitHub > localStorage > data.js
+        const windowsProgramsContainer = document.getElementById('windowsPrograms');
+        if (windowsProgramsContainer) {
             const windowsData = githubData ? githubData.windowsSoftware : getDataFromStorage('windows-apps', windowsSoftware);
-            windowsContainer.innerHTML = windowsData.map(app => createSoftwareCard(app)).join('');
+            windowsProgramsContainer.innerHTML = windowsData.map(app => createSoftwareCard(app)).join('');
             // Update latest Windows (top 3 by lastUpdated)
             const latestWinEl = document.getElementById('latestWindows');
             if (latestWinEl) {
@@ -618,11 +698,18 @@ async function loadSoftwareData() {
             }
         }
         
-        // Load Android apps
-        const androidContainer = document.getElementById('androidApps');
-        if (androidContainer) {
+        // Load Windows Games
+        const windowsGamesContainer = document.getElementById('windowsGames');
+        if (windowsGamesContainer) {
+            const windowsGamesData = githubData ? githubData.windowsGames : getDataFromStorage('windows-games', windowsGames);
+            windowsGamesContainer.innerHTML = windowsGamesData.map(app => createSoftwareCard(app)).join('');
+        }
+        
+        // Load Android Apps
+        const androidAppsContainer = document.getElementById('androidApps');
+        if (androidAppsContainer) {
             const androidData = githubData ? githubData.androidApps : getDataFromStorage('android-apps', androidApps);
-            androidContainer.innerHTML = androidData.map(app => createSoftwareCard(app)).join('');
+            androidAppsContainer.innerHTML = androidData.map(app => createSoftwareCard(app)).join('');
             // Update latest Android (top 3 by lastUpdated)
             const latestAndEl = document.getElementById('latestAndroid');
             if (latestAndEl) {
@@ -633,6 +720,13 @@ async function loadSoftwareData() {
                     .join('');
                 latestAndEl.innerHTML = latest3 || '<p style="color: var(--text-secondary);">No recent items.</p>';
             }
+        }
+        
+        // Load Android Games
+        const androidGamesContainer = document.getElementById('androidGames');
+        if (androidGamesContainer) {
+            const androidGamesData = githubData ? githubData.androidGames : getDataFromStorage('android-games', androidGames);
+            androidGamesContainer.innerHTML = androidGamesData.map(app => createSoftwareCard(app)).join('');
         }
         
         // Load FRP tools
@@ -667,7 +761,9 @@ function getDataFromStorage(storageKey, fallbackData) {
         // Map storage keys to localStorage keys used by admin panel
         const localStorageKeyMap = {
             'windows-apps': 'falcon-x-windows-apps',
+            'windows-games': 'falcon-x-windows-games',
             'android-apps': 'falcon-x-android-apps',
+            'android-games': 'falcon-x-android-games',
             'frp-tools-apps': 'falcon-x-frp-tools',
             'frp-apps-apps': 'falcon-x-frp-apps'
         };
