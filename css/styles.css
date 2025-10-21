@@ -1,8 +1,8 @@
 /* ===== Global Styles ===== */
 /* Version 2.3.1 - Updated Settings Button & Modal Controls */
 :root {
-    --primary-color: #3b82f6;
-    --secondary-color: #60a5fa;
+    --primary-color: #7c3aed;
+    --secondary-color: #a78bfa;
     --success-color: #10b981;
     --danger-color: #ef4444;
     --warning-color: #f59e0b;
@@ -16,7 +16,7 @@
     --text-secondary: #9ca3af;
     --sidebar-width: 260px;
     --mobile-header-height: 60px;
-    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
     --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 

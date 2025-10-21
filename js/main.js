@@ -903,7 +903,7 @@ function initializeSettings() {
 function loadSettings() {
     
     // Load color scheme
-    const savedColorScheme = localStorage.getItem('color-scheme') || 'blue';
+    const savedColorScheme = localStorage.getItem('color-scheme') || 'purple';
     if (savedColorScheme !== 'custom') {
         document.querySelectorAll('.color-preset').forEach(preset => {
             if (preset.dataset.color === savedColorScheme) {
@@ -970,10 +970,10 @@ function resetToDefaultSettings() {
     // Clear all settings from localStorage
     localStorage.removeItem('color-scheme');
     
-    // Reset color scheme to blue
-    applyColorScheme('blue');
+    // Reset color scheme to purple
+    applyColorScheme('purple');
     document.querySelectorAll('.color-preset').forEach(preset => {
-        if (preset.dataset.color === 'blue') {
+        if (preset.dataset.color === 'purple') {
             preset.classList.add('active');
         } else {
             preset.classList.remove('active');
@@ -982,9 +982,8 @@ function resetToDefaultSettings() {
     
     // Reset hero logo to default
     const heroLogo = document.querySelector('.hero-logo');
-    const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
     if (heroLogo) {
-        heroLogo.src = currentTheme === 'light' ? 'images/X.png' : 'images/X2.png';
+        heroLogo.src = 'images/854CF0.png';
     }
 }
 
