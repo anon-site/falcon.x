@@ -3842,6 +3842,33 @@ body.no-animations * {
     color: #ffffff;
 }
 
+/* About Contact Section */
+.about-contact-section {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.about-contact-section .section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 750px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.contact-buttons-wrapper {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .about-cta {
     background: var(--dark-card);
     border: 2px solid rgba(102, 126, 234, 0.3);
@@ -3903,6 +3930,27 @@ body.no-animations * {
     
     .about-stats {
         grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .about-contact-section .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .contact-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .contact-buttons-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1rem;
+    }
+    
+    .contact-buttons-wrapper button {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
     }
     
     .about-cta {
