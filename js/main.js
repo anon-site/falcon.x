@@ -610,6 +610,16 @@ async function loadSoftwareData() {
         if (windowsContainer) {
             const windowsData = githubData ? githubData.windowsSoftware : getDataFromStorage('windows-apps', windowsSoftware);
             windowsContainer.innerHTML = windowsData.map(app => createSoftwareCard(app)).join('');
+            // Update latest Windows (top 3 by lastUpdated)
+            const latestWinEl = document.getElementById('latestWindows');
+            if (latestWinEl) {
+                const latest3 = [...windowsData]
+                    .sort((a, b) => new Date(b.lastUpdated || 0) - new Date(a.lastUpdated || 0))
+                    .slice(0, 3)
+                    .map(app => createSoftwareCard(app))
+                    .join('');
+                latestWinEl.innerHTML = latest3 || '<p style="color: var(--text-secondary);">No recent items.</p>';
+            }
         }
         
         // Load Android apps
@@ -617,6 +627,16 @@ async function loadSoftwareData() {
         if (androidContainer) {
             const androidData = githubData ? githubData.androidApps : getDataFromStorage('android-apps', androidApps);
             androidContainer.innerHTML = androidData.map(app => createSoftwareCard(app)).join('');
+            // Update latest Android (top 3 by lastUpdated)
+            const latestAndEl = document.getElementById('latestAndroid');
+            if (latestAndEl) {
+                const latest3 = [...androidData]
+                    .sort((a, b) => new Date(b.lastUpdated || 0) - new Date(a.lastUpdated || 0))
+                    .slice(0, 3)
+                    .map(app => createSoftwareCard(app))
+                    .join('');
+                latestAndEl.innerHTML = latest3 || '<p style="color: var(--text-secondary);">No recent items.</p>';
+            }
         }
         
         // Load FRP tools
