@@ -195,6 +195,23 @@ const windowsSoftware = [
         screenshots: ['https://i.ytimg.com/vi/osRdiUM7UU4/maxresdefault.jpg', 'https://allinonerunstimes.com/wp-content/uploads/aio-runtimes.webp', 'https://castcraft-software.com/wp-content/uploads/2023/05/download-aio-runtimes-full-tren-windows.jpg'],
         features: ['Includes all Microsoft Visual C++ Redistributable versions (2005–2022)', 'Supports both 32-bit (x86) and 64-bit (x64) systems', 'Automatic installation of all required runtimes', 'Simplifies setup for games and software that depend on Visual C++', 'Prevents missing DLL errors (like MSVCP and VCRUNTIME)', 'Ideal for technicians, gamers, and developers'],
         lastUpdated: '2025-10-22T08:16:49.953Z'
+    },
+    {
+        id: 1761121369426,
+        name: 'DirectX',
+        version: '10.9',
+        category: 'Utilities',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/1/11/DirectX_logo.png',
+        description: 'Microsoft DirectX is a collection of APIs that enhance multimedia performance, especially for games and 3D graphics on Windows systems.',
+        fullDescription: 'Microsoft DirectX is a suite of technologies designed to provide high-performance multimedia and gaming experiences on Windows platforms. It includes a set of APIs that handle tasks related to rendering 2D and 3D graphics, audio, input devices, and networking for games and other multimedia applications. DirectX allows developers to access hardware acceleration, improving visual quality and performance in modern games. It is an essential component for running most PC games and is often pre-installed on Windows systems, with automatic updates delivered via Windows Update.',
+        size: '250 KB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/2g1wko45tmxx3o7/DirectX.rar/file',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 10 or Windows 11\nProcessor: 1 GHz or faster\nMemory: 4 GB RAM or higher\nGraphics Card: DirectX 12 compatible GPU\nStorage: 1 GB of free space\nInternet: Required for installation and updates',
+        screenshots: ['https://imag.malavida.com/mvimgbig/download-fs/directx-11-20097-1.jpg', 'https://archive.org/download/microsoft-.-net-framework_202010/directx-12-20335-1.jpg', 'https://www.pcsystemfix.com/wp-content/uploads/2019/05/Screen-Shot-2019-05-25-at-08.46.39-copy.png'],
+        features: ['Enhances 2D and 3D graphics rendering', 'Provides hardware acceleration for improved performance', 'Includes Direct3D, DirectDraw, DirectSound, and DirectInput', 'Essential for gaming and multimedia applications', 'Supports high-definition textures, ray tracing, and advanced shading', 'Backward compatible with older versions of DirectX', 'Integrated with Windows for easy updates'],
+        lastUpdated: '2025-10-22T08:22:49.426Z'
     }
 ];
 
