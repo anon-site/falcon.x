@@ -380,6 +380,22 @@ const androidApps = [
         screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg', 'https://img.utdstc.com/screen/227/2c1/2272c114a54839b3d40b4b497bc02be04900fd9cb0b3be5ea860fb500ae206ef:600'],
         features: ['Create and extract archives in multiple formats (ZIP, RAR, 7z, TAR, etc.).', 'Compress files with password protection and encryption.', 'View and edit compressed file contents without extracting.', 'Support for multi-part and split archives.', 'Simple and modern user interface.', 'UTF-8 encoding support for non-Latin filenames.', 'Fast compression and decompression performance.', 'Full dark/light theme customization (Pro).', 'No ads and improved stability in Pro version.'],
         lastUpdated: '2025-10-21T07:46:56.286Z'
+    },
+    {
+        id: 1761135002325,
+        name: 'Brave Browser',
+        version: '1.83.119',
+        category: 'Browser',
+        icon: 'https://img.utdstc.com/icon/197/b40/197b40959984df37a42343ebda673d9835a6705b31b8198a75c988fa9264917b:200',
+        description: 'Brave Browser is a fast, private, and secure web browser for Android that blocks ads and trackers b',
+        fullDescription: 'Brave Browser for Android is designed to offer users a faster, safer, and more private browsing experience. It automatically blocks unwanted ads, trackers, and cookies that compromise privacy and slow down websites. Built on the Chromium engine, Brave delivers the same compatibility and speed as Chrome but with enhanced privacy controls. It also includes built-in features such as HTTPS Everywhere, script blocking, fingerprinting protection, and Brave Rewards — a system that lets users earn tokens (BAT) for viewing privacy-respecting ads. With its focus on privacy, speed, and user control, Brave has become a popular choice among Android users seeking a secure and ad-free internet experience.',
+        size: 'MB 284.56',
+        downloadLink: '#',
+        isModified: false,
+        systemRequirements: 'Operating System: Android 7.0 or higher\nProcessor: ARM or Snapdragon chipset\nMemory: 2 GB RAM or more\nStorage: At least 200 MB of free space\nInternet: Required for browsing and updates',
+        screenshots: ['https://gagadget.com/media/pr_news/1652927108-Brave-for-iOS.jpg', 'https://i.pcmag.com/imagery/articles/04mQQlVHxRmBBta3lpygLx9-3.fit_lim.size_1050x.png', 'https://brave.com/static-assets/images/optimized/blog/mobile-brave-wallet/images/image1-1024x778.png'],
+        features: ['Built-in ad and tracker blocker', 'Faster page loading compared to traditional browsers', 'Enhanced privacy and security protection', 'Supports Brave Rewards and Basic Attention Token (BAT)', 'Private browsing with Tor (on desktop version)', 'Chromium-based for compatibility with modern websites', 'Sync feature for bookmarks and data across devices'],
+        lastUpdated: '2025-10-22T12:10:02.325Z'
     }
 ];
 
