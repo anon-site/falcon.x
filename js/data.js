@@ -27,11 +27,11 @@ const windowsSoftware = [
         fullDescription: 'Google Chrome is a free, fast, and secure web browser developed by Google. It is designed for simplicity and speed, offering features like synchronization across devices, built-in security, extensions, and automatic updates. Chrome supports modern web technologies, providing users with a smooth browsing experience on Windows, macOS, Linux, Android, and iOS.',
         size: '112.5',
         downloadLink: '#',
-        originalDownloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
+        originalDownloadLink: 'https://www.google.com/chrome/?brand=YTUH&ds_kid=10478623363&gclsrc=aw.ds&gad_source=1&gad_campaignid=20812632360&gbraid=0AAAAAoY3CA4V5FIszqX-Kd0oDgO3UMJHT&gclid=CjwKCAjw3tzHBhBREiwAlMJoUtF62dQQxnY1G6LkvubIbtt3JAi18uBIvONVQ-ZGKbrNm7oSLwYWFRoCGGYQAvD_BwE',
         isModified: false,
         screenshots: ['https://eshop.macsales.com/blog/wp-content/uploads/2018/09/screenshot_122.png', 'https://developer.chrome.com/static/images/2025_ai-challenge.jpg', 'https://img.utdstc.com/screen/fee/785/fee7859e412b27d8527813ab6d0c3242b78de46b2fc51e97f62672ad6c042f0a:600'],
         features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-21T23:57:38.579Z'
     },
     {
         id: 1760626067691,
@@ -167,7 +167,7 @@ const windowsSoftware = [
 const windowsGames = [
     {
         id: 1761089106024,
-        name: 'Microsoft Solitaire Collection',
+        name: 'Solitaire Collection',
         version: '4.23.9180.0',
         category: 'Puzzle',
         icon: 'https://img.utdstc.com/icon/894/db5/894db51d46188764dbb9257b7f33cc666a34e4265bd5bb42897a869d8a77e030:100',
@@ -180,7 +180,24 @@ const windowsGames = [
         systemRequirements: 'Operating System: Windows 10 version 17763.0 or higher (for PC); iOS 15.0 or later (for mobile); Android 5.0 or higher.\nProcessor: 1 GHz or faster.\nRAM: 4 GB (8 GB recommended).\nStorage: At least 180 MB free space.\nGraphics: DirectX 9 compatible with WDDM 1.0 driver.\nInternet connection required for online features like challenges and syncing.',
         screenshots: ['https://img.utdstc.com/screen/b7d/60a/b7d60ac41d907f07e5f266d3642e72242e8bd174a51c0873db3432a040fe1d89:200', 'https://img.utdstc.com/screen/72c/83d/72c83df882377a582421082d34521c18ffae425c0b5c2399d00d3b02f8a8b7d1:200', 'https://img.utdstc.com/screen/171/9c0/1719c01313e44ab94790708c991e6deb7cca59ac59a5edb7881905f6ba6a0ee9:200'],
         features: ['Classic solitaire games: Klondike, Spider, FreeCell, Pyramid, and TriPeaks.', 'Daily Challenges: New puzzles every day to test skills and earn rewards.', 'Events and Star Club: Participate in limited-time events and climb ranks for badges and points.', 'Xbox Live Integration: Sync progress, achievements, and compete on leaderboards across devices.', 'Customizable themes and card backs for personalized gameplay.', 'Statistics tracking for all modes, including win rates and streaks.', 'Freemium model with optional premium subscription for ad-free play and exclusive items.'],
-        lastUpdated: '2025-10-21T23:25:06.024Z'
+        lastUpdated: '2025-10-22T00:05:33.172Z'
+    },
+    {
+        id: 1761091800524,
+        name: 'Minecraft',
+        version: '1.21',
+        category: 'Adventure',
+        icon: 'https://img.utdstc.com/icon/e3d/d5a/e3dd5a81fd95b520f2e78b023abd4d1ad293f7d9346580739d268ff8b12445ba:100',
+        description: 'Minecraft is a sandbox video game that allows players to explore, build, and survive in an open-world environment made up of blocks.',
+        fullDescription: 'Minecraft is one of the most popular and creative sandbox games in the world. Players can explore infinite worlds, gather resources, craft tools, and build anything they can imagine — from simple homes to complex cities. The game features several modes such as Survival, Creative, Adventure, and Spectator, each offering a unique experience. Minecraft also supports multiplayer gameplay, allowing players to collaborate or compete with others online. Its block-based graphics and limitless creativity make it suitable for all ages.',
+        size: '32.34 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://dw.uptodown.net/dwn/YWWS76BWcJ57FXQQmVneLYQt8IRmCXam0SB3Du_MJY1M8xURN6k_kiJvRZtwhyKwk0iM5UTsIjl_mYbhtRsQW8i3OX2nL_Jaze_BWUmu9E1mLDEDyst1W-WaoQf_oKqE/eGNYyyh651U7GV1w1JR_7iqDAQF4cMPwW8Mzsz0WbsdZ4BWSmSe3_k-Sdls94NOHjOGGJj4eWs_NQxgAz_zD1s7NhdyTnrHgSNq40jY0Xo4pas52KMEFGCkRZcbjLk4y/2h49WBkRkjl298vhCQsL4vj_oE-3HfyB-5-g6YIVzqeEuTXpXCE-HlPK4c8JVgIEbhgwaqVs3lvO4Z_XQC4GJg==/minecraft-1-17-9230-35541.exe',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 10/11, macOS, or Linux\nProcessor: Intel Core i3 or equivalent\nMemory: 4 GB RAM minimum\nGraphics: Intel HD Graphics 4000 or better\nStorage: At least 1 GB of free space\nInternet: Required for updates and online play',
+        screenshots: ['https://img.utdstc.com/screen/3f7/631/3f7631b212ae7c4626007ff49c901b39390d7340dee6e3bcf204d4ac64ad1d63:200', 'https://img.utdstc.com/screen/8ac/f71/8acf7113032cb59e9f2efe39a75fa03efbc123855a2a90826849a8df459fca41:200', 'https://img.utdstc.com/screen/107/ed7/107ed7b4935e9f7eee822ce199dcc216afb1be9279a712e1051d36149f4f1d10:200'],
+        features: ['Infinite open-world exploration', 'Multiple game modes (Survival, Creative, Adventure, Spectator)', 'Multiplayer support for online and local play', 'Extensive crafting and building system', 'Regular updates and community mods', 'Educational and creative gameplay suitable for all ages'],
+        lastUpdated: '2025-10-22T00:11:15.284Z'
     }
 ];
 
