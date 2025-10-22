@@ -27,11 +27,11 @@ const windowsSoftware = [
         fullDescription: 'Google Chrome is a free, fast, and secure web browser developed by Google. It is designed for simplicity and speed, offering features like synchronization across devices, built-in security, extensions, and automatic updates. Chrome supports modern web technologies, providing users with a smooth browsing experience on Windows, macOS, Linux, Android, and iOS.',
         size: '112.5',
         downloadLink: '#',
-        originalDownloadLink: 'https://www.google.com/aclk?sa=L&ai=DChsSEwiVg-3V-qiQAxXWkVAGHYsEBMkYACICCAEQABoCZGc&ae=2&co=1&ase=2&gclid=CjwKCAjwr8LHBhBKEiwAy47uUgO-ijFGa3XwsHK1ws07tR59W92PHbpyH0TPBBkWf-6q61VFlqQY0xoC_YIQAvD_BwE&cid=CAASJeRonQZWQrwqSFwzVzQxxwQnEQjPXNuYZBVm3s3yoSwx5LtXjzk&cce=2&category=acrcp_v1_71&sig=AOD64_0tp4_hSBV3K1CRhKusMi1DM4Xzyg&q&nis=4&adurl&ved=2ahUKEwjCoOXV-qiQAxUMWkEAHfhcMgsQ0Qx6BAgeEAE',
+        originalDownloadLink: 'https://www.google.com/chrome/?brand=YTUH&ds_kid=10478623363&gclsrc=aw.ds&gad_source=1&gad_campaignid=20812632360&gbraid=0AAAAAoY3CA4V5FIszqX-Kd0oDgO3UMJHT&gclid=CjwKCAjw3tzHBhBREiwAlMJoUtF62dQQxnY1G6LkvubIbtt3JAi18uBIvONVQ-ZGKbrNm7oSLwYWFRoCGGYQAvD_BwE',
         isModified: false,
         screenshots: ['https://eshop.macsales.com/blog/wp-content/uploads/2018/09/screenshot_122.png', 'https://developer.chrome.com/static/images/2025_ai-challenge.jpg', 'https://img.utdstc.com/screen/fee/785/fee7859e412b27d8527813ab6d0c3242b78de46b2fc51e97f62672ad6c042f0a:600'],
         features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-21T23:57:38.579Z'
     },
     {
         id: 1760626067691,
@@ -160,6 +160,58 @@ const windowsSoftware = [
         screenshots: ['https://img.lazcdn.com/g/p/a624edc48cc12d54b899a5e237e173ca.jpg_720x720q80.jpg', 'https://cdn.neowin.com/news/images/uploaded/2015/03/utorrent.jpg', 'https://www.utorrent.com/static/ui-classic-pro-1705a5f569f2ad6b987b8f835803019d.png'],
         features: ['Supports parallel downloads of multiple torrents simultaneously.', 'Customizable bandwidth allocation to prioritize traffic and adjust speeds.', 'Built-in scheduler for managing download tasks at specific times.', 'Quick resume function for interrupted transfers.', 'Low resource consumption, using minimal CPU, memory, and disk space.', 'RSS feed support for automatic torrent discovery and downloading.', 'UPnP and NAT-PMP compatibility for easy network setup.', 'Ad-free interface with integrated antivirus protection for safe downloads.', 'Protocol encryption and peer exchange for enhanced privacy.', 'Streaming support to play media files while downloading.'],
         lastUpdated: '2025-10-21T07:46:47.249Z'
+    },
+    {
+        id: 1761120586749,
+        name: 'Visual C++ Redistributable',
+        version: '14.38',
+        category: 'Utilities',
+        icon: 'https://img.utdstc.com/icon/d34/a74/d34a74281538887e01059f9801d0a1f14bfcebc6eb10a6371e5a97be500f0bb8:100',
+        description: 'Microsoft Visual C++ Redistributable is a package that installs runtime components required to run applications developed using Visual Studio.',
+        fullDescription: 'The Microsoft Visual C++ Redistributable package provides essential runtime libraries required by many Windows applications developed with Microsoft Visual Studio. These libraries include components such as the C Runtime (CRT), Standard C++, MFC, and others. Many games and professional software programs depend on these components to function properly. Installing the latest version ensures compatibility and stability when running software that relies on Microsoft’s C++ development environment. Multiple versions can coexist on the same system, as different programs may require specific releases.',
+        size: '13.31 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://dw.uptodown.net/dwn/FZM-_SNdFXjjnJzosH3mu4WyVxmhM-XJZLK2ZMxUHodV1LJd1JrjdAWFX-8GW1lgIOqeyxLPKNzbuRYwkzI5yZV8EQ6kwnFiL4aAUJDijyz0aRq-zC-wX0zFYSnMOSIo/8DFK8d7OM9fu4GmWWoEmXFG14HaJlj2jX3X4fm9PJBAxRiN4ktQSGUgw912W6KeaWn3ofwECqUsq8lrNDG-wioSDig1PPFizyPrfZzXUyOA2ooMF-m-mght-kL_Scj0A/xBSoeGGbL6QQl4gzCOeehN6HjHL0VJiVvH6lE-IfilssQB19u9nJL24T4bMstm2OOCYtG0dzakdPzck0bZtAv4oAz45oTTYtep9C563ja5W-N44cCfUq5o5F2Ce-r6CP/jshmNzGB5q6YzoQm8QVtVvbymkqKZNMKibpzt5y-sM4=/microsoft-visual-cplusplus-redistributable-14-44-35211-0.exe',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 7, 8, 10, 11 (32-bit or 64-bit)\nProcessor: 1 GHz or faster\nMemory: At least 512 MB RAM\nStorage: 100 MB of free disk space\nInternet: Required for downloading updates',
+        screenshots: ['https://img.utdstc.com/screen/5f9/f96/5f9f9674c63441aa9a191b9b45b011b054df0a29bde3afed60bfd17764ae7a17:200', 'https://img.utdstc.com/screen/c3a/bd6/c3abd67f1d8eb4be81afb1a699c97bceb4a4affacd6a0d0f39d0fcf114083c6c:200', 'https://img.utdstc.com/screen/481/670/481670afa4b9c51f9b59fc20e6f6ba9f5d71d4675b7cc6d5c41291308a3b3dcc:200'],
+        features: ['Provides required runtime libraries for C++ applications', 'Ensures compatibility with software built using Visual Studio', 'Supports both x86 and x64 architectures', 'Can be installed alongside previous versions', 'Enhances application stability and performance', 'Essential for running many games and professional programs'],
+        lastUpdated: '2025-10-22T08:09:46.749Z'
+    },
+    {
+        id: 1761121009953,
+        name: 'C Runtimes All in One',
+        version: '2025',
+        category: 'Utilities',
+        icon: 'fas fa-cube',
+        description: 'C Runtimes All in One is a collection of all essential Microsoft Visual C++ Redistributable packages bundled together in one installer.',
+        fullDescription: 'C Runtimes All in One is a convenient package that includes all versions of Microsoft Visual C++ Redistributables from 2005 up to the latest 2022 release. It is designed to simplify the installation process for users who need multiple versions to ensure full compatibility with various software and games. Instead of downloading and installing each version individually, this package installs all necessary runtime libraries automatically. It is especially useful for gamers, developers, and system administrators who frequently install or troubleshoot Windows applications that depend on C++ components.',
+        size: 'N/A',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/eagijg6if8hcn0a/Visual-C-Runtimes-All-in-One-Jul-2025.zip/file',
+        isModified: false,
+        tutorialLink: 'https://mdofpc.com/wp-content/uploads/2024/03/Malwarebytes_logo_stacked_PMS2728-5-944x800.png',
+        systemRequirements: 'Operating System: Windows 7, 8, 10, 11 (32-bit or 64-bit)\nProcessor: 1 GHz or faster\nMemory: 1 GB RAM or higher\nStorage: At least 200 MB of free space\nInternet: Not required after download',
+        screenshots: ['https://i.ytimg.com/vi/osRdiUM7UU4/maxresdefault.jpg', 'https://allinonerunstimes.com/wp-content/uploads/aio-runtimes.webp', 'https://castcraft-software.com/wp-content/uploads/2023/05/download-aio-runtimes-full-tren-windows.jpg'],
+        features: ['Includes all Microsoft Visual C++ Redistributable versions (2005–2022)', 'Supports both 32-bit (x86) and 64-bit (x64) systems', 'Automatic installation of all required runtimes', 'Simplifies setup for games and software that depend on Visual C++', 'Prevents missing DLL errors (like MSVCP and VCRUNTIME)', 'Ideal for technicians, gamers, and developers'],
+        lastUpdated: '2025-10-22T08:16:49.953Z'
+    },
+    {
+        id: 1761121369426,
+        name: 'DirectX',
+        version: '10.9',
+        category: 'Utilities',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/1/11/DirectX_logo.png',
+        description: 'Microsoft DirectX is a collection of APIs that enhance multimedia performance, especially for games and 3D graphics on Windows systems.',
+        fullDescription: 'Microsoft DirectX is a suite of technologies designed to provide high-performance multimedia and gaming experiences on Windows platforms. It includes a set of APIs that handle tasks related to rendering 2D and 3D graphics, audio, input devices, and networking for games and other multimedia applications. DirectX allows developers to access hardware acceleration, improving visual quality and performance in modern games. It is an essential component for running most PC games and is often pre-installed on Windows systems, with automatic updates delivered via Windows Update.',
+        size: '250 KB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/2g1wko45tmxx3o7/DirectX.rar/file',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 10 or Windows 11\nProcessor: 1 GHz or faster\nMemory: 4 GB RAM or higher\nGraphics Card: DirectX 12 compatible GPU\nStorage: 1 GB of free space\nInternet: Required for installation and updates',
+        screenshots: ['https://imag.malavida.com/mvimgbig/download-fs/directx-11-20097-1.jpg', 'https://archive.org/download/microsoft-.-net-framework_202010/directx-12-20335-1.jpg', 'https://www.pcsystemfix.com/wp-content/uploads/2019/05/Screen-Shot-2019-05-25-at-08.46.39-copy.png'],
+        features: ['Enhances 2D and 3D graphics rendering', 'Provides hardware acceleration for improved performance', 'Includes Direct3D, DirectDraw, DirectSound, and DirectInput', 'Essential for gaming and multimedia applications', 'Supports high-definition textures, ray tracing, and advanced shading', 'Backward compatible with older versions of DirectX', 'Integrated with Windows for easy updates'],
+        lastUpdated: '2025-10-22T08:22:49.426Z'
     }
 ];
 
@@ -167,7 +219,7 @@ const windowsSoftware = [
 const windowsGames = [
     {
         id: 1761089106024,
-        name: 'Microsoft Solitaire Collection',
+        name: 'Solitaire Collection',
         version: '4.23.9180.0',
         category: 'Puzzle',
         icon: 'https://img.utdstc.com/icon/894/db5/894db51d46188764dbb9257b7f33cc666a34e4265bd5bb42897a869d8a77e030:100',
@@ -180,7 +232,24 @@ const windowsGames = [
         systemRequirements: 'Operating System: Windows 10 version 17763.0 or higher (for PC); iOS 15.0 or later (for mobile); Android 5.0 or higher.\nProcessor: 1 GHz or faster.\nRAM: 4 GB (8 GB recommended).\nStorage: At least 180 MB free space.\nGraphics: DirectX 9 compatible with WDDM 1.0 driver.\nInternet connection required for online features like challenges and syncing.',
         screenshots: ['https://img.utdstc.com/screen/b7d/60a/b7d60ac41d907f07e5f266d3642e72242e8bd174a51c0873db3432a040fe1d89:200', 'https://img.utdstc.com/screen/72c/83d/72c83df882377a582421082d34521c18ffae425c0b5c2399d00d3b02f8a8b7d1:200', 'https://img.utdstc.com/screen/171/9c0/1719c01313e44ab94790708c991e6deb7cca59ac59a5edb7881905f6ba6a0ee9:200'],
         features: ['Classic solitaire games: Klondike, Spider, FreeCell, Pyramid, and TriPeaks.', 'Daily Challenges: New puzzles every day to test skills and earn rewards.', 'Events and Star Club: Participate in limited-time events and climb ranks for badges and points.', 'Xbox Live Integration: Sync progress, achievements, and compete on leaderboards across devices.', 'Customizable themes and card backs for personalized gameplay.', 'Statistics tracking for all modes, including win rates and streaks.', 'Freemium model with optional premium subscription for ad-free play and exclusive items.'],
-        lastUpdated: '2025-10-21T23:25:06.024Z'
+        lastUpdated: '2025-10-22T00:05:33.172Z'
+    },
+    {
+        id: 1761091800524,
+        name: 'Minecraft',
+        version: '1.21',
+        category: 'Adventure',
+        icon: 'https://img.utdstc.com/icon/e3d/d5a/e3dd5a81fd95b520f2e78b023abd4d1ad293f7d9346580739d268ff8b12445ba:100',
+        description: 'Minecraft is a sandbox video game that allows players to explore, build, and survive in an open-world environment made up of blocks.',
+        fullDescription: 'Minecraft is one of the most popular and creative sandbox games in the world. Players can explore infinite worlds, gather resources, craft tools, and build anything they can imagine — from simple homes to complex cities. The game features several modes such as Survival, Creative, Adventure, and Spectator, each offering a unique experience. Minecraft also supports multiplayer gameplay, allowing players to collaborate or compete with others online. Its block-based graphics and limitless creativity make it suitable for all ages.',
+        size: '32.34 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://dw.uptodown.net/dwn/YWWS76BWcJ57FXQQmVneLYQt8IRmCXam0SB3Du_MJY1M8xURN6k_kiJvRZtwhyKwk0iM5UTsIjl_mYbhtRsQW8i3OX2nL_Jaze_BWUmu9E1mLDEDyst1W-WaoQf_oKqE/eGNYyyh651U7GV1w1JR_7iqDAQF4cMPwW8Mzsz0WbsdZ4BWSmSe3_k-Sdls94NOHjOGGJj4eWs_NQxgAz_zD1s7NhdyTnrHgSNq40jY0Xo4pas52KMEFGCkRZcbjLk4y/2h49WBkRkjl298vhCQsL4vj_oE-3HfyB-5-g6YIVzqeEuTXpXCE-HlPK4c8JVgIEbhgwaqVs3lvO4Z_XQC4GJg==/minecraft-1-17-9230-35541.exe',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 10/11, macOS, or Linux\nProcessor: Intel Core i3 or equivalent\nMemory: 4 GB RAM minimum\nGraphics: Intel HD Graphics 4000 or better\nStorage: At least 1 GB of free space\nInternet: Required for updates and online play',
+        screenshots: ['https://img.utdstc.com/screen/3f7/631/3f7631b212ae7c4626007ff49c901b39390d7340dee6e3bcf204d4ac64ad1d63:200', 'https://img.utdstc.com/screen/8ac/f71/8acf7113032cb59e9f2efe39a75fa03efbc123855a2a90826849a8df459fca41:200', 'https://img.utdstc.com/screen/107/ed7/107ed7b4935e9f7eee822ce199dcc216afb1be9279a712e1051d36149f4f1d10:200'],
+        features: ['Infinite open-world exploration', 'Multiple game modes (Survival, Creative, Adventure, Spectator)', 'Multiplayer support for online and local play', 'Extensive crafting and building system', 'Regular updates and community mods', 'Educational and creative gameplay suitable for all ages'],
+        lastUpdated: '2025-10-22T00:11:15.284Z'
     }
 ];
 
