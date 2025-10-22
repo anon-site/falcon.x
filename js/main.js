@@ -1,3 +1,27 @@
+// ===== Safe Download Function =====
+// Prevents Uptodown and similar sites from opening extra popup windows
+function safeOpen(url, target = '_blank') {
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = target;
+    link.rel = 'noopener noreferrer'; // Prevents opener window manipulation
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Override window.open globally to use safeOpen
+const originalWindowOpen = window.open;
+window.open = function(url, target, features) {
+    // If it's a simple download link without special features, use safeOpen
+    if (!features && (target === '_blank' || !target)) {
+        safeOpen(url, target || '_blank');
+        return null;
+    }
+    // Otherwise use original window.open
+    return originalWindowOpen.call(window, url, target, features);
+};
+
 // ===== Performance Utilities =====
 // Debounce function for performance
 function debounce(func, wait) {
