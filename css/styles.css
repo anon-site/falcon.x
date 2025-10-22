@@ -71,10 +71,6 @@ body.performance-mode .news-item {
     backdrop-filter: none !important;
 }
 
-
-
-}
-
 /* ===== Scrollbar Styles ===== */
 ::-webkit-scrollbar {
     width: 8px;
