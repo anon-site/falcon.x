@@ -160,6 +160,41 @@ const windowsSoftware = [
         screenshots: ['https://img.lazcdn.com/g/p/a624edc48cc12d54b899a5e237e173ca.jpg_720x720q80.jpg', 'https://cdn.neowin.com/news/images/uploaded/2015/03/utorrent.jpg', 'https://www.utorrent.com/static/ui-classic-pro-1705a5f569f2ad6b987b8f835803019d.png'],
         features: ['Supports parallel downloads of multiple torrents simultaneously.', 'Customizable bandwidth allocation to prioritize traffic and adjust speeds.', 'Built-in scheduler for managing download tasks at specific times.', 'Quick resume function for interrupted transfers.', 'Low resource consumption, using minimal CPU, memory, and disk space.', 'RSS feed support for automatic torrent discovery and downloading.', 'UPnP and NAT-PMP compatibility for easy network setup.', 'Ad-free interface with integrated antivirus protection for safe downloads.', 'Protocol encryption and peer exchange for enhanced privacy.', 'Streaming support to play media files while downloading.'],
         lastUpdated: '2025-10-21T07:46:47.249Z'
+    },
+    {
+        id: 1761120586749,
+        name: 'Visual C++ Redistributable',
+        version: '14.38',
+        category: 'Utilities',
+        icon: 'https://img.utdstc.com/icon/d34/a74/d34a74281538887e01059f9801d0a1f14bfcebc6eb10a6371e5a97be500f0bb8:100',
+        description: 'Microsoft Visual C++ Redistributable is a package that installs runtime components required to run applications developed using Visual Studio.',
+        fullDescription: 'The Microsoft Visual C++ Redistributable package provides essential runtime libraries required by many Windows applications developed with Microsoft Visual Studio. These libraries include components such as the C Runtime (CRT), Standard C++, MFC, and others. Many games and professional software programs depend on these components to function properly. Installing the latest version ensures compatibility and stability when running software that relies on Microsoft’s C++ development environment. Multiple versions can coexist on the same system, as different programs may require specific releases.',
+        size: '13.31 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://dw.uptodown.net/dwn/FZM-_SNdFXjjnJzosH3mu4WyVxmhM-XJZLK2ZMxUHodV1LJd1JrjdAWFX-8GW1lgIOqeyxLPKNzbuRYwkzI5yZV8EQ6kwnFiL4aAUJDijyz0aRq-zC-wX0zFYSnMOSIo/8DFK8d7OM9fu4GmWWoEmXFG14HaJlj2jX3X4fm9PJBAxRiN4ktQSGUgw912W6KeaWn3ofwECqUsq8lrNDG-wioSDig1PPFizyPrfZzXUyOA2ooMF-m-mght-kL_Scj0A/xBSoeGGbL6QQl4gzCOeehN6HjHL0VJiVvH6lE-IfilssQB19u9nJL24T4bMstm2OOCYtG0dzakdPzck0bZtAv4oAz45oTTYtep9C563ja5W-N44cCfUq5o5F2Ce-r6CP/jshmNzGB5q6YzoQm8QVtVvbymkqKZNMKibpzt5y-sM4=/microsoft-visual-cplusplus-redistributable-14-44-35211-0.exe',
+        isModified: false,
+        systemRequirements: 'Operating System: Windows 7, 8, 10, 11 (32-bit or 64-bit)\nProcessor: 1 GHz or faster\nMemory: At least 512 MB RAM\nStorage: 100 MB of free disk space\nInternet: Required for downloading updates',
+        screenshots: ['https://img.utdstc.com/screen/5f9/f96/5f9f9674c63441aa9a191b9b45b011b054df0a29bde3afed60bfd17764ae7a17:200', 'https://img.utdstc.com/screen/c3a/bd6/c3abd67f1d8eb4be81afb1a699c97bceb4a4affacd6a0d0f39d0fcf114083c6c:200', 'https://img.utdstc.com/screen/481/670/481670afa4b9c51f9b59fc20e6f6ba9f5d71d4675b7cc6d5c41291308a3b3dcc:200'],
+        features: ['Provides required runtime libraries for C++ applications', 'Ensures compatibility with software built using Visual Studio', 'Supports both x86 and x64 architectures', 'Can be installed alongside previous versions', 'Enhances application stability and performance', 'Essential for running many games and professional programs'],
+        lastUpdated: '2025-10-22T08:09:46.749Z'
+    },
+    {
+        id: 1761121009953,
+        name: 'C Runtimes All in One',
+        version: '2025',
+        category: 'Utilities',
+        icon: 'fas fa-cube',
+        description: 'C Runtimes All in One is a collection of all essential Microsoft Visual C++ Redistributable packages bundled together in one installer.',
+        fullDescription: 'C Runtimes All in One is a convenient package that includes all versions of Microsoft Visual C++ Redistributables from 2005 up to the latest 2022 release. It is designed to simplify the installation process for users who need multiple versions to ensure full compatibility with various software and games. Instead of downloading and installing each version individually, this package installs all necessary runtime libraries automatically. It is especially useful for gamers, developers, and system administrators who frequently install or troubleshoot Windows applications that depend on C++ components.',
+        size: 'N/A',
+        downloadLink: '#',
+        originalDownloadLink: 'https://www.mediafire.com/file/eagijg6if8hcn0a/Visual-C-Runtimes-All-in-One-Jul-2025.zip/file',
+        isModified: false,
+        tutorialLink: 'https://mdofpc.com/wp-content/uploads/2024/03/Malwarebytes_logo_stacked_PMS2728-5-944x800.png',
+        systemRequirements: 'Operating System: Windows 7, 8, 10, 11 (32-bit or 64-bit)\nProcessor: 1 GHz or faster\nMemory: 1 GB RAM or higher\nStorage: At least 200 MB of free space\nInternet: Not required after download',
+        screenshots: ['https://i.ytimg.com/vi/osRdiUM7UU4/maxresdefault.jpg', 'https://allinonerunstimes.com/wp-content/uploads/aio-runtimes.webp', 'https://castcraft-software.com/wp-content/uploads/2023/05/download-aio-runtimes-full-tren-windows.jpg'],
+        features: ['Includes all Microsoft Visual C++ Redistributable versions (2005–2022)', 'Supports both 32-bit (x86) and 64-bit (x64) systems', 'Automatic installation of all required runtimes', 'Simplifies setup for games and software that depend on Visual C++', 'Prevents missing DLL errors (like MSVCP and VCRUNTIME)', 'Ideal for technicians, gamers, and developers'],
+        lastUpdated: '2025-10-22T08:16:49.953Z'
     }
 ];
 
