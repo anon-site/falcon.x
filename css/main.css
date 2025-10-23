@@ -835,24 +835,28 @@ body {
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
     z-index: 2000;
-    padding: 2rem;
+    padding: 1rem;
     overflow-y: auto;
     animation: fadeIn 0.3s ease;
 }
 
 .modal.active {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding-top: 2rem;
 }
 
 .modal-content {
     background: var(--bg-card);
     border-radius: 16px;
-    max-width: 900px;
+    max-width: 800px;
     width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
     position: relative;
     animation: slideUp 0.3s ease;
+    margin-bottom: 2rem;
 }
 
 @keyframes slideUp {
@@ -1007,6 +1011,54 @@ body {
     text-align: center;
 }
 
+/* Contact Section */
+.contact-section {
+    background: rgba(99, 102, 241, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.contact-text {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.contact-buttons .btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.875rem 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-telegram {
+    background: linear-gradient(135deg, #0088cc, #005f8c);
+    color: white;
+}
+
+.btn-telegram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+}
+
 /* Warning Modal */
 .warning-modal {
     display: none;
@@ -1155,6 +1207,94 @@ body {
 }
 
 @media (max-width: 768px) {
+    .modal {
+        padding: 0.5rem;
+    }
+    
+    .modal.active {
+        align-items: flex-start;
+        padding-top: 1rem;
+    }
+    
+    .modal-content {
+        max-height: 95vh;
+        margin-bottom: 1rem;
+    }
+    
+    .modal-header-section {
+        padding: 1.5rem 1rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .modal-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+    }
+    
+    .modal-title-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-meta {
+        justify-content: center;
+        gap: 0.75rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-section {
+        margin-bottom: 1.5rem;
+    }
+    
+    .modal-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .screenshots {
+        grid-template-columns: 1fr;
+    }
+    
+    .screenshot {
+        height: 180px;
+    }
+    
+    .download-buttons {
+        flex-direction: column;
+    }
+    
+    .download-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .contact-buttons {
+        flex-direction: column;
+    }
+    
+    .contact-buttons .btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .modal-close {
+        top: 1rem;
+        right: 1rem;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .modal-footer {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+    
     .warning-modal {
         padding: 1rem;
     }
@@ -1243,7 +1383,12 @@ body {
     padding: 1rem 1.5rem;
     border-radius: 8px;
     border-left: 4px solid;
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(245, 158, 11, 0.1);
+    border-color: var(--warning);
+    color: var(--text-secondary);
 }
 
 .note-alert.red {

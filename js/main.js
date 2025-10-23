@@ -242,11 +242,14 @@ function openItemModal(item) {
         <div class="modal-body">
     `;
     
-    // Note alert
-    if (item.note && item.note.trim()) {
+    // Screenshots (First)
+    if (item.screenshots && item.screenshots.length > 0) {
         html += `
-            <div class="note-alert ${item.noteColor}">
-                <i class="fas fa-exclamation-circle"></i> ${item.note}
+            <div class="modal-section">
+                <h3><i class="fas fa-images"></i> Screenshots</h3>
+                <div class="screenshots">
+                    ${item.screenshots.map(s => `<img src="${s}" alt="Screenshot" class="screenshot">`).join('')}
+                </div>
             </div>
         `;
     }
@@ -283,13 +286,13 @@ function openItemModal(item) {
         `;
     }
     
-    // Screenshots
-    if (item.screenshots && item.screenshots.length > 0) {
+    // Note alert
+    if (item.note && item.note.trim()) {
         html += `
             <div class="modal-section">
-                <h3><i class="fas fa-images"></i> Screenshots</h3>
-                <div class="screenshots">
-                    ${item.screenshots.map(s => `<img src="${s}" alt="Screenshot" class="screenshot">`).join('')}
+                <h3><i class="fas fa-exclamation-circle"></i> Note</h3>
+                <div class="note-alert ${item.noteColor}">
+                    <i class="fas fa-exclamation-circle"></i> ${item.note}
                 </div>
             </div>
         `;
@@ -315,6 +318,19 @@ function openItemModal(item) {
     }
     
     html += `
+            </div>
+        </div>
+        
+        <div class="modal-section contact-section">
+            <h3><i class="fas fa-comments"></i> Contact Us</h3>
+            <p class="contact-text">Report a problem or request a program, app, or update</p>
+            <div class="contact-buttons">
+                <a href="https://api.whatsapp.com/send?phone=306972462001&text=" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://t.me/anon_design" target="_blank" class="btn btn-telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
             </div>
         </div>
     </div>
