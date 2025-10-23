@@ -460,43 +460,75 @@ const androidApps = [
         screenshots: ['https://getmodsapk.com/storage/images/Netflix-Mod-Apk-3.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-4.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-2.webp'],
         features: ['Premium Unlocked, Unlimited Watching Screen', 'No Account Required', '4K Quality, HDR, Support Tablet, TV', 'Completely free, no ads, no banner', 'Supports subtitles in all languages'],
         lastUpdated: '2025-10-23T12:12:06.031Z'
-    },
-    {
-        id: 1761222363291,
-        name: 'GearUP Booster Premium ',
-        version: '3.45.7',
-        category: 'VPN',
-        icon: 'https://getmodsapk.com/storage/GearUP%20Game%20Booster%20MOD%20APK%20(1)4.webp',
-        description: 'GearUP Booster is a mobile gaming network accelerator for Android that optimizes connection stability and reduces lag during online gameplay.',
-        fullDescription: 'GearUP Booster is a professional network optimization tool designed to improve gaming performance on Android devices. It reduces ping, stabilizes network connections, and minimizes lag in online games. The app works by connecting users to the most efficient game servers through smart routing technology, ensuring smoother and faster gameplay. GearUP Booster supports hundreds of popular mobile games including PUBG Mobile, Call of Duty Mobile, Mobile Legends, Free Fire, and more. With its simple interface and one-tap acceleration, it provides a seamless experience for gamers who want low latency and stable performance even on weak connections.',
-        size: '20.69 MB',
-        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%203/GearUP%20Game%20Booster/gearup-booster-v3.45.4-MOD-OTR-(Getmodsapk.com).apk',
-        isModified: true,
-        systemRequirements: 'Operating System: Android 6.0 or higher\nProcessor: Quad-core or higher\nMemory: 2 GB RAM or more\nStorage: At least 100 MB of free space\nInternet: Required for optimization and acceleration',
-        screenshots: ['https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-1.webp', 'https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-5.webp', 'https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-2.webp'],
-        features: ['Reduces ping and network latency in online games', 'Smart routing technology for stable connections', 'Supports hundreds of popular Android games', 'One-tap acceleration for quick optimization', 'Real-time connection monitoring and analysis', 'Improves gaming experience on Wi-Fi and mobile data', 'Simple and user-friendly interface', 'No root access required'],
-        lastUpdated: '2025-10-23T12:26:03.291Z'
-    },
-    {
-        id: 1761222634482,
-        name: 'YouTube Premium',
-        version: '20.42.40',
-        category: 'Multiplayer',
-        icon: 'https://getmodsapk.com/storage/Youtube-MOD-APK7.webp',
-        description: 'YouTube Premium is an upgraded version of the YouTube app for Android that offers ad-free videos, background play, and offline downloads.',
-        fullDescription: 'YouTube Premium is a subscription-based version of the standard YouTube app that enhances the viewing experience on Android devices. It allows users to watch videos without ads, play videos in the background while using other apps, and download videos for offline viewing. Subscribers also get access to YouTube Music Premium, which provides ad-free music streaming and downloads. The app maintains the familiar YouTube interface while offering premium features that improve convenience and entertainment quality. Whether you’re watching tutorials, listening to music, or following creators, YouTube Premium ensures a smooth, uninterrupted experience.',
-        size: 'MB 116.97',
-        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%2015/YouTube/YouTube-Premium-v20.42.38-MOD-OTR-(Getmodsapk.com).apk',
-        isModified: true,
-        systemRequirements: 'Operating System: Android 6.0 or higher\nProcessor: Quad-core or better\nMemory: 3 GB RAM or higher\nStorage: At least 500 MB free space\nInternet: Required for streaming and syncing downloads',
-        screenshots: ['https://static0.anpoimages.com/wordpress/wp-content/uploads/2024/09/youtube-premium-alt-ap24-hero-jpg.jpg', 'https://getmodsapk.com/storage/096457c6a3a6b6b4dde52aeda73e8df6.webp', 'https://getmodsapk.com/storage/c938e241a548796aa517a450cd1f87a4.webp'],
-        features: ['Ad-free video playback across all content', 'Background play while using other apps', 'Download videos for offline viewing', 'Includes YouTube Music Premium access', 'High-quality streaming and audio', 'Supports picture-in-picture mode', 'Same intuitive interface as regular YouTube', 'Works across smartphones, tablets, and TVs'],
-        lastUpdated: '2025-10-23T12:30:34.482Z'
     }
 ];
 
 // ===== Android Games Data =====
 const androidGames = [
+    {
+        id: 1761223184938,
+        name: '1945 Air Force',
+        version: '14.98',
+        category: 'Action',
+        icon: 'https://getmodsapk.com/storage/media/2025/8/1945-air-force-mod-apk-2.webp',
+        description: '1945 Air Force is a classic arcade-style shooting game for Android where players control fighter planes to battle enemies in World War II missions.',
+        fullDescription: '1945 Air Force is an action-packed vertical scrolling shooter game inspired by classic arcade air combat titles. Players take command of historical World War II fighter planes and engage in intense aerial battles against waves of enemy aircraft, tanks, and powerful bosses. The game combines nostalgic 1940s war themes with modern graphics, sound effects, and smooth controls. It offers multiple missions, aircraft upgrades, and daily challenges. Players can unlock new planes, customize their weapons, and compete in online events for rewards. With both offline and online gameplay options, 1945 Air Force delivers an exciting and fast-paced experience for fans of classic shooting games.\nNote: Unlimited Money, VIP, Immortality, Fuel',
+        size: 'MB 252',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%2018/1945%20Air%20Force/1945-Air-Force-v14.98-MOD-MENU-GMA-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 6.0 or higher\nProcessor: Quad-core 1.8 GHz or better\nMemory: 2 GB RAM or higher\nStorage: At least 300 MB of free space\nInternet: Required for online features and updates',
+        screenshots: ['https://i.ytimg.com/vi/DxDoqD3O10Q/maxresdefault.jpg', 'https://getmodsapk.com/storage/media/2025/8/1945-air-force-mod-apk-3.webp', 'https://getmodsapk.com/storage/media/2025/8/1945-air-force-mod-apk-1.webp'],
+        features: ['Classic arcade-style vertical shooting gameplay', 'Dozens of historical World War II aircraft to unlock', 'High-quality graphics and smooth animations', 'Intense boss battles and challenging missions', 'Aircraft upgrades and weapon customization', 'Offline and online play modes', 'Daily events, quests, and leaderboard rankings', 'Simple one-touch control system'],
+        lastUpdated: '2025-10-23T12:43:05.266Z'
+    },
+    {
+        id: 1761223373814,
+        name: 'Temple Run',
+        version: '1.34.0',
+        category: 'Puzzle',
+        icon: 'https://getmodsapk.com/storage/media/2025/8/temple-run-mod-apk-1.webp',
+        description: 'Temple Run is a fast-paced endless running game for Android where players run, jump, and slide to escape from ancient temple guardians.',
+        fullDescription: 'Temple Run is one of the most iconic endless runner games on Android. Players take on the role of an adventurer who has stolen a cursed idol from an ancient temple and must run to escape from the pursuing demonic monkeys. The game challenges players to run through narrow paths, jump over obstacles, slide under traps, and turn sharply to survive. With simple swipe controls, Temple Run offers an exciting and addictive experience that tests reflexes and timing. Players can collect coins to unlock new characters, power-ups, and abilities. Its fast gameplay, 3D graphics, and continuous updates make it a timeless classic among mobile games.\nNote: Unlimited Money/All Maps Unlocked',
+        size: 'MB 124',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%201/Temple-Run/temple-run-v1.34.0-MOD-GMA-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 5.0 or higher\nProcessor: Dual-core 1.5 GHz or better\nMemory: 2 GB RAM or higher\nStorage: At least 150 MB of free space\nInternet: Optional (for updates and leaderboard access)',
+        screenshots: ['https://www.vice.com/wp-content/uploads/sites/2/2021/08/1628179209216-new-project-16.jpeg?w=1024', 'https://getmodsapk.com/storage/media/2025/8/temple-run-mod-apk-7.webp', 'https://getmodsapk.com/storage/media/2025/8/temple-run-mod-apk-5.webp'],
+        features: ['Endless running gameplay with smooth controls', 'Exciting temple environments and traps', 'Collect coins to unlock characters and power-ups', 'Fast-paced action with increasing difficulty', 'Simple swipe and tilt controls', 'Supports offline gameplay', 'Lightweight and optimized for all devices', 'Classic adventure soundtrack and effects'],
+        lastUpdated: '2025-10-23T12:42:53.814Z'
+    },
+    {
+        id: 1761223660041,
+        name: 'Toy Blast',
+        version: '127.1.1',
+        category: 'Puzzle',
+        icon: 'https://getmodsapk.com/storage/media/2025/9/toy-blast-mod-apk-1.webp',
+        description: 'Toy Blast is a colorful and addictive puzzle game for Android where players match cubes of the same color to clear levels and unlock new challenges.',
+        fullDescription: 'Toy Blast is a fun and engaging match-2 puzzle game developed by Peak Games for Android devices. Players must tap on groups of two or more cubes of the same color to clear them and complete various level objectives. With hundreds of levels and increasing difficulty, Toy Blast offers a mix of strategy and quick thinking. Each level introduces unique obstacles, power-ups, and boosters like rockets, TNT blocks, and color cubes to help clear the board faster. The game’s vibrant graphics, cheerful animations, and simple tap controls make it suitable for all ages. Regular updates add new levels and events, ensuring endless fun for puzzle lovers.\nNote: Unlimited Money/Lives/Boosters',
+        size: 'MB 214.01',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%207/Toy%20Blast/Toy-Blast-v21871-MOD-MENU-GMA-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 5.0 or higher\nProcessor: Dual-core 1.5 GHz or higher\nMemory: 2 GB RAM or higher\nStorage: At least 300 MB of free space\nInternet: Optional (for syncing and events)',
+        screenshots: ['https://getmodsapk.com/storage/media/2025/9/toy-blast-mod-apk-7.webp', 'https://getmodsapk.com/storage/media/2025/9/toy-blast-mod-apk-5.webp', 'https://getmodsapk.com/storage/media/2025/9/toy-blast-mod-apk-4.webp'],
+        features: ['Colorful match-2 puzzle gameplay', 'Hundreds of fun and challenging levels', 'Boosters like rockets, bombs, and color cubes', 'Simple one-touch controls', 'Beautiful 3D graphics and animations', 'Regular updates with new puzzles and events', 'Connect to Facebook to compete with friends', 'Works offline without internet connection'],
+        lastUpdated: '2025-10-23T12:47:40.041Z'
+    },
+    {
+        id: 1761223818506,
+        name: 'Angry Birds Blast',
+        version: '2.8.5',
+        category: 'Puzzle',
+        icon: 'https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-1.webp',
+        description: 'Angry Birds Blast is a colorful puzzle game for Android where players pop balloons to free the Angry Birds from traps and defeat the mischievous pigs.',
+        fullDescription: 'Angry Birds Blast is an exciting match-2 puzzle game from Rovio Entertainment, bringing a fresh twist to the classic Angry Birds universe. In this game, players must tap on groups of balloons of the same color to pop them and free the birds trapped inside by the evil pigs. Each level offers unique challenges, limited moves, and strategic puzzles that require careful planning. With hundreds of levels, boosters, and special combos, players can create explosive chain reactions to score higher. The game features vibrant graphics, fun sound effects, and smooth gameplay. Regular updates add new events, levels, and seasonal content for endless fun.\nNote: Unlimited Money/Moves',
+        size: 'MB 196.72',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%202/Angry%20Birds%20Blast/AB-Blast-v2.8.3-MOD-GMA-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 5.0 or higher\nProcessor: Quad-core 1.5 GHz or higher\nMemory: 2 GB RAM or higher\nStorage: At least 300 MB free space',
+        screenshots: ['https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-4.webp', 'https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-3.webp', 'https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-2.webp'],
+        features: ['Addictive match-2 puzzle gameplay', 'Hundreds of colorful and challenging levels', 'Boosters and power-ups like rockets and bombs', 'Stunning animations and classic Angry Birds humor', 'Compete with friends on leaderboards', 'Regular updates with new levels and events', 'Works offline without an internet connection'],
+        lastUpdated: '2025-10-23T12:50:27.079Z'
+    }
 ];
 
 // ===== FRP Tools Data =====
