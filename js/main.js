@@ -55,8 +55,8 @@ function initSidebar() {
             const tab = item.dataset.tab;
             switchTab(tab);
             
-            // Close all dropdowns when clicking non-dropdown nav items
-            if (!item.classList.contains('has-submenu')) {
+            // Only close dropdowns when clicking non-dropdown AND non-submenu items
+            if (!item.classList.contains('has-submenu') && !item.classList.contains('submenu-item')) {
                 document.querySelectorAll('.has-submenu').forEach(submenuItem => {
                     submenuItem.classList.remove('active');
                 });
@@ -98,6 +98,16 @@ function switchTab(tabName) {
             content.classList.remove('active');
         }
     });
+    
+    // Show warning for Phone Tools
+    if (tabName === 'phone-tools' && !localStorage.getItem('hidePhoneToolsWarning')) {
+        showPhoneToolsWarning();
+    }
+    
+    // Show warning for FRP Apps
+    if (tabName === 'frp-apps' && !localStorage.getItem('hideFrpAppsWarning')) {
+        showFrpAppsWarning();
+    }
 }
 
 // Load all content
@@ -351,5 +361,91 @@ function showAbout() {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeModal();
+        closeWarningModal();
     }
 });
+
+// Warning Modal Functions
+function showPhoneToolsWarning() {
+    const modalHtml = `
+        <div class="warning-modal" id="warningModal">
+            <div class="warning-content">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Important Warning</h2>
+                </div>
+                <div class="warning-body">
+                    <p class="warning-text">These programs must be used with caution and by specialists</p>
+                    <ul class="warning-list">
+                        <li><strong>First:</strong> To avoid damaging the phone</li>
+                        <li><strong>Second:</strong> To avoid legal liability</li>
+                    </ul>
+                    <div class="antivirus-note">
+                        <i class="fas fa-shield-alt"></i>
+                        <p><strong>Note:</strong> You must disable antivirus when installing and working with these programs</p>
+                    </div>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="dontShowAgainPhone">
+                        <span>Don't show this message again</span>
+                    </label>
+                </div>
+                <div class="warning-footer">
+                    <button class="btn btn-primary" onclick="acceptPhoneToolsWarning()">I Understand, Continue</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => document.getElementById('warningModal').classList.add('active'), 10);
+}
+
+function showFrpAppsWarning() {
+    const modalHtml = `
+        <div class="warning-modal" id="warningModal">
+            <div class="warning-content">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Important Warning</h2>
+                </div>
+                <div class="warning-body">
+                    <p class="warning-text">These programs must be used with caution and by specialists</p>
+                    <ul class="warning-list">
+                        <li><strong>First:</strong> To avoid damaging the phone</li>
+                        <li><strong>Second:</strong> To avoid legal liability</li>
+                    </ul>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="dontShowAgainFrp">
+                        <span>Don't show this message again</span>
+                    </label>
+                </div>
+                <div class="warning-footer">
+                    <button class="btn btn-primary" onclick="acceptFrpAppsWarning()">I Understand, Continue</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => document.getElementById('warningModal').classList.add('active'), 10);
+}
+
+function acceptPhoneToolsWarning() {
+    if (document.getElementById('dontShowAgainPhone')?.checked) {
+        localStorage.setItem('hidePhoneToolsWarning', 'true');
+    }
+    closeWarningModal();
+}
+
+function acceptFrpAppsWarning() {
+    if (document.getElementById('dontShowAgainFrp')?.checked) {
+        localStorage.setItem('hideFrpAppsWarning', 'true');
+    }
+    closeWarningModal();
+}
+
+function closeWarningModal() {
+    const modal = document.getElementById('warningModal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    }
+}

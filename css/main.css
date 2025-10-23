@@ -48,22 +48,55 @@ body {
     padding: 2rem;
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    position: relative;
 }
 
-.sidebar-header h2 {
-    font-size: 1.5rem;
-    color: white;
+.sidebar-logo {
+    max-width: 220px;
+    height: auto;
+    animation: logoEntrance 1s ease-out;
+    filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+    transform: scale(1.05);
+}
+
+@keyframes logoEntrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-180deg);
+        filter: blur(10px) drop-shadow(0 4px 12px rgba(255, 255, 255, 0));
+    }
+    70% {
+        transform: scale(1.1) rotate(10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: blur(0) drop-shadow(0 4px 12px rgba(255, 255, 255, 0.2));
+    }
 }
 
 .close-sidebar {
     display: none;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
     background: transparent;
     border: none;
     color: white;
     font-size: 1.5rem;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-sidebar:hover {
+    transform: translateY(-50%) rotate(90deg);
 }
 
 .sidebar-nav {
@@ -152,6 +185,7 @@ body {
 .version-info {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     color: var(--primary);
     font-size: 0.9rem;
@@ -166,6 +200,7 @@ body {
 .copyright {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     color: var(--text-secondary);
     font-size: 0.85rem;
@@ -461,7 +496,24 @@ body {
     background-image: url('../images/854CF0.png');
     background-size: cover;
     background-position: center;
-    animation: rotate-reverse 20s linear infinite;
+    opacity: 0;
+    animation: heroImageEntrance 1.5s ease-out forwards;
+}
+
+@keyframes heroImageEntrance {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+        filter: brightness(0) blur(15px);
+    }
+    60% {
+        filter: brightness(1.3) blur(3px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1) blur(0);
+    }
 }
 
 @keyframes rotate-reverse {
@@ -953,6 +1005,238 @@ body {
     min-width: 200px;
     padding: 1rem 2rem;
     text-align: center;
+}
+
+/* Warning Modal */
+.warning-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.warning-modal.active {
+    display: flex;
+}
+
+.warning-content {
+    background: var(--bg-card);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 90%;
+    border: 2px solid var(--warning);
+    box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
+    animation: slideUp 0.4s ease;
+}
+
+.warning-header {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    padding: 2rem;
+    border-radius: 14px 14px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.warning-header i {
+    font-size: 2.5rem;
+    color: white;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.warning-header h2 {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.warning-body {
+    padding: 2rem;
+}
+
+.warning-text {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.warning-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+}
+
+.warning-list li {
+    padding: 0.75rem 0;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.warning-list li:last-child {
+    border-bottom: none;
+}
+
+.warning-list strong {
+    color: var(--warning);
+}
+
+.antivirus-note {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.antivirus-note i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.antivirus-note p {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.checkbox-container span {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.warning-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+}
+
+.warning-footer .btn {
+    min-width: 200px;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@media (max-width: 768px) {
+    .warning-modal {
+        padding: 1rem;
+    }
+    
+    .warning-content {
+        width: 95%;
+        max-width: none;
+    }
+    
+    .warning-header {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.3rem;
+    }
+    
+    .warning-header i {
+        font-size: 1.5rem;
+    }
+    
+    .warning-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .warning-body {
+        padding: 1rem;
+    }
+    
+    .warning-text {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+    
+    .warning-list {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+    }
+    
+    .warning-list li {
+        font-size: 0.85rem;
+        padding: 0.5rem 0;
+    }
+    
+    .antivirus-note {
+        padding: 0.75rem;
+        margin: 1rem 0;
+        gap: 0.5rem;
+    }
+    
+    .antivirus-note i {
+        font-size: 1.2rem;
+        margin: 0;
+    }
+    
+    .antivirus-note p {
+        font-size: 0.85rem;
+    }
+    
+    .checkbox-container {
+        margin-top: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .checkbox-container span {
+        font-size: 0.85rem;
+    }
+    
+    .warning-footer {
+        padding: 0.75rem 1rem;
+    }
+    
+    .warning-footer .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
 }
 
 .note-alert {
