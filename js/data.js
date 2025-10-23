@@ -25,13 +25,13 @@ const windowsSoftware = [
         icon: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Chrome_icon_%282011%29.png',
         description: 'A fast, secure, and intelligent web browser by Google, offering seamless browsing, syncing, and advanced privacy protection across devices.',
         fullDescription: 'Google Chrome is a free, fast, and secure web browser developed by Google. It is designed for simplicity and speed, offering features like synchronization across devices, built-in security, extensions, and automatic updates. Chrome supports modern web technologies, providing users with a smooth browsing experience on Windows, macOS, Linux, Android, and iOS.',
-        size: '112.5',
+        size: 'MB 112.5',
         downloadLink: '#',
         originalDownloadLink: 'https://www.google.com/chrome/?brand=YTUH&ds_kid=10478623363&gclsrc=aw.ds&gad_source=1&gad_campaignid=20812632360&gbraid=0AAAAAoY3CA4V5FIszqX-Kd0oDgO3UMJHT&gclid=CjwKCAjw3tzHBhBREiwAlMJoUtF62dQQxnY1G6LkvubIbtt3JAi18uBIvONVQ-ZGKbrNm7oSLwYWFRoCGGYQAvD_BwE',
         isModified: false,
         screenshots: ['https://eshop.macsales.com/blog/wp-content/uploads/2018/09/screenshot_122.png', 'https://developer.chrome.com/static/images/2025_ai-challenge.jpg', 'https://img.utdstc.com/screen/fee/785/fee7859e412b27d8527813ab6d0c3242b78de46b2fc51e97f62672ad6c042f0a:600'],
         features: ['Fast Performance: Quick startup and page loading.', 'Simple Interface: Clean and easy-to-use design.', 'Cross-Device Sync: Sync bookmarks, history, and passwords across devices.', 'Extensions Support: Thousands of add-ons available in the Chrome Web Store.', 'Built-in Security: Protects against malware, phishing, and unsafe sites.', 'Automatic Updates: Keeps the browser secure and up to date.', 'Incognito Mode: Browse privately without saving history or cookies.', 'Multi-platform: Available for Windows, macOS, Linux, Android, and iOS.', 'Integrated Google Services: Direct access to Gmail, Drive, and other Google tools.'],
-        lastUpdated: '2025-10-21T23:57:38.579Z'
+        lastUpdated: '2025-10-23T11:22:20.782Z'
     },
     {
         id: 1760626067691,
@@ -74,13 +74,13 @@ const windowsSoftware = [
         icon: 'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/brave-browser-icon.png',
         description: 'A fast, private, and secure web browser that blocks ads and trackers by default, providing a safer and faster browsing experience.',
         fullDescription: 'Brave Browser is a free, open-source web browser developed by Brave Software. It focuses on privacy, speed, and security by blocking ads and trackers by default. Brave also includes a built-in cryptocurrency wallet and a system that rewards users with Basic Attention Tokens (BAT) for viewing privacy-respecting ads. It’s available on Windows, macOS, Linux, Android, and iOS.',
-        size: '28',
+        size: 'MB 28',
         downloadLink: '#',
         originalDownloadLink: 'https://laptop-updates.brave.com/download/BRV040?bitness=64',
         isModified: false,
         screenshots: ['https://iili.io/KvFSXEl.png', 'https://iili.io/KvFSWB4.png', 'https://iili.io/KvFSMQf.png'],
         features: ['Privacy-focused: Blocks ads and trackers by default.', 'Fast Performance: Loads pages faster by removing unnecessary content.', 'Built-in Ad Blocker: No need for extra extensions.', 'Rewards System: Earn Basic Attention Tokens (BAT) for viewing privacy-safe ads.', 'Integrated Crypto Wallet: Manage and store cryptocurrencies directly in the browser.', 'Cross-platform: Available on Windows, macOS, Linux, Android, and iOS.', 'HTTPS Everywhere: Automatically upgrades connections to secure HTTPS.', 'Customizable Settings: Control privacy, appearance, and performance easily.', 'Open Source: Transparent and community-driven development.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-23T11:22:49.155Z'
     },
     {
         id: 1760688301831,
@@ -186,7 +186,7 @@ const windowsSoftware = [
         icon: 'fas fa-cube',
         description: 'C Runtimes All in One is a collection of all essential Microsoft Visual C++ Redistributable packages bundled together in one installer.',
         fullDescription: 'C Runtimes All in One is a convenient package that includes all versions of Microsoft Visual C++ Redistributables from 2005 up to the latest 2022 release. It is designed to simplify the installation process for users who need multiple versions to ensure full compatibility with various software and games. Instead of downloading and installing each version individually, this package installs all necessary runtime libraries automatically. It is especially useful for gamers, developers, and system administrators who frequently install or troubleshoot Windows applications that depend on C++ components.',
-        size: 'N/A',
+        size: 'MB 95.71',
         downloadLink: '#',
         originalDownloadLink: 'https://www.mediafire.com/file/eagijg6if8hcn0a/Visual-C-Runtimes-All-in-One-Jul-2025.zip/file',
         isModified: false,
@@ -194,7 +194,7 @@ const windowsSoftware = [
         systemRequirements: 'Operating System: Windows 7, 8, 10, 11 (32-bit or 64-bit)\nProcessor: 1 GHz or faster\nMemory: 1 GB RAM or higher\nStorage: At least 200 MB of free space\nInternet: Not required after download',
         screenshots: ['https://i.ytimg.com/vi/osRdiUM7UU4/maxresdefault.jpg', 'https://allinonerunstimes.com/wp-content/uploads/aio-runtimes.webp', 'https://castcraft-software.com/wp-content/uploads/2023/05/download-aio-runtimes-full-tren-windows.jpg'],
         features: ['Includes all Microsoft Visual C++ Redistributable versions (2005–2022)', 'Supports both 32-bit (x86) and 64-bit (x64) systems', 'Automatic installation of all required runtimes', 'Simplifies setup for games and software that depend on Visual C++', 'Prevents missing DLL errors (like MSVCP and VCRUNTIME)', 'Ideal for technicians, gamers, and developers'],
-        lastUpdated: '2025-10-22T08:16:49.953Z'
+        lastUpdated: '2025-10-23T11:23:42.090Z'
     },
     {
         id: 1761121369426,
@@ -327,13 +327,13 @@ const androidApps = [
         icon: 'https://img.utdstc.com/icon/ca3/0e4/ca30e4b2f2d983f2f1b1436d64bca9be55e5b8f2a900b09bdee5e446b34bfd8c:200',
         description: 'This is the very best application to edit your APK files easily. With this app, you can explore the contents of an APK file',
         fullDescription: 'APK Editor Pro is a professional Android application designed for modifying APK files directly on your device. It enables users to edit app resources, change layouts, replace icons, modify strings, and even remove ads or permissions. The tool supports both full APK editing and simple file replacement, making it suitable for both beginners and advanced users. With an intuitive interface and robust functionality, it’s one of the best tools for customizing Android apps according to your needs.',
-        size: '5.31',
+        size: 'MB 5.31',
         downloadLink: 'https://www.mediafire.com/file/f1iczua6mblucyv/APK_Editor_Pro.ver.1.6.12.build.70.rar/file',
         originalDownloadLink: 'https://apk-editor.com/',
         isModified: true,
         screenshots: ['https://apk-editor.com/wp-content/uploads/2025/05/APK-Editor-for-Pro-Mod-1024x550.webp', 'https://www.latestmodapks.com/wp-content/uploads/2022/08/apk-editor5.webp', 'https://imag.malavida.com/mvimgbig/download-fs/apk-editor-20899-1.jpg'],
         features: ['Edit APK files easily and quickly.', 'Modify app resources, layouts, and images.', 'Remove unwanted ads and permissions.', 'Replace app icons and backgrounds.', 'Support for full APK rebuild or simple edit modes.', 'User-friendly interface.', 'Backup and restore feature for safety.', 'Works without requiring root (for most edits).'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-23T11:22:08.363Z'
     },
     {
         id: 1760670709239,
@@ -343,13 +343,13 @@ const androidApps = [
         icon: 'https://media.infosec.exchange/infosec.exchange/media_attachments/files/109/483/691/260/285/976/original/c7166899de75f0e4.png',
         description: 'App Cloner is a popular third-party app cloning tool to create multiple instances of an app for use with different accounts and logins',
         fullDescription: 'App Cloner (VIP / Premium) lets you duplicate Android apps and modify cloned instances with options such as changing the app name and icon, removing permissions, disabling auto-start, spoofing identifiers, adding privacy options (hide Android ID, Wi-Fi/Bluetooth MAC), password-protecting clones, and more. It supports both simple cloning and advanced modifications via add-ons; some advanced mods and large-scale cloning limits are unlocked in the VIP/Premium edition.',
-        size: '21.3',
+        size: 'MB 21.3',
         downloadLink: 'https://www.mediafire.com/file/n8o49lrwo38d0gk/App_Cloner_VIP_%255BMod_By_ANON%255D_2.1.1.rar/file',
         originalDownloadLink: 'https://appcloner.app/',
         isModified: true,
         screenshots: ['https://play-lh.googleusercontent.com/RjZbsmh22gbDGBsGPqVE16EkOX8h0wVJUm81lsJ79NA8AtSlPbzJv0U8rMH2e7oHmyE=w526-h296-rw', 'https://liteapks.com/wp-content/uploads/2022/05/app-cloner-1-e1653727930941.png', 'https://images.wondershare.com/drfone/article/2024/02/android-clone-apps-10.jpg'],
         features: ['Create multiple independent clones of installed apps.', 'appcloner.app', 'Customize clone name, icon, and package signature.', 'APKMirror', 'Remove or limit permissions, disable auto-start and background services.', 'appcloner.app', 'Privacy & spoofing options (hide/switch Android ID, spoof MAC, fake GPS).', 'App Cloner', 'Password-protect clones and enable incognito/stealth modes.', 'appcloner.app', 'VIP/Premium unlocks advanced mods, more cloning limits, and add-ons.', 'LITEAPKS', '+1', 'Note: compatibility differs by target app — some apps (banking, DRM apps, Google Pay, etc.) may refuse to run under clones or require additional steps.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-23T11:22:01.855Z'
     },
     {
         id: 1760670886353,
@@ -359,12 +359,12 @@ const androidApps = [
         icon: 'https://www.farsroid.com/wp-content/uploads/NP-Manager-Logo.png',
         description: 'Easily manage your Android media with NP Manager\nSimilar to MTManager',
         fullDescription: 'NP Manager is a multifunctional Android application designed for developers and advanced users who need to analyze and modify APK files. It integrates file management, decompiling, recompiling, signing, text editing, and patching features in one interface. With NP Manager, you can explore APK structures, edit Smali and XML files, change app permissions, remove ads, modify code, and rebuild applications. It’s particularly useful for those who work on app localization, debugging, or customization. The app supports both root and non-root modes, offering flexibility and control over Android packages.',
-        size: '43.3',
+        size: 'MB 43.3',
         downloadLink: 'https://www.mediafire.com/file/53kwfu3oy13g50e/NP_Manager_3.1.25.rar/file',
         isModified: false,
         screenshots: ['https://mt-manager.net/wp-content/uploads/2025/03/Np-Manager-1.webp', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0', 'https://media.licdn.com/dms/image/v2/D4D12AQHDldvcBNy1eQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1712047272179?e=2147483647&v=beta&t=xetqVlYawDLP2rgf_YkWb_TtvL-HUNPFQyrKnhrSLn0'],
         features: ['Full-featured file manager with APK editing tools.', 'Decompile, recompile, and sign APK files easily.', 'Built-in Smali, XML, and text editor.', 'Patch apps and modify internal code.', 'Remove ads and unnecessary permissions.', 'Supports both root and non-root environments.', 'Customize and rebuild Android applications.', 'Fast and lightweight performance.'],
-        lastUpdated: '2025-10-20T13:48:05.526Z'
+        lastUpdated: '2025-10-23T11:21:54.097Z'
     },
     {
         id: 1760671090904,
@@ -374,12 +374,12 @@ const androidApps = [
         icon: 'https://appteka.store/get/e2Wp1PQuDKBDXQnr3xx9xFbvp_n8xmKoUUVKra4uCno41GZQ-konjdEB7zxrPUYmMNd5Nn6lB4mKl8BZNr2HRokU-I4=/51b296dd65d989fbd9b5c15b5b86b041c9ae3d49.png',
         description: 'ZArchiver - is a program for archive management (including managing of application backups in archives)',
         fullDescription: 'ZArchiver Pro is an advanced Android application designed for handling compressed archives and file management. It supports a wide range of formats such as ZIP, RAR, 7z, TAR, ISO, and more. With its clean interface and powerful engine, users can create new archives, extract existing ones, add passwords, encrypt files, and manage multi-part archives directly from their device. The Pro version enhances performance, adds premium features such as dark mode themes, better compression speed, and full UTF-8 file name support. It’s an essential app for users who frequently manage compressed files on mobile devices.',
-        size: '4.84',
+        size: 'MB 4.84',
         downloadLink: 'https://www.mediafire.com/file/kkxv00vgfg0au2a/ZArchiver_Pro.rar/file',
         isModified: false,
         screenshots: ['https://zarchiverr.pro/wp-content/uploads/2024/12/ZArchiver-Donate-Latest-v1.0.10-for-Android-2025.webp', 'https://www.zarchiver.pro/wp-content/uploads/2021/07/zarchiver-apk.jpg', 'https://img.utdstc.com/screen/227/2c1/2272c114a54839b3d40b4b497bc02be04900fd9cb0b3be5ea860fb500ae206ef:600'],
         features: ['Create and extract archives in multiple formats (ZIP, RAR, 7z, TAR, etc.).', 'Compress files with password protection and encryption.', 'View and edit compressed file contents without extracting.', 'Support for multi-part and split archives.', 'Simple and modern user interface.', 'UTF-8 encoding support for non-Latin filenames.', 'Fast compression and decompression performance.', 'Full dark/light theme customization (Pro).', 'No ads and improved stability in Pro version.'],
-        lastUpdated: '2025-10-21T07:46:56.286Z'
+        lastUpdated: '2025-10-23T11:21:47.181Z'
     },
     {
         id: 1761135002325,
@@ -396,6 +396,70 @@ const androidApps = [
         screenshots: ['https://gagadget.com/media/pr_news/1652927108-Brave-for-iOS.jpg', 'https://i.pcmag.com/imagery/articles/04mQQlVHxRmBBta3lpygLx9-3.fit_lim.size_1050x.png', 'https://brave.com/static-assets/images/optimized/blog/mobile-brave-wallet/images/image1-1024x778.png'],
         features: ['Built-in ad and tracker blocker', 'Faster page loading compared to traditional browsers', 'Enhanced privacy and security protection', 'Supports Brave Rewards and Basic Attention Token (BAT)', 'Private browsing with Tor (on desktop version)', 'Chromium-based for compatibility with modern websites', 'Sync feature for bookmarks and data across devices'],
         lastUpdated: '2025-10-22T12:10:02.325Z'
+    },
+    {
+        id: 1761218286173,
+        name: 'CapCut Pro',
+        version: '15.3.0',
+        category: 'Designe',
+        icon: 'https://img.utdstc.com/icon/113/9ab/1139abab25b2298d8eb07e9e260785bcf6e18f190787bf6b71cb30f139ceb0a7:200',
+        description: 'CapCut is a free and powerful video editing app for Android that allows users to create, edit, and share high-quality videos easily.',
+        fullDescription: 'CapCut is a professional yet easy-to-use video editing application developed by ByteDance, the same company behind TikTok. It provides a wide range of editing tools including trimming, cutting, transitions, filters, text effects, and background music. CapCut also offers AI-powered features such as automatic captions, object removal, and face enhancement, making video creation simple and creative. The app supports exporting videos in high resolutions up to 4K, perfect for content creators, vloggers, and social media users. With its intuitive interface and built-in templates, CapCut is one of the most popular video editing apps on Android.\n Note: When installing Android applications in Apks format, it is preferable to use Zarchiver or MtManager.',
+        size: 'MB 186.33',
+        downloadLink: 'https://www.mediafire.com/file/605pzc2ic6rwvng/CapCut_15.3.0.zip/file',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 7.0 or higher\nProcessor: Octa-core or better recommended\nMemory: 3 GB RAM or higher\nStorage: At least 1 GB of free space\nInternet: Required for downloading templates and updates',
+        screenshots: ['https://iili.io/KUm4jaV.png', 'https://iili.io/KUmDsHJ.png', 'https://iili.io/KUmDLAv.png'],
+        features: ['Easy-to-use video editing tools (cut, trim, merge, speed control)', 'AI-powered features (auto captions, background removal, face enhancement)', 'Large collection of effects, filters, and transitions', 'Supports 4K export and various aspect ratios', 'Free-to-use with no watermark (optional login for cloud sync)', 'Built-in templates for TikTok, Instagram, and YouTube videos', 'Music library with copyright-free tracks', 'Text, stickers, and motion effects customization'],
+        lastUpdated: '2025-10-23T11:21:06.623Z'
+    },
+    {
+        id: 1761218966514,
+        name: 'NetGuard',
+        version: '2.334',
+        category: 'Utilities',
+        icon: 'https://modyolo.com/wp-content/uploads/2022/01/netguard-no-root-firewall-1.jpg',
+        description: 'NetGuard is an Android app that provides simple and advanced ways to block internet access for specific apps without requiring root access.',
+        fullDescription: 'NetGuard is a powerful and privacy-focused firewall application for Android that allows users to control which apps can access the internet. Unlike many other firewall apps, NetGuard does not require root access, making it safe and easy to use. It works by creating a local VPN on the device to manage internet permissions for each installed app. Users can block Wi-Fi or mobile data access for specific apps, helping to save data, improve battery life, and enhance privacy by preventing apps from sending background data. The app also provides detailed logs of network activity, optional filtering, and support for advanced rules for power users.',
+        size: 'MB 2.66',
+        downloadLink: 'https://files.modyolo.com/NetGuard/NetGuard_%20v2.334%20_MOD.apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 5.1 or higher\nProcessor: ARM or Snapdragon chipset\nMemory: 1 GB RAM or higher\nStorage: 50 MB of free space\nInternet: Required for app updates and logs (optional)',
+        screenshots: ['https://android-mt.ouest-france.fr/wp-content/uploads/2025/09/NetGuard-No-root-firewall.jpg', 'https://modyolo.com/wp-content/uploads/2022/01/netguard-no-root-firewall-3.jpg', 'https://modyolo.com/wp-content/uploads/2022/01/netguard-no-root-firewall-4.jpg'],
+        features: ['No-root firewall for Android devices', 'Block Wi-Fi and mobile data per app', 'Protects privacy and reduces background data usage', 'Increases battery life by limiting unwanted connections', 'Shows detailed network logs and connection statistics', 'Supports IPv4/IPv6 and tethering', 'Open-source and regularly updated', 'Simple, ad-free interface'],
+        lastUpdated: '2025-10-23T11:29:26.514Z'
+    },
+    {
+        id: 1761219409569,
+        name: 'HBO Max (Premium) ',
+        version: '54.25.0.5',
+        category: 'Multiplayer',
+        icon: 'https://traidmod.org/wp-content/uploads/2025/09/V-1-43-180x180.webp',
+        description: 'HBO Max is a streaming app that lets Android users watch movies, series, and exclusive HBO content anytime, anywhere.',
+        fullDescription: 'HBO Max is an all-in-one streaming platform that gives Android users access to a massive library of movies, TV shows, and exclusive HBO Originals. It includes popular titles from Warner Bros., DC, Cartoon Network, Max Originals, and more. The app allows users to stream or download content for offline viewing, create personalized profiles, and enjoy high-quality playback up to 4K HDR. With a clean and intuitive interface, HBO Max offers seamless navigation and recommendations based on viewing preferences. It supports multiple devices and user profiles, making it ideal for families and entertainment lovers.',
+        size: '45.4 MB',
+        downloadLink: 'https://app.happymodii.com/HBO%20MAX%20v54.25.0.5%20(Premium)%20fix.apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 7.0 or higher\nProcessor: Quad-core or better\nMemory: 3 GB RAM or higher\nStorage: At least 200 MB of free space\nInternet: Required for streaming and account login',
+        screenshots: ['https://www.androidheadlines.com/wp-content/uploads/2020/06/HBO-MAX-AH-1-1420x1065.webp', 'https://techcrunch.com/wp-content/uploads/2022/04/snap-hbo.png', 'https://static0.srcdn.com/wordpress/wp-content/uploads/2021/06/hbo-max-download-shows-iphone-render.jpg?w=1600&h=900&fit=crop'],
+        features: ['Access to HBO Originals, movies, and series', 'High-quality streaming up to 4K HDR', 'Download videos for offline watching', 'Personalized recommendations and multiple user profiles', 'Supports Chromecast and smart TV streaming', 'Parental control options for family safety', 'User-friendly and modern interface', 'Frequent updates with new releases and features'],
+        lastUpdated: '2025-10-23T11:37:45.384Z'
+    },
+    {
+        id: 1761220302570,
+        name: 'Netflix Premium ',
+        version: '9.39.1',
+        category: 'Multiplayer',
+        icon: 'https://getmodsapk.com/storage/NETFLIX-MOD-APK2.webp',
+        description: 'Netflix is a popular streaming app for Android that allows users to watch movies, TV shows, documentaries, and exclusive Netflix Originals anytime, anywhere.',
+        fullDescription: 'Netflix is one of the world’s leading streaming platforms, offering Android users access to thousands of movies, TV series, documentaries, and exclusive Netflix Originals. The app provides a smooth and intuitive interface, allowing users to browse by genre, receive personalized recommendations, and download content for offline viewing. Netflix supports multiple profiles, parental controls, and playback in HD or 4K (depending on the device and subscription plan). It’s compatible with Chromecast, smart TVs, and tablets, providing a complete entertainment experience. With constant updates and new releases, Netflix remains a top choice for streaming entertainment on Android devices.',
+        size: 'MB 100.78',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%207/Netflix/Netflix-v9.39.0-MOD-OTR-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 7.0 or higher\nProcessor: Quad-core or higher\nMemory: 2 GB RAM minimum\nStorage: At least 500 MB of free space\nInternet: Required for streaming and account login',
+        screenshots: ['https://getmodsapk.com/storage/images/Netflix-Mod-Apk-3.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-4.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-2.webp'],
+        features: ['Premium Unlocked, Unlimited Watching Screen', 'No Account Required', '4K Quality, HDR, Support Tablet, TV', 'Completely free, no ads, no banner', 'Supports subtitles in all languages'],
+        lastUpdated: '2025-10-23T11:51:42.570Z'
     }
 ];
 
