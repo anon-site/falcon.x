@@ -452,14 +452,14 @@ const androidApps = [
         category: 'Multiplayer',
         icon: 'https://getmodsapk.com/storage/NETFLIX-MOD-APK2.webp',
         description: 'Netflix is a popular streaming app for Android that allows users to watch movies, TV shows, documentaries, and exclusive Netflix Originals anytime, anywhere.',
-        fullDescription: 'Netflix is one of the world’s leading streaming platforms, offering Android users access to thousands of movies, TV series, documentaries, and exclusive Netflix Originals. The app provides a smooth and intuitive interface, allowing users to browse by genre, receive personalized recommendations, and download content for offline viewing. Netflix supports multiple profiles, parental controls, and playback in HD or 4K (depending on the device and subscription plan). It’s compatible with Chromecast, smart TVs, and tablets, providing a complete entertainment experience. With constant updates and new releases, Netflix remains a top choice for streaming entertainment on Android devices.',
+        fullDescription: 'Netflix is one of the world’s leading streaming platforms, offering Android users access to thousands of movies, TV series, documentaries, and exclusive Netflix Originals. The app provides a smooth and intuitive interface, allowing users to browse by genre, receive personalized recommendations, and download content for offline viewing. Netflix supports multiple profiles, parental controls, and playback in HD or 4K (depending on the device and subscription plan). It’s compatible with Chromecast, smart TVs, and tablets, providing a complete entertainment experience. With constant updates and new releases, Netflix remains a top choice for streaming entertainment on Android devices.\n Note: OTP key 111111',
         size: 'MB 100.78',
         downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%207/Netflix/Netflix-v9.39.0-MOD-OTR-(Getmodsapk.com).apk',
         isModified: true,
         systemRequirements: 'Operating System: Android 7.0 or higher\nProcessor: Quad-core or higher\nMemory: 2 GB RAM minimum\nStorage: At least 500 MB of free space\nInternet: Required for streaming and account login',
         screenshots: ['https://getmodsapk.com/storage/images/Netflix-Mod-Apk-3.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-4.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-2.webp'],
         features: ['Premium Unlocked, Unlimited Watching Screen', 'No Account Required', '4K Quality, HDR, Support Tablet, TV', 'Completely free, no ads, no banner', 'Supports subtitles in all languages'],
-        lastUpdated: '2025-10-23T11:51:42.570Z'
+        lastUpdated: '2025-10-23T12:12:06.031Z'
     }
 ];
 
