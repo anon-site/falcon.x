@@ -1,0 +1,40 @@
+{
+  "windows-programs": [
+    {
+      "name": "Visual Studio Code",
+      "category": "Programming",
+      "version": "1.85.0",
+      "size": "88.2",
+      "shortDesc": "A free, lightweight, and powerful code editor developed by Microsoft, supporting multiple programming languages and extensions for modern development.",
+      "fullDesc": "Visual Studio Code (VS Code) is a free and open-source code editor developed by Microsoft. It supports multiple programming languages, extensions, and debugging tools. VS Code is known for its lightweight performance, smart code completion (IntelliSense), built-in Git support, and customizable interface. It runs on Windows, macOS, and Linux, making it one of the most popular editors among developers worldwide.",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/512px-Visual_Studio_Code_1.35_icon.svg.png",
+      "screenshots": [
+        "https://code.visualstudio.com/opengraphimg/opengraph-home.png",
+        "https://iili.io/KSzwOiP.png",
+        "https://code.visualstudio.com/assets/docs/configure/extensions/extension-marketplace/extensions-popular.png"
+      ],
+      "features": [
+        "Free & Open Source: Completely free and open for customization.",
+        "Multi-language Support: Works with many languages like Python, JavaScript, C++, HTML, and more.",
+        "IntelliSense: Smart code completion and suggestions.",
+        "Built-in Git Integration: Manage version control directly inside the editor.",
+        "Extensions Marketplace: Thousands of plugins for themes, languages, and tools.",
+        "Debugging Tools: Built-in debugger for various programming languages.",
+        "Customizable Interface: Change themes, icons, and layout easily.",
+        "Cross-platform: Runs on Windows, macOS, and Linux.",
+        "Terminal Integration: Built-in terminal for quick commands."
+      ],
+      "originalLink": "https://code.visualstudio.com/",
+      "modifiedLink": "",
+      "website": "",
+      "status": "original",
+      "note": "",
+      "noteColor": "green"
+    }
+  ],
+  "windows-games": [],
+  "android-apps": [],
+  "android-games": [],
+  "phone-tools": [],
+  "frp-apps": []
+}
