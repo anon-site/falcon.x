@@ -465,22 +465,34 @@ async function validateGithubToken() {
         const userData = await response.json();
         
         // Get repositories
-        const reposResponse = await fetch('https://api.github.com/user/repos', {
+        const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100', {
             headers: {
                 'Authorization': `token ${token}`
             }
         });
         
+        if (!reposResponse.ok) {
+            alert('Error fetching repositories');
+            return;
+        }
+        
         const repos = await reposResponse.json();
         
-        // Assume first repo or create logic to select
-        const repo = repos[0];
+        // Populate repository dropdown
+        const repoSelect = document.getElementById('githubRepo');
+        repoSelect.innerHTML = '<option value="">Select a repository...</option>';
+        
+        repos.forEach(repo => {
+            const option = document.createElement('option');
+            option.value = repo.name;
+            option.textContent = repo.name;
+            repoSelect.appendChild(option);
+        });
         
         document.getElementById('githubUsername').value = userData.login;
-        document.getElementById('githubRepo').value = repo ? repo.name : '';
         document.getElementById('githubInfo').style.display = 'block';
         
-        alert('Token validated successfully!');
+        alert('Token validated successfully! Please select a repository.');
     } catch (error) {
         alert('Error validating token: ' + error.message);
     }
