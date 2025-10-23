@@ -450,15 +450,22 @@
                             <label><i class="fas fa-folder"></i> Category</label>
                             <select id="itemCategory"></select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="frpTypeGroup" style="display: none;">
+                            <label><i class="fas fa-link"></i> FRP Type</label>
+                            <select id="itemFrpType" onchange="toggleFrpFields()">
+                                <option value="direct">Direct Link</option>
+                                <option value="download">Download</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="versionGroup">
                             <label><i class="fas fa-code-branch"></i> Version</label>
                             <input type="text" id="itemVersion" placeholder="e.g., 1.0.0">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="sizeGroup">
                             <label><i class="fas fa-hdd"></i> Size</label>
                             <input type="text" id="itemSize" placeholder="e.g., 150 MB">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="statusGroup">
                             <label><i class="fas fa-shield-alt"></i> Status</label>
                             <select id="itemStatus">
                                 <option value="Original">Original</option>
@@ -482,7 +489,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="form-row" id="fullDescRow">
                         <div class="form-group full">
                             <label><i class="fas fa-align-justify"></i> Full Description</label>
                             <textarea id="itemFullDesc" rows="4" placeholder="Detailed description for modal view"></textarea>
@@ -505,7 +512,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="form-row" id="screenshotsRow">
                         <div class="form-group full">
                             <label><i class="fas fa-images"></i> Screenshots URLs (one per line)</label>
                             <textarea id="itemScreenshots" rows="3" placeholder="https://screenshot1.jpg&#10;https://screenshot2.jpg&#10;https://screenshot3.jpg"></textarea>
@@ -515,7 +522,7 @@
                 </div>
 
                 <!-- Features & Requirements Section -->
-                <div class="form-section">
+                <div class="form-section" id="featuresSection">
                     <div class="section-title">
                         <i class="fas fa-star"></i>
                         <h3>Features & Requirements</h3>
@@ -538,13 +545,29 @@
                 </div>
 
                 <!-- Download Links Section -->
-                <div class="form-section">
+                <div class="form-section" id="linksSection">
                     <div class="section-title">
                         <i class="fas fa-download"></i>
-                        <h3>Download Links</h3>
+                        <h3 id="linksSectionTitle">Download Links</h3>
                     </div>
                     
-                    <div class="form-row">
+                    <div class="form-row" id="directLinkRow" style="display: none;">
+                        <div class="form-group full">
+                            <label><i class="fas fa-external-link-alt"></i> Direct Link</label>
+                            <input type="url" id="itemDirectLink" placeholder="https://direct-link.com">
+                            <small class="field-hint">Direct link will open immediately</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row" id="downloadLinkRow" style="display: none;">
+                        <div class="form-group full">
+                            <label><i class="fas fa-download"></i> Download Link</label>
+                            <input type="url" id="itemOriginalLink" placeholder="https://download-link.com">
+                            <small class="field-hint">Link for downloading the file</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row" id="regularDownloadLinksRow">
                         <div class="form-group">
                             <label><i class="fas fa-link"></i> Original Download Link</label>
                             <input type="url" id="itemOriginalLink" placeholder="https://...">
@@ -555,7 +578,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="form-row" id="websiteRow">
                         <div class="form-group full">
                             <label><i class="fas fa-globe"></i> Official Website</label>
                             <input type="url" id="itemWebsite" placeholder="https://official-website.com">
@@ -564,7 +587,7 @@
                 </div>
 
                 <!-- Notes Section -->
-                <div class="form-section">
+                <div class="form-section" id="notesSection">
                     <div class="section-title">
                         <i class="fas fa-sticky-note"></i>
                         <h3>Additional Notes</h3>

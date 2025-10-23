@@ -174,22 +174,82 @@ function displayItems(items, gridId) {
         return;
     }
     
-    grid.innerHTML = items.map(item => createItemCard(item)).join('');
+    const isFrpGrid = gridId === 'frpAppsGrid';
+    grid.innerHTML = items.map(item => createItemCard(item, isFrpGrid)).join('');
     
-    // Add click handlers
-    grid.querySelectorAll('.item-card').forEach((card, index) => {
-        card.addEventListener('click', () => openItemModal(items[index]));
-    });
+    // Add click handlers only for non-FRP items
+    if (!isFrpGrid) {
+        grid.querySelectorAll('.item-card').forEach((card, index) => {
+            card.addEventListener('click', () => openItemModal(items[index]));
+        });
+    }
 }
 
 // Create item card HTML
-function createItemCard(item) {
+function createItemCard(item, isFrp = false) {
     const iconHtml = item.icon 
         ? `<img src="${item.icon}" alt="${item.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-cube\\'></i>'">`
         : `<i class="fas fa-cube"></i>`;
     
     const statusClass = item.status === 'Original' ? 'status-original' : 'status-modified';
     
+    // For FRP Apps with direct type
+    if (isFrp && item.frpType === 'direct' && item.directLink) {
+        return `
+            <div class="item-card frp-card frp-direct-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        ${iconHtml}
+                    </div>
+                    <div class="card-title">
+                        <h3>${item.name}</h3>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    ${item.category ? `<span class="meta-item"><i class="fas fa-folder"></i> ${item.category}</span>` : ''}
+                </div>
+                <div class="card-description">
+                    ${item.shortDesc || 'No description available'}
+                </div>
+                <div class="frp-action-button">
+                    <a href="${item.directLink}" target="_blank" class="frp-btn frp-btn-direct">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Direct</span>
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    
+    // For FRP Apps with download type
+    if (isFrp && item.frpType === 'download') {
+        return `
+            <div class="item-card frp-card frp-download-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        ${iconHtml}
+                    </div>
+                    <div class="card-title">
+                        <h3>${item.name}</h3>
+                    </div>
+                </div>
+                <div class="card-meta">
+                    ${item.version ? `<span class="meta-item"><i class="fas fa-tag"></i> ${item.version}</span>` : ''}
+                    ${item.size ? `<span class="meta-item"><i class="fas fa-hdd"></i> ${item.size}</span>` : ''}
+                    ${item.category ? `<span class="meta-item"><i class="fas fa-folder"></i> ${item.category}</span>` : ''}
+                </div>
+                <div class="card-description">
+                    ${item.shortDesc || 'No description available'}
+                </div>
+                <div class="frp-action-button">
+                    ${item.originalLink ? `<a href="${item.originalLink}" target="_blank" class="frp-btn frp-btn-download"><i class="fas fa-download"></i> <span>Download</span></a>` : ''}
+                    ${item.modifiedLink && !item.originalLink ? `<a href="${item.modifiedLink}" target="_blank" class="frp-btn frp-btn-download"><i class="fas fa-download"></i> <span>Download</span></a>` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Normal card for other items
     return `
         <div class="item-card">
             <div class="card-header">

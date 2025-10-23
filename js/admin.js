@@ -102,17 +102,30 @@ function loadTable(type, tableId) {
         return;
     }
     
+    const isFrp = type === 'frpApps';
+    
     tbody.innerHTML = items.map(item => {
         const date = new Date(item.lastModified);
         const formattedDate = date.toLocaleDateString();
-        const statusClass = item.status === 'Original' ? 'status-original' : 'status-modified';
+        
+        // For FRP apps, show FRP Type instead of Status
+        let statusDisplay = '';
+        if (isFrp) {
+            const frpType = item.frpType || 'direct';
+            const typeClass = frpType === 'direct' ? 'status-direct' : 'status-download';
+            const typeLabel = frpType === 'direct' ? 'Direct' : 'Download';
+            statusDisplay = `<span class="status-badge ${typeClass}">${typeLabel}</span>`;
+        } else {
+            const statusClass = item.status === 'Original' ? 'status-original' : 'status-modified';
+            statusDisplay = `<span class="status-badge ${statusClass}">${item.status}</span>`;
+        }
         
         return `
             <tr>
                 <td>${item.name}</td>
                 <td>${item.category || '-'}</td>
                 <td>${item.version || '-'}</td>
-                <td><span class="status-badge ${statusClass}">${item.status}</span></td>
+                <td>${statusDisplay}</td>
                 <td>${formattedDate}</td>
                 <td>
                     <div class="table-actions">
@@ -142,7 +155,77 @@ function openItemForm(type) {
     // Load categories for this type
     loadFormCategories(type);
     
-    document.getElementById('itemFormModal').classList.add('active');
+    // Show/hide FRP fields
+    toggleFrpFieldsVisibility(type);
+    
+    const modal = document.getElementById('itemFormModal');
+    modal.classList.add('active');
+    
+    // Reset scroll to top
+    setTimeout(() => {
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.scrollTop = 0;
+        }
+        // Also try scrolling the form itself
+        const form = document.getElementById('itemForm');
+        if (form) {
+            form.scrollTop = 0;
+        }
+    }, 100);
+}
+
+// Toggle FRP fields visibility based on type
+function toggleFrpFieldsVisibility(type) {
+    const isFrp = type === 'frpApps';
+    document.getElementById('frpTypeGroup').style.display = isFrp ? 'block' : 'none';
+    
+    if (isFrp) {
+        // Hide unnecessary fields for FRP
+        document.getElementById('fullDescRow').style.display = 'none';
+        document.getElementById('screenshotsRow').style.display = 'none';
+        document.getElementById('featuresSection').style.display = 'none';
+        document.getElementById('notesSection').style.display = 'none';
+        document.getElementById('regularDownloadLinksRow').style.display = 'none';
+        toggleFrpFields();
+    } else {
+        // Show all fields for non-FRP items
+        document.getElementById('fullDescRow').style.display = 'flex';
+        document.getElementById('screenshotsRow').style.display = 'flex';
+        document.getElementById('featuresSection').style.display = 'block';
+        document.getElementById('notesSection').style.display = 'block';
+        document.getElementById('versionGroup').style.display = 'block';
+        document.getElementById('sizeGroup').style.display = 'block';
+        document.getElementById('statusGroup').style.display = 'block';
+        document.getElementById('directLinkRow').style.display = 'none';
+        document.getElementById('downloadLinkRow').style.display = 'none';
+        document.getElementById('regularDownloadLinksRow').style.display = 'flex';
+        document.getElementById('websiteRow').style.display = 'flex';
+        
+        // Reset section title
+        const sectionTitle = document.getElementById('linksSectionTitle');
+        sectionTitle.innerHTML = '<i class="fas fa-download"></i> Download Links';
+    }
+}
+
+// Toggle FRP fields based on selected type
+function toggleFrpFields() {
+    const frpType = document.getElementById('itemFrpType').value;
+    const isDirect = frpType === 'direct';
+    
+    // Toggle version and size fields
+    document.getElementById('versionGroup').style.display = isDirect ? 'none' : 'block';
+    document.getElementById('sizeGroup').style.display = isDirect ? 'none' : 'block';
+    document.getElementById('statusGroup').style.display = isDirect ? 'none' : 'block';
+    
+    // Update section title
+    const sectionTitle = document.getElementById('linksSectionTitle');
+    sectionTitle.innerHTML = isDirect ? '<i class="fas fa-external-link-alt"></i> Direct Link' : '<i class="fas fa-download"></i> Download Link';
+    
+    // Toggle link fields for FRP (hide website for FRP)
+    document.getElementById('directLinkRow').style.display = isDirect ? 'flex' : 'none';
+    document.getElementById('downloadLinkRow').style.display = isDirect ? 'none' : 'flex';
+    document.getElementById('websiteRow').style.display = 'none';
 }
 
 // Load form categories
@@ -182,6 +265,12 @@ function editItem(type, id) {
     document.getElementById('itemWebsite').value = item.website || '';
     document.getElementById('itemNote').value = item.note || '';
     
+    // FRP specific fields
+    if (type === 'frpApps') {
+        document.getElementById('itemFrpType').value = item.frpType || 'direct';
+        document.getElementById('itemDirectLink').value = item.directLink || '';
+    }
+    
     // Load categories and set selected
     loadFormCategories(type);
     document.getElementById('itemCategory').value = item.category || '';
@@ -191,7 +280,24 @@ function editItem(type, id) {
         radio.checked = radio.value === (item.noteColor || 'orange');
     });
     
-    document.getElementById('itemFormModal').classList.add('active');
+    // Show/hide FRP fields
+    toggleFrpFieldsVisibility(type);
+    
+    const modal = document.getElementById('itemFormModal');
+    modal.classList.add('active');
+    
+    // Reset scroll to top
+    setTimeout(() => {
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent) {
+            modalContent.scrollTop = 0;
+        }
+        // Also try scrolling the form itself
+        const form = document.getElementById('itemForm');
+        if (form) {
+            form.scrollTop = 0;
+        }
+    }, 100);
 }
 
 // Delete item
@@ -229,6 +335,12 @@ function saveItem(e) {
         note: document.getElementById('itemNote').value,
         noteColor: document.querySelector('input[name="noteColor"]:checked')?.value || 'orange'
     };
+    
+    // Add FRP specific fields
+    if (type === 'frpApps') {
+        item.frpType = document.getElementById('itemFrpType').value;
+        item.directLink = document.getElementById('itemDirectLink').value;
+    }
     
     if (id) {
         db.updateItem(type, id, item);

@@ -825,6 +825,63 @@ body {
     overflow: hidden;
 }
 
+/* FRP Cards */
+.frp-card {
+    position: relative;
+}
+
+.status-direct {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+/* FRP Action Button */
+.frp-action-button {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.frp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.frp-btn i {
+    font-size: 1.1rem;
+}
+
+.frp-btn-direct {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.frp-btn-direct:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.frp-btn-download {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
+.frp-btn-download:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--accent));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
 /* Modal */
 .modal {
     display: none;
