@@ -212,6 +212,23 @@ const windowsSoftware = [
         screenshots: ['https://imag.malavida.com/mvimgbig/download-fs/directx-11-20097-1.jpg', 'https://archive.org/download/microsoft-.-net-framework_202010/directx-12-20335-1.jpg', 'https://www.pcsystemfix.com/wp-content/uploads/2019/05/Screen-Shot-2019-05-25-at-08.46.39-copy.png'],
         features: ['Enhances 2D and 3D graphics rendering', 'Provides hardware acceleration for improved performance', 'Includes Direct3D, DirectDraw, DirectSound, and DirectInput', 'Essential for gaming and multimedia applications', 'Supports high-definition textures, ray tracing, and advanced shading', 'Backward compatible with older versions of DirectX', 'Integrated with Windows for easy updates'],
         lastUpdated: '2025-10-22T08:22:49.426Z'
+    },
+    {
+        id: 1761233252494,
+        name: 'Rufus',
+        version: '3.20.1929',
+        category: 'Utilities',
+        icon: 'https://4download.net/pictures/post/Rufus%20Free%20Download.png',
+        description: 'A program to burn copies of systems such as Windows and others onto flash memory',
+        fullDescription: 'Rufus Portable is a USB formatting utility that also can create a bootable USB drive using a bootable ISO image. This app requires admin rights. This tool is the most popular software for Windows 10 bootable USB tools.\n\nIt has a user-friendly interface that most users like the Windows Format panel. It allows fast selection of the desired device, partition scheme, particular system type, file system type (exFAT, FAT32, NTFS, UDF), cluster size, and a new volume label. From the drop-down menu, connected devices are detected and selected easily.\n\nRufus is tiny but mighty and one of the most popular tools in its respective category and ensures straightforward formatting and bootable USB drive creation.',
+        size: '1.84 MB',
+        downloadLink: '#',
+        originalDownloadLink: 'https://release-assets.githubusercontent.com/github-production-release-asset/2810292/58c4de25-4dba-4a2d-8dad-eb456e165dbd?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-23T16%3A08%3A44Z&rscd=attachment%3B+filename%3Drufus-4.10.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-23T15%3A07%3A48Z&ske=2025-10-23T16%3A08%3A44Z&sks=b&skv=2018-11-09&sig=2izROVUNXZAovs2zPd8PXW4TyJD6uJFQbIbiEwWsCN8%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2MTIzMzUzMSwibmJmIjoxNzYxMjMzMjMxLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.BvVNXky7JobSJ692sKbNdnN-DWeO4bObX4uZ5zAAXow&response-content-disposition=attachment%3B%20filename%3Drufus-4.10.exe&response-content-type=application%2Foctet-stream',
+        isModified: false,
+        systemRequirements: 'Supported OS: Windows 11, Windows 10, Windows 8.1, Windows 7\nRAM (Memory): 2 GB RAM (4 GB recommended)\nFree Hard Disk Space: 200 MB or more',
+        screenshots: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO712PbK-kRTRBZBZEjji02rG-tBDHCSnCSw&s', 'https://rufus.ie/pics/screenshot1_en.png', 'https://www.winusb.net/wp-content/uploads/2024/04/maxresdefault_1280_720-750x422.webp'],
+        features: ['Format USB, flash card, and virtual drives to FAT/FAT32/NTFS/UDF/exFAT/ReFS', 'Create DOS bootable USB drives using FreeDOS or MS-DOS', 'Create BIOS or UEFI bootable drives, including UEFI bootable NTFS', 'Create bootable drives from bootable ISOs (Windows, Linux, etc.)', 'Create bootable drives from bootable disk images, including compressed ones.', 'Create Windows To Go drives.', 'Twice as fast as Microsoft\'s USB/DVD tool or UNetbootin, on ISO -> USB creation', 'Perform bad blocks checks, including the detection of \"fake\" flash drives', 'Compute MD5, SHA-1 and SHA-256 checksums of the selected image', 'Modern and familiar UI, with more than 35 languages natively supported', 'Small footprint. No installation is required.', 'Portable', '100% Free Software (GPL v3)'],
+        lastUpdated: '2025-10-23T15:27:32.494Z'
     }
 ];
 
