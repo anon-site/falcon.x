@@ -1745,32 +1745,131 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Note Highlight Styling */
 .note-highlight {
-    display: inline;
-    background: rgba(245, 158, 11, 0.15);
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.15));
     color: #f59e0b;
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border-left: 4px solid #f59e0b;
+    margin: 0.25rem 0;
+    font-weight: 500;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
 }
 
 .note-highlight:hover {
-    background: rgba(245, 158, 11, 0.25);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(251, 191, 36, 0.2));
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .note-highlight i {
     color: #f59e0b;
-    margin-right: 0.35rem;
-    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    font-size: 1rem;
     animation: pulse-warning 2s ease-in-out infinite;
+}
+
+.note-highlight strong {
+    color: #ea580c;
+    margin-right: 0.3rem;
+}
+
+/* Note Block Styling - للملاحظات في سطر منفصل */
+.note-block {
+    display: block;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.08));
+    color: #3b82f6;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    border-left: 5px solid #3b82f6;
+    margin: 1rem 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.note-block:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.12));
+    transform: translateX(6px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
+}
+
+.note-block i {
+    color: #3b82f6;
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    animation: pulse-info 2.5s ease-in-out infinite;
+}
+
+.note-block strong {
+    color: #2563eb;
+    margin-right: 0.5rem;
+    font-size: 1.05rem;
+}
+
+.note-block span {
+    color: var(--text-secondary);
+}
+
+/* Note Inline Styling - للملاحظات داخل النص */
+.note-inline {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(167, 139, 250, 0.1));
+    color: #8b5cf6;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    margin: 0.2rem 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.note-inline:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(167, 139, 250, 0.15));
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.note-inline i {
+    color: #8b5cf6;
+    margin-right: 0.4rem;
+    font-size: 0.95rem;
+    animation: pulse-purple 2s ease-in-out infinite;
+}
+
+.note-inline strong {
+    color: #7c3aed;
+    margin-right: 0.3rem;
 }
 
 @keyframes pulse-warning {
     0%, 100% {
         opacity: 1;
+        transform: scale(1);
     }
     50% {
         opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulse-info {
+    0%, 100% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+    50% {
+        opacity: 0.75;
+        transform: rotate(10deg);
+    }
+}
+
+@keyframes pulse-purple {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
     }
 }
 
@@ -4251,16 +4350,68 @@ body.light-theme .news-item-badge.updated {
 
 /* ===== Light Theme for Note Highlight ===== */
 body.light-theme .note-highlight {
-    background: rgba(245, 158, 11, 0.2);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(251, 191, 36, 0.2));
     color: #d97706;
+    border-left-color: #ea580c;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
 }
 
 body.light-theme .note-highlight:hover {
-    background: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(251, 191, 36, 0.25));
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
 }
 
 body.light-theme .note-highlight i {
-    color: #d97706;
+    color: #ea580c;
+}
+
+body.light-theme .note-highlight strong {
+    color: #c2410c;
+}
+
+/* Light Theme - Note Block */
+body.light-theme .note-block {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.1));
+    color: #2563eb;
+    border-left-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+body.light-theme .note-block:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(96, 165, 250, 0.15));
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+body.light-theme .note-block i {
+    color: #2563eb;
+}
+
+body.light-theme .note-block strong {
+    color: #1e40af;
+}
+
+body.light-theme .note-block span {
+    color: #4b5563;
+}
+
+/* Light Theme - Note Inline */
+body.light-theme .note-inline {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.15));
+    color: #7c3aed;
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+body.light-theme .note-inline:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(167, 139, 250, 0.2));
+    border-color: rgba(139, 92, 246, 0.6);
+}
+
+body.light-theme .note-inline i {
+    color: #7c3aed;
+}
+
+body.light-theme .note-inline strong {
+    color: #6d28d9;
 }
 
 /* ===== Light Theme for Platform Badges ===== */

@@ -2332,16 +2332,24 @@ function formatDescriptionWithNotes(description) {
     if (!description) return '';
     
     // Replace text within parentheses that starts with "Note:" or "ملاحظة:"
-    const formatted = description.replace(
+    let formatted = description.replace(
         /\((Note:|ملاحظة:)([^)]+)\)/gi,
-        '<span class="note-highlight"><i class="fas fa-exclamation-circle"></i> $1$2</span>'
+        '<span class="note-highlight"><i class="fas fa-info-circle"></i> <strong>$1</strong>$2</span>'
     );
     
-    // Also handle notes without parentheses at the beginning of lines
-    return formatted.replace(
+    // Handle notes without parentheses at the beginning of lines
+    formatted = formatted.replace(
         /(^|\n)(Note:|ملاحظة:)([^\n]+)/gi,
-        '$1<span class="note-highlight"><i class="fas fa-exclamation-circle"></i> $2$3</span>'
+        '$1<div class="note-block"><i class="fas fa-exclamation-triangle"></i> <strong>$2</strong><span>$3</span></div>'
     );
+    
+    // Handle inline notes without parentheses
+    formatted = formatted.replace(
+        /(?<!<[^>]*)(Note:|ملاحظة:)\s+([^\n<]+)/gi,
+        '<span class="note-inline"><i class="fas fa-lightbulb"></i> <strong>$1</strong> $2</span>'
+    );
+    
+    return formatted;
 }
 
 // ===== Export Functions =====
