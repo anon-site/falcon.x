@@ -604,6 +604,65 @@ function importData(event) {
     reader.readAsText(file);
 }
 
+// Search table
+function searchTable(type, tableId) {
+    const searchId = `search${type.charAt(0).toUpperCase() + type.slice(1)}`;
+    const searchTerm = document.getElementById(searchId).value.toLowerCase();
+    const items = db.getItems(type);
+    
+    const filtered = items.filter(item => {
+        return item.name.toLowerCase().includes(searchTerm) ||
+               (item.category && item.category.toLowerCase().includes(searchTerm)) ||
+               (item.version && item.version.toLowerCase().includes(searchTerm));
+    });
+    
+    const tbody = document.querySelector(`#${tableId} tbody`);
+    if (!tbody) return;
+    
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-secondary);">No results found</td></tr>';
+        return;
+    }
+    
+    const isFrp = type === 'frpApps';
+    
+    tbody.innerHTML = filtered.map(item => {
+        const date = new Date(item.lastModified);
+        const formattedDate = date.toLocaleDateString();
+        
+        let statusDisplay = '';
+        if (isFrp) {
+            const frpType = item.frpType || 'direct';
+            const typeClass = frpType === 'direct' ? 'status-direct' : 'status-download';
+            const typeLabel = frpType === 'direct' ? 'Direct' : 'Download';
+            statusDisplay = `<span class="status-badge ${typeClass}">${typeLabel}</span>`;
+        } else {
+            const statusClass = item.status === 'Original' ? 'status-original' : 'status-modified';
+            statusDisplay = `<span class="status-badge ${statusClass}">${item.status}</span>`;
+        }
+        
+        return `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.category || '-'}</td>
+                <td>${item.version || '-'}</td>
+                <td>${statusDisplay}</td>
+                <td>${formattedDate}</td>
+                <td>
+                    <div class="table-actions">
+                        <button class="btn-icon" onclick="editItem('${type}', ${item.id})" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon danger" onclick="deleteItem('${type}', ${item.id})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
 // Warn before leaving with unsaved changes
 window.addEventListener('beforeunload', (e) => {
     if (unsavedChanges) {
