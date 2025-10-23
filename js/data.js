@@ -460,6 +460,38 @@ const androidApps = [
         screenshots: ['https://getmodsapk.com/storage/images/Netflix-Mod-Apk-3.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-4.webp', 'https://getmodsapk.com/storage/images/Netflix-MOD-APK-2.webp'],
         features: ['Premium Unlocked, Unlimited Watching Screen', 'No Account Required', '4K Quality, HDR, Support Tablet, TV', 'Completely free, no ads, no banner', 'Supports subtitles in all languages'],
         lastUpdated: '2025-10-23T12:12:06.031Z'
+    },
+    {
+        id: 1761222363291,
+        name: 'GearUP Booster Premium ',
+        version: '3.45.7',
+        category: 'VPN',
+        icon: 'https://getmodsapk.com/storage/GearUP%20Game%20Booster%20MOD%20APK%20(1)4.webp',
+        description: 'GearUP Booster is a mobile gaming network accelerator for Android that optimizes connection stability and reduces lag during online gameplay.',
+        fullDescription: 'GearUP Booster is a professional network optimization tool designed to improve gaming performance on Android devices. It reduces ping, stabilizes network connections, and minimizes lag in online games. The app works by connecting users to the most efficient game servers through smart routing technology, ensuring smoother and faster gameplay. GearUP Booster supports hundreds of popular mobile games including PUBG Mobile, Call of Duty Mobile, Mobile Legends, Free Fire, and more. With its simple interface and one-tap acceleration, it provides a seamless experience for gamers who want low latency and stable performance even on weak connections.',
+        size: '20.69 MB',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%203/GearUP%20Game%20Booster/gearup-booster-v3.45.4-MOD-OTR-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 6.0 or higher\nProcessor: Quad-core or higher\nMemory: 2 GB RAM or more\nStorage: At least 100 MB of free space\nInternet: Required for optimization and acceleration',
+        screenshots: ['https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-1.webp', 'https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-5.webp', 'https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-2.webp'],
+        features: ['Reduces ping and network latency in online games', 'Smart routing technology for stable connections', 'Supports hundreds of popular Android games', 'One-tap acceleration for quick optimization', 'Real-time connection monitoring and analysis', 'Improves gaming experience on Wi-Fi and mobile data', 'Simple and user-friendly interface', 'No root access required'],
+        lastUpdated: '2025-10-23T12:26:03.291Z'
+    },
+    {
+        id: 1761222634482,
+        name: 'YouTube Premium',
+        version: '20.42.40',
+        category: 'Multiplayer',
+        icon: 'https://getmodsapk.com/storage/Youtube-MOD-APK7.webp',
+        description: 'YouTube Premium is an upgraded version of the YouTube app for Android that offers ad-free videos, background play, and offline downloads.',
+        fullDescription: 'YouTube Premium is a subscription-based version of the standard YouTube app that enhances the viewing experience on Android devices. It allows users to watch videos without ads, play videos in the background while using other apps, and download videos for offline viewing. Subscribers also get access to YouTube Music Premium, which provides ad-free music streaming and downloads. The app maintains the familiar YouTube interface while offering premium features that improve convenience and entertainment quality. Whether you’re watching tutorials, listening to music, or following creators, YouTube Premium ensures a smooth, uninterrupted experience.',
+        size: 'MB 116.97',
+        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%2015/YouTube/YouTube-Premium-v20.42.38-MOD-OTR-(Getmodsapk.com).apk',
+        isModified: true,
+        systemRequirements: 'Operating System: Android 6.0 or higher\nProcessor: Quad-core or better\nMemory: 3 GB RAM or higher\nStorage: At least 500 MB free space\nInternet: Required for streaming and syncing downloads',
+        screenshots: ['https://static0.anpoimages.com/wordpress/wp-content/uploads/2024/09/youtube-premium-alt-ap24-hero-jpg.jpg', 'https://getmodsapk.com/storage/096457c6a3a6b6b4dde52aeda73e8df6.webp', 'https://getmodsapk.com/storage/c938e241a548796aa517a450cd1f87a4.webp'],
+        features: ['Ad-free video playback across all content', 'Background play while using other apps', 'Download videos for offline viewing', 'Includes YouTube Music Premium access', 'High-quality streaming and audio', 'Supports picture-in-picture mode', 'Same intuitive interface as regular YouTube', 'Works across smartphones, tablets, and TVs'],
+        lastUpdated: '2025-10-23T12:30:34.482Z'
     }
 ];
 
