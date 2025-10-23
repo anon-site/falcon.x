@@ -76,16 +76,49 @@ function showToast(message, type = 'success') {
 }
 
 // Clear cache and reload
-function clearCacheAndReload() {
-    if (confirm('سيتم مسح ذاكرة التخزين وإعادة تحميل الصفحة. هل تريد المتابعة؟')) {
-        // Remove navigation cache
+async function clearCacheAndReload() {
+    if (!confirm('سيتم مسح ذاكرة التخزين وجلب أحدث البيانات من GitHub. هل تريد المتابعة؟')) {
+        return;
+    }
+
+    const toastId = 'refresh-toast';
+    const toastMessage = document.createElement('div');
+    toastMessage.id = toastId;
+    toastMessage.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> جاري تحديث البيانات من GitHub...';
+    showToast(toastMessage, 'info', 0);
+
+    try {
+        // Clear relevant caches
         localStorage.removeItem('navigation');
-        showToast('✨ تم مسح ذاكرة التبويبات! جاري إعادة التحميل...', 'success');
+        localStorage.removeItem('falcon-x-software-data');
         
-        // Reload page after a short delay
-        setTimeout(() => {
-            window.location.reload(true);
-        }, 800);
+        // Check if GitHub is configured
+        if (typeof githubAPI !== 'undefined' && githubAPI.isConfigured()) {
+            console.log('🔄 جاري جلب أحدث البيانات من GitHub...');
+            
+            // Fetch data from GitHub
+            const data = await githubAPI.loadDataFromGitHub();
+            
+            if (data) {
+                // Save to localStorage for main.js to use
+                localStorage.setItem('falcon-x-software-data', JSON.stringify(data));
+                showToast('✅ تم تحديث البيانات بنجاح من GitHub', 'success');
+            } else {
+                showToast('⚠️ فشل جلب البيانات من GitHub، سيتم استخدام البيانات المحلية', 'warning');
+            }
+        } else {
+            showToast('ℹ️ لم يتم إعداد GitHub، سيتم استخدام البيانات المحلية', 'info');
+        }
+    } catch (error) {
+        console.error('❌ خطأ أثناء تحديث البيانات:', error);
+        showToast('❌ حدث خطأ أثناء تحديث البيانات', 'error');
+    } finally {
+        // Remove the loading toast
+        const toast = document.getElementById(toastId);
+        if (toast) toast.remove();
+        
+        // Reload the page to apply changes
+        window.location.reload(true);
     }
 }
 
@@ -1632,6 +1665,44 @@ function importFromDataJS() {
         }));
     }
     
+    // Import Windows Games
+    if (typeof windowsGames !== 'undefined' && (!appsData['windows-games'] || appsData['windows-games'].length === 0)) {
+        appsData['windows-games'] = windowsGames.map(item => ({
+            id: item.id || (Date.now() + Math.random()),
+            name: item.name,
+            category: item.category || 'Games',
+            version: item.version,
+            size: item.size || '',
+            description: item.description || '',
+            fullDescription: item.fullDescription || '',
+            icon: item.icon || 'fas fa-gamepad',
+            downloadLink: item.downloadUrl || item.downloadLink || '',
+            originalDownloadLink: item.originalDownloadLink || '',
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            lastUpdated: item.lastUpdated || new Date().toISOString()
+        }));
+    }
+    
+    // Import Android Games
+    if (typeof androidGames !== 'undefined' && (!appsData['android-games'] || appsData['android-games'].length === 0)) {
+        appsData['android-games'] = androidGames.map(item => ({
+            id: item.id || (Date.now() + Math.random()),
+            name: item.name,
+            category: item.category || 'Games',
+            version: item.version,
+            size: item.size || '',
+            description: item.description || '',
+            fullDescription: item.fullDescription || '',
+            icon: item.icon || 'fas fa-gamepad',
+            downloadLink: item.downloadUrl || item.downloadLink || '',
+            originalDownloadLink: item.originalDownloadLink || '',
+            isModified: item.isModified === true ? true : false,
+            screenshots: item.screenshots || [],
+            lastUpdated: item.lastUpdated || new Date().toISOString()
+        }));
+    }
+    
     // Import FRP Apps
     if (typeof frpApps !== 'undefined' && appsData['frp-apps'].length === 0) {
         appsData['frp-apps'] = frpApps.map(item => ({
@@ -1723,6 +1794,8 @@ function handleImportFile(event) {
 function exportToDataJS() {
     const windows = appsData.windows || [];
     const android = appsData.android || [];
+    const windowsGames = appsData['windows-games'] || [];
+    const androidGames = appsData['android-games'] || [];
     const frpToolsData = appsData['frp-tools'] || [];
     const frpAppsData = appsData['frp-apps'] || [];
     
@@ -1824,6 +1897,74 @@ function exportToDataJS() {
             output += `,\n        lastUpdated: '${item.lastUpdated}'`;
         }
         output += `\n    }${index < android.length - 1 ? ',' : ''}\n`;
+    });
+    output += '];\n\n';
+    
+    output += '// ===== Windows Games Data =====\nconst windowsGames = [\n';
+    windowsGames.forEach((item, index) => {
+        output += `    {\n`;
+        output += `        id: ${item.id},\n`;
+        output += `        name: '${escapeStr(item.name)}',\n`;
+        output += `        version: '${escapeStr(item.version)}',\n`;
+        output += `        category: '${item.category || 'Games'}',\n`;
+        output += `        icon: '${item.icon || 'fas fa-gamepad'}'`;
+        
+        if (item.description) {
+            output += `,\n        description: '${escapeStr(item.description)}'`;
+        }
+        if (item.fullDescription) {
+            output += `,\n        fullDescription: '${escapeStr(item.fullDescription)}'`;
+        }
+        if (item.size) {
+            output += `,\n        size: '${item.size}'`;
+        }
+        if (item.downloadLink) {
+            output += `,\n        downloadLink: '${item.downloadLink}'`;
+        }
+        if (item.originalDownloadLink) {
+            output += `,\n        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}'`;
+        }
+        if (item.screenshots && item.screenshots.length > 0) {
+            output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
+        }
+        if (item.lastUpdated) {
+            output += `,\n        lastUpdated: '${item.lastUpdated}'`;
+        }
+        output += `\n    }${index < windowsGames.length - 1 ? ',' : ''}\n`;
+    });
+    output += '];\n\n';
+    
+    output += '// ===== Android Games Data =====\nconst androidGames = [\n';
+    androidGames.forEach((item, index) => {
+        output += `    {\n`;
+        output += `        id: ${item.id},\n`;
+        output += `        name: '${escapeStr(item.name)}',\n`;
+        output += `        version: '${escapeStr(item.version)}',\n`;
+        output += `        category: '${item.category || 'Games'}',\n`;
+        output += `        icon: '${item.icon || 'fas fa-gamepad'}'`;
+        
+        if (item.description) {
+            output += `,\n        description: '${escapeStr(item.description)}'`;
+        }
+        if (item.fullDescription) {
+            output += `,\n        fullDescription: '${escapeStr(item.fullDescription)}'`;
+        }
+        if (item.size) {
+            output += `,\n        size: '${item.size}'`;
+        }
+        if (item.downloadLink) {
+            output += `,\n        downloadLink: '${item.downloadLink}'`;
+        }
+        if (item.originalDownloadLink) {
+            output += `,\n        originalDownloadLink: '${escapeStr(item.originalDownloadLink)}'`;
+        }
+        if (item.screenshots && item.screenshots.length > 0) {
+            output += `,\n        screenshots: [${item.screenshots.map(s => `'${escapeStr(s)}'`).join(', ')}]`;
+        }
+        if (item.lastUpdated) {
+            output += `,\n        lastUpdated: '${item.lastUpdated}'`;
+        }
+        output += `\n    }${index < androidGames.length - 1 ? ',' : ''}\n`;
     });
     output += '];\n\n';
     
@@ -1944,12 +2085,22 @@ function updateDashboardStats() {
     const frpTools = appsData['frp-tools'] || [];
     const frpApps = appsData['frp-apps'] || [];
     
-    // جمع برامج Windows و الألعاب
-    document.getElementById('windowsCount').textContent = windowsApps.length + windowsGames.length;
-    // جمع تطبيقات Android و الألعاب
-    document.getElementById('androidCount').textContent = androidApps.length + androidGames.length;
+    // تحديث العدادات
+    document.getElementById('windowsCount').textContent = windowsApps.length;
+    document.getElementById('windowsGamesCount').textContent = windowsGames.length;
+    document.getElementById('androidCount').textContent = androidApps.length;
+    document.getElementById('androidGamesCount').textContent = androidGames.length;
     document.getElementById('frpToolsCount').textContent = frpTools.length;
     document.getElementById('frpAppsCount').textContent = frpApps.length;
+    
+    console.log('📊 تم تحديث إحصائيات لوحة التحكم:', {
+        'برامج Windows': windowsApps.length,
+        'ألعاب Windows': windowsGames.length,
+        'تطبيقات Android': androidApps.length,
+        'ألعاب Android': androidGames.length,
+        'أدوات FRP': frpTools.length,
+        'تطبيقات FRP': frpApps.length
+    });
 }
 
 // ============ Initialize ============

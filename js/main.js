@@ -747,6 +747,40 @@ function applyFilter(page, category) {
     });
 }
 
+// ===== Update Stats =====
+function updateStats() {
+    try {
+        const data = getCurrentData();
+        
+        // Update main stats
+        const windowsCount = document.getElementById('windowsCount');
+        const androidCount = document.getElementById('androidCount');
+        const frpToolsCount = document.getElementById('frpToolsCount');
+        const frpAppsCount = document.getElementById('frpAppsCount');
+        const windowsGamesCount = document.getElementById('windowsGamesCount');
+        const androidGamesCount = document.getElementById('androidGamesCount');
+        
+        if (windowsCount) windowsCount.textContent = data.windows.programs ? data.windows.programs.length : 0;
+        if (androidCount) androidCount.textContent = data.android.apps ? data.android.apps.length : 0;
+        if (frpToolsCount) frpToolsCount.textContent = data.frp.tools ? data.frp.tools.length : 0;
+        if (frpAppsCount) frpAppsCount.textContent = data.frp.apps ? data.frp.apps.length : 0;
+        
+        // Update games stats if elements exist
+        if (windowsGamesCount) windowsGamesCount.textContent = data.windows.games ? data.windows.games.length : 0;
+        if (androidGamesCount) androidGamesCount.textContent = data.android.games ? data.android.games.length : 0;
+        
+        console.log('📊 Updated statistics:', {
+            windows: data.windows.programs ? data.windows.programs.length : 0,
+            android: data.android.apps ? data.android.apps.length : 0,
+            frpTools: data.frp.tools ? data.frp.tools.length : 0,
+            frpApps: data.frp.apps ? data.frp.apps.length : 0,
+            windowsGames: data.windows.games ? data.windows.games.length : 0,
+            androidGames: data.android.games ? data.android.games.length : 0
+        });
+    } catch (error) {
+        console.error('❌ Error updating stats:', error);
+    }
+}
 
 // ===== Load Software Data =====
 async function loadSoftwareData() {
@@ -847,6 +881,13 @@ async function loadSoftwareData() {
             const frpAppsData = githubData ? githubData.frpApps : getDataFromStorage('frp-apps-apps', frpApps);
             frpAppsContainer.innerHTML = frpAppsData.map(app => createFrpAppSimpleCard(app)).join('');
         }
+        
+        // Load latest games
+        loadLatestGames(githubData || { windowsGames: windowsGames, androidGames: androidGames }, 'windows', 'latestWindowsGames');
+        loadLatestGames(githubData || { windowsGames: windowsGames, androidGames: androidGames }, 'android', 'latestAndroidGames');
+        
+        // Update statistics
+        updateStats();
         
         console.log('✅ Software data loaded successfully');
     } catch (error) {
@@ -2350,6 +2391,41 @@ function formatDescriptionWithNotes(description) {
     );
     
     return formatted;
+}
+
+// ===== Load Latest Games =====
+function loadLatestGames(data, type, containerId, maxItems = 4) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    // Clear existing content
+    container.innerHTML = '';
+    
+    // Get the correct data based on type
+    let games = [];
+    if (type === 'windows') {
+        games = data.windowsGames || [];
+    } else if (type === 'android') {
+        games = data.androidGames || [];
+    }
+    
+    // Sort by date (newest first) and get the latest items
+    const latestGames = [...games]
+        .sort((a, b) => new Date(b.addedDate || 0) - new Date(a.addedDate || 0))
+        .slice(0, maxItems);
+    
+    if (latestGames.length === 0) {
+        container.innerHTML = '<p class="no-results">No games found</p>';
+        return;
+    }
+    
+    // Create and append game cards
+    latestGames.forEach(game => {
+        const gameCard = createSoftwareCard(game);
+        if (gameCard) {
+            container.appendChild(gameCard);
+        }
+    });
 }
 
 // ===== Export Functions =====
