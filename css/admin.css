@@ -1553,14 +1553,13 @@ body {
     }
     
     .admin-header {
-        padding: 12px;
+        padding: 10px;
         height: auto;
-        min-height: 56px;
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        grid-template-rows: auto;
+        min-height: 60px;
+        display: flex;
         align-items: center;
-        gap: 10px;
+        justify-content: space-between;
+        gap: 8px;
         position: sticky;
         top: 0;
         z-index: 100;
@@ -1569,44 +1568,45 @@ body {
     }
     
     .mobile-menu-btn {
-        grid-column: 1;
-        grid-row: 1;
         padding: 8px;
         width: 40px;
         height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
+        order: 1;
     }
     
     .page-title {
-        grid-column: 2;
-        grid-row: 1;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 600;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 0;
+        flex: 1;
+        order: 2;
+        text-align: center;
     }
     
     .header-actions {
-        grid-column: 3;
-        grid-row: 1;
         display: flex;
-        gap: 6px;
+        gap: 4px;
         align-items: center;
         flex-shrink: 0;
+        order: 3;
     }
     
     .header-actions .btn {
         padding: 8px;
         font-size: 16px;
-        min-width: 40px;
-        height: 40px;
+        min-width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 8px;
     }
     
     .header-actions .btn span {
@@ -1617,9 +1617,9 @@ body {
         margin: 0;
     }
     
-    /* Hide less important buttons on mobile */
-    .header-actions .btn:nth-child(2),
-    .header-actions .btn:nth-child(3) {
+    /* إخفاء أزرار أقل أهمية على الهاتف */
+    .header-actions > button:nth-child(3),
+    .header-actions > button:nth-child(4) {
         display: none;
     }
     
@@ -1627,10 +1627,11 @@ body {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: rgba(99, 102, 241, 0.1);
+        width: 36px;
+        height: 36px;
+        background: rgba(102, 126, 234, 0.15);
         border-radius: 50%;
+        flex-shrink: 0;
     }
     
     .user-info span {
@@ -1638,7 +1639,8 @@ body {
     }
     
     .user-info i {
-        font-size: 18px;
+        font-size: 16px;
+        color: var(--primary-color);
     }
     
     #syncStatus {
@@ -1646,20 +1648,21 @@ body {
     }
     
     .admin-content {
-        padding: 15px 10px;
+        padding: 12px 8px;
     }
     
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 10px;
     }
     
     .stat-card {
-        padding: 15px 12px;
+        padding: 12px 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        border-radius: 12px;
     }
     
     .stat-icon {
@@ -1688,14 +1691,29 @@ body {
     }
     
     .tabs {
-        flex-wrap: wrap;
-        gap: 5px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
+        gap: 6px;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .tabs::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .tabs::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 4px;
     }
     
     .tab-btn {
-        padding: 8px 12px;
+        padding: 10px 16px;
         font-size: 12px;
-        flex: 1;
+        flex-shrink: 0;
+        white-space: nowrap;
         min-width: auto;
     }
     
@@ -1734,7 +1752,12 @@ body {
     }
     
     .quick-actions {
-        padding: 20px 15px;
+        padding: 15px 10px;
+    }
+    
+    .quick-actions h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
     }
     
     .color-grid {
@@ -1766,27 +1789,36 @@ body {
     .section-header {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
-        margin-bottom: 20px;
+        gap: 12px;
+        margin-bottom: 16px;
     }
     
     .section-header h2 {
-        font-size: 20px;
+        font-size: 18px;
+    }
+    
+    .section-header .btn {
+        width: 100%;
     }
     
     .actions-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 8px;
     }
     
     .action-card {
-        padding: 12px;
-        font-size: 13px;
+        padding: 14px 10px;
+        font-size: 12px;
+        border-radius: 10px;
     }
     
     .action-card i {
-        font-size: 20px;
-        margin-bottom: 6px;
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+    
+    .action-card span {
+        line-height: 1.3;
     }
     
     .images-grid {
@@ -1799,11 +1831,13 @@ body {
     
     .form-actions {
         flex-direction: column;
+        gap: 10px;
     }
     
     .btn {
         width: 100%;
         padding: 12px 16px;
+        justify-content: center;
     }
     
     .tab-btn {
@@ -1847,11 +1881,21 @@ body {
     }
     
     .modal-content {
-        margin: 5px;
+        margin: 8px;
+        border-radius: 16px;
+        max-height: 92vh;
+    }
+    
+    .modal-header {
+        padding: 16px 12px;
     }
     
     .modal-header h2 {
-        font-size: 18px;
+        font-size: 17px;
+    }
+    
+    .modal form {
+        padding: 16px 12px;
     }
     
     .form-group label {
@@ -1863,6 +1907,24 @@ body {
     .form-group textarea {
         padding: 10px;
         font-size: 13px;
+    }
+    
+    .form-tab-btn {
+        padding: 10px 12px;
+        font-size: 11px;
+        min-width: 100px;
+    }
+    
+    .form-tab-btn span {
+        font-size: 11px;
+    }
+    
+    .form-tab-btn i {
+        font-size: 13px;
+    }
+    
+    .tab-content-scroll {
+        padding: 16px;
     }
 }
 
