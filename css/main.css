@@ -1036,12 +1036,14 @@ body {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .download-btn {
-    flex: 1;
-    min-width: 200px;
-    padding: 1rem 2rem;
+    flex: 0 1 auto;
+    min-width: 180px;
+    max-width: 280px;
+    padding: 0.875rem 1.75rem;
     text-align: center;
 }
 
