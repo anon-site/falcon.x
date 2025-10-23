@@ -450,6 +450,25 @@ body {
     animation: rotate 20s linear infinite;
 }
 
+.hero-circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: url('../images/854CF0.png');
+    background-size: cover;
+    background-position: center;
+    animation: rotate-reverse 20s linear infinite;
+}
+
+@keyframes rotate-reverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
 @keyframes rotate {
     from { transform: translate(-50%, -50%) rotate(0deg); }
     to { transform: translate(-50%, -50%) rotate(360deg); }
