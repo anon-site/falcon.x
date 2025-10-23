@@ -339,16 +339,33 @@ function openItemModal(item) {
     // Footer
     if (item.lastModified) {
         const date = new Date(item.lastModified);
-        const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        const formattedDate = date.toLocaleDateString();
         html += `
             <div class="modal-footer">
                 <span><i class="fas fa-clock"></i> Last updated: ${formattedDate}</span>
+                <button class="modal-footer-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         `;
     }
     
     modalBody.innerHTML = html;
     modal.classList.add('active');
+    
+    // Reset scroll to top
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.scrollTop = 0;
+    }
+    
+    // Add click handlers for screenshots lightbox
+    setTimeout(() => {
+        const screenshots = modalBody.querySelectorAll('.screenshot');
+        screenshots.forEach((img, index) => {
+            img.addEventListener('click', () => openLightbox(item.screenshots, index));
+        });
+    }, 100);
 }
 
 // Close modal
@@ -465,3 +482,69 @@ function closeWarningModal() {
         setTimeout(() => modal.remove(), 300);
     }
 }
+
+// Lightbox Functions
+let currentLightboxImages = [];
+let currentLightboxIndex = 0;
+
+function openLightbox(images, index) {
+    currentLightboxImages = images;
+    currentLightboxIndex = index;
+    
+    const lightboxHtml = `
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close" onclick="closeLightbox()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="lightbox-prev" onclick="prevLightboxImage()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-next" onclick="nextLightboxImage()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <img src="${images[index]}" alt="Screenshot" class="lightbox-image" id="lightboxImage">
+            <div class="lightbox-counter">${index + 1} / ${images.length}</div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', lightboxHtml);
+    setTimeout(() => document.getElementById('lightbox').classList.add('active'), 10);
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+        setTimeout(() => lightbox.remove(), 300);
+    }
+}
+
+function nextLightboxImage() {
+    currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImages.length;
+    updateLightboxImage();
+}
+
+function prevLightboxImage() {
+    currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImages.length) % currentLightboxImages.length;
+    updateLightboxImage();
+}
+
+function updateLightboxImage() {
+    const img = document.getElementById('lightboxImage');
+    const counter = document.querySelector('.lightbox-counter');
+    if (img && counter) {
+        img.src = currentLightboxImages[currentLightboxIndex];
+        counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
+    }
+}
+
+// Close lightbox on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeLightbox();
+    } else if (e.key === 'ArrowRight') {
+        if (document.getElementById('lightbox')) nextLightboxImage();
+    } else if (e.key === 'ArrowLeft') {
+        if (document.getElementById('lightbox')) prevLightboxImage();
+    }
+});
