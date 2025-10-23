@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="12" fill="url(#gradient)"/>
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <!-- Falcon head -->
+  <path d="M32 16C32 16 28 18 28 22C28 24 29 25 29 25L27 28L29 29C29 29 30 30 32 30C34 30 35 29 35 29L37 28L35 25C35 25 36 24 36 22C36 18 32 16 32 16Z" fill="white"/>
+  <!-- Falcon eye -->
+  <circle cx="30" cy="22" r="1.5" fill="#6366f1"/>
+  <circle cx="34" cy="22" r="1.5" fill="#6366f1"/>
+  <!-- Falcon beak -->
+  <path d="M32 26L30 28L32 29L34 28L32 26Z" fill="#f59e0b"/>
+  <!-- Falcon body -->
+  <path d="M32 30L28 35L25 45L32 52L39 45L36 35L32 30Z" fill="white" opacity="0.95"/>
+  <!-- Wings -->
+  <path d="M28 35L20 38L18 45L25 45L28 35Z" fill="white" opacity="0.8"/>
+  <path d="M36 35L44 38L46 45L39 45L36 35Z" fill="white" opacity="0.8"/>
+  <!-- Tail -->
+  <path d="M30 48L28 54L32 52L36 54L34 48" fill="white" opacity="0.7"/>
+</svg>
