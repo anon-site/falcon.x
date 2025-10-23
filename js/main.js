@@ -788,43 +788,90 @@ async function loadSoftwareData() {
     
     try {
         console.log('🔄 Loading software data...');
+        if (loadingIndicator) loadingIndicator.classList.add('show');
+        
+        // Clear any previous errors
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(el => el.remove());
         
         // Try to load from GitHub first if configured
         let githubData = null;
         if (typeof githubAPI !== 'undefined' && githubAPI.isConfigured()) {
-            // Show loading indicator when fetching from GitHub
-            if (loadingIndicator) {
-                loadingIndicator.classList.add('show');
-            }
             try {
                 console.log('🐙 Attempting to load data from GitHub...');
                 githubData = await githubAPI.loadDataFromGitHub();
                 
                 if (githubData) {
                     console.log('✅ Successfully loaded data from GitHub, caching locally...');
-                    // Cache the GitHub data to localStorage for faster future loads
-                    localStorage.setItem('falcon-x-windows-apps', JSON.stringify(githubData.windowsSoftware || []));
-                    localStorage.setItem('falcon-x-windows-games', JSON.stringify(githubData.windowsGames || []));
-                    localStorage.setItem('falcon-x-android-apps', JSON.stringify(githubData.androidApps || []));
-                    localStorage.setItem('falcon-x-android-games', JSON.stringify(githubData.androidGames || []));
-                    localStorage.setItem('falcon-x-frp-tools', JSON.stringify(githubData.frpTools || []));
-                    localStorage.setItem('falcon-x-frp-apps', JSON.stringify(githubData.frpApps || []));
-                    localStorage.setItem('falcon-x-last-update', Date.now().toString());
                     
-                    showToast('✨ Data loaded from GitHub!', 'success');
+                    // Helper function to safely save data to localStorage
+                    const saveDataToLocalStorage = (key, data) => {
+                        if (data && Array.isArray(data) && data.length > 0) {
+                            localStorage.setItem(key, JSON.stringify(data));
+                            console.log(`💾 Cached ${data.length} items to ${key}`);
+                        }
+                    };
+                    
+                    // Handle both old and new data structures
+                    if (githubData.windows || githubData.android || githubData.frp) {
+                        // New structure: { windows: { programs: [], games: [] }, ... }
+                        if (githubData.windows) {
+                            saveDataToLocalStorage('falcon-x-windows-apps', githubData.windows.programs);
+                            saveDataToLocalStorage('falcon-x-windows-games', githubData.windows.games);
+                        }
+                        if (githubData.android) {
+                            saveDataToLocalStorage('falcon-x-android-apps', githubData.android.apps);
+                            saveDataToLocalStorage('falcon-x-android-games', githubData.android.games);
+                        }
+                        if (githubData.frp) {
+                            saveDataToLocalStorage('falcon-x-frp-tools', githubData.frp.tools);
+                            saveDataToLocalStorage('falcon-x-frp-apps', githubData.frp.apps);
+                        }
+                    } else if (githubData.windowsSoftware || githubData.windowsGames || 
+                              githubData.androidApps || githubData.androidGames) {
+                        // Old structure: { windowsSoftware: [], windowsGames: [], ... }
+                        saveDataToLocalStorage('falcon-x-windows-apps', githubData.windowsSoftware);
+                        saveDataToLocalStorage('falcon-x-windows-games', githubData.windowsGames);
+                        saveDataToLocalStorage('falcon-x-android-apps', githubData.androidApps);
+                        saveDataToLocalStorage('falcon-x-android-games', githubData.androidGames);
+                        saveDataToLocalStorage('falcon-x-frp-tools', githubData.frpTools);
+                        saveDataToLocalStorage('falcon-x-frp-apps', githubData.frpApps);
+                    }
+                    
+                    localStorage.setItem('falcon-x-last-update', Date.now().toString());
+                    showToast('✨ تم تحميل البيانات من GitHub بنجاح!', 'success');
                 }
             } catch (error) {
-                console.warn('⚠️ Failed to load from GitHub, using local data:', error);
+                console.warn('⚠️ فشل تحميل البيانات من GitHub، يتم استخدام البيانات المحلية:', error);
+                showToast('⚠️ فشل تحميل البيانات من GitHub، يتم استخدام البيانات المحلية', 'warning');
             }
         } else {
-            console.log('📋 GitHub not configured, using local data');
+            console.log('📋 لم يتم تكوين GitHub، يتم استخدام البيانات المحلية');
         }
         
-        // Load Windows Programs - priority: GitHub > localStorage > data.js
+        // Helper function to get data from the appropriate source
+        const getData = async (githubKey, storageKey, fallbackData) => {
+            if (githubData) {
+                // Get data from GitHub response
+                const keys = githubKey.split('.');
+                let data = githubData;
+                for (const key of keys) {
+                    if (!data) break;
+                    data = data[key];
+                }
+                if (data) return data;
+            }
+            
+            // If no data from GitHub, try localStorage or fallback
+            return await getDataFromStorage(storageKey, fallbackData);
+        };
+
+        // Load Windows Programs
         const windowsProgramsContainer = document.getElementById('windowsPrograms');
         if (windowsProgramsContainer) {
-            const windowsData = githubData ? githubData.windowsSoftware : getDataFromStorage('windows-apps', windowsSoftware);
+            const windowsData = await getData('windows.programs', 'windows-apps', windowsSoftware);
             windowsProgramsContainer.innerHTML = windowsData.map(app => createSoftwareCard(app)).join('');
+            
             // Update latest Windows (top 3 by lastUpdated)
             const latestWinEl = document.getElementById('latestWindows');
             if (latestWinEl) {
@@ -835,20 +882,31 @@ async function loadSoftwareData() {
                     .join('');
                 latestWinEl.innerHTML = latest3 || '<p style="color: var(--text-secondary);">No recent items.</p>';
             }
+            
+            // Save to localStorage if not already there
+            if (!githubData) {
+                localStorage.setItem('falcon-x-windows-apps', JSON.stringify(windowsData));
+            }
         }
         
         // Load Windows Games
         const windowsGamesContainer = document.getElementById('windowsGames');
         if (windowsGamesContainer) {
-            const windowsGamesData = githubData ? githubData.windowsGames : getDataFromStorage('windows-games', windowsGames);
+            const windowsGamesData = await getData('windows.games', 'windows-games', windowsGames);
             windowsGamesContainer.innerHTML = windowsGamesData.map(app => createSoftwareCard(app)).join('');
+            
+            // Save to localStorage if not already there
+            if (!githubData) {
+                localStorage.setItem('falcon-x-windows-games', JSON.stringify(windowsGamesData));
+            }
         }
         
         // Load Android Apps
         const androidAppsContainer = document.getElementById('androidApps');
         if (androidAppsContainer) {
-            const androidData = githubData ? githubData.androidApps : getDataFromStorage('android-apps', androidApps);
+            const androidData = await getData('android.apps', 'android-apps', androidApps);
             androidAppsContainer.innerHTML = androidData.map(app => createSoftwareCard(app)).join('');
+            
             // Update latest Android (top 3 by lastUpdated)
             const latestAndEl = document.getElementById('latestAndroid');
             if (latestAndEl) {
@@ -859,32 +917,54 @@ async function loadSoftwareData() {
                     .join('');
                 latestAndEl.innerHTML = latest3 || '<p style="color: var(--text-secondary);">No recent items.</p>';
             }
+            
+            // Save to localStorage if not already there
+            if (!githubData) {
+                localStorage.setItem('falcon-x-android-apps', JSON.stringify(androidData));
+            }
         }
         
         // Load Android Games
         const androidGamesContainer = document.getElementById('androidGames');
         if (androidGamesContainer) {
-            const androidGamesData = githubData ? githubData.androidGames : getDataFromStorage('android-games', androidGames);
+            const androidGamesData = await getData('android.games', 'android-games', androidGames);
             androidGamesContainer.innerHTML = androidGamesData.map(app => createSoftwareCard(app)).join('');
+            
+            // Save to localStorage if not already there
+            if (!githubData) {
+                localStorage.setItem('falcon-x-android-games', JSON.stringify(androidGamesData));
+            }
         }
         
         // Load FRP tools
         const frpContainer = document.getElementById('frpTools');
         if (frpContainer) {
-            const frpData = githubData ? githubData.frpTools : getDataFromStorage('frp-tools-apps', frpTools);
+            const frpData = await getData('frp.tools', 'frp-tools', frpTools);
             frpContainer.innerHTML = frpData.map(app => createSoftwareCard(app)).join('');
+            
+            // Save to localStorage if not already there
+            if (!githubData) {
+                localStorage.setItem('falcon-x-frp-tools', JSON.stringify(frpData));
+            }
         }
         
         // Load FRP apps - use simple card without modal
         const frpAppsContainer = document.getElementById('frpApps');
         if (frpAppsContainer) {
-            const frpAppsData = githubData ? githubData.frpApps : getDataFromStorage('frp-apps-apps', frpApps);
+            const frpAppsData = await getData('frp.apps', 'frp-apps', frpApps);
             frpAppsContainer.innerHTML = frpAppsData.map(app => createFrpAppSimpleCard(app)).join('');
+            
+            // Save to localStorage if not already there
+            if (!githubData) {
+                localStorage.setItem('falcon-x-frp-apps', JSON.stringify(frpAppsData));
+            }
         }
         
         // Load latest games
-        loadLatestGames(githubData || { windowsGames: windowsGames, androidGames: androidGames }, 'windows', 'latestWindowsGames');
-        loadLatestGames(githubData || { windowsGames: windowsGames, androidGames: androidGames }, 'android', 'latestAndroidGames');
+        const windowsGames = await getDataFromStorage('windows-games', []);
+        const androidGamesList = await getDataFromStorage('android-games', []);
+        loadLatestGames({ windowsGames, androidGames: androidGamesList }, 'windows', 'latestWindowsGames');
+        loadLatestGames({ windowsGames, androidGames: androidGamesList }, 'android', 'latestAndroidGames');
         
         // Update statistics
         updateStats();
@@ -901,8 +981,8 @@ async function loadSoftwareData() {
     }
 }
 
-// ===== Get Data from data.js =====
-function getDataFromStorage(storageKey, fallbackData) {
+// ===== Get Data from data.js or GitHub =====
+async function getDataFromStorage(storageKey, fallbackData) {
     try {
         // Map storage keys to localStorage keys used by admin panel
         const localStorageKeyMap = {
@@ -910,32 +990,115 @@ function getDataFromStorage(storageKey, fallbackData) {
             'windows-games': 'falcon-x-windows-games',
             'android-apps': 'falcon-x-android-apps',
             'android-games': 'falcon-x-android-games',
-            'frp-tools-apps': 'falcon-x-frp-tools',
-            'frp-apps-apps': 'falcon-x-frp-apps'
+            'frp-tools': 'falcon-x-frp-tools',
+            'frp-apps': 'falcon-x-frp-apps'
         };
         
         const localStorageKey = localStorageKeyMap[storageKey];
-        if (localStorageKey) {
-            const stored = localStorage.getItem(localStorageKey);
-            if (stored) {
+        if (!localStorageKey) {
+            console.log(`⚠️ No localStorage key mapping found for ${storageKey}`);
+            return fallbackData || [];
+        }
+
+        // Try to get data from localStorage first
+        const stored = localStorage.getItem(localStorageKey);
+        if (stored) {
+            try {
                 const parsedData = JSON.parse(stored);
-                console.log(`✅ Loaded ${parsedData.length} items from localStorage (${storageKey})`);
-                return parsedData;
-            }
-            
-            // If not in localStorage, cache fallback data for future use
-            if (fallbackData && fallbackData.length > 0) {
-                console.log(`💾 Caching ${fallbackData.length} items from data.js to localStorage (${storageKey})`);
-                localStorage.setItem(localStorageKey, JSON.stringify(fallbackData));
+                if (Array.isArray(parsedData)) {
+                    console.log(`✅ Loaded ${parsedData.length} items from localStorage (${storageKey})`);
+                    return parsedData;
+                } else {
+                    console.warn(`⚠️ Data in localStorage for ${storageKey} is not an array, removing...`);
+                    localStorage.removeItem(localStorageKey);
+                }
+            } catch (e) {
+                console.error(`Error parsing stored data for ${storageKey}:`, e);
+                localStorage.removeItem(localStorageKey);
             }
         }
+        
+        // Try to get data from GitHub if available
+        if (window.githubAPI && typeof window.githubAPI.loadDataFromGitHub === 'function') {
+            try {
+                console.log(`🔄 Attempting to load ${storageKey} from GitHub...`);
+                const githubData = await window.githubAPI.loadDataFromGitHub();
+                
+                if (githubData) {
+                    // Map the GitHub data structure to our expected format
+                    let githubItems = [];
+                    
+                    // Handle different GitHub data structures
+                    if (githubData.windows || githubData.android || githubData.frp) {
+                        // New structure: { windows: { programs: [], games: [] }, ... }
+                        const githubDataMap = {
+                            'windows-apps': githubData.windows?.programs || [],
+                            'windows-games': githubData.windows?.games || [],
+                            'android-apps': githubData.android?.apps || [],
+                            'android-games': githubData.android?.games || [],
+                            'frp-tools': githubData.frp?.tools || [],
+                            'frp-apps': githubData.frp?.apps || []
+                        };
+                        githubItems = githubDataMap[storageKey] || [];
+                    } else if (githubData.windowsSoftware || githubData.windowsGames || 
+                              githubData.androidApps || githubData.androidGames) {
+                        // Old structure: { windowsSoftware: [], windowsGames: [], ... }
+                        const oldDataMap = {
+                            'windows-apps': githubData.windowsSoftware || [],
+                            'windows-games': githubData.windowsGames || [],
+                            'android-apps': githubData.androidApps || [],
+                            'android-games': githubData.androidGames || [],
+                            'frp-tools': githubData.frpTools || [],
+                            'frp-apps': githubData.frpApps || []
+                        };
+                        githubItems = oldDataMap[storageKey] || [];
+                    }
+                    
+                    if (githubItems.length > 0) {
+                        console.log(`✅ Loaded ${githubItems.length} items from GitHub (${storageKey})`);
+                        // Cache the GitHub data in localStorage for future use
+                        localStorage.setItem(localStorageKey, JSON.stringify(githubItems));
+                        return githubItems;
+                    }
+                }
+            } catch (error) {
+                console.error(`Error loading data from GitHub for ${storageKey}:`, error);
+            }
+        }
+        
+        // If no data from GitHub, check if fallbackData is available in window object
+        if (!fallbackData || fallbackData.length === 0) {
+            // Try to get data from window object (from data.js)
+            const windowDataMap = {
+                'windows-apps': window.windowsSoftware || [],
+                'windows-games': window.windowsGames || [],
+                'android-apps': window.androidApps || [],
+                'android-games': window.androidGames || [],
+                'frp-tools': window.frpTools || [],
+                'frp-apps': window.frpApps || []
+            };
+            
+            const windowData = windowDataMap[storageKey] || [];
+            if (windowData.length > 0) {
+                console.log(`📦 Using data from data.js for ${storageKey}`);
+                localStorage.setItem(localStorageKey, JSON.stringify(windowData));
+                return windowData;
+            }
+        }
+        
+        // If no other data source is available, use fallback data and cache it
+        if (fallbackData && fallbackData.length > 0) {
+            console.log(`💾 Using fallback data for ${storageKey}`);
+            localStorage.setItem(localStorageKey, JSON.stringify(fallbackData));
+            return fallbackData;
+        }
+        
+        console.warn(`⚠️ No data available for ${storageKey}, returning empty array`);
+        return [];
     } catch (error) {
-        console.error('Error reading from localStorage:', error);
+        console.error(`Error in getDataFromStorage for ${storageKey}:`, error);
+        return fallbackData || [];
     }
-    
-    // Fallback to data.js
-    console.log(`📂 Using fallback data.js for ${storageKey}`);
-    return fallbackData || [];
 }
 
 // ===== Refresh Data from Admin Panel =====

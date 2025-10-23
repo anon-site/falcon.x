@@ -2108,6 +2108,9 @@ function updateDashboardStats() {
 window.addEventListener('DOMContentLoaded', async function() {
     if (!checkAuth()) return;
     
+    // Initialize dashboard stats
+    updateDashboardStats();
+    
     // Try to load settings from GitHub first
     if (githubAPI.isConfigured()) {
         console.log('🔄 Loading settings from GitHub...');
