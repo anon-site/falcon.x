@@ -522,12 +522,12 @@ const androidGames = [
         description: 'Angry Birds Blast is a colorful puzzle game for Android where players pop balloons to free the Angry Birds from traps and defeat the mischievous pigs.',
         fullDescription: 'Angry Birds Blast is an exciting match-2 puzzle game from Rovio Entertainment, bringing a fresh twist to the classic Angry Birds universe. In this game, players must tap on groups of balloons of the same color to pop them and free the birds trapped inside by the evil pigs. Each level offers unique challenges, limited moves, and strategic puzzles that require careful planning. With hundreds of levels, boosters, and special combos, players can create explosive chain reactions to score higher. The game features vibrant graphics, fun sound effects, and smooth gameplay. Regular updates add new events, levels, and seasonal content for endless fun.\nNote: Unlimited Money/Moves',
         size: 'MB 196.72',
-        downloadLink: 'https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%202/Angry%20Birds%20Blast/AB-Blast-v2.8.3-MOD-GMA-(Getmodsapk.com).apk',
+        downloadLink: 'https://s1099sas.storage.yandex.net/rdisk/74d3626f935262aa08347c5635ca94d46631d0dd37830694e8ec89199bfaf371/68fa6357/2PT-j3FxyDF14NKa7RYxuvw3Mq25yg3YquugT1Jk-8xF9bscJ_YX-ue_ibRVmlxcnerkkiO4NTYcCShQNo2FjQ==?uid=0&filename=Angry-Birds-Two-3.10.0%28Apkbaba.com%29.zip&disposition=attachment&hash=jEueJxVEVo6fSUxJ7CUCzEGrVV10S5uVLneD4bUDE/gDPdDQSzhEnWgz33RTC8yXq/J6bpmRyOJonT3VoXnDag%3D%3D%3A/games/Angry-Birds-Two-3.10.0%28Apkbaba.com%29.zip&limit=0&content_type=application%2Fzip&owner_uid=2040577186&fsize=174688632&hid=576e381781699a2ca4da621e71ad7580&media_type=compressed&tknv=v3&ts=641d69e4e43c0&s=e50f07435465908ab05140f5f2a00eb9a9b8c7fdc9b511223f8f90ca0ca1b375&pb=U2FsdGVkX18ZZuL8Tud3v0zEsJfJxn-0YS66WYp5rZXkXr-cKGuaH_OfHGWmyZQCft7lhj8hE05C_jpmyU5QZ9jEOKm-P_q0u1L4llVcxn4',
         isModified: true,
         systemRequirements: 'Operating System: Android 5.0 or higher\nProcessor: Quad-core 1.5 GHz or higher\nMemory: 2 GB RAM or higher\nStorage: At least 300 MB free space',
         screenshots: ['https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-4.webp', 'https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-3.webp', 'https://getmodsapk.com/storage/media/2025/9/angry-birds-blast-mod-apk-2.webp'],
         features: ['Addictive match-2 puzzle gameplay', 'Hundreds of colorful and challenging levels', 'Boosters and power-ups like rockets and bombs', 'Stunning animations and classic Angry Birds humor', 'Compete with friends on leaderboards', 'Regular updates with new levels and events', 'Works offline without an internet connection'],
-        lastUpdated: '2025-10-23T12:50:27.079Z'
+        lastUpdated: '2025-10-23T13:18:33.157Z'
     }
 ];
 
