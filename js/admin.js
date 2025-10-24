@@ -451,6 +451,7 @@ async function validateGithubToken() {
     }
     
     try {
+        console.log('Validating token...');
         const response = await fetch('https://api.github.com/user', {
             headers: {
                 'Authorization': `token ${token}`
@@ -458,13 +459,16 @@ async function validateGithubToken() {
         });
         
         if (!response.ok) {
+            console.error('Token validation failed:', response.status);
             alert('Invalid token or network error');
             return;
         }
         
         const userData = await response.json();
+        console.log('User data:', userData);
         
         // Get repositories
+        console.log('Fetching repositories...');
         const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100', {
             headers: {
                 'Authorization': `token ${token}`
@@ -472,28 +476,39 @@ async function validateGithubToken() {
         });
         
         if (!reposResponse.ok) {
-            alert('Error fetching repositories');
+            console.error('Error fetching repos:', reposResponse.status);
+            alert('Error fetching repositories: ' + reposResponse.statusText);
             return;
         }
         
         const repos = await reposResponse.json();
+        console.log('Repositories found:', repos.length, repos);
         
         // Populate repository dropdown
         const repoSelect = document.getElementById('githubRepo');
         repoSelect.innerHTML = '<option value="">Select a repository...</option>';
+        
+        if (repos.length === 0) {
+            alert('No repositories found in your GitHub account. Please create a repository first.');
+            document.getElementById('githubUsername').value = userData.login;
+            document.getElementById('githubInfo').style.display = 'block';
+            return;
+        }
         
         repos.forEach(repo => {
             const option = document.createElement('option');
             option.value = repo.name;
             option.textContent = repo.name;
             repoSelect.appendChild(option);
+            console.log('Added repo option:', repo.name);
         });
         
         document.getElementById('githubUsername').value = userData.login;
         document.getElementById('githubInfo').style.display = 'block';
         
-        alert('Token validated successfully! Please select a repository.');
+        alert(`Token validated successfully! Found ${repos.length} repositories. Please select one.`);
     } catch (error) {
+        console.error('Error:', error);
         alert('Error validating token: ' + error.message);
     }
 }
