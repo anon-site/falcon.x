@@ -824,6 +824,46 @@ body {
     font-style: italic;
 }
 
+.field-hint a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.field-hint a:hover {
+    text-decoration: underline;
+}
+
+/* AI Auto-Fill Button */
+.btn-ai-fill {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.btn-ai-fill:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.btn-ai-fill:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-ai-fill i {
+    font-size: 1rem;
+}
+
 .note-color-picker {
     display: flex;
     gap: 1rem;

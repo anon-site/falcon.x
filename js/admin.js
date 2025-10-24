@@ -431,6 +431,121 @@ function updateLineCounter(textareaId, counterId) {
     }
 }
 
+// AI Auto-Fill with Groq
+async function autoFillWithAI() {
+    const settings = db.getSettings();
+    const apiKey = settings.groqApiKey;
+    
+    if (!apiKey) {
+        alert('⚠️ Please add your Groq API Key in GitHub Settings first!');
+        switchSection('github-settings');
+        return;
+    }
+    
+    const name = document.getElementById('itemName').value.trim();
+    if (!name) {
+        alert('⚠️ Please enter the software/app name first!');
+        document.getElementById('itemName').focus();
+        return;
+    }
+    
+    const type = document.getElementById('itemType').value;
+    const isFrp = type === 'frpApps';
+    
+    // Show loading state
+    const btn = event.target.closest('.btn-ai-fill');
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+    
+    try {
+        const prompt = `You are a software information expert. Provide detailed information about "${name}" in JSON format.
+
+Respond with this exact JSON structure:
+{
+  "shortDesc": "Brief one-line description (max 100 chars)",
+  "fullDesc": "Detailed description (2-3 paragraphs)",
+  "category": "Most appropriate category",
+  "version": "Latest stable version (if known, otherwise empty string)",
+  "size": "Approximate download size (e.g., 150 MB)",
+  "features": ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"],
+  "requirements": "System requirements as text"
+}
+
+Important: Return ONLY the JSON, no additional text.`;
+        
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [{
+                    role: 'user',
+                    content: prompt
+                }],
+                temperature: 0.3,
+                max_tokens: 2000
+            })
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error?.message || 'API request failed');
+        }
+        
+        const data = await response.json();
+        const content = data.choices[0].message.content;
+        
+        // Parse JSON response
+        const jsonMatch = content.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+            throw new Error('Invalid response format');
+        }
+        
+        const aiData = JSON.parse(jsonMatch[0]);
+        
+        // Fill form fields (skip for FRP apps as they don't need full description)
+        if (!isFrp) {
+            document.getElementById('itemFullDesc').value = aiData.fullDesc || '';
+            updateCharCounter('itemFullDesc', 'fullDescCounter');
+            
+            if (aiData.features && Array.isArray(aiData.features)) {
+                document.getElementById('itemFeatures').value = aiData.features.join('\n');
+                updateLineCounter('itemFeatures', 'featuresCounter');
+            }
+            
+            document.getElementById('itemRequirements').value = aiData.requirements || '';
+            updateCharCounter('itemRequirements', 'requirementsCounter');
+        }
+        
+        document.getElementById('itemShortDesc').value = aiData.shortDesc || '';
+        document.getElementById('itemVersion').value = aiData.version || '';
+        document.getElementById('itemSize').value = aiData.size || '';
+        
+        // Set category if it matches
+        const categorySelect = document.getElementById('itemCategory');
+        const options = Array.from(categorySelect.options);
+        const matchingOption = options.find(opt => 
+            opt.value.toLowerCase() === aiData.category.toLowerCase()
+        );
+        if (matchingOption) {
+            categorySelect.value = matchingOption.value;
+        }
+        
+        alert('✅ AI Auto-Fill completed! Please review and edit as needed.');
+        
+    } catch (error) {
+        console.error('AI Auto-Fill error:', error);
+        alert('❌ Error: ' + error.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
+}
+
 // Load categories management
 function loadCategories() {
     loadCategoryList('windowsPrograms', 'winProgramsCategoriesList');
@@ -619,6 +734,7 @@ function filterCategories(listId, searchTerm) {
 function loadGithubSettings() {
     const settings = db.getSettings();
     document.getElementById('githubToken').value = settings.githubToken || '';
+    document.getElementById('groqApiKey').value = settings.groqApiKey || '';
     
     if (settings.githubUsername && settings.githubRepo) {
         document.getElementById('githubUsername').value = settings.githubUsername;
@@ -704,11 +820,12 @@ function saveGithubSettings() {
     const settings = {
         githubToken: document.getElementById('githubToken').value,
         githubUsername: document.getElementById('githubUsername').value,
-        githubRepo: document.getElementById('githubRepo').value
+        githubRepo: document.getElementById('githubRepo').value,
+        groqApiKey: document.getElementById('groqApiKey').value
     };
     
     db.saveSettings(settings);
-    alert('GitHub settings saved!');
+    alert('Settings saved successfully!');
 }
 
 // Open GitHub repo
