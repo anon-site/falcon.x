@@ -350,10 +350,38 @@ function openItemModal(item) {
     
     // Requirements
     if (item.requirements) {
+        // Parse and format requirements
+        const reqLines = item.requirements.split('\n').filter(line => line.trim());
+        let formattedReqs = '';
+        
+        if (reqLines.length > 1) {
+            // Multi-line format - create a styled list
+            formattedReqs = '<div class="requirements-list">';
+            reqLines.forEach(line => {
+                const parts = line.split(':');
+                if (parts.length === 2) {
+                    // Format as key-value pair
+                    formattedReqs += `
+                        <div class="req-item">
+                            <span class="req-label">${sanitizeHTML(parts[0].trim())}:</span>
+                            <span class="req-value">${sanitizeHTML(parts[1].trim())}</span>
+                        </div>
+                    `;
+                } else {
+                    // Regular line
+                    formattedReqs += `<div class="req-item-full">${sanitizeHTML(line)}</div>`;
+                }
+            });
+            formattedReqs += '</div>';
+        } else {
+            // Single line format
+            formattedReqs = `<p>${sanitizeHTML(item.requirements)}</p>`;
+        }
+        
         html += `
             <div class="modal-section">
                 <h3><i class="fas fa-server"></i> System Requirements</h3>
-                <p>${item.requirements}</p>
+                ${formattedReqs}
             </div>
         `;
     }

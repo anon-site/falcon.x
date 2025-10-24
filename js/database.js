@@ -37,9 +37,18 @@ class Database {
                 return;
             }
 
+            // Add timestamp to break cache
+            const timestamp = new Date().getTime();
             const response = await fetch(
-                `https://raw.githubusercontent.com/${settings.githubUsername}/${settings.githubRepo}/main/data.json`,
-                { cache: 'no-cache' }
+                `https://raw.githubusercontent.com/${settings.githubUsername}/${settings.githubRepo}/main/data.json?t=${timestamp}`,
+                { 
+                    cache: 'no-cache',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                }
             );
 
             if (response.ok) {
