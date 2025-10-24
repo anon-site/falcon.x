@@ -13,7 +13,7 @@ class Database {
             categories: {
                 windowsPrograms: ['Design & Editing', 'Browsers', 'Office Suite', 'Development', 'Security', 'Media Players', 'Utilities'],
                 windowsGames: ['Action & Adventure', 'Strategy', 'RPG', 'Sports', 'Racing', 'Simulation'],
-                androidApps: ['Communication', 'Social Media', 'Productivity', 'Photography', 'Entertainment', 'Education'],
+                androidApps: ['Communication', 'Social Media', 'Productivity', 'Photography', 'Entertainment', 'Education', 'Booster Games'],
                 androidGames: ['Battle Royale', 'Puzzle', 'Action', 'Strategy', 'Casual', 'Sports'],
                 phoneTools: ['Flashing Tools', 'Backup Tools', 'Recovery Tools', 'Unlock Tools', 'Root Tools'],
                 frpApps: ['Samsung', 'Xiaomi', 'Oppo', 'Vivo', 'Huawei', 'Realme', 'OnePlus', 'Nokia', 'LG', 'Motorola']
