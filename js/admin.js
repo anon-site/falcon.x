@@ -847,10 +847,12 @@ async function saveToGithub() {
             markSaved();
             alert('✅ Data saved to GitHub successfully!');
         } else {
-            throw new Error(response.statusText);
+            const errorData = await response.json();
+            throw new Error(`${response.status} - ${errorData.message || response.statusText}`);
         }
     } catch (error) {
-        alert('❌ Error saving to GitHub: ' + error.message);
+        console.error('GitHub Save Error:', error);
+        alert('❌ Error saving to GitHub: ' + error.message + '\n\nCheck console for details.');
     }
 }
 
