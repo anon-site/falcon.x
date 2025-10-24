@@ -283,6 +283,14 @@ function editItem(type, id) {
     // Show/hide FRP fields
     toggleFrpFieldsVisibility(type);
     
+    // Update counters
+    setTimeout(() => {
+        updateCharCounter('itemFullDesc', 'fullDescCounter');
+        updateLineCounter('itemScreenshots', 'screenshotsCounter');
+        updateLineCounter('itemFeatures', 'featuresCounter');
+        updateCharCounter('itemRequirements', 'requirementsCounter');
+    }, 100);
+    
     const modal = document.getElementById('itemFormModal');
     modal.classList.add('active');
     
@@ -401,6 +409,26 @@ function closeItemForm() {
     document.getElementById('itemFormModal').classList.remove('active');
     currentEditingItem = null;
     currentEditingType = null;
+}
+
+// Update character counter
+function updateCharCounter(textareaId, counterId) {
+    const textarea = document.getElementById(textareaId);
+    const counter = document.getElementById(counterId);
+    if (textarea && counter) {
+        const length = textarea.value.length;
+        counter.textContent = `${length} character${length !== 1 ? 's' : ''}`;
+    }
+}
+
+// Update line counter
+function updateLineCounter(textareaId, counterId) {
+    const textarea = document.getElementById(textareaId);
+    const counter = document.getElementById(counterId);
+    if (textarea && counter) {
+        const lines = textarea.value.split('\n').filter(line => line.trim()).length;
+        counter.textContent = `${lines} line${lines !== 1 ? 's' : ''}`;
+    }
 }
 
 // Load categories management

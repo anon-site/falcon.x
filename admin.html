@@ -517,8 +517,11 @@
 
                     <div class="form-row" id="fullDescRow">
                         <div class="form-group full">
-                            <label><i class="fas fa-align-justify"></i> Full Description</label>
-                            <textarea id="itemFullDesc" rows="4" placeholder="Detailed description for modal view"></textarea>
+                            <label>
+                                <i class="fas fa-align-justify"></i> Full Description
+                                <span class="char-counter" id="fullDescCounter">0 characters</span>
+                            </label>
+                            <textarea id="itemFullDesc" rows="8" placeholder="Write a detailed description of the software/app, its purpose, and main functionality..." oninput="updateCharCounter('itemFullDesc', 'fullDescCounter')"></textarea>
                         </div>
                     </div>
                 </div>
@@ -540,9 +543,12 @@
 
                     <div class="form-row" id="screenshotsRow">
                         <div class="form-group full">
-                            <label><i class="fas fa-images"></i> Screenshots URLs (one per line)</label>
-                            <textarea id="itemScreenshots" rows="3" placeholder="https://screenshot1.jpg&#10;https://screenshot2.jpg&#10;https://screenshot3.jpg"></textarea>
-                            <small class="field-hint">Add up to 3 screenshot links, one per line</small>
+                            <label>
+                                <i class="fas fa-images"></i> Screenshots URLs (one per line)
+                                <span class="char-counter" id="screenshotsCounter">0 lines</span>
+                            </label>
+                            <textarea id="itemScreenshots" rows="5" placeholder="https://i.imgur.com/example1.jpg&#10;https://i.imgur.com/example2.jpg&#10;https://i.imgur.com/example3.jpg" oninput="updateLineCounter('itemScreenshots', 'screenshotsCounter')"></textarea>
+                            <small class="field-hint">Add screenshot URLs, one per line (recommended: 3-5 screenshots)</small>
                         </div>
                     </div>
                 </div>
@@ -556,16 +562,22 @@
                     
                     <div class="form-row">
                         <div class="form-group full">
-                            <label><i class="fas fa-list-ul"></i> Features (one per line)</label>
-                            <textarea id="itemFeatures" rows="4" placeholder="Feature 1&#10;Feature 2&#10;Feature 3&#10;Feature 4"></textarea>
-                            <small class="field-hint">List key features and benefits</small>
+                            <label>
+                                <i class="fas fa-list-ul"></i> Features (one per line)
+                                <span class="char-counter" id="featuresCounter">0 features</span>
+                            </label>
+                            <textarea id="itemFeatures" rows="8" placeholder="User-friendly interface&#10;Fast performance&#10;Regular updates&#10;Multi-language support&#10;Cloud sync&#10;Dark mode" oninput="updateLineCounter('itemFeatures', 'featuresCounter')"></textarea>
+                            <small class="field-hint">List key features, one per line</small>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group full">
-                            <label><i class="fas fa-server"></i> System Requirements</label>
-                            <textarea id="itemRequirements" rows="3" placeholder="Minimum system requirements"></textarea>
+                            <label>
+                                <i class="fas fa-server"></i> System Requirements
+                                <span class="char-counter" id="requirementsCounter">0 characters</span>
+                            </label>
+                            <textarea id="itemRequirements" rows="5" placeholder="Windows 10/11 (64-bit)&#10;Processor: Intel Core i5 or equivalent&#10;RAM: 8GB minimum&#10;Storage: 2GB free space" oninput="updateCharCounter('itemRequirements', 'requirementsCounter')"></textarea>
                         </div>
                     </div>
                 </div>
