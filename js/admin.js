@@ -443,73 +443,73 @@ function loadGithubSettings() {
 
 // Validate GitHub token
 async function validateGithubToken() {
-    const token = document.getElementById('githubToken').value;
+    const tokenInput = document.getElementById('githubToken');
+    const token = tokenInput.value.trim();
     
     if (!token) {
         alert('Please enter a GitHub token');
         return;
     }
     
+    const btn = event.target;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
+    
     try {
-        console.log('Validating token...');
-        const response = await fetch('https://api.github.com/user', {
+        // Validate token
+        const userResponse = await fetch('https://api.github.com/user', {
             headers: {
-                'Authorization': `token ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
             }
         });
         
-        if (!response.ok) {
-            console.error('Token validation failed:', response.status);
-            alert('Invalid token or network error');
-            return;
+        if (!userResponse.ok) {
+            throw new Error('Invalid token or insufficient permissions');
         }
         
-        const userData = await response.json();
-        console.log('User data:', userData);
+        const userData = await userResponse.json();
         
-        // Get repositories
-        console.log('Fetching repositories...');
-        const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100', {
+        // Fetch all repositories
+        const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100&sort=updated', {
             headers: {
-                'Authorization': `token ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
             }
         });
         
         if (!reposResponse.ok) {
-            console.error('Error fetching repos:', reposResponse.status);
-            alert('Error fetching repositories: ' + reposResponse.statusText);
-            return;
+            throw new Error('Failed to fetch repositories');
         }
         
         const repos = await reposResponse.json();
-        console.log('Repositories found:', repos.length, repos);
         
-        // Populate repository dropdown
+        // Update UI
+        document.getElementById('githubUsername').value = userData.login;
+        
         const repoSelect = document.getElementById('githubRepo');
         repoSelect.innerHTML = '<option value="">Select a repository...</option>';
         
-        if (repos.length === 0) {
-            alert('No repositories found in your GitHub account. Please create a repository first.');
-            document.getElementById('githubUsername').value = userData.login;
+        if (repos && repos.length > 0) {
+            repos.forEach(repo => {
+                const option = document.createElement('option');
+                option.value = repo.name;
+                option.textContent = `${repo.name}${repo.private ? ' 🔒' : ''}`;
+                repoSelect.appendChild(option);
+            });
+            
             document.getElementById('githubInfo').style.display = 'block';
-            return;
+            alert(`✅ Token validated! Found ${repos.length} repositories.`);
+        } else {
+            document.getElementById('githubInfo').style.display = 'block';
+            alert('⚠️ No repositories found. Please create a repository on GitHub first.');
         }
         
-        repos.forEach(repo => {
-            const option = document.createElement('option');
-            option.value = repo.name;
-            option.textContent = repo.name;
-            repoSelect.appendChild(option);
-            console.log('Added repo option:', repo.name);
-        });
-        
-        document.getElementById('githubUsername').value = userData.login;
-        document.getElementById('githubInfo').style.display = 'block';
-        
-        alert(`Token validated successfully! Found ${repos.length} repositories. Please select one.`);
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error validating token: ' + error.message);
+        alert('❌ Error: ' + error.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check"></i> Validate Token';
     }
 }
 
@@ -552,7 +552,8 @@ async function saveToGithub() {
             `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
             {
                 headers: {
-                    'Authorization': `token ${settings.githubToken}`
+                    'Authorization': `Bearer ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
                 }
             }
         );
@@ -569,7 +570,8 @@ async function saveToGithub() {
             {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `token ${settings.githubToken}`,
+                    'Authorization': `Bearer ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
