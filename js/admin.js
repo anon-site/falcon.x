@@ -542,6 +542,26 @@ function removeCategory(type, category) {
     markUnsaved();
 }
 
+// Filter categories
+function filterCategories(listId, searchTerm) {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    
+    const items = list.querySelectorAll('.category-item');
+    const term = searchTerm.toLowerCase().trim();
+    
+    items.forEach(item => {
+        const input = item.querySelector('.category-name');
+        const categoryName = input ? input.value.toLowerCase() : '';
+        
+        if (categoryName.includes(term)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
 // GitHub Settings
 function loadGithubSettings() {
     const settings = db.getSettings();

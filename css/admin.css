@@ -452,11 +452,32 @@ body {
 
 .category-group h3 {
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     color: var(--primary);
+}
+
+.category-search {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.category-search:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.category-search::placeholder {
+    color: var(--text-secondary);
 }
 
 .category-list {
