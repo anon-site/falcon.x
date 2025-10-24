@@ -174,21 +174,33 @@ function displayItems(items, gridId) {
         return;
     }
     
-    const isFrpGrid = gridId === 'frpAppsGrid';
-    grid.innerHTML = items.map(item => createItemCard(item, isFrpGrid)).join('');
-    
-    // Add click handlers only for non-FRP items
-    if (!isFrpGrid) {
-        grid.querySelectorAll('.item-card').forEach((card, index) => {
-            card.addEventListener('click', () => openItemModal(items[index]));
-        });
+    try {
+        const isFrpGrid = gridId === 'frpAppsGrid';
+        grid.innerHTML = items.map(item => createItemCard(item, isFrpGrid)).join('');
+        
+        // Add click handlers only for non-FRP items
+        if (!isFrpGrid) {
+            grid.querySelectorAll('.item-card').forEach((card, index) => {
+                card.addEventListener('click', () => openItemModal(items[index]));
+            });
+        }
+    } catch (error) {
+        console.error('Error displaying items:', error);
+        grid.innerHTML = '<p style="color: var(--danger); text-align: center; grid-column: 1/-1;"><i class="fas fa-exclamation-triangle"></i> Error loading items</p>';
     }
+}
+
+// Sanitize HTML to prevent XSS
+function sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
 }
 
 // Create item card HTML
 function createItemCard(item, isFrp = false) {
     const iconHtml = item.icon 
-        ? `<img src="${item.icon}" alt="${item.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-cube\\'></i>'">`
+        ? `<img src="${sanitizeHTML(item.icon)}" alt="${sanitizeHTML(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\'fas fa-cube\'></i>'">`
         : `<i class="fas fa-cube"></i>`;
     
     const statusClass = item.status === 'Original' ? 'status-original' : 'status-modified';
@@ -279,7 +291,7 @@ function openItemModal(item) {
     const modalBody = document.getElementById('modalBody');
     
     const iconHtml = item.icon 
-        ? `<img src="${item.icon}" alt="${item.name}" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-cube\\'></i>'">`
+        ? `<img src="${sanitizeHTML(item.icon)}" alt="${sanitizeHTML(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-cube\\'></i>'">`
         : `<i class="fas fa-cube"></i>`;
     
     const statusClass = item.status === 'Original' ? 'status-original' : 'status-modified';
@@ -308,7 +320,7 @@ function openItemModal(item) {
             <div class="modal-section">
                 <h3><i class="fas fa-images"></i> Screenshots</h3>
                 <div class="screenshots">
-                    ${item.screenshots.map(s => `<img src="${s}" alt="Screenshot" class="screenshot">`).join('')}
+                    ${item.screenshots.map(s => `<img src="${sanitizeHTML(s)}" alt="Screenshot" loading="lazy" class="screenshot" onerror="this.style.display='none'">`).join('')}
                 </div>
             </div>
         `;

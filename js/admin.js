@@ -310,6 +310,17 @@ function deleteItem(type, id) {
     markUnsaved();
 }
 
+// Validate URL
+function isValidURL(url) {
+    if (!url) return true; // Empty is ok
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 // Save item
 function saveItem(e) {
     e.preventDefault();
@@ -336,10 +347,41 @@ function saveItem(e) {
         noteColor: document.querySelector('input[name="noteColor"]:checked')?.value || 'orange'
     };
     
+    // Validate URLs
+    const urlFields = ['icon', 'originalLink', 'modifiedLink', 'website'];
+    for (const field of urlFields) {
+        if (item[field] && !isValidURL(item[field])) {
+            alert(`⚠️ Invalid URL in ${field}: ${item[field]}`);
+            return;
+        }
+    }
+    
+    // Validate screenshots URLs
+    for (const screenshot of item.screenshots) {
+        if (!isValidURL(screenshot)) {
+            alert(`⚠️ Invalid screenshot URL: ${screenshot}`);
+            return;
+        }
+    }
+    
     // Add FRP specific fields
     if (type === 'frpApps') {
         item.frpType = document.getElementById('itemFrpType').value;
         item.directLink = document.getElementById('itemDirectLink').value;
+        
+        // Validate FRP specific fields
+        if (item.frpType === 'direct' && !item.directLink) {
+            alert('⚠️ Direct Link is required for Direct type!');
+            return;
+        }
+        if (item.frpType === 'download' && !item.originalLink) {
+            alert('⚠️ Download Link is required for Download type!');
+            return;
+        }
+        if (item.directLink && !isValidURL(item.directLink)) {
+            alert(`⚠️ Invalid Direct Link: ${item.directLink}`);
+            return;
+        }
     }
     
     if (id) {
@@ -385,24 +427,89 @@ function loadCategoryList(type, listId) {
     
     list.innerHTML = categories.map(cat => `
         <div class="category-item">
-            <span>${cat}</span>
-            <button class="delete-category" onclick="removeCategory('${type}', '${cat}')">
+            <input type="text" class="category-name" value="${sanitizeCategoryName(cat)}" data-original="${sanitizeCategoryName(cat)}" onchange="updateCategory('${type}', '${sanitizeCategoryName(cat)}', this.value)">
+            <button class="delete-category" onclick="removeCategory('${type}', '${sanitizeCategoryName(cat)}')" title="Delete">
                 <i class="fas fa-times"></i>
             </button>
         </div>
     `).join('');
 }
 
+// Sanitize category name for HTML attributes
+function sanitizeCategoryName(name) {
+    return name.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
+}
+
+// Unsanitize category name
+function unsanitizeCategoryName(name) {
+    return name.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+}
+
+// Update category
+function updateCategory(type, oldName, newName) {
+    oldName = unsanitizeCategoryName(oldName);
+    newName = newName.trim();
+    
+    if (!newName) {
+        alert('Category name cannot be empty!');
+        loadCategories();
+        return;
+    }
+    
+    if (oldName === newName) return;
+    
+    const categories = db.getCategories(type);
+    if (categories.includes(newName) && newName !== oldName) {
+        alert('This category already exists!');
+        loadCategories();
+        return;
+    }
+    
+    // Remove old and add new
+    db.deleteCategory(type, oldName);
+    db.addCategory(type, newName);
+    
+    // Update all items with this category
+    const items = db.getItems(type);
+    items.forEach(item => {
+        if (item.category === oldName) {
+            db.updateItem(type, item.id, { ...item, category: newName });
+        }
+    });
+    
+    loadCategories();
+    loadAllTables();
+    markUnsaved();
+}
+
 // Add category
 function addCategory(type) {
-    let inputId;
+    let inputId, listId;
     switch(type) {
-        case 'windowsPrograms': inputId = 'newWinProgramsCategory'; break;
-        case 'windowsGames': inputId = 'newWinGamesCategory'; break;
-        case 'androidApps': inputId = 'newAndroidAppsCategory'; break;
-        case 'androidGames': inputId = 'newAndroidGamesCategory'; break;
-        case 'phoneTools': inputId = 'newPhoneToolsCategory'; break;
-        case 'frpApps': inputId = 'newFrpAppsCategory'; break;
+        case 'windowsPrograms': 
+            inputId = 'newWinProgramsCategory'; 
+            listId = 'winProgramsCategoriesList';
+            break;
+        case 'windowsGames': 
+            inputId = 'newWinGamesCategory'; 
+            listId = 'winGamesCategoriesList';
+            break;
+        case 'androidApps': 
+            inputId = 'newAndroidAppsCategory'; 
+            listId = 'androidAppsCategoriesList';
+            break;
+        case 'androidGames': 
+            inputId = 'newAndroidGamesCategory'; 
+            listId = 'androidGamesCategoriesList';
+            break;
+        case 'phoneTools': 
+            inputId = 'newPhoneToolsCategory'; 
+            listId = 'phoneToolsCategoriesList';
+            break;
+        case 'frpApps': 
+            inputId = 'newFrpAppsCategory'; 
+            listId = 'frpAppsCategoriesList';
+            break;
         default: return;
     }
     
@@ -414,9 +521,15 @@ function addCategory(type) {
         return;
     }
     
+    const categories = db.getCategories(type);
+    if (categories.includes(category)) {
+        alert('This category already exists!');
+        return;
+    }
+    
     db.addCategory(type, category);
     input.value = '';
-    loadCategoryList(type, `${inputId.replace('new', '').replace('Category', 'CategoriesList')}`);
+    loadCategoryList(type, listId);
     markUnsaved();
 }
 
@@ -543,6 +656,12 @@ async function saveToGithub() {
         return;
     }
     
+    const btn = document.getElementById('saveChangesBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    }
+    
     const data = db.exportData();
     const content = btoa(JSON.stringify(data, null, 2));
     
@@ -557,6 +676,16 @@ async function saveToGithub() {
                 }
             }
         );
+        
+        // Handle rate limiting
+        if (checkResponse.status === 403) {
+            const rateLimitRemaining = checkResponse.headers.get('X-RateLimit-Remaining');
+            const rateLimitReset = checkResponse.headers.get('X-RateLimit-Reset');
+            if (rateLimitRemaining === '0') {
+                const resetDate = new Date(rateLimitReset * 1000);
+                throw new Error(`GitHub API rate limit exceeded. Try again after ${resetDate.toLocaleTimeString()}`);
+            }
+        }
         
         let sha = null;
         if (checkResponse.ok) {
@@ -582,14 +711,31 @@ async function saveToGithub() {
             }
         );
         
+        // Handle rate limiting on update
+        if (response.status === 403) {
+            const rateLimitRemaining = response.headers.get('X-RateLimit-Remaining');
+            const rateLimitReset = response.headers.get('X-RateLimit-Reset');
+            if (rateLimitRemaining === '0') {
+                const resetDate = new Date(rateLimitReset * 1000);
+                throw new Error(`GitHub API rate limit exceeded. Try again after ${resetDate.toLocaleTimeString()}`);
+            }
+        }
+        
         if (response.ok) {
             markSaved();
-            alert('Data saved to GitHub successfully!');
+            alert('✅ Data saved to GitHub successfully!');
         } else {
-            alert('Error saving to GitHub: ' + response.statusText);
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || response.statusText);
         }
     } catch (error) {
-        alert('Error: ' + error.message);
+        console.error('GitHub save error:', error);
+        alert('❌ Error: ' + error.message);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-save"></i> Save to GitHub';
+        }
     }
 }
 

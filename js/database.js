@@ -32,7 +32,7 @@ class Database {
             // If no GitHub settings, use default data
             if (!settings.githubUsername || !settings.githubRepo) {
                 console.log('No GitHub settings, using default data');
-                this.data = { ...this.defaultData };
+                this.data = JSON.parse(JSON.stringify(this.defaultData));
                 this.loading = false;
                 return;
             }
@@ -47,11 +47,11 @@ class Database {
                 console.log('Data loaded from GitHub successfully');
             } else {
                 console.log('Could not load from GitHub, using default data');
-                this.data = { ...this.defaultData };
+                this.data = JSON.parse(JSON.stringify(this.defaultData));
             }
         } catch (error) {
             console.error('Error loading from GitHub:', error);
-            this.data = { ...this.defaultData };
+            this.data = JSON.parse(JSON.stringify(this.defaultData));
         }
 
         this.loading = false;
@@ -60,7 +60,7 @@ class Database {
     // Get current data (with fallback)
     getData() {
         if (!this.data) {
-            return { ...this.defaultData };
+            return JSON.parse(JSON.stringify(this.defaultData));
         }
         return this.data;
     }
@@ -169,6 +169,9 @@ const db = new Database();
 // Load data from GitHub on page load
 if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', async () => {
+        // Show loading screen
+        const loadingScreen = document.getElementById('loadingScreen');
+        
         await db.loadFromGitHub();
         
         // Reload content if on main site
@@ -181,5 +184,12 @@ if (typeof window !== 'undefined') {
             loadDashboard();
             loadAllTables();
         }
+        
+        // Hide loading screen after data loaded
+        setTimeout(() => {
+            if (loadingScreen) {
+                loadingScreen.classList.add('hidden');
+            }
+        }, 500);
     });
 }
