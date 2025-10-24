@@ -29,8 +29,12 @@ class Database {
         try {
             const settings = this.getSettings();
             
-            // If no GitHub settings, use default data
-            if (!settings.githubUsername || !settings.githubRepo) {
+            // Default public repository for visitors
+            const username = settings.githubUsername || 'anon-site';
+            const repo = settings.githubRepo || 'falconx';
+            
+            // Only use default empty data if explicitly disabled
+            if (!username || !repo) {
                 console.log('No GitHub settings, using default data');
                 this.data = JSON.parse(JSON.stringify(this.defaultData));
                 this.loading = false;
@@ -40,7 +44,7 @@ class Database {
             // Add timestamp to break cache
             const timestamp = new Date().getTime();
             const response = await fetch(
-                `https://raw.githubusercontent.com/${settings.githubUsername}/${settings.githubRepo}/main/data.json?t=${timestamp}`,
+                `https://raw.githubusercontent.com/${username}/${repo}/main/data.json?t=${timestamp}`,
                 { 
                     cache: 'no-cache',
                     headers: {
