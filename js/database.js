@@ -41,10 +41,42 @@ class Database {
                 return;
             }
 
-            // Add timestamp to break cache
+            // Try GitHub API first (no cache), then fallback to raw.githubusercontent.com
             const timestamp = new Date().getTime();
-            const response = await fetch(
-                `https://raw.githubusercontent.com/${username}/${repo}/main/data.json?t=${timestamp}`,
+            
+            let response;
+            let data;
+            
+            // Method 1: Try GitHub API (no cache, instant updates)
+            try {
+                const apiResponse = await fetch(
+                    `https://api.github.com/repos/${username}/${repo}/contents/data.json?ref=main&t=${timestamp}`,
+                    { 
+                        cache: 'no-cache',
+                        headers: {
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Cache-Control': 'no-cache, no-store, must-revalidate'
+                        }
+                    }
+                );
+                
+                if (apiResponse.ok) {
+                    const apiData = await apiResponse.json();
+                    // Decode base64 content
+                    const content = atob(apiData.content.replace(/\s/g, ''));
+                    data = JSON.parse(content);
+                    console.log('✅ Data loaded from GitHub API (instant, no cache)');
+                    this.data = data;
+                    this.loading = false;
+                    return;
+                }
+            } catch (apiError) {
+                console.log('GitHub API failed, trying raw URL...', apiError.message);
+            }
+            
+            // Method 2: Fallback to raw.githubusercontent.com with cache busting
+            response = await fetch(
+                `https://raw.githubusercontent.com/${username}/${repo}/main/data.json?t=${timestamp}&cache=${Math.random()}`,
                 { 
                     cache: 'no-cache',
                     headers: {

@@ -38,6 +38,9 @@ function initAdmin() {
     
     // Save changes button
     document.getElementById('saveChangesBtn')?.addEventListener('click', saveToGithub);
+    
+    // Reload data button
+    document.getElementById('reloadDataBtn')?.addEventListener('click', reloadDataFromGithub);
 }
 
 // Switch section
@@ -882,6 +885,44 @@ function openGithubRepo() {
     }
 }
 
+// Reload data from GitHub
+async function reloadDataFromGithub() {
+    if (unsavedChanges) {
+        if (!confirm('⚠️ You have unsaved changes! Reloading will discard them.\n\nContinue?')) {
+            return;
+        }
+    }
+    
+    const btn = document.getElementById('reloadDataBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Reloading...';
+    }
+    
+    try {
+        // Force reload from GitHub
+        await db.loadFromGitHub();
+        
+        // Reload all UI components
+        loadDashboard();
+        loadAllTables();
+        loadCategories();
+        
+        // Mark as saved (no unsaved changes after reload)
+        markSaved();
+        
+        alert('✅ Data reloaded successfully from GitHub!');
+    } catch (error) {
+        console.error('Reload error:', error);
+        alert('❌ Error reloading data: ' + error.message);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Reload';
+        }
+    }
+}
+
 // Save to GitHub
 async function saveToGithub() {
     const settings = db.getSettings();
@@ -959,7 +1000,19 @@ async function saveToGithub() {
         
         if (response.ok) {
             markSaved();
-            alert('✅ Data saved to GitHub successfully!');
+            
+            // Show detailed success message
+            const message = `✅ Data saved to GitHub successfully!
+
+🔄 To see changes on the main site:
+1. Wait 1-2 minutes for GitHub cache to update
+2. Open your website in a new private/incognito window
+3. Or force refresh: Ctrl+Shift+R (Cmd+Shift+R on Mac)
+
+📝 Note: Changes are already saved to GitHub!
+Visitors will see updates within 1-5 minutes.`;
+            
+            alert(message);
         } else {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.message || response.statusText);

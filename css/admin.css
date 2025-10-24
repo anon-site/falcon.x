@@ -101,6 +101,38 @@ body {
     transform: translateY(-2px);
 }
 
+.btn-reload {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-reload:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-reload:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-reload i.fa-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 .btn-view-site {
     background: var(--primary);
     color: white;
@@ -364,6 +396,34 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.info-box {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.info-box i {
+    color: var(--primary);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.info-box div {
+    flex: 1;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.info-box strong {
+    color: var(--warning);
 }
 
 .data-actions {

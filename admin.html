@@ -24,6 +24,9 @@
                 <button class="btn-save" id="saveChangesBtn">
                     <i class="fas fa-save"></i> Save to GitHub
                 </button>
+                <button class="btn-reload" id="reloadDataBtn" title="Reload latest data from GitHub">
+                    <i class="fas fa-sync-alt"></i> Reload
+                </button>
             </div>
             <a href="index.html" class="btn-view-site" target="_blank">
                 <i class="fas fa-external-link-alt"></i> View Site
@@ -159,6 +162,14 @@
 
             <div class="data-management">
                 <h3><i class="fas fa-database"></i> Data Management</h3>
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>⚠️ Important:</strong> After adding/editing/importing data, you MUST click 
+                        <span style="color: var(--warning); font-weight: bold;">"Save to GitHub"</span> 
+                        at the top to permanently save changes. Otherwise, your data will be lost when you refresh the page!
+                    </div>
+                </div>
                 <div class="data-actions">
                     <button class="btn btn-primary" onclick="exportData()">
                         <i class="fas fa-download"></i> Export Data
