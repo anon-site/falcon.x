@@ -1,0 +1,204 @@
+{
+  "windowsPrograms": [
+    {
+      "name": "Google Chrome",
+      "category": "Browsers",
+      "version": "120.0.6099",
+      "size": "150 MB",
+      "shortDesc": "Fast and secure web browser",
+      "fullDesc": "Google Chrome is a cross-platform web browser developed by Google. It is the most popular web browser in the world, known for its speed, simplicity, and security.",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg",
+      "status": "Original",
+      "screenshots": [],
+      "features": [
+        "Fast browsing",
+        "Built-in security",
+        "Extension support",
+        "Sync across devices"
+      ],
+      "requirements": "Windows 7 or later",
+      "originalLink": "https://google.com/chrome",
+      "modifiedLink": "",
+      "website": "https://google.com/chrome",
+      "note": "",
+      "noteColor": "orange",
+      "id": 2,
+      "lastModified": "2025-10-24T05:10:44.784Z"
+    }
+  ],
+  "windowsGames": [
+    {
+      "id": 1,
+      "name": "Assassin's Creed Valhalla",
+      "category": "Action & Adventure",
+      "version": "1.7.0",
+      "size": "120 GB",
+      "shortDesc": "Epic Viking adventure game",
+      "fullDesc": "Assassin's Creed Valhalla is an action role-playing video game. Lead epic raids against Saxon troops and fortresses. Dual-wield powerful weapons and experience England during the Dark Ages.",
+      "icon": "https://via.placeholder.com/150/6366f1/ffffff?text=AC+Valhalla",
+      "screenshots": [
+        "https://via.placeholder.com/800x450/6366f1/ffffff?text=Game+Screenshot+1",
+        "https://via.placeholder.com/800x450/8b5cf6/ffffff?text=Game+Screenshot+2"
+      ],
+      "features": [
+        "Open world exploration",
+        "Epic Viking raids",
+        "Character customization",
+        "Story-driven gameplay"
+      ],
+      "requirements": "Windows 10, Intel i7-4790 or AMD Ryzen 5 1600, 16GB RAM, GTX 1080 or RX Vega 64",
+      "originalLink": "https://store.ubi.com",
+      "modifiedLink": "https://example.com/ac-valhalla-repack",
+      "website": "https://assassinscreed.com",
+      "status": "Modified",
+      "note": "All DLCs included",
+      "noteColor": "green",
+      "lastModified": "2025-10-24T04:54:04.416Z"
+    }
+  ],
+  "androidApps": [
+    {
+      "name": "GearUP Booster apk",
+      "category": "Games Booster",
+      "version": "3.45.7",
+      "size": "20.69 MB",
+      "shortDesc": "Boost gaming performance",
+      "fullDesc": "GearUP Booster is a utility app designed to optimize device performance for smoother gaming experiences. It clears RAM, closes unnecessary background apps, and adjusts system settings to allocate more resources to games. This results in faster load times, reduced lag, and improved overall gaming performance.",
+      "icon": "https://getmodsapk.com/storage/GearUP%20Game%20Booster%20MOD%20APK%20(1)4.webp",
+      "status": "Modified",
+      "screenshots": [
+        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-1.webp",
+        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-5.webp",
+        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-2.webp"
+      ],
+      "features": [
+        "RAM cleaner",
+        "Background app closer",
+        "System resource optimizer",
+        "Customizable boost settings"
+      ],
+      "requirements": "OS: Android 5.0 or later\nProcessor: Quad-core or higher\nMemory: 2 GB RAM or more\nStorage: 20 MB of free disk space\nGraphics: No specific GPU requirement\nAdditional: Internet connection for updates",
+      "originalLink": "",
+      "modifiedLink": "https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%203/GearUP%20Game%20Booster/gearup-booster-v3.45.4-MOD-OTR-(Getmodsapk.com).apk",
+      "website": "https://www.gearupbooster.com",
+      "note": "Premium Unlocked",
+      "noteColor": "green",
+      "id": 1761281990366,
+      "lastModified": "2025-10-24T04:59:50.366Z"
+    }
+  ],
+  "androidGames": [],
+  "phoneTools": [
+    {
+      "id": 1,
+      "name": "SP Flash Tool",
+      "category": "Flashing Tools",
+      "version": "5.2036",
+      "size": "25 MB",
+      "shortDesc": "MediaTek device flashing tool",
+      "fullDesc": "SP Flash Tool is the official flash tool for MediaTek devices. It allows you to flash stock firmware, custom recovery, and more.",
+      "icon": "https://via.placeholder.com/150/6366f1/ffffff?text=SP+Flash",
+      "screenshots": [],
+      "features": [
+        "Flash stock ROMs",
+        "Install custom recovery",
+        "Format device",
+        "Backup partitions"
+      ],
+      "requirements": "Windows 7 or later",
+      "originalLink": "https://spflashtool.com",
+      "modifiedLink": "",
+      "website": "https://spflashtool.com",
+      "status": "Original",
+      "note": "",
+      "noteColor": "orange",
+      "lastModified": "2025-10-24T04:54:04.416Z"
+    }
+  ],
+  "frpApps": [
+    {
+      "id": 1,
+      "name": "Samsung FRP Tool",
+      "category": "Samsung",
+      "version": "2.4",
+      "size": "8 MB",
+      "shortDesc": "Bypass Samsung FRP lock",
+      "fullDesc": "Samsung FRP Tool is designed to bypass Google account verification on Samsung devices. Works with most Samsung models.",
+      "icon": "https://via.placeholder.com/150/6366f1/ffffff?text=Samsung+FRP",
+      "screenshots": [],
+      "features": [
+        "Bypass FRP lock",
+        "Supports all Samsung models",
+        "Easy to use",
+        "Regular updates"
+      ],
+      "requirements": "Windows 10, USB Debugging enabled",
+      "originalLink": "",
+      "modifiedLink": "https://example.com/samsung-frp",
+      "website": "",
+      "status": "Modified",
+      "note": "Use at your own risk",
+      "noteColor": "red",
+      "lastModified": "2025-10-24T04:54:04.416Z"
+    }
+  ],
+  "categories": {
+    "windowsPrograms": [
+      "Design & Editing",
+      "Browsers",
+      "Office Suite",
+      "Development",
+      "Security",
+      "Media Players",
+      "Utilities"
+    ],
+    "windowsGames": [
+      "Action & Adventure",
+      "Strategy",
+      "RPG",
+      "Sports",
+      "Racing",
+      "Simulation"
+    ],
+    "androidApps": [
+      "Communication",
+      "Social Media",
+      "Productivity",
+      "Photography",
+      "Entertainment",
+      "Education",
+      "Games Booster"
+    ],
+    "androidGames": [
+      "Battle Royale",
+      "Puzzle",
+      "Action",
+      "Strategy",
+      "Casual",
+      "Sports"
+    ],
+    "phoneTools": [
+      "Flashing Tools",
+      "Backup Tools",
+      "Recovery Tools",
+      "Unlock Tools",
+      "Root Tools"
+    ],
+    "frpApps": [
+      "Samsung",
+      "Xiaomi",
+      "Oppo",
+      "Vivo",
+      "Huawei",
+      "Realme",
+      "OnePlus",
+      "Nokia",
+      "LG",
+      "Motorola"
+    ]
+  },
+  "settings": {
+    "githubUsername": "anon-site",
+    "githubRepo": "falcon.x"
+  }
+}
