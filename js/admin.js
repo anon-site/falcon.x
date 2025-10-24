@@ -757,14 +757,23 @@ async function loadFromGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        alert('Please configure GitHub settings first');
+        alert('❌ Please configure GitHub settings first');
         switchSection('github-settings');
         return;
     }
     
-    if (!confirm('This will replace all current data with data from GitHub. Continue?')) {
+    // Get current data stats
+    const currentStats = db.getDataStats();
+    
+    const confirmMsg = `Load from GitHub?\n\nCurrent local data:\n- Total items: ${currentStats.totalItems}\n\nThis will replace all current data.\n\nA backup will be created automatically.\n\nContinue?`;
+    
+    if (!confirm(confirmMsg)) {
         return;
     }
+    
+    // Create backup before loading
+    db.createBackup();
+    console.log('✅ Backup created before loading');
     
     try {
         const response = await fetch(
@@ -777,22 +786,51 @@ async function loadFromGithub() {
         );
         
         if (!response.ok) {
-            throw new Error('File not found on GitHub or access denied');
+            if (response.status === 404) {
+                throw new Error('data.json not found in repository. Please save data first.');
+            }
+            throw new Error('Access denied or repository not found');
         }
         
         const fileData = await response.json();
         const content = atob(fileData.content);
         const data = JSON.parse(content);
         
+        // Validate loaded data
+        if (!db.validateData(data)) {
+            throw new Error('Invalid data structure in GitHub file');
+        }
+        
+        // Restore sensitive settings
+        const currentSettings = db.getSettings();
+        data.settings = {
+            ...data.settings,
+            githubToken: currentSettings.githubToken,
+            groqApiKey: currentSettings.groqApiKey
+        };
+        
         db.importData(data);
+        
+        const newStats = db.getDataStats();
+        alert(`✅ Data loaded successfully!\n\nTotal items: ${newStats.totalItems}\n\nPage will reload...`);
+        
         loadDashboard();
         loadAllTables();
         loadCategories();
-        alert('✅ Data loaded from GitHub successfully!');
-        location.reload();
+        
+        setTimeout(() => location.reload(), 1000);
         
     } catch (error) {
-        alert('❌ Error loading from GitHub: ' + error.message);
+        console.error('Load error:', error);
+        alert('❌ Error loading from GitHub: ' + error.message + '\n\nYour local data is safe. Backup was created.');
+        
+        // Offer to restore backup
+        if (confirm('Restore from backup?')) {
+            if (db.restoreBackup()) {
+                alert('✅ Backup restored');
+                location.reload();
+            }
+        }
     }
 }
 
@@ -801,16 +839,41 @@ async function saveToGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        alert('Please configure GitHub settings first');
+        alert('❌ Please configure GitHub settings first');
         switchSection('github-settings');
         return;
     }
+    
+    // Validate data before saving
+    const fullData = db.getData();
+    if (!db.validateData(fullData)) {
+        alert('❌ Data validation failed. Please check your data integrity.');
+        return;
+    }
+    
+    // Create backup before saving
+    db.createBackup();
+    console.log('✅ Backup created');
     
     console.log('Saving to GitHub:', settings.githubUsername + '/' + settings.githubRepo);
     
     const data = db.exportDataForGithub(); // Remove sensitive keys
     const jsonStr = JSON.stringify(data, null, 2);
-    console.log('Data size:', (jsonStr.length / 1024).toFixed(2) + ' KB');
+    const sizeKB = (jsonStr.length / 1024).toFixed(2);
+    console.log('Data size:', sizeKB + ' KB');
+    
+    // Check file size (GitHub API limit is 1MB)
+    if (jsonStr.length > 1000000) {
+        alert('❌ Data is too large (' + sizeKB + ' KB). GitHub API limit is ~1MB.\n\nPlease export data manually instead.');
+        return;
+    }
+    
+    const stats = db.getDataStats();
+    const confirmMsg = `Save to GitHub?\n\nTotal items: ${stats.totalItems}\nData size: ${sizeKB} KB\n\nContinue?`;
+    
+    if (!confirm(confirmMsg)) {
+        return;
+    }
     
     const content = btoa(jsonStr);
     
@@ -882,21 +945,60 @@ function importData(event) {
     
     if (!file) return;
     
+    // Check file size (max 10MB)
+    if (file.size > 10000000) {
+        alert('❌ File is too large. Maximum size is 10MB.');
+        event.target.value = '';
+        return;
+    }
+    
     const reader = new FileReader();
     reader.onload = (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            if (confirm('This will replace all current data. Continue?')) {
+            
+            // Validate data structure
+            if (!db.validateData(data)) {
+                throw new Error('Invalid data structure in imported file');
+            }
+            
+            // Get stats
+            const currentStats = db.getDataStats();
+            const newItemsCount = (data.windowsPrograms?.length || 0) + 
+                                 (data.windowsGames?.length || 0) + 
+                                 (data.androidApps?.length || 0) + 
+                                 (data.androidGames?.length || 0) + 
+                                 (data.phoneTools?.length || 0) + 
+                                 (data.frpApps?.length || 0);
+            
+            const confirmMsg = `Import data from file?\n\nCurrent: ${currentStats.totalItems} items\nNew: ${newItemsCount} items\n\nThis will replace all current data.\nBackup will be created.\n\nContinue?`;
+            
+            if (confirm(confirmMsg)) {
+                // Create backup
+                db.createBackup();
+                
+                // Preserve current settings
+                const currentSettings = db.getSettings();
+                data.settings = {
+                    ...data.settings,
+                    githubToken: currentSettings.githubToken || data.settings.githubToken || '',
+                    groqApiKey: currentSettings.groqApiKey || data.settings.groqApiKey || ''
+                };
+                
                 db.importData(data);
                 loadDashboard();
                 loadAllTables();
                 loadCategories();
-                alert('Data imported successfully!');
-                location.reload();
+                alert(`✅ Data imported successfully!\n\nTotal items: ${newItemsCount}\n\nPage will reload...`);
+                setTimeout(() => location.reload(), 1000);
             }
         } catch (error) {
-            alert('Error importing data: ' + error.message);
+            console.error('Import error:', error);
+            alert('❌ Error importing data: ' + error.message + '\n\nPlease check the file format.');
         }
+        
+        // Reset file input
+        event.target.value = '';
     };
     reader.readAsText(file);
 }

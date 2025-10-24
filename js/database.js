@@ -314,6 +314,60 @@ class Database {
         }
         return safeData;
     }
+    
+    validateData(data) {
+        // Validate data structure
+        if (!data || typeof data !== 'object') return false;
+        
+        const requiredTypes = ['windowsPrograms', 'windowsGames', 'androidApps', 'androidGames', 'phoneTools', 'frpApps'];
+        for (const type of requiredTypes) {
+            if (!Array.isArray(data[type])) return false;
+        }
+        
+        if (!data.categories || typeof data.categories !== 'object') return false;
+        if (!data.settings || typeof data.settings !== 'object') return false;
+        
+        return true;
+    }
+    
+    createBackup() {
+        const data = this.getData();
+        const backup = {
+            data: data,
+            timestamp: new Date().toISOString(),
+            version: '2.4'
+        };
+        localStorage.setItem('falconx_backup', JSON.stringify(backup));
+        return backup;
+    }
+    
+    restoreBackup() {
+        const backup = localStorage.getItem('falconx_backup');
+        if (backup) {
+            const parsed = JSON.parse(backup);
+            this.saveData(parsed.data);
+            return true;
+        }
+        return false;
+    }
+    
+    getDataStats() {
+        const data = this.getData();
+        return {
+            windowsPrograms: data.windowsPrograms?.length || 0,
+            windowsGames: data.windowsGames?.length || 0,
+            androidApps: data.androidApps?.length || 0,
+            androidGames: data.androidGames?.length || 0,
+            phoneTools: data.phoneTools?.length || 0,
+            frpApps: data.frpApps?.length || 0,
+            totalItems: (data.windowsPrograms?.length || 0) + 
+                       (data.windowsGames?.length || 0) + 
+                       (data.androidApps?.length || 0) + 
+                       (data.androidGames?.length || 0) + 
+                       (data.phoneTools?.length || 0) + 
+                       (data.frpApps?.length || 0)
+        };
+    }
 
     importData(jsonData) {
         try {
