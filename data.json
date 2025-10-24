@@ -4,7 +4,7 @@
   "androidApps": [
     {
       "name": "GearUP Booster",
-      "category": "Booster Games",
+      "category": "Education",
       "version": "3.45.7",
       "size": "25.90",
       "shortDesc": "GearUP Booster is a powerful mobile gaming optimizer designed to reduce lag, improve ping, and ensure smoother gameplay across online games.",
@@ -62,8 +62,7 @@
       "Productivity",
       "Photography",
       "Entertainment",
-      "Education",
-      "Booster Games"
+      "Education"
     ],
     "androidGames": [
       "Battle Royale",
