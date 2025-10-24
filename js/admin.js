@@ -426,13 +426,19 @@ function loadCategoryList(type, listId) {
     }
     
     list.innerHTML = categories.map(cat => `
-        <div class="category-item">
+        <div class="category-item" style="display: flex;">
             <input type="text" class="category-name" value="${sanitizeCategoryName(cat)}" data-original="${sanitizeCategoryName(cat)}" onchange="updateCategory('${type}', '${sanitizeCategoryName(cat)}', this.value)">
             <button class="delete-category" onclick="removeCategory('${type}', '${sanitizeCategoryName(cat)}')" title="Delete">
                 <i class="fas fa-times"></i>
             </button>
         </div>
     `).join('');
+    
+    // Clear any search and show all items
+    const searchInput = list.parentElement.querySelector('.category-search');
+    if (searchInput) {
+        searchInput.value = '';
+    }
 }
 
 // Sanitize category name for HTML attributes
