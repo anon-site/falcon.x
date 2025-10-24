@@ -806,8 +806,13 @@ async function saveToGithub() {
         return;
     }
     
-    const data = db.exportData();
-    const content = btoa(JSON.stringify(data, null, 2));
+    console.log('Saving to GitHub:', settings.githubUsername + '/' + settings.githubRepo);
+    
+    const data = db.exportDataForGithub(); // Remove sensitive keys
+    const jsonStr = JSON.stringify(data, null, 2);
+    console.log('Data size:', (jsonStr.length / 1024).toFixed(2) + ' KB');
+    
+    const content = btoa(jsonStr);
     
     try {
         // Check if file exists

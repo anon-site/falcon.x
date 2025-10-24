@@ -303,6 +303,17 @@ class Database {
     exportData() {
         return this.getData();
     }
+    
+    exportDataForGithub() {
+        const data = this.getData();
+        // Remove sensitive keys before uploading to GitHub
+        const safeData = JSON.parse(JSON.stringify(data));
+        if (safeData.settings) {
+            delete safeData.settings.githubToken;
+            delete safeData.settings.groqApiKey;
+        }
+        return safeData;
+    }
 
     importData(jsonData) {
         try {
