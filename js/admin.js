@@ -1000,16 +1000,24 @@ function importData(event) {
     reader.onload = (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            if (confirm('This will replace all current data. Continue?')) {
+            if (confirm('⚠️ This will replace all current data. Continue?\n\n💡 Remember to "Save to GitHub" after importing!')) {
                 db.importData(data);
+                
+                // Mark as unsaved
+                markUnsaved();
+                
+                // Reload UI without page refresh
                 loadDashboard();
                 loadAllTables();
                 loadCategories();
-                alert('Data imported successfully!');
-                location.reload();
+                
+                alert('✅ Data imported successfully!\n\n⚠️ Don\'t forget to click "Save to GitHub" to save permanently!');
+                
+                // Reset file input
+                event.target.value = '';
             }
         } catch (error) {
-            alert('Error importing data: ' + error.message);
+            alert('❌ Error importing data: ' + error.message);
         }
     };
     reader.readAsText(file);
