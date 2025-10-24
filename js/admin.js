@@ -65,7 +65,14 @@ function switchSection(sectionName) {
 // Mark unsaved changes
 function markUnsaved() {
     unsavedChanges = true;
-    document.getElementById('unsavedIndicator').style.display = 'flex';
+    const indicator = document.getElementById('unsavedIndicator');
+    indicator.style.display = 'flex';
+    
+    // تنبيه مرئي قوي
+    indicator.style.animation = 'pulse 1s ease-in-out 3';
+    
+    // رسالة في console
+    console.warn('⚠️⚠️⚠️ UNSAVED CHANGES! Click "Save to GitHub" NOW! ⚠️⚠️⚠️');
 }
 
 function markSaved() {
@@ -405,6 +412,15 @@ function saveItem(e) {
     loadTable(type, `${type}Table`);
     loadDashboard();
     markUnsaved();
+    
+    // تذكير بالحفظ على GitHub
+    setTimeout(() => {
+        const unsavedIndicator = document.getElementById('unsavedIndicator');
+        if (unsavedIndicator && unsavedIndicator.style.display !== 'none') {
+            // رسالة تذكير مهمة
+            console.warn('⚠️ IMPORTANT: Click "Save to GitHub" to save permanently!');
+        }
+    }, 500);
 }
 
 // Close item form

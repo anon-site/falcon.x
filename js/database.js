@@ -26,6 +26,17 @@ class Database {
         if (this.loading) return;
         this.loading = true;
 
+        // تحميل localStorage كنسخة احتياطية أولاً
+        try {
+            const backup = localStorage.getItem('falconx_data_backup');
+            if (backup) {
+                this.data = JSON.parse(backup);
+                console.log('✅ Data loaded from localStorage backup');
+            }
+        } catch (e) {
+            console.warn('Failed to load localStorage backup:', e);
+        }
+
         try {
             const settings = this.getSettings();
             
@@ -105,6 +116,17 @@ class Database {
     // Get current data (with fallback)
     getData() {
         if (!this.data) {
+            // محاولة استعادة البيانات من localStorage
+            try {
+                const backup = localStorage.getItem('falconx_data_backup');
+                if (backup) {
+                    this.data = JSON.parse(backup);
+                    console.log('✅ Data restored from localStorage backup');
+                    return this.data;
+                }
+            } catch (e) {
+                console.warn('Failed to restore from localStorage:', e);
+            }
             return JSON.parse(JSON.stringify(this.defaultData));
         }
         return this.data;
@@ -113,6 +135,13 @@ class Database {
     // Update in-memory data (admin panel only)
     saveData(data) {
         this.data = data;
+        // حفظ في localStorage تلقائياً لحماية البيانات من الضياع
+        try {
+            localStorage.setItem('falconx_data_backup', JSON.stringify(data));
+            console.log('✅ Data backed up to localStorage');
+        } catch (e) {
+            console.warn('Failed to backup to localStorage:', e);
+        }
     }
 
     getItems(type) {
