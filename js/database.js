@@ -31,7 +31,7 @@ class Database {
             
             // Default public repository for visitors
             const username = settings.githubUsername || 'anon-site';
-            const repo = settings.githubRepo || 'falconx';
+            const repo = settings.githubRepo || 'falcon.x';
             
             // Only use default empty data if explicitly disabled
             if (!username || !repo) {
