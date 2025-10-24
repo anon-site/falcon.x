@@ -1,6 +1,36 @@
 {
   "windowsPrograms": [
     {
+      "id": 1,
+      "name": "Adobe Photoshop 2024",
+      "category": "Design & Editing",
+      "version": "25.0.0",
+      "size": "3.2 GB",
+      "shortDesc": "Professional image editing software",
+      "fullDesc": "Adobe Photoshop is the industry-standard raster graphics editor developed and published by Adobe Inc. for Windows and macOS. It offers advanced tools for photo editing, digital art creation, and graphic design.",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg",
+      "screenshots": [
+        "https://via.placeholder.com/800x450/6366f1/ffffff?text=Screenshot+1",
+        "https://via.placeholder.com/800x450/8b5cf6/ffffff?text=Screenshot+2",
+        "https://via.placeholder.com/800x450/ec4899/ffffff?text=Screenshot+3"
+      ],
+      "features": [
+        "Advanced layer support",
+        "Non-destructive editing",
+        "AI-powered tools",
+        "Extensive brush library",
+        "Cloud document sync"
+      ],
+      "requirements": "Windows 10 (64-bit) or later, 8GB RAM, 4GB free disk space",
+      "originalLink": "https://adobe.com/photoshop",
+      "modifiedLink": "https://example.com/download/photoshop-mod",
+      "website": "https://adobe.com",
+      "status": "Modified",
+      "note": "Pre-activated version included",
+      "noteColor": "green",
+      "lastModified": "2025-10-24T05:18:38.467Z"
+    },
+    {
       "name": "Google Chrome",
       "category": "Browsers",
       "version": "120.0.6099",
@@ -9,7 +39,11 @@
       "fullDesc": "Google Chrome is a cross-platform web browser developed by Google. It is the most popular web browser in the world, known for its speed, simplicity, and security.",
       "icon": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg",
       "status": "Original",
-      "screenshots": [],
+      "screenshots": [
+        "https://www.google.com/chrome/static/images/dev-components/home-poster-2x.webp",
+        "https://cdn.educba.com/academy/wp-content/uploads/2020/11/What-is-Google-Chrome-1.jpg",
+        "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/ChromeChrome_Spring_Cleaning_Blog_Header_2096.width-1300.png"
+      ],
       "features": [
         "Fast browsing",
         "Built-in security",
@@ -23,7 +57,7 @@
       "note": "",
       "noteColor": "orange",
       "id": 2,
-      "lastModified": "2025-10-24T05:10:44.784Z"
+      "lastModified": "2025-10-24T05:19:13.663Z"
     }
   ],
   "windowsGames": [
@@ -53,41 +87,63 @@
       "status": "Modified",
       "note": "All DLCs included",
       "noteColor": "green",
-      "lastModified": "2025-10-24T04:54:04.416Z"
+      "lastModified": "2025-10-24T05:18:38.467Z"
     }
   ],
   "androidApps": [
     {
-      "name": "GearUP Booster apk",
-      "category": "Games Booster",
-      "version": "3.45.7",
-      "size": "20.69 MB",
-      "shortDesc": "Boost gaming performance",
-      "fullDesc": "GearUP Booster is a utility app designed to optimize device performance for smoother gaming experiences. It clears RAM, closes unnecessary background apps, and adjusts system settings to allocate more resources to games. This results in faster load times, reduced lag, and improved overall gaming performance.",
-      "icon": "https://getmodsapk.com/storage/GearUP%20Game%20Booster%20MOD%20APK%20(1)4.webp",
-      "status": "Modified",
-      "screenshots": [
-        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-1.webp",
-        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-5.webp",
-        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-2.webp"
-      ],
+      "id": 1,
+      "name": "WhatsApp Messenger",
+      "category": "Communication",
+      "version": "2.23.24.7",
+      "size": "65 MB",
+      "shortDesc": "Free messaging and calling app",
+      "fullDesc": "WhatsApp Messenger is a free messaging app for Android and other smartphones. WhatsApp uses your phone's internet connection to send messages and make calls.",
+      "icon": "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+      "screenshots": [],
       "features": [
-        "RAM cleaner",
-        "Background app closer",
-        "System resource optimizer",
-        "Customizable boost settings"
+        "Free messaging",
+        "Voice and video calls",
+        "Group chats",
+        "End-to-end encryption"
       ],
-      "requirements": "OS: Android 5.0 or later\nProcessor: Quad-core or higher\nMemory: 2 GB RAM or more\nStorage: 20 MB of free disk space\nGraphics: No specific GPU requirement\nAdditional: Internet connection for updates",
-      "originalLink": "",
-      "modifiedLink": "https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%203/GearUP%20Game%20Booster/gearup-booster-v3.45.4-MOD-OTR-(Getmodsapk.com).apk",
-      "website": "https://www.gearupbooster.com",
-      "note": "Premium Unlocked",
-      "noteColor": "green",
-      "id": 1761281990366,
-      "lastModified": "2025-10-24T04:59:50.366Z"
+      "requirements": "Android 5.0 or later",
+      "originalLink": "https://play.google.com/store/apps/details?id=com.whatsapp",
+      "modifiedLink": "",
+      "website": "https://whatsapp.com",
+      "status": "Original",
+      "note": "",
+      "noteColor": "orange",
+      "lastModified": "2025-10-24T05:18:38.467Z"
     }
   ],
-  "androidGames": [],
+  "androidGames": [
+    {
+      "id": 1,
+      "name": "PUBG Mobile",
+      "category": "Battle Royale",
+      "version": "3.0.0",
+      "size": "2.5 GB",
+      "shortDesc": "Battle royale on mobile",
+      "fullDesc": "PUBG MOBILE is an action-packed battle royale game where 100 players fight to be the last one standing. Explore the map, loot weapons, and survive!",
+      "icon": "https://via.placeholder.com/150/6366f1/ffffff?text=PUBG",
+      "screenshots": [],
+      "features": [
+        "100 player battles",
+        "Multiple maps",
+        "Various game modes",
+        "Team play support"
+      ],
+      "requirements": "Android 6.0 or later, 2GB RAM minimum",
+      "originalLink": "https://play.google.com",
+      "modifiedLink": "https://example.com/pubg-mod",
+      "website": "https://pubgmobile.com",
+      "status": "Modified",
+      "note": "Unlimited UC and BP",
+      "noteColor": "red",
+      "lastModified": "2025-10-24T05:18:38.467Z"
+    }
+  ],
   "phoneTools": [
     {
       "id": 1,
@@ -112,7 +168,7 @@
       "status": "Original",
       "note": "",
       "noteColor": "orange",
-      "lastModified": "2025-10-24T04:54:04.416Z"
+      "lastModified": "2025-10-24T05:18:38.467Z"
     }
   ],
   "frpApps": [
@@ -139,7 +195,7 @@
       "status": "Modified",
       "note": "Use at your own risk",
       "noteColor": "red",
-      "lastModified": "2025-10-24T04:54:04.416Z"
+      "lastModified": "2025-10-24T05:18:38.467Z"
     }
   ],
   "categories": {
@@ -166,8 +222,7 @@
       "Productivity",
       "Photography",
       "Entertainment",
-      "Education",
-      "Games Booster"
+      "Education"
     ],
     "androidGames": [
       "Battle Royale",
