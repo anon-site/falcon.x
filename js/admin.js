@@ -459,20 +459,34 @@ async function autoFillWithAI() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
     
     try {
-        const prompt = `You are a software information expert. Provide detailed information about "${name}" in JSON format.
+        const softwareType = type.includes('windows') ? 'Windows software' : 
+                           type.includes('android') ? 'Android app' : 
+                           type === 'phoneTools' ? 'Phone tool' : 'software';
+        
+        const prompt = `You are a software information expert. Provide detailed and accurate information about "${name}" (${softwareType}) in JSON format.
 
 Respond with this exact JSON structure:
 {
   "shortDesc": "Brief one-line description (max 100 chars)",
-  "fullDesc": "Detailed description (2-3 paragraphs)",
-  "category": "Most appropriate category",
-  "version": "Latest stable version (if known, otherwise empty string)",
-  "size": "Approximate download size (e.g., 150 MB)",
-  "features": ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"],
-  "requirements": "System requirements as text"
+  "fullDesc": "Detailed professional description (2-3 paragraphs explaining purpose, features, and benefits)",
+  "category": "Most appropriate category from the available options",
+  "version": "Latest stable version number (e.g., 2024.1, 14.5.2, leave empty if unknown)",
+  "size": "Approximate download size (e.g., 150 MB, 45 MB, 2.5 GB)",
+  "features": ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5", "Feature 6"],
+  "requirements": "System requirements formatted as:\nOS: ...\nProcessor: ...\nRAM: ...\nStorage: ...\nAdditional: ...",
+  "iconUrl": "Direct URL to official PNG logo/icon (preferably 512x512 or higher, from official website or trusted CDN like icons8, imgur, or official site)",
+  "screenshots": ["URL to screenshot 1", "URL to screenshot 2", "URL to screenshot 3"],
+  "officialWebsite": "Official website URL (https://...)"
 }
 
-Important: Return ONLY the JSON, no additional text.`;
+IMPORTANT RULES:
+1. Provide REAL and ACCURATE URLs only
+2. For iconUrl: Use official website favicon, or trusted sources like icons8.com, or imgur
+3. For screenshots: Use real screenshots from official sources when possible
+4. For officialWebsite: Provide the actual official website URL
+5. Requirements must be formatted with line breaks (\\n)
+6. Return ONLY valid JSON, no additional text
+7. Ensure all information is factually correct`;
         
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
@@ -507,7 +521,31 @@ Important: Return ONLY the JSON, no additional text.`;
         
         const aiData = JSON.parse(jsonMatch[0]);
         
-        // Fill form fields (skip for FRP apps as they don't need full description)
+        // Fill basic fields
+        document.getElementById('itemShortDesc').value = aiData.shortDesc || '';
+        document.getElementById('itemVersion').value = aiData.version || '';
+        document.getElementById('itemSize').value = aiData.size || '';
+        
+        // Fill icon URL
+        if (aiData.iconUrl) {
+            document.getElementById('itemIcon').value = aiData.iconUrl;
+        }
+        
+        // Fill official website
+        if (aiData.officialWebsite && !isFrp) {
+            document.getElementById('itemWebsite').value = aiData.officialWebsite;
+        }
+        
+        // Fill screenshots
+        if (aiData.screenshots && Array.isArray(aiData.screenshots) && !isFrp) {
+            const validScreenshots = aiData.screenshots.filter(url => url && url.startsWith('http'));
+            if (validScreenshots.length > 0) {
+                document.getElementById('itemScreenshots').value = validScreenshots.join('\n');
+                updateLineCounter('itemScreenshots', 'screenshotsCounter');
+            }
+        }
+        
+        // Fill detailed fields (skip for FRP apps)
         if (!isFrp) {
             document.getElementById('itemFullDesc').value = aiData.fullDesc || '';
             updateCharCounter('itemFullDesc', 'fullDescCounter');
@@ -517,25 +555,33 @@ Important: Return ONLY the JSON, no additional text.`;
                 updateLineCounter('itemFeatures', 'featuresCounter');
             }
             
-            document.getElementById('itemRequirements').value = aiData.requirements || '';
-            updateCharCounter('itemRequirements', 'requirementsCounter');
+            // Format requirements with proper line breaks
+            if (aiData.requirements) {
+                document.getElementById('itemRequirements').value = aiData.requirements.replace(/\\n/g, '\n');
+                updateCharCounter('itemRequirements', 'requirementsCounter');
+            }
         }
         
-        document.getElementById('itemShortDesc').value = aiData.shortDesc || '';
-        document.getElementById('itemVersion').value = aiData.version || '';
-        document.getElementById('itemSize').value = aiData.size || '';
-        
-        // Set category if it matches
+        // Set category - try exact match first, then partial match
         const categorySelect = document.getElementById('itemCategory');
         const options = Array.from(categorySelect.options);
-        const matchingOption = options.find(opt => 
+        let matchingOption = options.find(opt => 
             opt.value.toLowerCase() === aiData.category.toLowerCase()
         );
+        
+        // If no exact match, try partial match
+        if (!matchingOption) {
+            matchingOption = options.find(opt => 
+                opt.value.toLowerCase().includes(aiData.category.toLowerCase()) ||
+                aiData.category.toLowerCase().includes(opt.value.toLowerCase())
+            );
+        }
+        
         if (matchingOption) {
             categorySelect.value = matchingOption.value;
         }
         
-        alert('✅ AI Auto-Fill completed! Please review and edit as needed.');
+        alert('✅ AI Auto-Fill completed!\n\n📝 Filled:\n- Description & Features\n- Screenshots & Icon\n- Requirements\n- Official Website\n- Version & Size\n\nPlease review and edit as needed.');
         
     } catch (error) {
         console.error('AI Auto-Fill error:', error);
