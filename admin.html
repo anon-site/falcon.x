@@ -420,6 +420,21 @@
                 <h2><i class="fab fa-github"></i> GitHub Settings</h2>
             </div>
             
+            <div class="info-box" style="margin-bottom: 2rem;">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>🔑 Setup Instructions:</strong>
+                    <ol style="margin: 0.5rem 0 0 1.5rem; line-height: 1.8;">
+                        <li>Create a <strong>GitHub Personal Access Token</strong>: <a href="https://github.com/settings/tokens/new" target="_blank" style="color: var(--primary);">github.com/settings/tokens/new</a></li>
+                        <li>Check permissions: <code style="background: var(--bg-card); padding: 0.2rem 0.4rem; border-radius: 4px;">repo</code> (full control of repositories)</li>
+                        <li>Copy the token and paste it below</li>
+                        <li>Click <strong>"Validate Token"</strong> to load your repositories</li>
+                        <li>Select the repository where <code style="background: var(--bg-card); padding: 0.2rem 0.4rem; border-radius: 4px;">data.json</code> is stored</li>
+                        <li>Click <strong>"Save Settings"</strong></li>
+                    </ol>
+                </div>
+            </div>
+            
             <div class="github-settings-form">
                 <div class="form-group">
                     <label><i class="fas fa-key"></i> GitHub Token</label>
@@ -451,6 +466,9 @@
                     <div class="github-actions">
                         <button class="btn btn-secondary" onclick="openGithubRepo()">
                             <i class="fas fa-external-link-alt"></i> Open Repository
+                        </button>
+                        <button class="btn btn-secondary" onclick="testGithubConnection()" id="testConnectionBtn">
+                            <i class="fas fa-plug"></i> Test Connection
                         </button>
                         <button class="btn btn-primary" onclick="saveGithubSettings()">
                             <i class="fas fa-save"></i> Save Settings

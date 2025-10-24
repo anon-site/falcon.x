@@ -182,7 +182,8 @@ class Database {
         return settings ? JSON.parse(settings) : {
             githubToken: '',
             githubUsername: '',
-            githubRepo: ''
+            githubRepo: '',
+            groqApiKey: ''
         };
     }
 

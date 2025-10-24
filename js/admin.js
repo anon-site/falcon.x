@@ -787,8 +787,22 @@ function loadGithubSettings() {
     
     if (settings.githubUsername && settings.githubRepo) {
         document.getElementById('githubUsername').value = settings.githubUsername;
-        document.getElementById('githubRepo').value = settings.githubRepo;
+        
+        // Load repository select with saved repo
+        const repoSelect = document.getElementById('githubRepo');
+        repoSelect.innerHTML = '<option value="">Select a repository...</option>';
+        
+        // Add the saved repository as an option
+        const savedRepoOption = document.createElement('option');
+        savedRepoOption.value = settings.githubRepo;
+        savedRepoOption.textContent = settings.githubRepo;
+        savedRepoOption.selected = true;
+        repoSelect.appendChild(savedRepoOption);
+        
         document.getElementById('githubInfo').style.display = 'block';
+        
+        // Show info message
+        console.log('✅ GitHub settings loaded:', settings.githubUsername, '/', settings.githubRepo);
     }
 }
 
@@ -866,15 +880,46 @@ async function validateGithubToken() {
 
 // Save GitHub settings
 function saveGithubSettings() {
+    const githubToken = document.getElementById('githubToken').value.trim();
+    const githubUsername = document.getElementById('githubUsername').value.trim();
+    const githubRepo = document.getElementById('githubRepo').value.trim();
+    const groqApiKey = document.getElementById('groqApiKey').value.trim();
+    
+    // Validation
+    if (!githubToken) {
+        alert('⚠️ Please enter a GitHub Token!');
+        document.getElementById('githubToken').focus();
+        return;
+    }
+    
+    if (!githubUsername) {
+        alert('⚠️ Please validate your GitHub Token first!\n\nClick "Validate Token" to load your username and repositories.');
+        return;
+    }
+    
+    if (!githubRepo) {
+        alert('⚠️ Please select a repository!\n\nAfter validating your token, select the repository where data.json is stored.');
+        document.getElementById('githubRepo').focus();
+        return;
+    }
+    
     const settings = {
-        githubToken: document.getElementById('githubToken').value,
-        githubUsername: document.getElementById('githubUsername').value,
-        githubRepo: document.getElementById('githubRepo').value,
-        groqApiKey: document.getElementById('groqApiKey').value
+        githubToken: githubToken,
+        githubUsername: githubUsername,
+        githubRepo: githubRepo,
+        groqApiKey: groqApiKey
     };
     
     db.saveSettings(settings);
-    alert('Settings saved successfully!');
+    
+    alert(`✅ Settings saved successfully!
+
+📋 Configuration:
+- Username: ${githubUsername}
+- Repository: ${githubRepo}
+- Groq API: ${groqApiKey ? 'Configured ✅' : 'Not set'}
+
+💡 You can now use "Save to GitHub" button to save your data!`);
 }
 
 // Open GitHub repo
@@ -882,6 +927,105 @@ function openGithubRepo() {
     const settings = db.getSettings();
     if (settings.githubUsername && settings.githubRepo) {
         window.open(`https://github.com/${settings.githubUsername}/${settings.githubRepo}`, '_blank');
+    }
+}
+
+// Test GitHub connection
+async function testGithubConnection() {
+    const settings = db.getSettings();
+    
+    if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
+        alert('⚠️ Please configure and save GitHub settings first!');
+        return;
+    }
+    
+    const btn = document.getElementById('testConnectionBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing...';
+    }
+    
+    try {
+        // Test 1: Check repository access
+        const repoResponse = await fetch(
+            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            }
+        );
+        
+        if (!repoResponse.ok) {
+            throw new Error('Cannot access repository. Check if repository exists and token has correct permissions.');
+        }
+        
+        const repoData = await repoResponse.json();
+        
+        // Test 2: Check if data.json exists
+        const fileResponse = await fetch(
+            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            }
+        );
+        
+        let dataJsonStatus = '';
+        if (fileResponse.ok) {
+            const fileData = await fileResponse.json();
+            const fileSize = Math.round(fileData.size / 1024);
+            dataJsonStatus = `✅ data.json found (${fileSize} KB)`;
+        } else if (fileResponse.status === 404) {
+            dataJsonStatus = '⚠️ data.json not found (will be created on first save)';
+        } else {
+            dataJsonStatus = '❌ Error accessing data.json';
+        }
+        
+        // Test 3: Check API rate limit
+        const rateLimitResponse = await fetch('https://api.github.com/rate_limit', {
+            headers: {
+                'Authorization': `Bearer ${settings.githubToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        
+        let rateLimitInfo = '';
+        if (rateLimitResponse.ok) {
+            const rateLimitData = await rateLimitResponse.json();
+            const remaining = rateLimitData.rate.remaining;
+            const limit = rateLimitData.rate.limit;
+            rateLimitInfo = `API Limit: ${remaining}/${limit} remaining`;
+        }
+        
+        // Show success message with details
+        const message = `✅ Connection test successful!
+
+📋 Repository Info:
+- Name: ${repoData.full_name}
+- Private: ${repoData.private ? 'Yes 🔒' : 'No'}
+- Default Branch: ${repoData.default_branch}
+
+📄 File Status:
+${dataJsonStatus}
+
+📊 ${rateLimitInfo}
+
+✅ You're ready to save data to GitHub!`;
+        
+        alert(message);
+        
+    } catch (error) {
+        console.error('Connection test error:', error);
+        alert('❌ Connection test failed!\n\n' + error.message);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-plug"></i> Test Connection';
+        }
     }
 }
 
