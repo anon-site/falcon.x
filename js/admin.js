@@ -549,17 +549,36 @@ function filterCategories(listId, searchTerm) {
     
     const items = list.querySelectorAll('.category-item');
     const term = searchTerm.toLowerCase().trim();
+    let visibleCount = 0;
     
     items.forEach(item => {
         const input = item.querySelector('.category-name');
         const categoryName = input ? input.value.toLowerCase() : '';
         
-        if (categoryName.includes(term)) {
+        if (!term || categoryName.includes(term)) {
             item.style.display = 'flex';
+            visibleCount++;
         } else {
             item.style.display = 'none';
         }
     });
+    
+    // Show/hide "no results" message
+    let noResultsMsg = list.querySelector('.no-results-message');
+    if (visibleCount === 0 && term) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('p');
+            noResultsMsg.className = 'no-results-message';
+            noResultsMsg.style.color = 'var(--text-secondary)';
+            noResultsMsg.style.textAlign = 'center';
+            noResultsMsg.style.padding = '1rem';
+            noResultsMsg.innerHTML = '<i class="fas fa-search"></i> No categories found';
+            list.appendChild(noResultsMsg);
+        }
+        noResultsMsg.style.display = 'block';
+    } else if (noResultsMsg) {
+        noResultsMsg.style.display = 'none';
+    }
 }
 
 // GitHub Settings
