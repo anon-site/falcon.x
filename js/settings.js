@@ -274,83 +274,51 @@ class SettingsManager {
         });
     }
     
-    showNotification(message) {
-        // Create notification element
+    showNotification(message, type = 'success') {
+        // Create notification container
         const notification = document.createElement('div');
-        notification.className = 'settings-notification';
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            z-index: 10000;
-            animation: slideInRight 0.3s ease;
-            font-weight: 500;
+        notification.className = `falcon-notification falcon-notification-${type}`;
+        
+        // Get current theme colors
+        const currentTheme = this.themes[localStorage.getItem('theme') || 'default'];
+        
+        // Create notification content
+        const icon = type === 'success' ? 'fa-check-circle' : 
+                     type === 'error' ? 'fa-exclamation-circle' : 
+                     type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+        
+        notification.innerHTML = `
+            <div class="notification-icon">
+                <i class="fas ${icon}"></i>
+            </div>
+            <div class="notification-content">
+                <div class="notification-message">${message}</div>
+            </div>
+            <button class="notification-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
         `;
+        
+        // Set custom properties for theme colors
+        if (type === 'success') {
+            notification.style.setProperty('--notif-primary', currentTheme.primary);
+            notification.style.setProperty('--notif-secondary', currentTheme.secondary);
+        }
         
         document.body.appendChild(notification);
         
-        // Remove notification after 3 seconds
+        // Trigger animation
+        setTimeout(() => notification.classList.add('show'), 10);
+        
+        // Auto remove after 4 seconds
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                notification.remove();
-            }, 300);
-        }, 3000);
+            notification.classList.remove('show');
+            notification.classList.add('hide');
+            setTimeout(() => notification.remove(), 300);
+        }, 4000);
     }
 }
 
-// Add notification animations to document
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-    
-    /* RTL Support */
-    body.rtl .settings-notification {
-        right: auto;
-        left: 20px;
-    }
-    
-    @media (max-width: 768px) {
-        .settings-notification {
-            top: 10px;
-            right: 10px;
-            left: 10px;
-            padding: 12px 20px;
-            font-size: 14px;
-        }
-        
-        body.rtl .settings-notification {
-            left: 10px;
-        }
-    }
-`;
-document.head.appendChild(style);
 
 // Initialize settings manager
 const settingsManager = new SettingsManager();
