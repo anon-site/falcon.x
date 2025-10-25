@@ -18,11 +18,18 @@
             <h1><i class="fas fa-dragon"></i> Falcon X Admin</h1>
         </div>
         <div class="topbar-right">
-            <div class="unsaved-changes" id="unsavedIndicator" style="display: none;">
-                <i class="fas fa-exclamation-circle"></i>
-                <span>Unsaved Changes</span>
-                <button class="btn-save" id="saveChangesBtn">
-                    <i class="fas fa-save"></i> Save to GitHub
+            <!-- Save Button - Always Visible -->
+            <div class="save-section">
+                <div class="save-status" id="saveStatus">
+                    <span class="status-indicator" id="statusIndicator">
+                        <i class="fas fa-check-circle"></i>
+                    </span>
+                    <span class="status-text" id="statusText">All Saved</span>
+                    <span class="changes-count" id="changesCount" style="display: none;">0 changes</span>
+                </div>
+                <button class="btn-save-github" id="saveChangesBtn" onclick="saveToGithub()">
+                    <i class="fas fa-save"></i>
+                    <span>Save to GitHub</span>
                 </button>
             </div>
             <a href="index.html" class="btn-view-site" target="_blank">
@@ -178,9 +185,15 @@
         <div class="admin-section" id="windows-programs-section">
             <div class="section-header">
                 <h2><i class="fab fa-windows"></i> Windows Programs</h2>
-                <button class="btn btn-primary" onclick="openItemForm('windowsPrograms')">
-                    <i class="fas fa-plus"></i> Add New
-                </button>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchWindowsPrograms" placeholder="Search programs..." onkeyup="searchTable('windowsProgramsTable', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="openItemForm('windowsPrograms')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                </div>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="windowsProgramsTable">
@@ -202,9 +215,15 @@
         <div class="admin-section" id="windows-games-section">
             <div class="section-header">
                 <h2><i class="fas fa-gamepad"></i> Windows Games</h2>
-                <button class="btn btn-primary" onclick="openItemForm('windowsGames')">
-                    <i class="fas fa-plus"></i> Add New
-                </button>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchWindowsGames" placeholder="Search games..." onkeyup="searchTable('windowsGamesTable', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="openItemForm('windowsGames')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                </div>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="windowsGamesTable">
@@ -226,9 +245,15 @@
         <div class="admin-section" id="android-apps-section">
             <div class="section-header">
                 <h2><i class="fab fa-android"></i> Android Apps</h2>
-                <button class="btn btn-primary" onclick="openItemForm('androidApps')">
-                    <i class="fas fa-plus"></i> Add New
-                </button>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchAndroidApps" placeholder="Search apps..." onkeyup="searchTable('androidAppsTable', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="openItemForm('androidApps')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                </div>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="androidAppsTable">
@@ -250,9 +275,15 @@
         <div class="admin-section" id="android-games-section">
             <div class="section-header">
                 <h2><i class="fas fa-gamepad"></i> Android Games</h2>
-                <button class="btn btn-primary" onclick="openItemForm('androidGames')">
-                    <i class="fas fa-plus"></i> Add New
-                </button>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchAndroidGames" placeholder="Search games..." onkeyup="searchTable('androidGamesTable', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="openItemForm('androidGames')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                </div>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="androidGamesTable">
@@ -274,9 +305,15 @@
         <div class="admin-section" id="phone-tools-section">
             <div class="section-header">
                 <h2><i class="fas fa-tools"></i> Phone Tools</h2>
-                <button class="btn btn-primary" onclick="openItemForm('phoneTools')">
-                    <i class="fas fa-plus"></i> Add New
-                </button>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchPhoneTools" placeholder="Search tools..." onkeyup="searchTable('phoneToolsTable', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="openItemForm('phoneTools')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                </div>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="phoneToolsTable">
@@ -298,9 +335,15 @@
         <div class="admin-section" id="frp-apps-section">
             <div class="section-header">
                 <h2><i class="fas fa-unlock-alt"></i> FRP Apps</h2>
-                <button class="btn btn-primary" onclick="openItemForm('frpApps')">
-                    <i class="fas fa-plus"></i> Add New
-                </button>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchFrpApps" placeholder="Search FRP apps..." onkeyup="searchTable('frpAppsTable', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="openItemForm('frpApps')">
+                        <i class="fas fa-plus"></i> Add New
+                    </button>
+                </div>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="frpAppsTable">

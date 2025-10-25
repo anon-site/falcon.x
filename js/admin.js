@@ -11,7 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
     loadCategories();
     loadGithubSettings();
     restoreLastSection();
+    initSaveButton();
 });
+
+// Initialize save button status
+function initSaveButton() {
+    const indicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    
+    if (indicator && statusText) {
+        indicator.classList.add('saved');
+        statusText.textContent = 'All Saved';
+    }
+}
 
 // Initialize admin
 function initAdmin() {
@@ -69,15 +81,54 @@ function restoreLastSection() {
     switchSection(lastSection);
 }
 
+// Track number of changes
+let changesCount = 0;
+
 // Mark unsaved changes
 function markUnsaved() {
     unsavedChanges = true;
-    document.getElementById('unsavedIndicator').style.display = 'flex';
+    changesCount++;
+    
+    // Update status indicator
+    const indicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    const changesCountEl = document.getElementById('changesCount');
+    
+    indicator.classList.remove('saved');
+    indicator.classList.add('unsaved');
+    indicator.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+    
+    statusText.textContent = 'Unsaved Changes';
+    statusText.classList.add('unsaved');
+    
+    changesCountEl.textContent = `${changesCount} change${changesCount > 1 ? 's' : ''}`;
+    changesCountEl.style.display = 'inline-block';
+    
+    // Pulse the save button
+    const saveBtn = document.getElementById('saveChangesBtn');
+    saveBtn.style.animation = 'pulse 0.5s';
+    setTimeout(() => {
+        saveBtn.style.animation = '';
+    }, 500);
 }
 
 function markSaved() {
     unsavedChanges = false;
-    document.getElementById('unsavedIndicator').style.display = 'none';
+    changesCount = 0;
+    
+    // Update status indicator
+    const indicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    const changesCountEl = document.getElementById('changesCount');
+    
+    indicator.classList.remove('unsaved');
+    indicator.classList.add('saved');
+    indicator.innerHTML = '<i class="fas fa-check-circle"></i>';
+    
+    statusText.textContent = 'All Saved';
+    statusText.classList.remove('unsaved');
+    
+    changesCountEl.style.display = 'none';
 }
 
 // Load dashboard
@@ -312,6 +363,8 @@ function deleteItem(type, id) {
     loadTable(type, `${type}Table`);
     loadDashboard();
     markUnsaved();
+    
+    showTempMessage('✅ Item deleted locally. Remember to save to GitHub!');
 }
 
 // Save item
@@ -363,6 +416,12 @@ function saveItem(e) {
     loadTable(type, `${type}Table`);
     loadDashboard();
     markUnsaved();
+    
+    // Auto-save to localStorage (already done by db, but let's verify)
+    console.log('✅ Item saved locally. Remember to "Save to GitHub"!');
+    
+    // Show temporary success message
+    showTempMessage('✅ Item saved locally. Don\'t forget to save to GitHub!');
 }
 
 // Close item form
@@ -857,12 +916,18 @@ async function loadFromGithub() {
 // Save to GitHub
 async function saveToGithub() {
     const settings = db.getSettings();
+    const saveBtn = document.getElementById('saveChangesBtn');
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
         alert('❌ Please configure GitHub settings first');
         switchSection('github-settings');
         return;
     }
+    
+    // Add loading state
+    saveBtn.classList.add('saving');
+    const originalContent = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner"></i><span>Saving...</span>';
     
     // Validate data before saving
     const fullData = db.getData();
@@ -932,6 +997,10 @@ async function saveToGithub() {
         );
         
         if (response.ok) {
+            // Remove loading state
+            saveBtn.classList.remove('saving');
+            saveBtn.innerHTML = originalContent;
+            
             markSaved();
             
             // Clear visitor cache timestamp to force immediate update
@@ -944,6 +1013,10 @@ async function saveToGithub() {
             throw new Error(`${response.status} - ${errorData.message || response.statusText}`);
         }
     } catch (error) {
+        // Remove loading state on error
+        saveBtn.classList.remove('saving');
+        saveBtn.innerHTML = originalContent;
+        
         console.error('GitHub Save Error:', error);
         alert('❌ Error saving to GitHub: ' + error.message + '\n\nCheck console for details.');
     }
@@ -951,17 +1024,31 @@ async function saveToGithub() {
 
 // Export data
 function exportData() {
-    const data = db.exportData();
-    const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `falconx-data-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    
-    URL.revokeObjectURL(url);
+    try {
+        const data = db.exportData();
+        
+        // Validate data before export
+        if (!data || !db.validateData(data)) {
+            alert('❌ Error: Invalid data structure. Cannot export.');
+            return;
+        }
+        
+        const json = JSON.stringify(data, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `falconx-data-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        
+        URL.revokeObjectURL(url);
+        
+        console.log('✅ Data exported successfully');
+    } catch (error) {
+        console.error('Export error:', error);
+        alert('❌ Error exporting data: ' + error.message);
+    }
 }
 
 // Import data
@@ -1004,13 +1091,26 @@ function importData(event) {
                 
                 // Preserve current settings
                 const currentSettings = db.getSettings();
+                
+                // Ensure data.settings exists
+                if (!data.settings) {
+                    data.settings = {};
+                }
+                
                 data.settings = {
                     ...data.settings,
                     githubToken: currentSettings.githubToken || data.settings.githubToken || '',
-                    groqApiKey: currentSettings.groqApiKey || data.settings.groqApiKey || ''
+                    groqApiKey: currentSettings.groqApiKey || data.settings.groqApiKey || '',
+                    githubUsername: currentSettings.githubUsername || data.settings.githubUsername || '',
+                    githubRepo: currentSettings.githubRepo || data.settings.githubRepo || ''
                 };
                 
-                db.importData(data);
+                const importResult = db.importData(data);
+                
+                if (!importResult) {
+                    throw new Error('Failed to import data to localStorage');
+                }
+                
                 loadDashboard();
                 loadAllTables();
                 loadCategories();
@@ -1060,3 +1160,120 @@ window.addEventListener('error', (e) => {
 window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
 });
+
+// Search table function
+function searchTable(tableId, searchTerm) {
+    const table = document.getElementById(tableId);
+    const tbody = table.querySelector('tbody');
+    const rows = tbody.getElementsByTagName('tr');
+    const term = searchTerm.toLowerCase().trim();
+    
+    let visibleCount = 0;
+    
+    // Loop through all table rows
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td');
+        let found = false;
+        
+        // Check if row contains "No items found" message
+        if (cells.length === 1 && cells[0].getAttribute('colspan')) {
+            continue;
+        }
+        
+        // Search in Name, Category, and Version columns (first 3 columns)
+        for (let j = 0; j < Math.min(3, cells.length); j++) {
+            const cellText = cells[j].textContent || cells[j].innerText;
+            if (cellText.toLowerCase().indexOf(term) > -1) {
+                found = true;
+                break;
+            }
+        }
+        
+        // Show/hide row based on search
+        if (found || term === '') {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    }
+    
+    // Show "No results found" message if no matches
+    if (visibleCount === 0 && rows.length > 0 && term !== '') {
+        // Check if "no results" row already exists
+        let noResultsRow = tbody.querySelector('.no-results-row');
+        if (!noResultsRow) {
+            noResultsRow = tbody.insertRow(0);
+            noResultsRow.className = 'no-results-row';
+            const cell = noResultsRow.insertCell(0);
+            cell.colSpan = 6;
+            cell.style.textAlign = 'center';
+            cell.style.color = 'var(--text-secondary)';
+            cell.style.padding = '2rem';
+            cell.innerHTML = '<i class="fas fa-search"></i> No results found for "' + searchTerm + '"';
+        } else {
+            noResultsRow.cells[0].innerHTML = '<i class="fas fa-search"></i> No results found for "' + searchTerm + '"';
+            noResultsRow.style.display = '';
+        }
+    } else {
+        // Remove "no results" row if it exists
+        const noResultsRow = tbody.querySelector('.no-results-row');
+        if (noResultsRow) {
+            noResultsRow.style.display = 'none';
+        }
+    }
+}
+
+// Show temporary success message
+function showTempMessage(message) {
+    // Create or get existing message element
+    let messageEl = document.getElementById('tempMessage');
+    
+    if (!messageEl) {
+        messageEl = document.createElement('div');
+        messageEl.id = 'tempMessage';
+        messageEl.style.cssText = `
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            z-index: 10000;
+            font-size: 0.95rem;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        `;
+        document.body.appendChild(messageEl);
+        
+        // Add animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    messageEl.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+    messageEl.style.display = 'block';
+    messageEl.style.animation = 'slideIn 0.3s ease';
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        messageEl.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            messageEl.style.display = 'none';
+        }, 300);
+    }, 3000);
+}

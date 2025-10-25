@@ -1,5 +1,11 @@
 // Auto-load data from GitHub on page load for all devices
 (function() {
+    // IMPORTANT: Don't run this on admin page to prevent data loss
+    if (window.location.pathname.includes('admin.html')) {
+        console.log('⚠️ Skipping auto-load on admin page to prevent data loss');
+        return;
+    }
+    
     const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/anon-site/falcon.x/main/data.json';
     const CACHE_KEY = 'falconx_data';
     const CACHE_TIMESTAMP_KEY = 'falconx_data_timestamp';
