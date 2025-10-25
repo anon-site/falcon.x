@@ -725,33 +725,36 @@ async function autoFillItemData() {
         if (itemType.includes('Tools')) itemCategory = 'tool';
         if (itemType === 'frpApps') itemCategory = 'FRP bypass tool';
         
-        const prompt = `You are a software information expert. Provide accurate and concise information about "${itemName}" (${itemCategory}).
+        const prompt = `You are a software information expert. Provide the MOST RECENT and ACCURATE information about "${itemName}" (${itemCategory}).
 
 Available categories: ${categoriesList}
 
 Return ONLY a valid JSON object with these fields:
 {
   "category": "choose the most appropriate category from the list above",
-  "version": "latest stable version number",
-  "size": "approximate file size (e.g., 50 MB, 1.2 GB)",
-  "shortDesc": "brief one-line description (max 100 chars)",
-  "fullDesc": "detailed description (2-3 sentences)",
-  "features": ["feature 1", "feature 2", "feature 3", "feature 4"],
+  "version": "LATEST stable version number as of 2025 (e.g., 2025.1, 5.0.2)",
+  "size": "typical installer/download size (e.g., 150 MB, 2.5 GB)",
+  "shortDesc": "one-line description highlighting main purpose (max 100 chars)",
+  "fullDesc": "detailed description covering main features and use cases (2-3 sentences)",
+  "features": ["specific feature 1", "specific feature 2", "specific feature 3", "specific feature 4"],
   "requirements": [
-    "OS: Operating system requirement",
-    "Processor: CPU requirement",
-    "Memory: RAM requirement",
-    "Storage: Disk space requirement",
-    "Graphics: GPU requirement (if applicable)",
-    "Additional: Other requirements"
+    "OS: Specific OS versions (e.g., Windows 10/11 64-bit)",
+    "Processor: Minimum CPU (e.g., Intel i5 or AMD Ryzen 5)",
+    "Memory: RAM requirement (e.g., 8 GB RAM minimum, 16 GB recommended)",
+    "Storage: Disk space needed (e.g., 5 GB available space)",
+    "Graphics: GPU if needed (e.g., DirectX 12 compatible)",
+    "Additional: Other requirements (e.g., Internet connection for activation)"
   ],
-  "website": "official website URL"
+  "website": "official website URL (must be accurate)"
 }
 
-IMPORTANT:
+CRITICAL RULES:
+- Provide CURRENT 2025 version numbers when possible
+- Be SPECIFIC, avoid generic descriptions
 - Choose category from the provided list ONLY
-- Format requirements as an array, each item on separate line
-- Return ONLY the JSON object, no additional text or markdown formatting`;
+- Provide realistic file sizes based on actual software
+- Include specific, not generic, features
+- Return ONLY the JSON object, no markdown code blocks or additional text`;
         
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
@@ -812,7 +815,8 @@ IMPORTANT:
             autoResize(textarea);
         });
         
-        alert('✅ Information fetched successfully! Please review and adjust as needed.');
+        // Show success message with important notice
+        alert('✅ Information fetched successfully!\n\n⚠️ IMPORTANT:\n- Please review ALL fields carefully\n- Version number may need updating\n- File size is approximate\n- Verify official website link\n\nAI-generated data should be verified before saving.');
         
     } catch (error) {
         console.error('Auto-fill error:', error);
