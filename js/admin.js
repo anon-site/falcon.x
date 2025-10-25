@@ -16,18 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize save button status
 function initSaveButton() {
-    // Hide save section on load
-    const saveSection = document.querySelector('.save-section');
-    if (saveSection) {
-        saveSection.classList.remove('has-changes');
-    }
-    
-    const indicator = document.getElementById('statusIndicator');
-    const statusText = document.getElementById('statusText');
-    
-    if (indicator && statusText) {
-        indicator.classList.add('saved');
-        statusText.textContent = 'All Saved';
+    const unsavedIndicator = document.getElementById('unsavedIndicator');
+    if (unsavedIndicator) {
+        unsavedIndicator.style.display = 'none';
     }
 }
 
@@ -93,60 +84,18 @@ let changesCount = 0;
 // Mark unsaved changes
 function markUnsaved() {
     unsavedChanges = true;
-    changesCount++;
-    
-    // Show save section
-    const saveSection = document.querySelector('.save-section');
-    if (saveSection) {
-        saveSection.classList.add('has-changes');
+    const unsavedIndicator = document.getElementById('unsavedIndicator');
+    if (unsavedIndicator) {
+        unsavedIndicator.style.display = 'flex';
     }
-    
-    // Update status indicator
-    const indicator = document.getElementById('statusIndicator');
-    const statusText = document.getElementById('statusText');
-    const changesCountEl = document.getElementById('changesCount');
-    
-    indicator.classList.remove('saved');
-    indicator.classList.add('unsaved');
-    indicator.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
-    
-    statusText.textContent = 'Unsaved Changes';
-    statusText.classList.add('unsaved');
-    
-    changesCountEl.textContent = `${changesCount} change${changesCount > 1 ? 's' : ''}`;
-    changesCountEl.style.display = 'inline-block';
-    
-    // Pulse the save button
-    const saveBtn = document.getElementById('saveChangesBtn');
-    saveBtn.style.animation = 'pulse 0.5s';
-    setTimeout(() => {
-        saveBtn.style.animation = '';
-    }, 500);
 }
 
 function markSaved() {
     unsavedChanges = false;
-    changesCount = 0;
-    
-    // Hide save section
-    const saveSection = document.querySelector('.save-section');
-    if (saveSection) {
-        saveSection.classList.remove('has-changes');
+    const unsavedIndicator = document.getElementById('unsavedIndicator');
+    if (unsavedIndicator) {
+        unsavedIndicator.style.display = 'none';
     }
-    
-    // Update status indicator
-    const indicator = document.getElementById('statusIndicator');
-    const statusText = document.getElementById('statusText');
-    const changesCountEl = document.getElementById('changesCount');
-    
-    indicator.classList.remove('unsaved');
-    indicator.classList.add('saved');
-    indicator.innerHTML = '<i class="fas fa-check-circle"></i>';
-    
-    statusText.textContent = 'All Saved';
-    statusText.classList.remove('unsaved');
-    
-    changesCountEl.style.display = 'none';
 }
 
 // Load dashboard
@@ -426,7 +375,7 @@ function saveItem(e) {
     }
     
     if (result === null) {
-        alert('❌ Error: Item name is required!');
+        showTempMessage('❌ Error: Item name is required!', 'error');
         return;
     }
     
@@ -500,7 +449,7 @@ function updateCategory(type, input) {
     const newValue = input.value.trim();
     
     if (!newValue) {
-        alert('Category name cannot be empty');
+        showTempMessage('Category name cannot be empty', 'error');
         input.value = oldValue;
         return;
     }
@@ -510,7 +459,7 @@ function updateCategory(type, input) {
     // Check if new name already exists
     const categories = db.getCategories(type);
     if (categories.includes(newValue)) {
-        alert('Category already exists');
+        showTempMessage('Category already exists', 'error');
         input.value = oldValue;
         return;
     }
@@ -566,14 +515,14 @@ function addCategory(type) {
     const category = input.value.trim();
     
     if (!category) {
-        alert('Please enter a category name');
+        showTempMessage('Please enter a category name', 'error');
         return;
     }
     
     const result = db.addCategory(type, category);
     
     if (result === false) {
-        alert('Category already exists or invalid');
+        showTempMessage('Category already exists or invalid', 'error');
         return;
     }
     
@@ -621,7 +570,7 @@ async function validateGithubToken() {
     const token = document.getElementById('githubToken').value.trim();
     
     if (!token) {
-        alert('Please enter a GitHub token');
+        showTempMessage('Please enter a GitHub token', 'error');
         return;
     }
     
@@ -668,11 +617,11 @@ async function validateGithubToken() {
         // Show the info section
         document.getElementById('githubInfo').style.display = 'block';
         
-        alert('✅ Token validated successfully!\n\nUsername: ' + userData.login + '\nRepositories found: ' + repos.length);
+        showTempMessage('✅ Token validated successfully! Username: ' + userData.login + ', Repositories: ' + repos.length);
         
     } catch (error) {
         console.error('Validation error:', error);
-        alert('❌ Error validating token: ' + error.message);
+        showTempMessage('❌ Error validating token: ' + error.message, 'error');
         document.getElementById('githubInfo').style.display = 'none';
     } finally {
         btn.disabled = false;
@@ -689,7 +638,7 @@ function saveGithubSettings() {
     };
     
     db.saveSettings(settings);
-    alert('GitHub settings saved!');
+    showTempMessage('✅ GitHub settings saved!');
 }
 
 // Save Groq API Key
@@ -697,14 +646,14 @@ function saveGroqApiKey() {
     const apiKey = document.getElementById('groqApiKey').value;
     
     if (!apiKey) {
-        alert('Please enter a Groq API key');
+        showTempMessage('Please enter a Groq API key', 'error');
         return;
     }
     
     const settings = db.getSettings();
     settings.groqApiKey = apiKey;
     db.saveSettings(settings);
-    alert('Groq API key saved successfully!');
+    showTempMessage('✅ Groq API key saved!');
 }
 
 // Auto-fill item data using Groq AI
@@ -833,12 +782,12 @@ CRITICAL RULES:
             autoResize(textarea);
         });
         
-        // Show success message with important notice
-        alert('✅ Information fetched successfully!\n\n⚠️ IMPORTANT:\n- Please review ALL fields carefully\n- Version number may need updating\n- File size is approximate\n- Verify official website link\n\nAI-generated data should be verified before saving.');
+        // Show success message
+        showTempMessage('✅ Information fetched successfully! Please review all fields carefully.');
         
     } catch (error) {
         console.error('Auto-fill error:', error);
-        alert('❌ Error fetching data: ' + error.message + '\n\nPlease fill the information manually or try again.');
+        showTempMessage('❌ Error fetching data: ' + error.message, 'error');
     } finally {
         btn.disabled = false;
         btn.innerHTML = originalText;
@@ -858,7 +807,7 @@ async function loadFromGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        alert('❌ Please configure GitHub settings first');
+        showTempMessage('❌ Please configure GitHub settings first', 'error');
         switchSection('github-settings');
         return;
     }
@@ -913,23 +862,23 @@ async function loadFromGithub() {
         db.importData(data);
         
         const newStats = db.getDataStats();
-        alert(`✅ Data loaded successfully!\n\nTotal items: ${newStats.totalItems}\n\nPage will reload...`);
+        showTempMessage(`✅ Data loaded! Total items: ${newStats.totalItems}. Reloading...`);
         
         loadDashboard();
         loadAllTables();
         loadCategories();
         
-        setTimeout(() => location.reload(), 1000);
+        setTimeout(() => location.reload(), 1500);
         
     } catch (error) {
         console.error('Load error:', error);
-        alert('❌ Error loading from GitHub: ' + error.message + '\n\nYour local data is safe. Backup was created.');
+        showTempMessage('❌ Error loading from GitHub: ' + error.message, 'error');
         
         // Offer to restore backup
         if (confirm('Restore from backup?')) {
             if (db.restoreBackup()) {
-                alert('✅ Backup restored');
-                location.reload();
+                showTempMessage('✅ Backup restored');
+                setTimeout(() => location.reload(), 1000);
             }
         }
     }
@@ -937,72 +886,48 @@ async function loadFromGithub() {
 
 // Save to GitHub
 async function saveToGithub() {
-    const settings = db.getSettings();
     const saveBtn = document.getElementById('saveChangesBtn');
+    if (!saveBtn) return;
+    
+    const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        alert('❌ Please configure GitHub settings first');
+        showTempMessage('❌ Please configure GitHub settings first', 'error');
         switchSection('github-settings');
         return;
     }
     
-    // Validate data before saving
-    const fullData = db.getData();
-    if (!db.validateData(fullData)) {
-        alert('❌ Data validation failed. Please check your data integrity.');
-        return;
-    }
-    
-    // Create backup before saving
-    db.createBackup();
-    console.log('✅ Backup created');
-    
-    console.log('Saving to GitHub:', settings.githubUsername + '/' + settings.githubRepo);
-    
-    const data = db.exportDataForGithub(); // Remove sensitive keys
+    const data = db.exportDataForGithub();
     const jsonStr = JSON.stringify(data, null, 2);
     const sizeKB = (jsonStr.length / 1024).toFixed(2);
-    console.log('Data size:', sizeKB + ' KB');
-    
-    // Check file size (GitHub API limit is 1MB)
-    if (jsonStr.length > 1000000) {
-        alert('❌ Data is too large (' + sizeKB + ' KB). GitHub API limit is ~1MB.\n\nPlease export data manually instead.');
-        return;
-    }
-    
     const stats = db.getDataStats();
-    const confirmMsg = `Save to GitHub?\n\nTotal items: ${stats.totalItems}\nData size: ${sizeKB} KB\n\nContinue?`;
     
-    if (!confirm(confirmMsg)) {
+    if (!confirm(`Save to GitHub?\n\nTotal items: ${stats.totalItems}\nData size: ${sizeKB} KB\n\nContinue?`)) {
         return;
     }
     
-    // Add loading state ONLY after confirmation
-    saveBtn.classList.add('saving');
-    const originalContent = saveBtn.innerHTML;
-    saveBtn.innerHTML = '<i class="fas fa-spinner"></i><span>Saving...</span>';
-    
-    const content = btoa(jsonStr);
+    // Show loading state
+    const originalHTML = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    saveBtn.disabled = true;
     
     try {
-        // Check if file exists
-        const checkResponse = await fetch(
-            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
-            {
-                headers: {
-                    'Authorization': `token ${settings.githubToken}`
-                }
-            }
-        );
-        
+        // Get current file SHA
         let sha = null;
-        if (checkResponse.ok) {
-            const fileData = await checkResponse.json();
-            sha = fileData.sha;
+        try {
+            const checkRes = await fetch(
+                `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
+                { headers: { 'Authorization': `token ${settings.githubToken}` } }
+            );
+            if (checkRes.ok) {
+                sha = (await checkRes.json()).sha;
+            }
+        } catch (e) {
+            console.log('Creating new file');
         }
         
-        // Create or update file
-        const response = await fetch(
+        // Upload
+        const uploadRes = await fetch(
             `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
             {
                 method: 'PUT',
@@ -1012,35 +937,25 @@ async function saveToGithub() {
                 },
                 body: JSON.stringify({
                     message: `Update data - ${new Date().toISOString()}`,
-                    content: content,
+                    content: btoa(unescape(encodeURIComponent(jsonStr))),
                     sha: sha
                 })
             }
         );
         
-        if (response.ok) {
-            // Remove loading state
-            saveBtn.classList.remove('saving');
-            saveBtn.innerHTML = originalContent;
-            
-            markSaved();
-            
-            // Clear visitor cache timestamp to force immediate update
-            const cacheTimestampKey = 'falconx_data_timestamp';
-            localStorage.removeItem(cacheTimestampKey);
-            
-            alert('✅ Data saved to GitHub successfully!\n\n🔄 Visitors will see updates within 30 seconds.');
-        } else {
-            const errorData = await response.json();
-            throw new Error(`${response.status} - ${errorData.message || response.statusText}`);
+        if (!uploadRes.ok) {
+            throw new Error((await uploadRes.json()).message || 'Upload failed');
         }
-    } catch (error) {
-        // Remove loading state on error
-        saveBtn.classList.remove('saving');
-        saveBtn.innerHTML = originalContent;
         
-        console.error('GitHub Save Error:', error);
-        alert('❌ Error saving to GitHub: ' + error.message + '\n\nCheck console for details.');
+        markSaved();
+        showTempMessage('✅ Data saved to GitHub successfully!');
+        
+    } catch (error) {
+        console.error('Save error:', error);
+        showTempMessage('❌ Error: ' + error.message, 'error');
+    } finally {
+        saveBtn.innerHTML = originalHTML;
+        saveBtn.disabled = false;
     }
 }
 
@@ -1051,7 +966,7 @@ function exportData() {
         
         // Validate data before export
         if (!data || !db.validateData(data)) {
-            alert('❌ Error: Invalid data structure. Cannot export.');
+            showTempMessage('❌ Error: Invalid data structure. Cannot export.', 'error');
             return;
         }
         
@@ -1067,9 +982,10 @@ function exportData() {
         URL.revokeObjectURL(url);
         
         console.log('✅ Data exported successfully');
+        showTempMessage('✅ Data exported successfully!');
     } catch (error) {
         console.error('Export error:', error);
-        alert('❌ Error exporting data: ' + error.message);
+        showTempMessage('❌ Error exporting data: ' + error.message, 'error');
     }
 }
 
@@ -1081,7 +997,7 @@ function importData(event) {
     
     // Check file size (max 10MB)
     if (file.size > 10000000) {
-        alert('❌ File is too large. Maximum size is 10MB.');
+        showTempMessage('❌ File is too large. Maximum size is 10MB.', 'error');
         event.target.value = '';
         return;
     }
@@ -1136,12 +1052,12 @@ function importData(event) {
                 loadDashboard();
                 loadAllTables();
                 loadCategories();
-                alert(`✅ Data imported successfully!\n\nTotal items: ${newItemsCount}\n\nPage will reload...`);
-                setTimeout(() => location.reload(), 1000);
+                showTempMessage(`✅ Data imported! Total items: ${newItemsCount}. Reloading...`);
+                setTimeout(() => location.reload(), 1500);
             }
         } catch (error) {
             console.error('Import error:', error);
-            alert('❌ Error importing data: ' + error.message + '\n\nPlease check the file format.');
+            showTempMessage('❌ Error importing data: ' + error.message, 'error');
         }
         
         // Reset file input
@@ -1247,55 +1163,79 @@ function searchTable(tableId, searchTerm) {
     }
 }
 
-// Show temporary success message
-function showTempMessage(message) {
-    // Create or get existing message element
+// Show temporary message (non-blocking)
+function showTempMessage(message, type = 'success') {
     let messageEl = document.getElementById('tempMessage');
     
     if (!messageEl) {
         messageEl = document.createElement('div');
         messageEl.id = 'tempMessage';
-        messageEl.style.cssText = `
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            z-index: 10000;
-            font-size: 0.95rem;
-            font-weight: 500;
-            animation: slideIn 0.3s ease;
-            max-width: 400px;
-        `;
         document.body.appendChild(messageEl);
         
-        // Add animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(400px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(400px); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        // Add animation styles
+        if (!document.getElementById('tempMessageStyles')) {
+            const style = document.createElement('style');
+            style.id = 'tempMessageStyles';
+            style.textContent = `
+                #tempMessage {
+                    position: fixed;
+                    top: 90px;
+                    right: 20px;
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    z-index: 10000;
+                    font-size: 0.95rem;
+                    font-weight: 500;
+                    max-width: 400px;
+                    display: none;
+                }
+                #tempMessage.show {
+                    display: block;
+                    animation: slideIn 0.3s ease;
+                }
+                #tempMessage.hide {
+                    animation: slideOut 0.3s ease;
+                }
+                @keyframes slideIn {
+                    from { transform: translateX(400px); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(400px); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
     
-    messageEl.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-    messageEl.style.display = 'block';
-    messageEl.style.animation = 'slideIn 0.3s ease';
+    // Set color based on type
+    const colors = {
+        success: 'linear-gradient(135deg, #10b981, #059669)',
+        error: 'linear-gradient(135deg, #ef4444, #dc2626)',
+        warning: 'linear-gradient(135deg, #f59e0b, #d97706)',
+        info: 'linear-gradient(135deg, #3b82f6, #2563eb)'
+    };
     
-    // Remove after 3 seconds
-    setTimeout(() => {
-        messageEl.style.animation = 'slideOut 0.3s ease';
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-times-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    messageEl.style.background = colors[type] || colors.success;
+    messageEl.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${message}`;
+    messageEl.className = 'show';
+    
+    // Auto-hide after 3 seconds
+    clearTimeout(messageEl.hideTimeout);
+    messageEl.hideTimeout = setTimeout(() => {
+        messageEl.className = 'hide';
         setTimeout(() => {
-            messageEl.style.display = 'none';
+            messageEl.className = '';
         }, 300);
     }, 3000);
 }

@@ -72,118 +72,7 @@ body {
     gap: 1rem;
 }
 
-/* Save Section - Hidden by default, shows on changes */
-.save-section {
-    display: none;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    background: var(--bg-hover);
-    border-radius: 10px;
-    border: 1px solid var(--border);
-}
-
-.save-section.has-changes {
-    display: flex;
-}
-
-.save-status {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.status-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-}
-
-.status-indicator.saved {
-    color: var(--success);
-    animation: pulse 2s infinite;
-}
-
-.status-indicator.unsaved {
-    color: var(--warning);
-    animation: blink 1s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
-@keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0.4; }
-}
-
-.status-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-}
-
-.status-text.unsaved {
-    color: var(--warning);
-    font-weight: 600;
-}
-
-.changes-count {
-    font-size: 0.85rem;
-    color: var(--warning);
-    background: rgba(245, 158, 11, 0.1);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-}
-
-.btn-save-github {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-save-github:hover {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.btn-save-github:active {
-    transform: translateY(0);
-}
-
-.btn-save-github.saving {
-    opacity: 0.7;
-    cursor: not-allowed;
-    pointer-events: none;
-}
-
-.btn-save-github.saving i {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Old styles - keep for backwards compatibility */
+/* Unsaved Changes Indicator */
 .unsaved-changes {
     display: flex;
     align-items: center;
@@ -193,6 +82,18 @@ body {
     border: 1px solid var(--warning);
     border-radius: 8px;
     color: var(--warning);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .btn-save {
@@ -206,11 +107,30 @@ body {
     align-items: center;
     gap: 0.5rem;
     transition: all 0.3s ease;
+    font-weight: 600;
 }
 
 .btn-save:hover {
     background: #d97706;
     transform: translateY(-2px);
+}
+
+.btn-save:active {
+    transform: translateY(0);
+}
+
+.btn-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-save i.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .btn-view-site {
@@ -1198,23 +1118,6 @@ body {
 
     .topbar h1 {
         font-size: 1.2rem;
-    }
-    
-    .save-section {
-        padding: 0.5rem;
-        gap: 0.5rem;
-    }
-    
-    .status-text {
-        display: none;
-    }
-    
-    .btn-save-github span {
-        display: none;
-    }
-    
-    .btn-save-github {
-        padding: 0.75rem 1rem;
     }
 
     .unsaved-changes span {

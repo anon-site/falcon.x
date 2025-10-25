@@ -18,18 +18,11 @@
             <h1><i class="fas fa-dragon"></i> Falcon X Admin</h1>
         </div>
         <div class="topbar-right">
-            <!-- Save Button - Always Visible -->
-            <div class="save-section">
-                <div class="save-status" id="saveStatus">
-                    <span class="status-indicator" id="statusIndicator">
-                        <i class="fas fa-check-circle"></i>
-                    </span>
-                    <span class="status-text" id="statusText">All Saved</span>
-                    <span class="changes-count" id="changesCount" style="display: none;">0 changes</span>
-                </div>
-                <button class="btn-save-github" id="saveChangesBtn" onclick="saveToGithub()">
-                    <i class="fas fa-save"></i>
-                    <span>Save to GitHub</span>
+            <div class="unsaved-changes" id="unsavedIndicator" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Unsaved Changes</span>
+                <button class="btn-save" id="saveChangesBtn">
+                    <i class="fas fa-save"></i> Save to GitHub
                 </button>
             </div>
             <a href="index.html" class="btn-view-site" target="_blank">
