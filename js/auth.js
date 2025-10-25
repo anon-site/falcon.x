@@ -2,9 +2,9 @@
 const AuthManager = {
     // Check if user is authenticated
     isAuthenticated() {
-        const token = sessionStorage.getItem('githubToken');
-        const username = sessionStorage.getItem('githubUsername');
-        const repo = sessionStorage.getItem('githubRepo');
+        const token = localStorage.getItem('githubToken');
+        const username = localStorage.getItem('githubUsername');
+        const repo = localStorage.getItem('githubRepo');
         
         return token && username && repo;
     },
@@ -12,30 +12,30 @@ const AuthManager = {
     // Get current session data
     getSession() {
         return {
-            token: sessionStorage.getItem('githubToken'),
-            username: sessionStorage.getItem('githubUsername'),
-            repo: sessionStorage.getItem('githubRepo'),
-            avatar: sessionStorage.getItem('githubAvatar'),
-            name: sessionStorage.getItem('githubName')
+            token: localStorage.getItem('githubToken'),
+            username: localStorage.getItem('githubUsername'),
+            repo: localStorage.getItem('githubRepo'),
+            avatar: localStorage.getItem('githubAvatar'),
+            name: localStorage.getItem('githubName')
         };
     },
     
     // Set session data
     setSession(data) {
-        if (data.token) sessionStorage.setItem('githubToken', data.token);
-        if (data.username) sessionStorage.setItem('githubUsername', data.username);
-        if (data.repo) sessionStorage.setItem('githubRepo', data.repo);
-        if (data.avatar) sessionStorage.setItem('githubAvatar', data.avatar);
-        if (data.name) sessionStorage.setItem('githubName', data.name);
+        if (data.token) localStorage.setItem('githubToken', data.token);
+        if (data.username) localStorage.setItem('githubUsername', data.username);
+        if (data.repo) localStorage.setItem('githubRepo', data.repo);
+        if (data.avatar) localStorage.setItem('githubAvatar', data.avatar);
+        if (data.name) localStorage.setItem('githubName', data.name);
     },
     
     // Clear session
     logout() {
-        sessionStorage.removeItem('githubToken');
-        sessionStorage.removeItem('githubUsername');
-        sessionStorage.removeItem('githubRepo');
-        sessionStorage.removeItem('githubAvatar');
-        sessionStorage.removeItem('githubName');
+        localStorage.removeItem('githubToken');
+        localStorage.removeItem('githubUsername');
+        localStorage.removeItem('githubRepo');
+        localStorage.removeItem('githubAvatar');
+        localStorage.removeItem('githubName');
         window.location.href = 'login.html';
     },
     
