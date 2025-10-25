@@ -751,7 +751,19 @@ function openGithubRepo() {
 
 // Load from GitHub
 async function loadFromGithub() {
-    const settings = db.getSettings();
+    // Get settings from AuthManager first (for logged in users)
+    let settings = {};
+    if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
+        const session = AuthManager.getSession();
+        settings = {
+            githubToken: session.token,
+            githubUsername: session.username,
+            githubRepo: session.repo
+        };
+    } else {
+        // Fallback to db.getSettings() for backward compatibility
+        settings = db.getSettings();
+    }
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
         showTempMessage('❌ Please configure GitHub settings first', 'error');
@@ -836,7 +848,19 @@ async function saveToGithub() {
     const saveBtn = document.getElementById('saveChangesBtn');
     if (!saveBtn) return;
     
-    const settings = db.getSettings();
+    // Get settings from AuthManager first (for logged in users)
+    let settings = {};
+    if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
+        const session = AuthManager.getSession();
+        settings = {
+            githubToken: session.token,
+            githubUsername: session.username,
+            githubRepo: session.repo
+        };
+    } else {
+        // Fallback to db.getSettings() for backward compatibility
+        settings = db.getSettings();
+    }
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
         showTempMessage('❌ Please configure GitHub settings first', 'error');
