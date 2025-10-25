@@ -127,44 +127,12 @@
       "noteColor": "orange",
       "id": 1761414834701,
       "lastModified": "2025-10-25T18:07:38.691Z"
-    },
-    {
-      "name": "JustWatch",
-      "category": "Entertainment",
-      "version": "25.42.2",
-      "size": "54.07 MB",
-      "shortDesc": "JustWatch helps you find where to legally stream, rent, or buy movies and TV shows online across multiple streaming platforms.",
-      "fullDesc": "JustWatch APK is a powerful streaming guide that lets you easily discover where to watch your favorite movies and TV series legally. Instead of switching between multiple apps, JustWatch gathers content from popular platforms like Netflix, Disney+, Amazon Prime Video, HBO Max, and others, allowing you to see what’s available to stream, rent, or buy in one place. The app offers smart filters for genre, release year, price, and quality (HD/4K). You can also create a watchlist, track new releases, and get personalized recommendations based on your preferences.",
-      "icon": "https://getmodsapk.com/storage/media/2025/6/justwatch-mod-apk-2.webp",
-      "status": "Modified",
-      "screenshots": [
-        "https://getmodsapk.com/storage/media/2025/6/justwatch-mod-apk-1.webp",
-        "https://getmodsapk.com/storage/media/2025/6/justwatch-mod-apk-3.webp",
-        "https://getmodsapk.com/storage/media/2025/6/justwatch-mod-apk-4.webp"
-      ],
-      "features": [
-        "Search where to stream, rent, or buy movies and shows",
-        "Supports hundreds of streaming platforms",
-        "Smart filters by genre, year, and quality",
-        "Personalized recommendations",
-        "Create and manage a watchlist",
-        "View trending and upcoming titles",
-        "Clean and intuitive interface"
-      ],
-      "requirements": "Android 6.0 or later\n\nInternet connection required\n\nMinimum 2 GB RAM recommended",
-      "originalLink": "",
-      "modifiedLink": "https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%206/JustWatch/JustWatch-v24.43.3-MOD-GMA-(Getmodsapk.com).apk",
-      "website": "https://www.justwatch.com/",
-      "note": "Premium Unlocked",
-      "noteColor": "green",
-      "id": 1761414935873,
-      "lastModified": "2025-10-25T17:57:41.042Z"
     }
   ],
   "androidGames": [
     {
       "name": "Galaxy Attack: Alien Shooter",
-      "category": "Action",
+      "category": "Arcade",
       "version": "67.5",
       "size": "210.99 MB",
       "shortDesc": "Galaxy Attack: Alien Shooter is an action-packed space shooting game where you battle waves of alien invaders to save the galaxy.",
@@ -192,7 +160,7 @@
       "note": "Unlimited Money/VIP Unlocked",
       "noteColor": "green",
       "id": 1761415788243,
-      "lastModified": "2025-10-25T18:15:13.356Z"
+      "lastModified": "2025-10-25T18:26:10.035Z"
     }
   ],
   "phoneTools": [],
@@ -231,7 +199,8 @@
       "Action",
       "Strategy",
       "Casual",
-      "Sports"
+      "Sports",
+      "Arcade"
     ],
     "phoneTools": [
       "Flashing Tools",
