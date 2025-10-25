@@ -67,7 +67,7 @@
     {
       "name": "Netflix",
       "category": "Entertainment",
-      "version": "9.39.1",
+      "version": "9.39.0",
       "size": "58.13 MB",
       "shortDesc": "Netflix is a leading streaming platform that lets you watch movies, TV shows, documentaries, and exclusive originals anytime and anywhere.",
       "fullDesc": "Netflix APK gives you instant access to a vast library of entertainment, including movies, TV series, anime, and exclusive Netflix Originals. You can stream content in HD, download your favorite titles for offline viewing, and personalize your experience with multiple user profiles. Netflix constantly updates its catalog with new releases across all genres — from drama and action to comedy and horror — ensuring there’s something for everyone. With adaptive streaming technology, Netflix adjusts video quality based on your internet speed for smooth and uninterrupted playback.",
@@ -94,10 +94,10 @@
       "note": "OTP Code : 111111",
       "noteColor": "green",
       "id": 1761384114669,
-      "lastModified": "2025-10-25T15:42:25.137Z"
+      "lastModified": "2025-10-25T18:06:24.228Z"
     },
     {
-      "name": "Netflix Premium",
+      "name": "Netflix For TV",
       "category": "Entertainment",
       "version": "9.39.1",
       "size": "58.13 MB",
@@ -126,7 +126,7 @@
       "note": "",
       "noteColor": "orange",
       "id": 1761414834701,
-      "lastModified": "2025-10-25T17:53:54.701Z"
+      "lastModified": "2025-10-25T18:07:38.691Z"
     },
     {
       "name": "JustWatch",
@@ -161,7 +161,40 @@
       "lastModified": "2025-10-25T17:57:41.042Z"
     }
   ],
-  "androidGames": [],
+  "androidGames": [
+    {
+      "name": "Galaxy Attack: Alien Shooter",
+      "category": "Action",
+      "version": "67.5",
+      "size": "210.99 MB",
+      "shortDesc": "Galaxy Attack: Alien Shooter is an action-packed space shooting game where you battle waves of alien invaders to save the galaxy.",
+      "fullDesc": "Galaxy Attack: Alien Shooter is one of the most popular arcade-style shooting games on Android. The game puts you in command of a lone spaceship, tasked with defending Earth and the galaxy from alien swarms. With each level, the difficulty increases as you face powerful bosses and intense bullet attacks. Players can upgrade their ships, unlock new weapons, and use power-ups to enhance their firepower. Featuring stunning graphics, smooth controls, and exciting gameplay, Galaxy Attack offers hours of non-stop action and classic arcade fun with a modern twist.",
+      "icon": "https://getmodsapk.com/storage/media/2025/7/galaxy-attack-alien-shooter-mod-apk-3.webp",
+      "status": "Modified",
+      "screenshots": [
+        "https://getmodsapk.com/storage/media/2025/7/galaxy-attack-alien-shooter-mod-apk-7.webp",
+        "https://getmodsapk.com/storage/media/2025/7/galaxy-attack-alien-shooter-mod-apk-1.webp",
+        "https://getmodsapk.com/storage/media/2025/7/galaxy-attack-alien-shooter-mod-apk-4.webp"
+      ],
+      "features": [
+        "Classic arcade-style space shooter gameplay",
+        "Hundreds of challenging levels",
+        "Boss battles with unique attack patterns",
+        "Upgradeable ships and powerful weapons",
+        "Offline and online multiplayer modes",
+        "Beautiful graphics and visual effects",
+        "Easy one-touch controls"
+      ],
+      "requirements": "Android 6.0 or later\n\nMinimum 2 GB RAM\n\n200 MB free storage space\n\nWorks offline and online",
+      "originalLink": "",
+      "modifiedLink": "https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%209/Galaxy%20Attack%20Alien/Alien-Shooter-v67.2-MOD-MENU-GMA-(Getmodsapk.com).apk",
+      "website": "",
+      "note": "Unlimited Money/VIP Unlocked",
+      "noteColor": "green",
+      "id": 1761415788243,
+      "lastModified": "2025-10-25T18:15:13.356Z"
+    }
+  ],
   "phoneTools": [],
   "frpApps": [],
   "categories": {
@@ -180,7 +213,8 @@
       "RPG",
       "Sports",
       "Racing",
-      "Simulation"
+      "Simulation",
+      "Arcade"
     ],
     "androidApps": [
       "Communication",
