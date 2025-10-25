@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختيار المستودع - Falcon X Admin</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container repos-container">
+        <div class="auth-card">
+            <div class="auth-header repos-header">
+                <div class="auth-logo">
+                    <i class="fas fa-dragon"></i>
+                    <h1>Falcon X</h1>
+                </div>
+                <h2 class="auth-title">اختر المستودع للعمل عليه</h2>
+                <p class="auth-subtitle">اختر المستودع الذي تريد إدارة بياناته</p>
+            </div>
+            
+            <!-- User Info -->
+            <div class="user-info" id="userInfo" style="display: none;">
+                <img src="" alt="User Avatar" class="user-avatar" id="userAvatar">
+                <div class="user-details">
+                    <h3 id="userName"></h3>
+                    <p id="userLogin"></p>
+                </div>
+            </div>
+            
+            <!-- Search Box -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchRepo" 
+                    placeholder="ابحث عن مستودع..."
+                >
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <i class="fas fa-spinner"></i>
+                <p>جاري تحميل المستودعات...</p>
+            </div>
+            
+            <!-- Error State -->
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>حدث خطأ</strong>
+                    <p id="errorText"></p>
+                </div>
+            </div>
+            
+            <!-- Repositories Grid -->
+            <div class="repos-grid" id="reposGrid" style="display: none;"></div>
+            
+            <!-- No Repos State -->
+            <div class="no-repos" id="noRepos" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <p>لم يتم العثور على مستودعات</p>
+            </div>
+            
+            <!-- Actions -->
+            <div style="margin-top: 1.5rem; display: flex; justify-content: center;">
+                <button class="btn btn-secondary" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل الخروج</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication
+        const session = AuthManager.getSession();
+        if (!session.token || !session.username) {
+            window.location.href = 'login.html';
+        }
+
+        let allRepos = [];
+
+        // Initialize
+        async function init() {
+            // Display user info
+            displayUserInfo();
+            
+            // Load repositories
+            await loadRepositories();
+        }
+
+        // Display user info
+        function displayUserInfo() {
+            const userInfo = document.getElementById('userInfo');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const userLogin = document.getElementById('userLogin');
+
+            userAvatar.src = session.avatar || 'https://github.com/identicons/default.png';
+            userName.textContent = session.name || session.username;
+            userLogin.textContent = '@' + session.username;
+            
+            userInfo.style.display = 'flex';
+        }
+
+        // Load repositories
+        async function loadRepositories() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const errorMessage = document.getElementById('errorMessage');
+            const reposGrid = document.getElementById('reposGrid');
+            const noRepos = document.getElementById('noRepos');
+
+            loadingSpinner.style.display = 'flex';
+            errorMessage.style.display = 'none';
+            reposGrid.style.display = 'none';
+            noRepos.style.display = 'none';
+
+            const result = await AuthManager.getRepositories(session.token);
+
+            loadingSpinner.style.display = 'none';
+
+            if (!result.success) {
+                errorMessage.style.display = 'flex';
+                document.getElementById('errorText').textContent = result.error;
+                return;
+            }
+
+            allRepos = result.data;
+
+            if (allRepos.length === 0) {
+                noRepos.style.display = 'block';
+                return;
+            }
+
+            displayRepositories(allRepos);
+        }
+
+        // Display repositories
+        function displayRepositories(repos) {
+            const reposGrid = document.getElementById('reposGrid');
+            reposGrid.style.display = 'grid';
+
+            reposGrid.innerHTML = repos.map(repo => {
+                const updatedDate = new Date(repo.updated_at).toLocaleDateString('ar-EG');
+                
+                return `
+                    <div class="repo-card" onclick="selectRepo('${repo.name}')">
+                        <div class="repo-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <div class="repo-info">
+                            <div class="repo-name">${repo.name}</div>
+                            <div class="repo-desc">${repo.description || 'لا يوجد وصف'}</div>
+                            <div class="repo-meta">
+                                <span>
+                                    <i class="fas fa-star"></i>
+                                    ${repo.stargazers_count}
+                                </span>
+                                <span>
+                                    <i class="fas fa-code-branch"></i>
+                                    ${repo.forks_count}
+                                </span>
+                                <span>
+                                    <i class="fas fa-eye"></i>
+                                    ${repo.watchers_count}
+                                </span>
+                                <span>
+                                    <i class="fas fa-calendar"></i>
+                                    ${updatedDate}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Search repositories
+        document.getElementById('searchRepo').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                displayRepositories(allRepos);
+                return;
+            }
+
+            const filteredRepos = allRepos.filter(repo => 
+                repo.name.toLowerCase().includes(searchTerm) ||
+                (repo.description && repo.description.toLowerCase().includes(searchTerm))
+            );
+
+            if (filteredRepos.length === 0) {
+                document.getElementById('reposGrid').style.display = 'none';
+                document.getElementById('noRepos').style.display = 'block';
+            } else {
+                document.getElementById('noRepos').style.display = 'none';
+                displayRepositories(filteredRepos);
+            }
+        });
+
+        // Select repository
+        function selectRepo(repoName) {
+            // Save selected repo to session
+            AuthManager.setSession({
+                repo: repoName
+            });
+
+            // Redirect to admin panel
+            window.location.href = 'admin.html';
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                AuthManager.logout();
+            }
+        }
+
+        // Initialize on page load
+        init();
+    </script>
+</body>
+</html>

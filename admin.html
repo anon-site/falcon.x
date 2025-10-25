@@ -28,6 +28,9 @@
             <a href="index.html" class="btn-view-site" target="_blank">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>
+            <button class="btn-view-site" onclick="AuthManager.logout()" style="background: #ef4444; margin-left: 0.5rem;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
     </div>
 
@@ -449,17 +452,7 @@
             </div>
             
             <div class="github-settings-form">
-                <div class="form-group">
-                    <label><i class="fas fa-key"></i> GitHub Token</label>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input type="password" id="githubToken" placeholder="Enter your GitHub token" style="flex: 1;">
-                        <button class="btn btn-primary" onclick="validateGithubToken()" id="validateTokenBtn">
-                            <i class="fas fa-check"></i> Validate
-                        </button>
-                    </div>
-                </div>
-
-                <div id="githubInfo" style="display: none;">
+                <div id="githubInfo">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Username</label>
                         <input type="text" id="githubUsername" readonly>
@@ -467,17 +460,12 @@
 
                     <div class="form-group">
                         <label><i class="fas fa-code-branch"></i> Repository</label>
-                        <select id="githubRepo">
-                            <option value="">Select a repository...</option>
-                        </select>
+                        <input type="text" id="githubRepo" readonly>
                     </div>
 
                     <div class="github-actions">
                         <button class="btn btn-secondary" onclick="openGithubRepo()">
                             <i class="fas fa-external-link-alt"></i> Open Repository
-                        </button>
-                        <button class="btn btn-primary" onclick="saveGithubSettings()">
-                            <i class="fas fa-save"></i> Save Settings
                         </button>
                     </div>
                 </div>
@@ -706,6 +694,30 @@
         </div>
     </div>
 
+    <script src="js/auth.js"></script>
+    <script>
+        // Check authentication before loading admin panel
+        if (!AuthManager.requireAuth()) {
+            // User will be redirected to login by requireAuth()
+        } else {
+            // Update GitHub settings with session data
+            const session = AuthManager.getSession();
+            if (session.token && session.username && session.repo) {
+                // Store in database settings for GitHub operations
+                const settings = db.getSettings();
+                settings.githubToken = session.token;
+                settings.githubUsername = session.username;
+                settings.githubRepo = session.repo;
+                db.saveSettings(settings);
+                
+                // Display session info after page loads
+                window.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('githubUsername').value = session.username;
+                    document.getElementById('githubRepo').value = session.repo;
+                });
+            }
+        }
+    </script>
     <script src="js/database.js"></script>
     <script src="js/admin.js"></script>
 </body>

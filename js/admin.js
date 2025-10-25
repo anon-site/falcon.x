@@ -566,94 +566,26 @@ function removeCategory(type, category) {
 // GitHub Settings
 function loadGithubSettings() {
     const settings = db.getSettings();
-    document.getElementById('githubToken').value = settings.githubToken || '';
     document.getElementById('groqApiKey').value = settings.groqApiKey || '';
     
-    if (settings.githubUsername && settings.githubRepo) {
-        document.getElementById('githubUsername').value = settings.githubUsername;
-        // If token exists, re-validate to populate repos
-        if (settings.githubToken) {
-            validateGithubToken().then(() => {
-                document.getElementById('githubRepo').value = settings.githubRepo;
-            });
+    // Load from session
+    if (typeof AuthManager !== 'undefined') {
+        const session = AuthManager.getSession();
+        if (session.username && session.repo) {
+            document.getElementById('githubUsername').value = session.username;
+            document.getElementById('githubRepo').value = session.repo;
         }
     }
 }
 
-// Validate GitHub token
-async function validateGithubToken() {
-    const token = document.getElementById('githubToken').value.trim();
-    
-    if (!token) {
-        showTempMessage('Please enter a GitHub token', 'error');
-        return;
+// Open GitHub Repository
+function openGithubRepo() {
+    const session = AuthManager.getSession();
+    if (session.username && session.repo) {
+        window.open(`https://github.com/${session.username}/${session.repo}`, '_blank');
+    } else {
+        showTempMessage('Repository information not available', 'error');
     }
-    
-    const btn = document.getElementById('validateTokenBtn');
-    const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
-    
-    try {
-        // Validate token and get user info
-        const response = await fetch('https://api.github.com/user', {
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Invalid token or unauthorized');
-        }
-        
-        const userData = await response.json();
-        
-        // Get user repositories
-        const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100&sort=updated', {
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        });
-        
-        if (!reposResponse.ok) {
-            throw new Error('Failed to fetch repositories');
-        }
-        
-        const repos = await reposResponse.json();
-        
-        // Populate username
-        document.getElementById('githubUsername').value = userData.login;
-        
-        // Populate repository dropdown
-        const repoSelect = document.getElementById('githubRepo');
-        repoSelect.innerHTML = '<option value="">Select a repository...</option>' + 
-            repos.map(repo => `<option value="${repo.name}">${repo.name}</option>`).join('');
-        
-        // Show the info section
-        document.getElementById('githubInfo').style.display = 'block';
-        
-        showTempMessage('✅ Token validated successfully! Username: ' + userData.login + ', Repositories: ' + repos.length);
-        
-    } catch (error) {
-        console.error('Validation error:', error);
-        showTempMessage('❌ Error validating token: ' + error.message, 'error');
-        document.getElementById('githubInfo').style.display = 'none';
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-}
-
-// Save GitHub settings
-function saveGithubSettings() {
-    const settings = {
-        githubToken: document.getElementById('githubToken').value,
-        githubUsername: document.getElementById('githubUsername').value,
-        githubRepo: document.getElementById('githubRepo').value
-    };
-    
-    db.saveSettings(settings);
-    showTempMessage('✅ GitHub settings saved!');
 }
 
 // Save Groq API Key
