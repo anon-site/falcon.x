@@ -201,6 +201,27 @@
     box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
 }
 
+/* Cache Note */
+.cache-note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(99, 102, 241, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.4;
+}
+
+.cache-note i {
+    color: #6366f1;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
 /* Theme Selector */
 .theme-selector {
     display: grid;

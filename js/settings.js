@@ -119,8 +119,8 @@ class SettingsManager {
         // Show confirmation dialog with translated message
         const currentLang = localStorage.getItem('language') || 'en';
         const confirmMessage = currentLang === 'ar' 
-            ? 'هل أنت متأكد من مسح الذاكرة المؤقتة؟\nسيتم إعادة تحميل الصفحة.'
-            : 'Are you sure you want to clear the cache?\nThis will reload the page.';
+            ? 'هل أنت متأكد من مسح الذاكرة المؤقتة؟\nملاحظة: هذا سيمسح البيانات المحلية في هذا المتصفح فقط\nسيتم إعادة تحميل الصفحة.'
+            : 'Are you sure you want to clear the cache?\nNote: This will only clear local data in THIS browser\nThe page will reload.';
         
         const confirmed = confirm(confirmMessage);
         
@@ -164,12 +164,20 @@ class SettingsManager {
                 });
             }
             
+            // Add timestamp to force cache refresh
+            const timestamp = new Date().getTime();
+            localStorage.setItem('lastCacheCleared', timestamp.toString());
+            
             // Show success notification
             this.showNotification(t('cacheCleared'));
             
             // Reload page with hard refresh to bypass cache
+            // Using window.location.href with timestamp to force full reload
             setTimeout(() => {
-                location.reload(true);
+                // Force hard refresh with cache bypass
+                const url = new URL(window.location.href);
+                url.searchParams.set('_', timestamp);
+                window.location.href = url.href;
             }, 1000);
             
         } catch (error) {

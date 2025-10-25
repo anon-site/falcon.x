@@ -85,7 +85,8 @@ const translations = {
         // Common
         download: 'Download',
         viewDetails: 'View Details',
-        close: 'Close'
+        close: 'Close',
+        cacheNote: 'Clears local browser data only'
     },
     ar: {
         // Settings Modal
@@ -172,7 +173,8 @@ const translations = {
         // Common
         download: 'تحميل',
         viewDetails: 'عرض التفاصيل',
-        close: 'إغلاق'
+        close: 'إغلاق',
+        cacheNote: 'يمسح بيانات المتصفح المحلية فقط'
     }
 };
 
