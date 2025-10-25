@@ -27,11 +27,76 @@
       "note": "",
       "noteColor": "orange",
       "id": 2,
-      "lastModified": "2025-10-24T05:19:13.663Z"
+      "lastModified": "2025-10-25T10:13:26.625Z"
     }
   ],
   "windowsGames": [],
-  "androidApps": [],
+  "androidApps": [
+    {
+      "name": "GearUP Booster",
+      "category": "Games Booster",
+      "version": "3.45.7",
+      "size": "20.69 MB",
+      "shortDesc": "GearUP Booster is a powerful mobile gaming optimizer designed to reduce lag, improve ping, and ensure smoother gameplay across online games.",
+      "fullDesc": "GearUP Booster is an advanced network optimization tool made specifically for gamers. It enhances your gaming experience by stabilizing your connection, reducing latency, and optimizing network routes between your device and game servers. With just one tap, you can boost performance for popular online games, ensuring smoother gameplay and faster response times. The app also provides detailed connection stats, intelligent routing technology, and a clean interface that makes it easy for all users to enjoy stable and fast gaming sessions.",
+      "icon": "https://getmodsapk.com/storage/GearUP%20Game%20Booster%20MOD%20APK%20(1)4.webp",
+      "status": "Modified",
+      "screenshots": [
+        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-1.webp",
+        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-5.webp",
+        "https://getmodsapk.com/storage/media/2025/7/gearup-booster-mod-apk-2.webp"
+      ],
+      "features": [
+        "Real-time ping and latency reduction",
+        "Game-specific network optimization",
+        "Supports hundreds of online games",
+        "Smart routing technology for stable connections",
+        "One-tap boost for quick setup",
+        "User-friendly interface",
+        "Works on Wi-Fi and mobile networks"
+      ],
+      "requirements": "Android 6.0 or later\n\nMinimum 2 GB RAM\n\nStable internet connection",
+      "originalLink": "",
+      "modifiedLink": "https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%203/GearUP%20Game%20Booster/gearup-booster-v3.45.4-MOD-OTR-(Getmodsapk.com).apk",
+      "website": "https://www.gearupbooster.com/",
+      "note": "Premium Unlocked",
+      "noteColor": "green",
+      "id": 1761383893148,
+      "lastModified": "2025-10-25T10:17:55.602Z"
+    },
+    {
+      "name": "Netflix",
+      "category": "Entertainment",
+      "version": "9.39.1",
+      "size": "58.13 MB",
+      "shortDesc": "Netflix is a leading streaming platform that lets you watch movies, TV shows, documentaries, and exclusive originals anytime and anywhere.",
+      "fullDesc": "Netflix APK gives you instant access to a vast library of entertainment, including movies, TV series, anime, and exclusive Netflix Originals. You can stream content in HD, download your favorite titles for offline viewing, and personalize your experience with multiple user profiles. Netflix constantly updates its catalog with new releases across all genres — from drama and action to comedy and horror — ensuring there’s something for everyone. With adaptive streaming technology, Netflix adjusts video quality based on your internet speed for smooth and uninterrupted playback.",
+      "icon": "https://getmodsapk.com/storage/NETFLIX-MOD-APK2.webp",
+      "status": "Modified",
+      "screenshots": [
+        "https://getmodsapk.com/storage/images/Netflix-Mod-Apk-3.webp",
+        "https://getmodsapk.com/storage/images/Netflix-MOD-APK-4.webp",
+        "https://getmodsapk.com/storage/images/Netflix-MOD-APK-2.webp"
+      ],
+      "features": [
+        "Watch movies, TV shows, and Netflix Originals",
+        "Download videos to watch offline",
+        "Personalized recommendations",
+        "Multiple user profiles",
+        "Parental control options",
+        "Support for HD and 4K playback (on supported devices)",
+        "Subtitles and multi-language audio options"
+      ],
+      "requirements": "Android 7.0 or later\n\nStable internet connection (minimum 5 Mbps for HD streaming)\n\nSufficient storage space for downloads",
+      "originalLink": "",
+      "modifiedLink": "https://files.5modapk.com/ROOT/All%20Documents%20File/Folder%207/Netflix/Netflix-v9.39.0-MOD-OTR-(Getmodsapk.com).apk",
+      "website": "https://www.netflix.com",
+      "note": "OTP Code : 111111",
+      "noteColor": "green",
+      "id": 1761384114669,
+      "lastModified": "2025-10-25T15:42:25.137Z"
+    }
+  ],
   "androidGames": [],
   "phoneTools": [],
   "frpApps": [],
