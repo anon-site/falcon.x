@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize save button status
 function initSaveButton() {
+    // Hide save section on load
+    const saveSection = document.querySelector('.save-section');
+    if (saveSection) {
+        saveSection.classList.remove('has-changes');
+    }
+    
     const indicator = document.getElementById('statusIndicator');
     const statusText = document.getElementById('statusText');
     
@@ -89,6 +95,12 @@ function markUnsaved() {
     unsavedChanges = true;
     changesCount++;
     
+    // Show save section
+    const saveSection = document.querySelector('.save-section');
+    if (saveSection) {
+        saveSection.classList.add('has-changes');
+    }
+    
     // Update status indicator
     const indicator = document.getElementById('statusIndicator');
     const statusText = document.getElementById('statusText');
@@ -115,6 +127,12 @@ function markUnsaved() {
 function markSaved() {
     unsavedChanges = false;
     changesCount = 0;
+    
+    // Hide save section
+    const saveSection = document.querySelector('.save-section');
+    if (saveSection) {
+        saveSection.classList.remove('has-changes');
+    }
     
     // Update status indicator
     const indicator = document.getElementById('statusIndicator');
@@ -937,6 +955,8 @@ async function saveToGithub() {
     const fullData = db.getData();
     if (!db.validateData(fullData)) {
         alert('❌ Data validation failed. Please check your data integrity.');
+        saveBtn.classList.remove('saving');
+        saveBtn.innerHTML = originalContent;
         return;
     }
     
@@ -954,6 +974,8 @@ async function saveToGithub() {
     // Check file size (GitHub API limit is 1MB)
     if (jsonStr.length > 1000000) {
         alert('❌ Data is too large (' + sizeKB + ' KB). GitHub API limit is ~1MB.\n\nPlease export data manually instead.');
+        saveBtn.classList.remove('saving');
+        saveBtn.innerHTML = originalContent;
         return;
     }
     
@@ -961,6 +983,9 @@ async function saveToGithub() {
     const confirmMsg = `Save to GitHub?\n\nTotal items: ${stats.totalItems}\nData size: ${sizeKB} KB\n\nContinue?`;
     
     if (!confirm(confirmMsg)) {
+        // Restore button state on cancel
+        saveBtn.classList.remove('saving');
+        saveBtn.innerHTML = originalContent;
         return;
     }
     

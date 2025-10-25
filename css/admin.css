@@ -72,15 +72,19 @@ body {
     gap: 1rem;
 }
 
-/* Save Section - Always Visible */
+/* Save Section - Hidden by default, shows on changes */
 .save-section {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 1rem;
     padding: 0.5rem 1rem;
     background: var(--bg-hover);
     border-radius: 10px;
     border: 1px solid var(--border);
+}
+
+.save-section.has-changes {
+    display: flex;
 }
 
 .save-status {
