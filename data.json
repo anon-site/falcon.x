@@ -1,7 +1,6 @@
 {
   "windowsPrograms": [
     {
-      "id": 1,
       "name": "Adobe Photoshop 2024",
       "category": "Design & Editing",
       "version": "25.0.0",
@@ -9,6 +8,7 @@
       "shortDesc": "Professional image editing software",
       "fullDesc": "Adobe Photoshop is the industry-standard raster graphics editor developed and published by Adobe Inc. for Windows and macOS. It offers advanced tools for photo editing, digital art creation, and graphic design.",
       "icon": "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg",
+      "status": "Modified",
       "screenshots": [
         "https://via.placeholder.com/800x450/6366f1/ffffff?text=Screenshot+1",
         "https://via.placeholder.com/800x450/8b5cf6/ffffff?text=Screenshot+2",
@@ -25,10 +25,10 @@
       "originalLink": "https://adobe.com/photoshop",
       "modifiedLink": "https://example.com/download/photoshop-mod",
       "website": "https://adobe.com",
-      "status": "Modified",
       "note": "Pre-activated version included",
       "noteColor": "green",
-      "lastModified": "2025-10-24T05:18:38.467Z"
+      "id": 1,
+      "lastModified": "2025-10-24T10:39:13.876Z"
     },
     {
       "name": "Google Chrome",
