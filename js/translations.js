@@ -198,112 +198,13 @@ function changeLanguage(lang) {
     if (lang === 'ar') {
         document.documentElement.dir = 'rtl';
         document.body.classList.add('rtl');
-        
-        // Load Google Translate for Arabic
-        loadGoogleTranslate();
     } else {
         document.documentElement.dir = 'ltr';
         document.body.classList.remove('rtl');
-        
-        // Remove Google Translate if switching to English
-        removeGoogleTranslate();
     }
     
     // Update all translatable elements
     updateTranslations();
-}
-
-// Function to load Google Translate
-function loadGoogleTranslate() {
-    // Check if already translated
-    if (document.documentElement.classList.contains('translated-rtl')) {
-        return;
-    }
-    
-    // Check if Google Translate is already loaded
-    if (window.google && window.google.translate) {
-        // If already loaded, just trigger translation
-        setTimeout(() => {
-            triggerGoogleTranslate();
-        }, 300);
-        return;
-    }
-    
-    // Create hidden container for Google Translate widget first
-    if (!document.getElementById('google_translate_element')) {
-        const translateDiv = document.createElement('div');
-        translateDiv.id = 'google_translate_element';
-        translateDiv.style.cssText = 'position: fixed; top: -1000px; left: -1000px; visibility: hidden;';
-        document.body.appendChild(translateDiv);
-    }
-    
-    // Initialize Google Translate callback
-    window.googleTranslateElementInit = function() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'ar',
-            autoDisplay: false,
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-        
-        // Wait for widget to be ready then trigger translation
-        const checkWidget = setInterval(() => {
-            const selectElement = document.querySelector('.goog-te-combo');
-            if (selectElement) {
-                clearInterval(checkWidget);
-                setTimeout(() => {
-                    triggerGoogleTranslate();
-                }, 500);
-            }
-        }, 100);
-    };
-    
-    // Add Google Translate script if not already added
-    if (!document.getElementById('google-translate-script')) {
-        const script = document.createElement('script');
-        script.id = 'google-translate-script';
-        script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-        script.async = true;
-        document.head.appendChild(script);
-    }
-}
-
-// Function to trigger Google Translate to Arabic
-function triggerGoogleTranslate() {
-    const selectElement = document.querySelector('.goog-te-combo');
-    if (selectElement && selectElement.value !== 'ar') {
-        selectElement.value = 'ar';
-        selectElement.dispatchEvent(new Event('change'));
-        document.documentElement.classList.add('translated-rtl');
-        
-        // Hide Google Translate toolbar
-        setTimeout(() => {
-            const toolbar = document.querySelector('.goog-te-banner-frame');
-            if (toolbar) {
-                toolbar.style.display = 'none';
-            }
-            // Adjust body padding if added by Google Translate
-            document.body.style.top = '0px';
-        }, 1000);
-    }
-}
-
-// Function to remove Google Translate
-function removeGoogleTranslate() {
-    document.documentElement.classList.remove('translated-rtl');
-    
-    // Check if translation is active
-    const translateElement = document.querySelector('.goog-te-combo');
-    if (translateElement && translateElement.value === 'ar') {
-        // Reset to original language
-        translateElement.value = '';
-        translateElement.dispatchEvent(new Event('change'));
-        
-        // Reload page after short delay to fully reset
-        setTimeout(() => {
-            location.reload();
-        }, 300);
-    }
 }
 
 // Function to update all translations on the page
@@ -324,9 +225,4 @@ function updateTranslations() {
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', () => {
     changeLanguage(currentLanguage);
-    
-    // If language is Arabic, load Google Translate
-    if (currentLanguage === 'ar') {
-        loadGoogleTranslate();
-    }
 });
