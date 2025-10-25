@@ -17,8 +17,37 @@ class Database {
         }
         
         if (!localStorage.getItem('falconx_data')) {
+            console.log('⏳ No local data found. Waiting for GitHub data load...');
+            // Don't initialize default data, let load-data.js fetch from GitHub
+            // Initialize with empty structure to prevent errors
+            const emptyData = {
+                windowsPrograms: [],
+                windowsGames: [],
+                androidApps: [],
+                androidGames: [],
+                phoneTools: [],
+                frpApps: [],
+                categories: {
+                    windowsPrograms: [],
+                    windowsGames: [],
+                    androidApps: [],
+                    androidGames: [],
+                    phoneTools: [],
+                    frpApps: []
+                },
+                settings: {}
+            };
+            localStorage.setItem('falconx_data', JSON.stringify(emptyData));
+            console.log('📦 Empty structure initialized. load-data.js will fetch from GitHub...');
+            return;
+        }
+        
+        // Skip default data initialization completely
+        /*
+        if (!localStorage.getItem('falconx_data')) {
             console.log('📦 Initializing default data...');
-            const initialData = {
+            */
+            /*const initialData = {
                 windowsPrograms: [
                     {
                         id: 1,
@@ -228,8 +257,8 @@ class Database {
                     githubRepo: ''
                 }
             };
-            localStorage.setItem('falconx_data', JSON.stringify(initialData));
-        }
+            localStorage.setItem('falconx_data', JSON.stringify(initialData));*/
+        //}
     }
 
     getData() {
