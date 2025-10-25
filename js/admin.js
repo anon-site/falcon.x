@@ -527,7 +527,21 @@ function addCategory(type) {
     }
     
     input.value = '';
-    loadCategoryList(type, `${inputId.replace('new', '').replace('Category', 'CategoriesList')}`);
+    
+    // Reload the specific category list
+    let listId;
+    switch(type) {
+        case 'windowsPrograms': listId = 'winProgramsCategoriesList'; break;
+        case 'windowsGames': listId = 'winGamesCategoriesList'; break;
+        case 'androidApps': listId = 'androidAppsCategoriesList'; break;
+        case 'androidGames': listId = 'androidGamesCategoriesList'; break;
+        case 'phoneTools': listId = 'phoneToolsCategoriesList'; break;
+        case 'frpApps': listId = 'frpAppsCategoriesList'; break;
+    }
+    
+    if (listId) {
+        loadCategoryList(type, listId);
+    }
     
     // Update the category dropdown in the item form if it's open and matches the current type
     const itemFormModal = document.getElementById('itemFormModal');
@@ -536,6 +550,7 @@ function addCategory(type) {
         loadFormCategories(type);
     }
     
+    showTempMessage('✅ Category added successfully!');
     markUnsaved();
 }
 
