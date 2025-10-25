@@ -461,6 +461,7 @@ body {
     background-size: cover;
     background-position: center;
     animation: rotate-reverse 20s linear infinite;
+    transition: opacity 0.5s ease;
 }
 
 @keyframes rotate-reverse {
