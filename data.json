@@ -161,35 +161,6 @@
       "noteColor": "green",
       "id": 1761415788243,
       "lastModified": "2025-10-25T18:26:10.035Z"
-    },
-    {
-      "name": "Candy Crash",
-      "category": "Puzzle",
-      "version": "2025.2.1",
-      "size": "37.91 MB",
-      "shortDesc": "Match candies to progress",
-      "fullDesc": "Candy Crush is a popular puzzle game where players match candies to progress through levels, with various boosters and obstacles to overcome. The game features a variety of modes, including the main game board, daily challenges, and special events. Players can also compete with friends and join teams to climb the leaderboards.",
-      "icon": "https://img.utdstc.com/icon/9f8/7b4/9f87b4c8c91982684f6b1d2d951f940c72eb1308f30165f0339c49df613dbe30:100",
-      "status": "Original",
-      "screenshots": [
-        "https://img.utdstc.com/screen/4ac/529/4ac529d0ae790847099b93d54825581291735a5967e4c880a632366341d1cc94:200",
-        "https://img.utdstc.com/screen/bcd/9b2/bcd9b2e87e5ebd4de542b709c4e570e7756011baba9abdd3e97003afe44163d9:200",
-        "https://img.utdstc.com/screen/29b/709/29b709aff8c7172283b7649b2962daf5bd953bff539d8845efd86c2e14b1acd4:200"
-      ],
-      "features": [
-        "Colorful graphics and animations",
-        "Thousands of levels to complete",
-        "Daily challenges and rewards",
-        "Social features to compete with friends"
-      ],
-      "requirements": "OS: Windows 10/11 64-bit, Android 11 or later, iOS 15 or later\nProcessor: Intel i3 or AMD Ryzen 3\nMemory: 4 GB RAM minimum, 8 GB recommended\nStorage: 500 MB available space\nGraphics: DirectX 11 compatible\nAdditional: Internet connection for online features and updates",
-      "originalLink": "https://dw.uptodown.net/dwn/Dx5soQcY8NE3j3_5FmqGLPt_2_6rkHSLZ-e6wuxDX8v2jY3hSTjfh7K0B9cL6_yfmJXzMYI4s3HaFERiCMQIRD0Fq3Z46-UC8KXinqNOeCvWe1jAi3-IK6i0l8JnH2gm/wIkYtNARN55_-4sME4As2jfzRPHJgPb0gvB1JVaENuz8Jiu-Hx41f3s0T8nsaNgIqXcU7-pUV2zP1MZM8pRNLoJ8zOSj_CiUvHO7tuEWpBsMN79E0_Wk_Eu1V-gLYFu2/mTUbYiOegR1Kq6VUjTWFKU649qhTYFDj2sxfRrqNLqpcnAA68XCMb-MlXPBk3X7fYaXOaSS2VOvDOvqR3LTFtQ==/candy-crash-1-0.apk",
-      "modifiedLink": "",
-      "website": "https://candycrushsaga.com/",
-      "note": "",
-      "noteColor": "orange",
-      "id": 1761419553398,
-      "lastModified": "2025-10-25T19:15:13.911Z"
     }
   ],
   "phoneTools": [],
