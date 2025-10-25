@@ -946,17 +946,10 @@ async function saveToGithub() {
         return;
     }
     
-    // Add loading state
-    saveBtn.classList.add('saving');
-    const originalContent = saveBtn.innerHTML;
-    saveBtn.innerHTML = '<i class="fas fa-spinner"></i><span>Saving...</span>';
-    
     // Validate data before saving
     const fullData = db.getData();
     if (!db.validateData(fullData)) {
         alert('❌ Data validation failed. Please check your data integrity.');
-        saveBtn.classList.remove('saving');
-        saveBtn.innerHTML = originalContent;
         return;
     }
     
@@ -974,8 +967,6 @@ async function saveToGithub() {
     // Check file size (GitHub API limit is 1MB)
     if (jsonStr.length > 1000000) {
         alert('❌ Data is too large (' + sizeKB + ' KB). GitHub API limit is ~1MB.\n\nPlease export data manually instead.');
-        saveBtn.classList.remove('saving');
-        saveBtn.innerHTML = originalContent;
         return;
     }
     
@@ -983,11 +974,13 @@ async function saveToGithub() {
     const confirmMsg = `Save to GitHub?\n\nTotal items: ${stats.totalItems}\nData size: ${sizeKB} KB\n\nContinue?`;
     
     if (!confirm(confirmMsg)) {
-        // Restore button state on cancel
-        saveBtn.classList.remove('saving');
-        saveBtn.innerHTML = originalContent;
         return;
     }
+    
+    // Add loading state ONLY after confirmation
+    saveBtn.classList.add('saving');
+    const originalContent = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner"></i><span>Saving...</span>';
     
     const content = btoa(jsonStr);
     
