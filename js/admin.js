@@ -347,10 +347,16 @@ function saveItem(e) {
         item.downloadLink = document.getElementById('itemDownloadLink').value;
     }
     
+    let result;
     if (id) {
-        db.updateItem(type, id, item);
+        result = db.updateItem(type, id, item);
     } else {
-        db.addItem(type, item);
+        result = db.addItem(type, item);
+    }
+    
+    if (result === null) {
+        alert('❌ Error: Item name is required!');
+        return;
     }
     
     closeItemForm();
@@ -487,9 +493,23 @@ function addCategory(type) {
         return;
     }
     
-    db.addCategory(type, category);
+    const result = db.addCategory(type, category);
+    
+    if (result === false) {
+        alert('Category already exists or invalid');
+        return;
+    }
+    
     input.value = '';
     loadCategoryList(type, `${inputId.replace('new', '').replace('Category', 'CategoriesList')}`);
+    
+    // Update the category dropdown in the item form if it's open and matches the current type
+    const itemFormModal = document.getElementById('itemFormModal');
+    const currentItemType = document.getElementById('itemType').value;
+    if (itemFormModal.classList.contains('active') && currentItemType === type) {
+        loadFormCategories(type);
+    }
+    
     markUnsaved();
 }
 
@@ -913,7 +933,12 @@ async function saveToGithub() {
         
         if (response.ok) {
             markSaved();
-            alert('✅ Data saved to GitHub successfully!');
+            
+            // Clear visitor cache timestamp to force immediate update
+            const cacheTimestampKey = 'falconx_data_timestamp';
+            localStorage.removeItem(cacheTimestampKey);
+            
+            alert('✅ Data saved to GitHub successfully!\n\n🔄 Visitors will see updates within 30 seconds.');
         } else {
             const errorData = await response.json();
             throw new Error(`${response.status} - ${errorData.message || response.statusText}`);
@@ -1023,4 +1048,15 @@ window.addEventListener('beforeunload', (e) => {
         e.preventDefault();
         e.returnValue = '';
     }
+});
+
+// Global error handler
+window.addEventListener('error', (e) => {
+    console.error('Global error caught:', e.error);
+    // Optionally show user-friendly error message
+});
+
+// Unhandled promise rejection handler
+window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled promise rejection:', e.reason);
 });

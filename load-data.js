@@ -3,7 +3,7 @@
     const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/anon-site/falcon.x/main/data.json';
     const CACHE_KEY = 'falconx_data';
     const CACHE_TIMESTAMP_KEY = 'falconx_data_timestamp';
-    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+    const CACHE_DURATION = 30 * 1000; // 30 seconds for faster updates
 
     async function loadDataFromGithub() {
         try {
@@ -12,7 +12,8 @@
             const now = Date.now();
             
             if (cachedTimestamp && (now - parseInt(cachedTimestamp)) < CACHE_DURATION) {
-                console.log('✅ Using cached data (less than 5 minutes old)');
+                const secondsAgo = Math.floor((now - parseInt(cachedTimestamp)) / 1000);
+                console.log(`✅ Using cached data (${secondsAgo} seconds old)`);
                 return;
             }
 
@@ -40,7 +41,8 @@
                     const parsed = JSON.parse(currentData);
                     currentSettings = parsed.settings || {};
                 } catch (e) {
-                    console.warn('Could not parse current settings');
+                    console.warn('Could not parse current settings:', e.message);
+                    currentSettings = {};
                 }
             }
             
@@ -70,4 +72,19 @@
 
     // Load data immediately when script runs
     loadDataFromGithub();
+    
+    // Expose function to force refresh (useful for testing)
+    window.forceRefreshData = function() {
+        localStorage.removeItem(CACHE_TIMESTAMP_KEY);
+        console.log('🔄 Cache cleared. Reloading page...');
+        location.reload();
+    };
+    
+    // Auto-refresh every 2 minutes if page is visible
+    setInterval(() => {
+        if (document.visibilityState === 'visible') {
+            localStorage.removeItem(CACHE_TIMESTAMP_KEY);
+            loadDataFromGithub();
+        }
+    }, 2 * 60 * 1000); // 2 minutes
 })();

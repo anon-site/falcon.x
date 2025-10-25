@@ -237,6 +237,12 @@ class Database {
         const data = this.getData();
         if (!data[type]) data[type] = [];
         
+        // Validate required fields
+        if (!item.name || !item.name.trim()) {
+            console.error('Item name is required');
+            return null;
+        }
+        
         const newItem = {
             ...item,
             id: Date.now(),
@@ -253,6 +259,12 @@ class Database {
         const index = data[type].findIndex(item => item.id == id);
         
         if (index !== -1) {
+            // Validate required fields
+            if (!updatedItem.name || !updatedItem.name.trim()) {
+                console.error('Item name is required');
+                return null;
+            }
+            
             data[type][index] = {
                 ...updatedItem,
                 id: parseInt(id),
@@ -277,10 +289,24 @@ class Database {
 
     addCategory(type, category) {
         const data = this.getData();
-        if (!data.categories[type].includes(category)) {
-            data.categories[type].push(category);
-            this.saveData(data);
+        const trimmedCategory = category.trim();
+        
+        if (!trimmedCategory) {
+            console.warn('Cannot add empty category');
+            return false;
         }
+        
+        if (!data.categories[type]) {
+            data.categories[type] = [];
+        }
+        
+        if (!data.categories[type].includes(trimmedCategory)) {
+            data.categories[type].push(trimmedCategory);
+            this.saveData(data);
+            return true;
+        }
+        
+        return false; // Category already exists
     }
 
     deleteCategory(type, category) {
