@@ -5,7 +5,19 @@ class Database {
     }
 
     initDatabase() {
+        // Check if we should wait for GitHub data load
+        // If cache was just cleared, give load-data.js time to fetch from GitHub
+        const lastCacheCleared = localStorage.getItem('lastCacheCleared');
+        const now = Date.now();
+        
+        if (lastCacheCleared && (now - parseInt(lastCacheCleared)) < 5000) {
+            console.log('⏳ Waiting for GitHub data load after cache clear...');
+            // Don't initialize default data, wait for load-data.js
+            return;
+        }
+        
         if (!localStorage.getItem('falconx_data')) {
+            console.log('📦 Initializing default data...');
             const initialData = {
                 windowsPrograms: [
                     {

@@ -4,11 +4,25 @@ let currentItems = [];
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    loadAllContent();
     initSidebar();
     initTabs();
-    // Restore last tab after a small delay to ensure DOM is ready
-    setTimeout(() => restoreLastTab(), 10);
+    
+    // Check if we're waiting for GitHub data after cache clear
+    const lastCacheCleared = localStorage.getItem('lastCacheCleared');
+    const now = Date.now();
+    
+    if (lastCacheCleared && (now - parseInt(lastCacheCleared)) < 5000) {
+        console.log('⏳ Waiting for GitHub data to load...');
+        // Wait a bit for load-data.js to fetch from GitHub
+        setTimeout(() => {
+            loadAllContent();
+            setTimeout(() => restoreLastTab(), 10);
+        }, 2000);
+    } else {
+        loadAllContent();
+        // Restore last tab after a small delay to ensure DOM is ready
+        setTimeout(() => restoreLastTab(), 10);
+    }
 });
 
 // Sidebar functionality

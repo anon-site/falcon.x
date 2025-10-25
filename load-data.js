@@ -65,9 +65,19 @@
             
             console.log('✅ Data loaded from GitHub successfully');
             
+            // Clear the cache cleared flag since we loaded new data
+            localStorage.removeItem('lastCacheCleared');
+            
             // Reload page if main.js is already loaded
             if (window.db && typeof window.loadAllContent === 'function') {
+                // Re-initialize database with new data
+                if (window.db && typeof window.db.initDatabase === 'function') {
+                    window.db.initDatabase();
+                }
+                console.log('🔄 Reloading content with fresh data from GitHub...');
                 window.loadAllContent();
+            } else {
+                console.log('✅ Data ready. Will load when page initializes.');
             }
             
         } catch (error) {

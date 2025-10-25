@@ -147,6 +147,9 @@ class SettingsManager {
             if (language) localStorage.setItem('language', language);
             if (warningDismissed) localStorage.setItem('warningDismissed', warningDismissed);
             
+            // IMPORTANT: Remove cache timestamp to force GitHub data reload
+            localStorage.removeItem('falconx_data_timestamp');
+            
             // Clear sessionStorage
             sessionStorage.clear();
             
