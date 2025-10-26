@@ -761,13 +761,14 @@ async function saveToGithub() {
         console.log('Starting save to GitHub...');
         console.log('Settings:', { username: settings.githubUsername, repo: settings.githubRepo });
         
-        // Check if file exists
+        // Get latest file SHA (always fetch fresh to avoid conflicts)
         const checkResponse = await fetch(
-            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
+            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json?ref=main&t=${Date.now()}`,
             {
                 headers: {
                     'Authorization': `token ${settings.githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json'
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Cache-Control': 'no-cache'
                 }
             }
         );
@@ -778,9 +779,12 @@ async function saveToGithub() {
         if (checkResponse.ok) {
             const fileData = await checkResponse.json();
             sha = fileData.sha;
-            console.log('File exists, SHA:', sha);
-        } else {
+            console.log('File exists, current SHA:', sha);
+        } else if (checkResponse.status === 404) {
             console.log('File does not exist, will create new');
+        } else {
+            const errorText = await checkResponse.text();
+            throw new Error(`Failed to check file: ${checkResponse.status} - ${errorText}`);
         }
         
         // Prepare request body
