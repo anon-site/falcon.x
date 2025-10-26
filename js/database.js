@@ -188,17 +188,8 @@ class Database {
 
     async syncFromRemoteIfNeeded() {
         try {
-            const urlParams = new URLSearchParams(window.location.search);
-            const force = urlParams.get('sync') === '1';
-            const alreadySynced = localStorage.getItem('falconx_synced') === '1' && !force;
-            if (alreadySynced) return;
-
-            const data = this.getData() || {};
-            const types = ['windowsPrograms','windowsGames','androidApps','androidGames','phoneTools','frpApps'];
-            const totalCount = types.reduce((sum, t) => sum + (Array.isArray(data[t]) ? data[t].length : 0), 0);
-            const isEmpty = totalCount === 0;
-
-            if (!force && !isEmpty) return;
+            // Always attempt remote sync on visit; only reload if content changed
+            const current = this.getData() || {};
 
             // Try same-origin first (GitHub Pages or any static host)
             let remote = await this.fetchJsonWithTimeout('data.json', 4000);
@@ -217,12 +208,19 @@ class Database {
                 const localSettings = this.getSettings() || {};
                 remote.settings = { ...remote.settings, ...localSettings };
 
-                this.saveData(remote);
-                localStorage.setItem('falconx_synced', '1');
+                // Compare without settings to avoid false positives
+                const strip = (d) => {
+                    const c = JSON.parse(JSON.stringify(d || {}));
+                    delete c.settings;
+                    return c;
+                };
+                const changed = JSON.stringify(strip(remote)) !== JSON.stringify(strip(current));
 
-                // Refresh UI to reflect new data immediately
-                if (document.readyState !== 'loading') {
-                    try { location.reload(); } catch (_) {}
+                if (changed) {
+                    this.saveData(remote);
+                    if (document.readyState !== 'loading') {
+                        try { location.reload(); } catch (_) {}
+                    }
                 }
             }
         } catch (e) {
