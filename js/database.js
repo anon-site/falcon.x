@@ -5,20 +5,23 @@ class Database {
     }
 
     initDatabase() {
-        // Check if we should wait for GitHub data load
-        // If cache was just cleared, give load-data.js time to fetch from GitHub
-        const lastCacheCleared = localStorage.getItem('lastCacheCleared');
-        const now = Date.now();
+        // Check if we're on admin page
+        const isAdminPage = window.location.pathname.includes('admin.html');
         
-        if (lastCacheCleared && (now - parseInt(lastCacheCleared)) < 5000) {
-            console.log('⏳ Waiting for GitHub data load after cache clear...');
-            // Don't initialize default data, wait for load-data.js
-            return;
+        // Check if we should wait for GitHub data load (only on non-admin pages)
+        if (!isAdminPage) {
+            const lastCacheCleared = localStorage.getItem('lastCacheCleared');
+            const now = Date.now();
+            
+            if (lastCacheCleared && (now - parseInt(lastCacheCleared)) < 5000) {
+                console.log('⏳ Waiting for GitHub data load after cache clear...');
+                // Don't initialize default data, wait for load-data.js
+                return;
+            }
         }
         
         if (!localStorage.getItem('falconx_data')) {
-            console.log('⏳ No local data found. Waiting for GitHub data load...');
-            // Don't initialize default data, let load-data.js fetch from GitHub
+            console.log('⏳ No local data found. Initializing empty structure...');
             // Initialize with empty structure to prevent errors
             const emptyData = {
                 windowsPrograms: [],
@@ -38,9 +41,13 @@ class Database {
                 settings: {}
             };
             localStorage.setItem('falconx_data', JSON.stringify(emptyData));
-            console.log('📦 Empty structure initialized. load-data.js will fetch from GitHub...');
+            console.log('📦 Empty structure initialized.');
             return;
         }
+        
+        // Data exists, proceed normally
+        console.log('✅ Database initialized with existing data.');
+    }
         
         // Skip default data initialization completely
         /*

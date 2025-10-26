@@ -412,7 +412,7 @@ function openItemModal(item) {
         html += `
             <div class="xapk-note">
                 <i class="fas fa-info-circle"></i>
-                <span>To install applications in <strong>XAPK</strong> format, you must use the <strong>Zarchiver</strong> or <strong>MTManager</strong> application.</span>
+                <span>To install applications in <strong>XAPK, APKS</strong> format, you must use the <strong>Zarchiver</strong> or <strong>MTManager</strong> application.</span>
             </div>
         `;
     }

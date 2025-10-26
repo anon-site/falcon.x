@@ -3,6 +3,13 @@ let unsavedChanges = false;
 let currentEditingItem = null;
 let currentEditingType = null;
 
+// Prevent auto-loading from GitHub on admin page
+if (localStorage.getItem('lastCacheCleared')) {
+    // Remove the flag to prevent load-data.js from interfering
+    localStorage.removeItem('lastCacheCleared');
+    console.log('🔒 Admin page: Cleared GitHub auto-load flag');
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     initAdmin();
@@ -172,18 +179,39 @@ function openItemForm(type) {
     currentEditingItem = null;
     currentEditingType = type;
     
-    document.getElementById('formModalTitle').textContent = 'Add New Item';
-    document.getElementById('itemForm').reset();
-    document.getElementById('itemId').value = '';
-    document.getElementById('itemType').value = type;
+    const modal = document.getElementById('itemFormModal');
+    const form = document.getElementById('itemForm');
+    const formTitle = document.getElementById('formModalTitle');
+    const itemId = document.getElementById('itemId');
+    const itemType = document.getElementById('itemType');
     
-    // Load categories for this type
-    loadFormCategories(type);
+    // Ensure all elements exist
+    if (!modal || !form || !formTitle || !itemId || !itemType) {
+        console.error('Form elements not found. Reloading page...');
+        location.reload();
+        return;
+    }
     
-    // Toggle fields visibility based on type
-    toggleFormFields(type);
+    // Force close modal first to reset state
+    modal.classList.remove('active');
     
-    document.getElementById('itemFormModal').classList.add('active');
+    // Reset form after a small delay
+    setTimeout(() => {
+        formTitle.textContent = 'Add New Item';
+        form.reset();
+        itemId.value = '';
+        itemType.value = type;
+        
+        // Load categories for this type
+        loadFormCategories(type);
+        
+        // Toggle fields visibility based on type
+        toggleFormFields(type);
+        
+        // Open modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }, 50);
 }
 
 // Load form categories
@@ -200,56 +228,78 @@ function editItem(type, id) {
     const items = db.getItems(type);
     const item = items.find(i => i.id == id);
     
-    if (!item) return;
+    if (!item) {
+        alert('Item not found. The page will reload.');
+        location.reload();
+        return;
+    }
     
     currentEditingItem = item;
     currentEditingType = type;
     
-    document.getElementById('formModalTitle').textContent = 'Edit Item';
-    document.getElementById('itemId').value = item.id;
-    document.getElementById('itemType').value = type;
-    document.getElementById('itemName').value = item.name || '';
-    document.getElementById('itemVersion').value = item.version || '';
-    document.getElementById('itemSize').value = item.size || '';
-    document.getElementById('itemShortDesc').value = item.shortDesc || '';
-    document.getElementById('itemFullDesc').value = item.fullDesc || '';
-    document.getElementById('itemIcon').value = item.icon || '';
-    document.getElementById('itemStatus').value = item.status || 'Original';
-    document.getElementById('itemScreenshots').value = (item.screenshots || []).join('\n');
-    document.getElementById('itemFeatures').value = (item.features || []).join('\n');
-    document.getElementById('itemRequirements').value = item.requirements || '';
-    document.getElementById('itemOriginalLink').value = item.originalLink || '';
-    document.getElementById('itemModifiedLink').value = item.modifiedLink || '';
-    document.getElementById('itemWebsite').value = item.website || '';
-    document.getElementById('itemNote').value = item.note || '';
+    const modal = document.getElementById('itemFormModal');
+    const form = document.getElementById('itemForm');
     
-    // Handle FRP-specific fields
-    if (type === 'frpApps') {
-        document.getElementById('frpType').value = item.frpType || 'direct';
-        document.getElementById('itemDirectLink').value = item.directLink || '';
-        document.getElementById('itemDownloadLink').value = item.downloadLink || '';
+    // Ensure modal exists
+    if (!modal || !form) {
+        console.error('Form elements not found. Reloading page...');
+        location.reload();
+        return;
     }
     
-    // Load categories and set selected
-    loadFormCategories(type);
-    document.getElementById('itemCategory').value = item.category || '';
+    // Force close modal first to reset state
+    modal.classList.remove('active');
     
-    // Set note color
-    document.querySelectorAll('input[name="noteColor"]').forEach(radio => {
-        radio.checked = radio.value === (item.noteColor || 'orange');
-    });
-    
-    // Toggle fields visibility based on type
-    toggleFormFields(type);
-    
-    document.getElementById('itemFormModal').classList.add('active');
-    
-    // Auto-resize textareas after loading data
+    // Load data after a small delay
     setTimeout(() => {
-        document.querySelectorAll('textarea[oninput*="autoResize"]').forEach(textarea => {
-            autoResize(textarea);
+        document.getElementById('formModalTitle').textContent = 'Edit Item';
+        document.getElementById('itemId').value = item.id;
+        document.getElementById('itemType').value = type;
+        document.getElementById('itemName').value = item.name || '';
+        document.getElementById('itemVersion').value = item.version || '';
+        document.getElementById('itemSize').value = item.size || '';
+        document.getElementById('itemShortDesc').value = item.shortDesc || '';
+        document.getElementById('itemFullDesc').value = item.fullDesc || '';
+        document.getElementById('itemIcon').value = item.icon || '';
+        document.getElementById('itemStatus').value = item.status || 'Original';
+        document.getElementById('itemScreenshots').value = (item.screenshots || []).join('\n');
+        document.getElementById('itemFeatures').value = (item.features || []).join('\n');
+        document.getElementById('itemRequirements').value = item.requirements || '';
+        document.getElementById('itemOriginalLink').value = item.originalLink || '';
+        document.getElementById('itemModifiedLink').value = item.modifiedLink || '';
+        document.getElementById('itemWebsite').value = item.website || '';
+        document.getElementById('itemNote').value = item.note || '';
+        
+        // Handle FRP-specific fields
+        if (type === 'frpApps') {
+            document.getElementById('frpType').value = item.frpType || 'direct';
+            document.getElementById('itemDirectLink').value = item.directLink || '';
+            document.getElementById('itemDownloadLink').value = item.downloadLink || '';
+        }
+        
+        // Load categories and set selected
+        loadFormCategories(type);
+        document.getElementById('itemCategory').value = item.category || '';
+        
+        // Set note color
+        document.querySelectorAll('input[name="noteColor"]').forEach(radio => {
+            radio.checked = radio.value === (item.noteColor || 'orange');
         });
-    }, 100);
+        
+        // Toggle fields visibility based on type
+        toggleFormFields(type);
+        
+        // Open modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Auto-resize textareas after loading data
+        setTimeout(() => {
+            document.querySelectorAll('textarea[oninput*="autoResize"]').forEach(textarea => {
+                autoResize(textarea);
+            });
+        }, 100);
+    }, 50);
 }
 
 // Toggle form fields visibility based on item type
@@ -393,7 +443,11 @@ function saveItem(e) {
 
 // Close item form
 function closeItemForm() {
-    document.getElementById('itemFormModal').classList.remove('active');
+    const modal = document.getElementById('itemFormModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
     currentEditingItem = null;
     currentEditingType = null;
 }
