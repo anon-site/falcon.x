@@ -754,79 +754,71 @@ async function saveToGithub() {
     saveBtn.disabled = true;
     saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
     
-    const data = db.exportData(false); // Exclude secrets for GitHub
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-    
     try {
-        console.log('Starting save to GitHub...');
-        console.log('Settings:', { username: settings.githubUsername, repo: settings.githubRepo });
+        const data = db.exportData(false); // Exclude secrets
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
         
-        // Get latest file SHA (always fetch fresh to avoid conflicts)
-        const checkResponse = await fetch(
-            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json?ref=main&t=${Date.now()}`,
-            {
-                headers: {
-                    'Authorization': `token ${settings.githubToken}`,
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Cache-Control': 'no-cache'
-                }
-            }
-        );
-        
-        console.log('Check response status:', checkResponse.status);
-        
+        // Step 1: Get current file SHA
         let sha = null;
-        if (checkResponse.ok) {
-            const fileData = await checkResponse.json();
-            sha = fileData.sha;
-            console.log('File exists, current SHA:', sha);
-        } else if (checkResponse.status === 404) {
-            console.log('File does not exist, will create new');
-        } else {
-            const errorText = await checkResponse.text();
-            throw new Error(`Failed to check file: ${checkResponse.status} - ${errorText}`);
+        try {
+            const getResponse = await fetch(
+                `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${settings.githubToken}`,
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
+                    }
+                }
+            );
+            
+            if (getResponse.ok) {
+                const fileData = await getResponse.json();
+                sha = fileData.sha;
+            }
+        } catch (e) {
+            // File doesn't exist, that's ok
+            console.log('File does not exist yet');
         }
         
-        // Prepare request body
-        const requestBody = {
-            message: `Update data - ${new Date().toISOString()}`,
-            content: content
+        // Step 2: Create or update file
+        const body = {
+            message: 'Update data from admin panel',
+            content: content,
+            branch: 'main'
         };
         
-        // Only include sha if file exists
         if (sha) {
-            requestBody.sha = sha;
+            body.sha = sha;
         }
         
-        // Create or update file
-        const response = await fetch(
+        const saveResponse = await fetch(
             `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
             {
                 method: 'PUT',
                 headers: {
-                    'Authorization': `token ${settings.githubToken}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/vnd.github.v3+json'
+                    'Authorization': `Bearer ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github+json',
+                    'X-GitHub-Api-Version': '2022-11-28',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify(body)
             }
         );
         
-        console.log('Save response status:', response.status);
-        
-        if (response.ok) {
-            markSaved();
-            customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
-        } else {
-            const errorData = await response.json();
-            console.error('GitHub API Error:', errorData);
-            throw new Error(errorData.message || response.statusText);
+        if (!saveResponse.ok) {
+            const errorData = await saveResponse.json();
+            throw new Error(errorData.message || 'فشل الحفظ');
         }
+        
+        markSaved();
+        customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
+        
     } catch (error) {
         console.error('Save error:', error);
-        customAlert('error', 'خطأ في الحفظ على GitHub: ' + error.message);
+        customAlert('error', 'خطأ في الحفظ: ' + error.message);
     } finally {
-        // Restore button
         saveBtn.disabled = false;
         saveBtn.innerHTML = originalBtnHtml;
     }
