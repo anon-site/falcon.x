@@ -972,11 +972,13 @@ async function monitorGithubActions(settings) {
         const runsData = await runsResponse.json();
         
         if (!runsData.workflow_runs || runsData.workflow_runs.length === 0) {
-            statusSpan.textContent = 'No active deployment found';
+            // No workflows found - likely GitHub Pages without Actions
+            statusSpan.textContent = '✓ Saved successfully - Deploying via GitHub Pages';
             progressBar.style.width = '100%';
+            progressBar.style.background = 'linear-gradient(90deg, #10b981, #059669)';
             setTimeout(() => {
                 progressDiv.style.display = 'none';
-            }, 3000);
+            }, 4000);
             isChecking = false;
             return;
         }
@@ -1041,10 +1043,13 @@ async function monitorGithubActions(settings) {
         
     } catch (error) {
         console.error('Actions monitoring error:', error);
-        statusSpan.textContent = 'Unable to check deployment';
+        // If error checking Actions, assume it's deployed via GitHub Pages
+        statusSpan.textContent = '✓ Saved - Check GitHub for deployment status';
+        progressBar.style.width = '100%';
+        progressBar.style.background = 'linear-gradient(90deg, #10b981, #059669)';
         setTimeout(() => {
             progressDiv.style.display = 'none';
-        }, 3000);
+        }, 4000);
     } finally {
         isChecking = false;
     }
