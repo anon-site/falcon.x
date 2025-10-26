@@ -390,7 +390,18 @@ function openItemModal(item) {
     }
     
     html += `
-            </div>
+            </div>`;
+    
+    // Add installation note for Android apps and games
+    if (currentTab === 'android-apps' || currentTab === 'android-games') {
+        html += `
+            <div class="installation-note">
+                <i class="fas fa-info-circle"></i>
+                <span>To install applications in <strong class="format-name">XAPK</strong>, <strong class="format-name">APKS</strong> format, you must use the <strong class="app-name">Zarchiver</strong> or <strong class="app-name">MTManager</strong> application.</span>
+            </div>`;
+    }
+    
+    html += `
         </div>
     `;
     

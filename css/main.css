@@ -1177,6 +1177,45 @@ body {
     white-space: nowrap;
 }
 
+.installation-note {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.installation-note i {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.installation-note .app-name {
+    color: var(--primary);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.installation-note .format-name {
+    color: var(--warning);
+    font-weight: 700;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .note-alert {
     padding: 0.85rem 1.25rem;
     border-radius: 10px;
