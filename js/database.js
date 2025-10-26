@@ -56,6 +56,9 @@ class Database {
         } catch (e) {
             console.warn('Cleanup default data failed', e);
         }
+
+        // Trigger remote sync on first load if needed
+        try { setTimeout(() => this.syncFromRemoteIfNeeded(), 0); } catch (_) {}
     }
 
     getData() {
@@ -165,6 +168,65 @@ class Database {
         } catch (error) {
             console.error('Import error:', error);
             return false;
+        }
+    }
+
+    async fetchJsonWithTimeout(url, timeoutMs = 5000) {
+        try {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeoutMs);
+            const res = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
+            clearTimeout(id);
+            if (!res.ok) return null;
+            const text = await res.text();
+            if (!text || !text.trim()) return null;
+            return JSON.parse(text);
+        } catch (_) {
+            return null;
+        }
+    }
+
+    async syncFromRemoteIfNeeded() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const force = urlParams.get('sync') === '1';
+            const alreadySynced = localStorage.getItem('falconx_synced') === '1' && !force;
+            if (alreadySynced) return;
+
+            const data = this.getData() || {};
+            const types = ['windowsPrograms','windowsGames','androidApps','androidGames','phoneTools','frpApps'];
+            const totalCount = types.reduce((sum, t) => sum + (Array.isArray(data[t]) ? data[t].length : 0), 0);
+            const isEmpty = totalCount === 0;
+
+            if (!force && !isEmpty) return;
+
+            // Try same-origin first (GitHub Pages or any static host)
+            let remote = await this.fetchJsonWithTimeout('data.json', 4000);
+
+            // Fallback to raw.githubusercontent if settings available
+            if (!remote) {
+                const settings = this.getSettings() || {};
+                if (settings.githubUsername && settings.githubRepo) {
+                    const rawUrl = `https://raw.githubusercontent.com/${settings.githubUsername}/${settings.githubRepo}/main/data.json`;
+                    remote = await this.fetchJsonWithTimeout(rawUrl, 6000);
+                }
+            }
+
+            if (remote && typeof remote === 'object') {
+                // Preserve local secrets/settings (e.g., tokens) if any exist locally
+                const localSettings = this.getSettings() || {};
+                remote.settings = { ...remote.settings, ...localSettings };
+
+                this.saveData(remote);
+                localStorage.setItem('falconx_synced', '1');
+
+                // Refresh UI to reflect new data immediately
+                if (document.readyState !== 'loading') {
+                    try { location.reload(); } catch (_) {}
+                }
+            }
+        } catch (e) {
+            console.warn('Remote sync skipped:', e);
         }
     }
 }

@@ -103,16 +103,21 @@ function loadAllTables() {
 // Load table
 function loadTable(type, tableId) {
     const items = db.getItems(type);
+    const sorted = [...items].sort((a, b) => {
+        const da = new Date(a.lastModified || 0).getTime();
+        const dbm = new Date(b.lastModified || 0).getTime();
+        return dbm - da;
+    });
     const tbody = document.querySelector(`#${tableId} tbody`);
     
     if (!tbody) return;
     
-    if (items.length === 0) {
+    if (sorted.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-secondary);">No items found</td></tr>';
         return;
     }
     
-    tbody.innerHTML = items.map(item => {
+    tbody.innerHTML = sorted.map(item => {
         const date = new Date(item.lastModified);
         const formattedDate = date.toLocaleDateString();
         
