@@ -639,36 +639,41 @@ async function autoFillItemData() {
         if (itemType.includes('Tools')) itemCategory = 'tool';
         if (itemType === 'frpApps') itemCategory = 'FRP bypass tool';
         
-        const prompt = `You are a software information expert. Provide the MOST RECENT and ACCURATE information about "${itemName}" (${itemCategory}).
+        const prompt = `You are a software database expert. Provide VERIFIED and UP-TO-DATE information about "${itemName}" (${itemCategory}).
 
 Available categories: ${categoriesList}
 
-Return ONLY a valid JSON object with these fields:
+IMPORTANT INSTRUCTIONS:
+1. If you're NOT CERTAIN about version/size/website, use "Unknown" or leave empty
+2. Only provide information you're confident about
+3. For version: Check if this software typically has year-based (2025.x) or incremental (5.0.x) versioning
+4. For website: Only provide if you're 100% certain of the official domain
+
+Return ONLY a valid JSON object:
 {
-  "category": "choose the most appropriate category from the list above",
-  "version": "LATEST stable version number as of 2025 (e.g., 2025.1, 5.0.2)",
-  "size": "typical installer/download size (e.g., 150 MB, 2.5 GB)",
-  "shortDesc": "one-line description highlighting main purpose (max 100 chars)",
-  "fullDesc": "detailed description covering main features and use cases (2-3 sentences)",
-  "features": ["specific feature 1", "specific feature 2", "specific feature 3", "specific feature 4"],
+  "category": "choose from: ${categoriesList}",
+  "version": "Latest known version (use 'Unknown' if uncertain)",
+  "size": "Approximate size (use 'Varies' if uncertain)",
+  "shortDesc": "Brief one-line description (max 100 chars)",
+  "fullDesc": "Detailed 2-3 sentence description of main purpose and use cases",
+  "features": ["Specific feature 1", "Specific feature 2", "Specific feature 3", "Specific feature 4"],
   "requirements": [
-    "OS: Specific OS versions (e.g., Windows 10/11 64-bit)",
-    "Processor: Minimum CPU (e.g., Intel i5 or AMD Ryzen 5)",
-    "Memory: RAM requirement (e.g., 8 GB RAM minimum, 16 GB recommended)",
-    "Storage: Disk space needed (e.g., 5 GB available space)",
-    "Graphics: GPU if needed (e.g., DirectX 12 compatible)",
-    "Additional: Other requirements (e.g., Internet connection for activation)"
+    "OS: Operating system requirements",
+    "Processor: CPU requirements",
+    "Memory: RAM requirements",
+    "Storage: Disk space needed",
+    "Graphics: GPU if required",
+    "Additional: Other requirements"
   ],
-  "website": "official website URL (must be accurate)"
+  "website": "Official website URL (leave empty if uncertain)"
 }
 
 CRITICAL RULES:
-- Provide CURRENT 2025 version numbers when possible
-- Be SPECIFIC, avoid generic descriptions
-- Choose category from the provided list ONLY
-- Provide realistic file sizes based on actual software
-- Include specific, not generic, features
-- Return ONLY the JSON object, no markdown code blocks or additional text`;
+- Accuracy over completeness - it's better to say 'Unknown' than to guess
+- Use general terms if specific version is uncertain
+- Only include features you're certain about
+- Choose category from the provided list only
+- Return ONLY the JSON object, no markdown or extra text`;
         
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',

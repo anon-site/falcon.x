@@ -262,7 +262,30 @@ class Database {
     }
 
     getData() {
-        return JSON.parse(localStorage.getItem('falconx_data'));
+        const data = localStorage.getItem('falconx_data');
+        if (!data) {
+            // Initialize empty structure if data doesn't exist
+            const emptyData = {
+                windowsPrograms: [],
+                windowsGames: [],
+                androidApps: [],
+                androidGames: [],
+                phoneTools: [],
+                frpApps: [],
+                categories: {
+                    windowsPrograms: [],
+                    windowsGames: [],
+                    androidApps: [],
+                    androidGames: [],
+                    phoneTools: [],
+                    frpApps: []
+                },
+                settings: {}
+            };
+            this.saveData(emptyData);
+            return emptyData;
+        }
+        return JSON.parse(data);
     }
 
     saveData(data) {
