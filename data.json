@@ -28,6 +28,39 @@
       "noteColor": "orange",
       "id": 2,
       "lastModified": "2025-10-25T10:13:26.625Z"
+    },
+    {
+      "name": "FastStone Capture",
+      "category": "Design & Editing",
+      "version": "11.1",
+      "size": "8.60 MB",
+      "shortDesc": "A lightweight and easy-to-use screen capture and video recording tool that allows you to take high-quality screenshots and edit them quickly.",
+      "fullDesc": "FastStone Capture is a powerful and comprehensive screen capture and video recording tool known for its small size and fast performance. It enables users to capture any part of the screen, including windows, menus, specific regions, or the full screen. The program includes a built-in editor for adding text, arrows, highlights, watermarks, and visual effects.\nIt also supports video recording with audio from the microphone or system, making it ideal for tutorials, presentations, and gameplay recording.",
+      "icon": "https://images.sftcdn.net/images/t_app-icon-s/p/2d6fec86-9a63-11e6-9800-00163ec9f5fa/1513161085/faststone-capture-icon.png",
+      "status": "Original",
+      "screenshots": [
+        "https://www.faststone.org/Images/FSCapture.gif",
+        "https://www.pcworld.com/wp-content/uploads/2025/04/faststone_capture.jpg?quality=50&strip=all&w=1024",
+        "https://www.faststone.org/Images/ScreenRecorder.gif"
+      ],
+      "features": [
+        "Multiple capture modes (full screen, window, region, etc.)",
+        "High-quality video recording with audio",
+        "Built-in image editor with annotation tools",
+        "Save images in multiple formats (PNG, JPEG, BMP, GIF, etc.)",
+        "Add arrows, text, shapes, and watermarks easily",
+        "Direct export to email, Word, or Excel",
+        "Compatible with modern Windows versions",
+        "Very low resource usage"
+      ],
+      "requirements": "Operating System: Windows 7 / 8 / 10 / 11\n\nProcessor: Pentium IV or higher\n\nRAM: 1 GB or more\n\nStorage: At least 10 MB of free space",
+      "originalLink": "https://www.faststonesoft.net/DN/FSCaptureSetup111.exe",
+      "modifiedLink": "",
+      "website": "https://www.faststone.org/FSCaptureDownload.htm",
+      "note": "USERNAME : WWW.4DOWNLOAD.NET\nREGISTRATION CODE : VXHQD-RJMSD-LNWNC-AQBKU",
+      "noteColor": "green",
+      "id": 1761462579508,
+      "lastModified": "2025-10-26T07:09:39.508Z"
     }
   ],
   "windowsGames": [],
@@ -159,7 +192,7 @@
       "note": "MOD, Pro Unlocked",
       "noteColor": "green",
       "id": 1761453526305,
-      "lastModified": "2025-10-26T08:01:05.952Z"
+      "lastModified": "2025-10-26T08:04:07.471Z"
     }
   ],
   "androidGames": [
@@ -286,7 +319,7 @@
       "note": "Unlocked All",
       "noteColor": "green",
       "id": 1761453199886,
-      "lastModified": "2025-10-26T04:33:19.886Z"
+      "lastModified": "2025-10-26T07:43:02.924Z"
     }
   ],
   "phoneTools": [],
