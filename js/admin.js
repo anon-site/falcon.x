@@ -306,7 +306,7 @@ function toggleFrpFields() {
 
 // Delete item
 async function deleteItem(type, id) {
-    const confirmed = await customConfirm('هل أنت متأكد من حذف هذا العنصر؟', 'تأكيد الحذف');
+    const confirmed = await customConfirm('Are you sure you want to delete this item?', 'Confirm Delete');
     if (!confirmed) return;
     
     db.deleteItem(type, id);
@@ -418,7 +418,7 @@ function updateCategory(type, input) {
     const newValue = input.value.trim();
     
     if (!newValue) {
-        customAlert('error', 'اسم الفئة لا يمكن أن يكون فارغاً');
+        customAlert('error', 'Category name cannot be empty');
         input.value = oldValue;
         return;
     }
@@ -428,7 +428,7 @@ function updateCategory(type, input) {
     // Check if new name already exists
     const categories = db.getCategories(type);
     if (categories.includes(newValue)) {
-        customAlert('warning', 'هذه الفئة موجودة بالفعل');
+        customAlert('warning', 'This category already exists');
         input.value = oldValue;
         return;
     }
@@ -484,7 +484,7 @@ function addCategory(type) {
     const category = input.value.trim();
     
     if (!category) {
-        customAlert('error', 'الرجاء إدخال اسم الفئة');
+        customAlert('error', 'Please enter category name');
         return;
     }
     
@@ -496,7 +496,7 @@ function addCategory(type) {
 
 // Remove category
 async function removeCategory(type, category) {
-    const confirmed = await customConfirm(`حذف الفئة "${category}"؟`);
+    const confirmed = await customConfirm(`Delete category "${category}"?`);
     if (!confirmed) return;
     
     db.deleteCategory(type, category);
@@ -540,14 +540,14 @@ function saveGroqApiKey() {
     const apiKey = document.getElementById('groqApiKey').value;
     
     if (!apiKey) {
-        customAlert('error', 'الرجاء إدخال مفتاح Groq API');
+        customAlert('error', 'Please enter Groq API key');
         return;
     }
     
     const settings = db.getSettings();
     settings.groqApiKey = apiKey;
     db.saveSettings(settings);
-    customAlert('success', 'تم حفظ مفتاح API بنجاح!');
+    customAlert('success', 'API key saved successfully!');
 }
 
 // Auto-fill item data using Groq AI
@@ -556,7 +556,7 @@ async function autoFillItemData() {
     const itemType = document.getElementById('itemType').value;
     
     if (!itemName) {
-        customAlert('error', 'الرجاء إدخال اسم العنصر أولاً');
+        customAlert('error', 'Please enter item name first');
         return;
     }
     
@@ -564,7 +564,7 @@ async function autoFillItemData() {
     const apiKey = settings.groqApiKey;
     
     if (!apiKey) {
-        const confirmed = await customConfirm('مفتاح Groq API غير موجود. هل تريد إعداده الآن؟', 'مفتاح API مفقود');
+        const confirmed = await customConfirm('Groq API key not found. Do you want to set it up now?', 'API Key Missing');
         if (confirmed) {
             switchSection('account-info');
         }
@@ -674,11 +674,11 @@ IMPORTANT:
             autoResize(textarea);
         });
         
-        customAlert('success', 'تم جلب المعلومات بنجاح! يرجى المراجعة والتعديل حسب الحاجة.');
+        customAlert('success', 'Information fetched successfully! Please review and edit as needed.');
         
     } catch (error) {
         console.error('Auto-fill error:', error);
-        customAlert('error', 'خطأ في جلب البيانات: ' + error.message);
+        customAlert('error', 'Data fetch error: ' + error.message);
     } finally {
         btn.disabled = false;
         btn.innerHTML = originalText;
@@ -698,12 +698,12 @@ async function loadFromGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        customAlert('error', 'الرجاء إعداد إعدادات الحساب أولاً');
+        customAlert('error', 'Please setup account settings first');
         switchSection('account-info');
         return;
     }
     
-    const confirmed = await customConfirm('سيتم استبدال جميع البيانات الحالية بالبيانات من المشروع. هل تريد المتابعة؟', 'تحميل من المشروع');
+    const confirmed = await customConfirm('All current data will be replaced with data from GitHub. Do you want to continue?', 'Load from GitHub');
     if (!confirmed) {
         return;
     }
@@ -730,11 +730,11 @@ async function loadFromGithub() {
         loadDashboard();
         loadAllTables();
         loadCategories();
-        customAlert('success', 'تم تحميل البيانات بنجاح!');
+        customAlert('success', 'Data loaded successfully!');
         setTimeout(() => location.reload(), 1500);
         
     } catch (error) {
-        customAlert('error', 'خطأ في التحميل: ' + error.message);
+        customAlert('error', 'Load error: ' + error.message);
     }
 }
 
