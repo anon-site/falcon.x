@@ -94,6 +94,32 @@
       "noteColor": "orange",
       "id": 1761486153536,
       "lastModified": "2025-10-26T13:43:11.329Z"
+    },
+    {
+      "name": "SSVID Helper",
+      "category": "Extensions Browser",
+      "version": "1.0.0",
+      "size": "23.36 KB",
+      "shortDesc": "Quickly send the current page or video link to SSVID for further actions. A simple helper tool to open SSVID.net with one click.",
+      "fullDesc": "Quickly send the current page or video link to SSVID for further actions. A simple helper tool to open SSVID.net with one click.\n\nSSVID Helper is a simple browser extension that helps you quickly send the current page or link to SSVID.net.",
+      "icon": "https://lh3.googleusercontent.com/u2CLZP0H_MOsJwcnAh7TeD37ZohLz24fxnYIhlgKGytfPA303ajDNxhU4XL6GMw-nIRWfJAPza8HNhGLpZo3twWdaxM=s60",
+      "status": "Original",
+      "screenshots": [
+        "https://lh3.googleusercontent.com/PNUdNFJSYKhh1htu0CkQWc6dT9n1t6i4Rb5w4WN5jpZrFKkvRrEVmFLSt-z_H2x95YFAfdORaOSv84Z9oPVHqrOhP2s=s1280-w1280-h800"
+      ],
+      "features": [
+        "One-click button on supported sites to open SSVID.net",
+        "Right-click menu to open any link or media directly in SSVID",
+        "Lightweight and privacy-friendly: no tracking, no ads, no hidden code"
+      ],
+      "requirements": "",
+      "originalLink": "",
+      "modifiedLink": "",
+      "website": "https://chromewebstore.google.com/detail/ssvid-helper/ijhhfnkobmboghcknpjfeblahmdfcgib",
+      "note": "",
+      "noteColor": "orange",
+      "id": 1761494255889,
+      "lastModified": "2025-10-26T16:00:49.893Z"
     }
   ],
   "windowsGames": [],
@@ -430,7 +456,8 @@
       "Security",
       "Media Players",
       "Utilities",
-      "Tools"
+      "Tools",
+      "Extensions Browser"
     ],
     "windowsGames": [
       "Action & Adventure",
