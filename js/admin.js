@@ -743,7 +743,7 @@ async function saveToGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        customAlert('error', 'الرجاء إعداد إعدادات الحساب أولاً');
+        customAlert('error', 'Please setup account settings first');
         switchSection('account-info');
         return;
     }
@@ -752,7 +752,7 @@ async function saveToGithub() {
     const saveBtn = document.getElementById('saveChangesBtn');
     const originalBtnHtml = saveBtn.innerHTML;
     saveBtn.disabled = true;
-    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     
     // Attempt save with retry on SHA mismatch
     const maxRetries = 3;
@@ -823,13 +823,13 @@ async function saveToGithub() {
                     continue;
                 }
                 
-                throw new Error(errorData.message || 'فشل الحفظ');
+                throw new Error(errorData.message || 'Save failed');
             }
             
             // Success!
             success = true;
             markSaved();
-            customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
+            customAlert('success', 'Data saved to GitHub successfully! ✓');
             
             // Start monitoring GitHub Actions
             monitorGithubActions(settings);
@@ -837,7 +837,7 @@ async function saveToGithub() {
         } catch (error) {
             if (attempt >= maxRetries) {
                 console.error('Save error:', error);
-                customAlert('error', 'خطأ في الحفظ: ' + error.message);
+                customAlert('error', 'Save error: ' + error.message);
             }
         }
     }
@@ -871,18 +871,18 @@ function importData(event) {
     reader.onload = (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            customConfirm('سيتم استبدال جميع البيانات الحالية. هل تريد المتابعة؟', 'استيراد البيانات').then(confirmed => {
+            customConfirm('All current data will be replaced. Do you want to continue?', 'Import Data').then(confirmed => {
                 if (confirmed) {
                     db.importData(data);
                     loadDashboard();
                     loadAllTables();
                     loadCategories();
-                    customAlert('success', 'تم استيراد البيانات بنجاح!');
+                    customAlert('success', 'Data imported successfully!');
                     setTimeout(() => location.reload(), 1500);
                 }
             });
         } catch (error) {
-            customAlert('error', 'خطأ في الاستيراد: ' + error.message);
+            customAlert('error', 'Import error: ' + error.message);
         }
     };
     reader.readAsText(file);
@@ -905,7 +905,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Logout function
 async function logout() {
     if (unsavedChanges) {
-        const confirmed = await customConfirm('لديك تغييرات غير محفوظة. هل أنت متأكد من تسجيل الخروج؟', 'تسجيل الخروج');
+        const confirmed = await customConfirm('You have unsaved changes. Are you sure you want to logout?', 'Logout');
         if (!confirmed) {
             return;
         }
@@ -954,7 +954,7 @@ async function monitorGithubActions(settings) {
         if (elapsed >= 60) {
             isChecking = false;
             clearInterval(timerInterval);
-            statusSpan.textContent = '✓ تم بنجاح';
+            statusSpan.textContent = '✓ Success';
             progressBar.style.width = '100%';
             progressBar.style.background = 'linear-gradient(90deg, #10b981, #059669)';
             
@@ -966,6 +966,6 @@ async function monitorGithubActions(settings) {
     }, 1000);
     
     // Set initial status
-    statusSpan.textContent = 'جاري النشر...';
+    statusSpan.textContent = 'Publishing...';
     progressBar.style.width = '0%';
 }
