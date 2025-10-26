@@ -25,6 +25,16 @@
                     <i class="fas fa-save"></i> Save to GitHub
                 </button>
             </div>
+            <div class="github-actions-progress" id="actionsProgress" style="display: none;">
+                <div class="progress-content">
+                    <i class="fab fa-github"></i>
+                    <span id="actionsStatus">Checking deployment status...</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="actionsProgressBar"></div>
+                </div>
+                <span class="progress-time" id="actionsTime">0s</span>
+            </div>
             <a href="index.html" class="btn-view-site" target="_blank">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>

@@ -831,6 +831,9 @@ async function saveToGithub() {
             markSaved();
             customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
             
+            // Start monitoring GitHub Actions
+            monitorGithubActions(settings);
+            
         } catch (error) {
             if (attempt >= maxRetries) {
                 console.error('Save error:', error);
@@ -920,3 +923,129 @@ window.addEventListener('beforeunload', (e) => {
         e.returnValue = '';
     }
 });
+
+// Monitor GitHub Actions deployment
+async function monitorGithubActions(settings) {
+    const progressDiv = document.getElementById('actionsProgress');
+    const statusSpan = document.getElementById('actionsStatus');
+    const progressBar = document.getElementById('actionsProgressBar');
+    const timeSpan = document.getElementById('actionsTime');
+    
+    // Show progress bar
+    progressDiv.style.display = 'flex';
+    
+    let startTime = Date.now();
+    let isChecking = true;
+    
+    // Update timer
+    const timerInterval = setInterval(() => {
+        if (!isChecking) {
+            clearInterval(timerInterval);
+            return;
+        }
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        timeSpan.textContent = `${elapsed}s`;
+    }, 1000);
+    
+    try {
+        // Check for workflow runs
+        statusSpan.textContent = 'Checking deployment status...';
+        progressBar.style.width = '20%';
+        
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for GitHub to register push
+        
+        const runsResponse = await fetch(
+            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/actions/runs?per_page=1`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github+json',
+                    'X-GitHub-Api-Version': '2022-11-28'
+                }
+            }
+        );
+        
+        if (!runsResponse.ok) {
+            throw new Error('Unable to fetch workflow status');
+        }
+        
+        const runsData = await runsResponse.json();
+        
+        if (!runsData.workflow_runs || runsData.workflow_runs.length === 0) {
+            statusSpan.textContent = 'No active deployment found';
+            progressBar.style.width = '100%';
+            setTimeout(() => {
+                progressDiv.style.display = 'none';
+            }, 3000);
+            isChecking = false;
+            return;
+        }
+        
+        const latestRun = runsData.workflow_runs[0];
+        let runStatus = latestRun.status;
+        let runConclusion = latestRun.conclusion;
+        
+        statusSpan.textContent = 'Deployment in progress...';
+        progressBar.style.width = '50%';
+        
+        // Poll for completion
+        const maxPolls = 60; // 5 minutes max
+        let polls = 0;
+        
+        while ((runStatus === 'queued' || runStatus === 'in_progress') && polls < maxPolls) {
+            await new Promise(resolve => setTimeout(resolve, 5000)); // Check every 5 seconds
+            polls++;
+            
+            const statusResponse = await fetch(
+                `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/actions/runs/${latestRun.id}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${settings.githubToken}`,
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
+                    }
+                }
+            );
+            
+            if (statusResponse.ok) {
+                const statusData = await statusResponse.json();
+                runStatus = statusData.status;
+                runConclusion = statusData.conclusion;
+                
+                // Update progress
+                const progress = 50 + (polls / maxPolls) * 40;
+                progressBar.style.width = `${progress}%`;
+            }
+        }
+        
+        // Show final status
+        if (runStatus === 'completed') {
+            if (runConclusion === 'success') {
+                statusSpan.textContent = '✓ Deployment successful!';
+                progressBar.style.width = '100%';
+                progressBar.style.background = 'linear-gradient(90deg, #10b981, #059669)';
+            } else {
+                statusSpan.textContent = '✗ Deployment failed';
+                progressBar.style.background = 'linear-gradient(90deg, #ef4444, #dc2626)';
+            }
+        } else {
+            statusSpan.textContent = 'Deployment timeout - check GitHub manually';
+            progressBar.style.width = '100%';
+            progressBar.style.background = 'linear-gradient(90deg, #f59e0b, #d97706)';
+        }
+        
+        // Hide after 5 seconds
+        setTimeout(() => {
+            progressDiv.style.display = 'none';
+        }, 5000);
+        
+    } catch (error) {
+        console.error('Actions monitoring error:', error);
+        statusSpan.textContent = 'Unable to check deployment';
+        setTimeout(() => {
+            progressDiv.style.display = 'none';
+        }, 3000);
+    } finally {
+        isChecking = false;
+    }
+}
