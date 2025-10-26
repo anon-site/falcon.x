@@ -502,97 +502,35 @@ function removeCategory(type, category) {
     markUnsaved();
 }
 
-// GitHub Settings
-function loadGithubSettings() {
+// Load Account Info
+function loadAccountInfo() {
+    const loginData = localStorage.getItem('falconx_github_settings');
+    if (!loginData) return;
+    
+    const data = JSON.parse(loginData);
     const settings = db.getSettings();
-    document.getElementById('githubToken').value = settings.githubToken || '';
+    
+    // Display current info
+    document.getElementById('currentUsername').textContent = data.githubUsername || '-';
+    document.getElementById('currentRepo').textContent = data.githubRepo || '-';
+    
+    // Display login time
+    if (data.loginTime) {
+        const loginTime = new Date(data.loginTime);
+        document.getElementById('loginTime').textContent = loginTime.toLocaleString();
+        
+        // Calculate session expiry
+        const expiryTime = new Date(loginTime.getTime() + 24 * 60 * 60 * 1000);
+        document.getElementById('sessionExpiry').textContent = expiryTime.toLocaleString();
+    }
+    
+    // Load Groq API Key
     document.getElementById('groqApiKey').value = settings.groqApiKey || '';
-    
-    if (settings.githubUsername && settings.githubRepo) {
-        document.getElementById('githubUsername').value = settings.githubUsername;
-        // If token exists, re-validate to populate repos
-        if (settings.githubToken) {
-            validateGithubToken().then(() => {
-                document.getElementById('githubRepo').value = settings.githubRepo;
-            });
-        }
-    }
 }
 
-// Validate GitHub token
-async function validateGithubToken() {
-    const token = document.getElementById('githubToken').value.trim();
-    
-    if (!token) {
-        alert('Please enter a GitHub token');
-        return;
-    }
-    
-    const btn = document.getElementById('validateTokenBtn');
-    const originalText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
-    
-    try {
-        // Validate token and get user info
-        const response = await fetch('https://api.github.com/user', {
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Invalid token or unauthorized');
-        }
-        
-        const userData = await response.json();
-        
-        // Get user repositories
-        const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100&sort=updated', {
-            headers: {
-                'Authorization': `token ${token}`
-            }
-        });
-        
-        if (!reposResponse.ok) {
-            throw new Error('Failed to fetch repositories');
-        }
-        
-        const repos = await reposResponse.json();
-        
-        // Populate username
-        document.getElementById('githubUsername').value = userData.login;
-        
-        // Populate repository dropdown
-        const repoSelect = document.getElementById('githubRepo');
-        repoSelect.innerHTML = '<option value="">Select a repository...</option>' + 
-            repos.map(repo => `<option value="${repo.name}">${repo.name}</option>`).join('');
-        
-        // Show the info section
-        document.getElementById('githubInfo').style.display = 'block';
-        
-        alert('✅ Token validated successfully!\n\nUsername: ' + userData.login + '\nRepositories found: ' + repos.length);
-        
-    } catch (error) {
-        console.error('Validation error:', error);
-        alert('❌ Error validating token: ' + error.message);
-        document.getElementById('githubInfo').style.display = 'none';
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-}
-
-// Save GitHub settings
-function saveGithubSettings() {
-    const settings = {
-        githubToken: document.getElementById('githubToken').value,
-        githubUsername: document.getElementById('githubUsername').value,
-        githubRepo: document.getElementById('githubRepo').value
-    };
-    
-    db.saveSettings(settings);
-    alert('GitHub settings saved!');
+// Load GitHub Settings (legacy name for compatibility)
+function loadGithubSettings() {
+    loadAccountInfo();
 }
 
 // Save Groq API Key
@@ -625,7 +563,7 @@ async function autoFillItemData() {
     
     if (!apiKey) {
         if (confirm('Groq API key not found. Would you like to configure it now?')) {
-            switchSection('github-settings');
+            switchSection('account-info');
         }
         return;
     }
@@ -758,7 +696,7 @@ async function loadFromGithub() {
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
         alert('Please configure GitHub settings first');
-        switchSection('github-settings');
+        switchSection('account-info');
         return;
     }
     
@@ -802,7 +740,7 @@ async function saveToGithub() {
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
         alert('Please configure GitHub settings first');
-        switchSection('github-settings');
+        switchSection('account-info');
         return;
     }
     
@@ -907,6 +845,19 @@ document.addEventListener('DOMContentLoaded', function() {
         autoResize(textarea);
     });
 });
+
+// Logout function
+function logout() {
+    if (unsavedChanges) {
+        if (!confirm('You have unsaved changes. Are you sure you want to logout?')) {
+            return;
+        }
+    }
+    
+    localStorage.removeItem('falconx_github_settings');
+    sessionStorage.clear();
+    window.location.href = 'login.html';
+}
 
 // Warn before leaving with unsaved changes
 window.addEventListener('beforeunload', (e) => {

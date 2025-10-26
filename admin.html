@@ -28,6 +28,9 @@
             <a href="index.html" class="btn-view-site" target="_blank">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>
+            <button class="btn-view-site" onclick="logout()" style="margin-left: 0.5rem; background: var(--error); border: none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
     </div>
 
@@ -80,9 +83,9 @@
             
             <div class="nav-group-title">Settings</div>
             
-            <a href="#" class="admin-nav-item" data-section="github-settings">
-                <i class="fab fa-github"></i>
-                <span>GitHub Settings</span>
+            <a href="#" class="admin-nav-item" data-section="account-info">
+                <i class="fas fa-user-cog"></i>
+                <span>Account Info</span>
             </a>
         </nav>
     </div>
@@ -406,51 +409,57 @@
             </div>
         </div>
 
-        <!-- GitHub Settings Section -->
-        <div class="admin-section" id="github-settings-section">
+        <!-- Account Info Section -->
+        <div class="admin-section" id="account-info-section">
             <div class="section-header">
-                <h2><i class="fab fa-github"></i> GitHub Settings</h2>
+                <h2><i class="fas fa-user-cog"></i> Account Information</h2>
             </div>
             
             <div class="github-settings-form">
-                <div class="form-group">
-                    <label><i class="fas fa-key"></i> GitHub Token</label>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input type="password" id="githubToken" placeholder="Enter your GitHub token" style="flex: 1;">
-                        <button class="btn btn-primary" onclick="validateGithubToken()" id="validateTokenBtn">
-                            <i class="fas fa-check"></i> Validate
-                        </button>
+                <div class="info-card">
+                    <div class="info-header">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub Connection</h3>
                     </div>
-                </div>
-
-                <div id="githubInfo" style="display: none;">
-                    <div class="form-group">
-                        <label><i class="fas fa-user"></i> Username</label>
-                        <input type="text" id="githubUsername" readonly>
+                    <div class="info-body">
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-user"></i> Username:</span>
+                            <span class="info-value" id="currentUsername">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-code-branch"></i> Repository:</span>
+                            <span class="info-value" id="currentRepo">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-clock"></i> Login Time:</span>
+                            <span class="info-value" id="loginTime">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-hourglass-half"></i> Session Expires:</span>
+                            <span class="info-value" id="sessionExpiry">-</span>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label><i class="fas fa-code-branch"></i> Repository</label>
-                        <select id="githubRepo">
-                            <option value="">Select a repository...</option>
-                        </select>
-                    </div>
-
-                    <div class="github-actions">
+                    <div class="info-actions">
                         <button class="btn btn-secondary" onclick="openGithubRepo()">
                             <i class="fas fa-external-link-alt"></i> Open Repository
                         </button>
-                        <button class="btn btn-primary" onclick="saveGithubSettings()">
-                            <i class="fas fa-save"></i> Save Settings
+                        <button class="btn btn-primary" onclick="window.location.href='login.html'">
+                            <i class="fas fa-sync-alt"></i> Change Repository
                         </button>
                     </div>
                 </div>
 
-                <div class="form-group" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                    <label><i class="fas fa-brain"></i> Groq API Key (AI Auto-Fill)</label>
-                    <input type="password" id="groqApiKey" placeholder="Enter your Groq API key (optional)">
-                    <small class="field-hint">Get your free API key from <a href="https://console.groq.com/keys" target="_blank" style="color: var(--primary);">console.groq.com</a></small>
-                    <button class="btn btn-primary" onclick="saveGroqApiKey()" style="margin-top: 0.5rem;">
+                <div class="info-card" style="margin-top: 2rem;">
+                    <div class="info-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Auto-Fill Settings</h3>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-key"></i> Groq API Key (Optional)</label>
+                        <input type="password" id="groqApiKey" placeholder="Enter your Groq API key">
+                        <small class="field-hint">Get your free API key from <a href="https://console.groq.com/keys" target="_blank" style="color: var(--primary);">console.groq.com</a></small>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveGroqApiKey()">
                         <i class="fas fa-save"></i> Save API Key
                     </button>
                 </div>
@@ -671,6 +680,39 @@
     </div>
 
     <script src="js/database.js"></script>
+    <script>
+        // Check authentication before loading page
+        (function() {
+            const settings = localStorage.getItem('falconx_github_settings');
+            if (!settings) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const data = JSON.parse(settings);
+            // Check if login is still valid (within 24 hours)
+            const loginTime = new Date(data.loginTime);
+            const now = new Date();
+            const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+            
+            if (hoursDiff >= 24) {
+                localStorage.removeItem('falconx_github_settings');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load settings from login into database settings
+            if (data.githubToken && data.githubUsername && data.githubRepo) {
+                const dbSettings = db.getSettings();
+                db.saveSettings({
+                    ...dbSettings,
+                    githubToken: data.githubToken,
+                    githubUsername: data.githubUsername,
+                    githubRepo: data.githubRepo
+                });
+            }
+        })();
+    </script>
     <script src="js/admin.js"></script>
 </body>
 </html>
