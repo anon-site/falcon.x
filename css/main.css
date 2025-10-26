@@ -1566,6 +1566,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .content-header h1 {
+        padding-left: 70px;
+    }
+
     .hero {
         padding: 2rem 1rem;
     }
