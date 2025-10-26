@@ -96,33 +96,7 @@
       "lastModified": "2025-10-26T13:43:11.329Z"
     }
   ],
-  "windowsGames": [
-    {
-      "name": "Assassins Creed 1 Test",
-      "category": "Action & Adventure",
-      "version": "1.0",
-      "size": "8 GB",
-      "shortDesc": "Historical action game",
-      "fullDesc": "Assassin's Creed is an action-adventure game set in historical periods. The game follows a modern-day protagonist as they relive the memories of their ancestors. The game features a mix of stealth, combat, and exploration elements.",
-      "icon": "",
-      "status": "Original",
-      "screenshots": [],
-      "features": [
-        "Open-world exploration",
-        "Historical settings",
-        "Stealth and combat mechanics",
-        "Parkour system"
-      ],
-      "requirements": "OS: Windows XP or later\nProcessor: Dual-core CPU\nMemory: 2 GB RAM\nStorage: 12 GB available space\nGraphics: DirectX 9.0c compatible GPU\nAdditional: Internet connection for online features",
-      "originalLink": "",
-      "modifiedLink": "",
-      "website": "https://www.ubisoft.com/en-us/game/assassins-creed",
-      "note": "",
-      "noteColor": "orange",
-      "id": 1761491644481,
-      "lastModified": "2025-10-26T15:14:16.764Z"
-    }
-  ],
+  "windowsGames": [],
   "androidApps": [
     {
       "name": "GearUP Booster",
@@ -252,6 +226,38 @@
       "noteColor": "green",
       "id": 1761453526305,
       "lastModified": "2025-10-26T04:39:25.045Z"
+    },
+    {
+      "name": "SSVid",
+      "category": "Video Downloader",
+      "version": "1.4.0",
+      "size": "19.21 MB",
+      "shortDesc": "SSVid APK is a simple and powerful video downloader and player that allows users to save and watch videos offline from various platforms quickly and easily.",
+      "fullDesc": "SSVid APK is an all-in-one tool designed for downloading, managing, and playing videos directly on your Android device. With an intuitive interface, it lets you copy and paste video links from popular social media or video sites and download them in multiple formats and resolutions. The built-in media player provides smooth playback, supports HD quality, and allows background play. It is lightweight, fast, and optimized for both smartphones and tablets, making it ideal for users who want to access their favorite videos anytime without an internet connection.",
+      "icon": "https://play-lh.googleusercontent.com/StTPXVol1bhGB96HxBqfoXy7B40r4bl1-4J-Z6LiJ18eGA8JYb7GXCRKs2ywwewVhnbLiDQERYF0SfstvGnn=w240-h480-rw",
+      "status": "Original",
+      "screenshots": [
+        "https://image.winudf.com/v2/image1/eXQudmlkZW8uZG93bmxvYWRlci5hbGxfc2NyZWVuXzBfMTc1ODk0NTQ4NV8wMzQ/screen-0.webp?h=200&fakeurl=1&type=.webp",
+        "https://image.winudf.com/v2/image1/eXQudmlkZW8uZG93bmxvYWRlci5hbGxfc2NyZWVuXzFfMTc1Njg2NzYyMF8wNDg/screen-1.webp?h=200&fakeurl=1&type=.webp",
+        "https://image.winudf.com/v2/image1/eXQudmlkZW8uZG93bmxvYWRlci5hbGxfc2NyZWVuXzNfMTc1Njg2NzYyMl8wODY/screen-2.webp?h=200&fakeurl=1&type=.webp"
+      ],
+      "features": [
+        "Download videos from multiple platforms",
+        "High-quality playback (up to HD and Full HD)",
+        "Built-in media player with background play",
+        "Fast download speed and lightweight design",
+        "Simple and user-friendly interface",
+        "Supports multiple video formats",
+        "Option to manage and organize downloaded videos"
+      ],
+      "requirements": "Android OS 6.0 or higher\n\nMinimum 2 GB RAM\n\nStable internet connection for downloading videos\n\nAt least 100 MB of free storage space",
+      "originalLink": "https://download1529.mediafire.com/9fn86socdiyg8n3ZTm1fkwOX_ETbVMUr-Rs4-IkuMAtZrSDYOLnMh6_mMHhMSs1MuWyERvzK0ACXawEI1y-OXWWU7N-hF_oHAuUaZGZ0eDGDOKmVoq4H2b-9-Br-kdEwW5OAjkd60Eo2e22pz5nK9qorUzNd5A1fBl3r5Mbmwawd_OiY/rhl3d8hxlce1i4e/SSVID_1.4.0.apks",
+      "modifiedLink": "",
+      "website": "https://www.ssvid.net/en",
+      "note": "",
+      "noteColor": "orange",
+      "id": 1761493670157,
+      "lastModified": "2025-10-26T15:49:29.999Z"
     }
   ],
   "androidGames": [
@@ -443,7 +449,8 @@
       "Entertainment",
       "Education",
       "Games Booster",
-      "Tools"
+      "Tools",
+      "Video Downloader"
     ],
     "androidGames": [
       "Battle Royale",
