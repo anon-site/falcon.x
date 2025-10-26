@@ -748,24 +748,50 @@ async function saveToGithub() {
         return;
     }
     
-    const data = db.exportData();
-    const content = btoa(JSON.stringify(data, null, 2));
+    // Show loading indicator
+    const saveBtn = document.getElementById('saveChangesBtn');
+    const originalBtnHtml = saveBtn.innerHTML;
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+    
+    const data = db.exportData(false); // Exclude secrets for GitHub
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
     
     try {
+        console.log('Starting save to GitHub...');
+        console.log('Settings:', { username: settings.githubUsername, repo: settings.githubRepo });
+        
         // Check if file exists
         const checkResponse = await fetch(
             `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
             {
                 headers: {
-                    'Authorization': `token ${settings.githubToken}`
+                    'Authorization': `token ${settings.githubToken}`,
+                    'Accept': 'application/vnd.github.v3+json'
                 }
             }
         );
+        
+        console.log('Check response status:', checkResponse.status);
         
         let sha = null;
         if (checkResponse.ok) {
             const fileData = await checkResponse.json();
             sha = fileData.sha;
+            console.log('File exists, SHA:', sha);
+        } else {
+            console.log('File does not exist, will create new');
+        }
+        
+        // Prepare request body
+        const requestBody = {
+            message: `Update data - ${new Date().toISOString()}`,
+            content: content
+        };
+        
+        // Only include sha if file exists
+        if (sha) {
+            requestBody.sha = sha;
         }
         
         // Create or update file
@@ -775,32 +801,36 @@ async function saveToGithub() {
                 method: 'PUT',
                 headers: {
                     'Authorization': `token ${settings.githubToken}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.github.v3+json'
                 },
-                body: JSON.stringify({
-                    message: `Update data - ${new Date().toISOString()}`,
-                    content: content,
-                    sha: sha
-                })
+                body: JSON.stringify(requestBody)
             }
         );
         
+        console.log('Save response status:', response.status);
+        
         if (response.ok) {
             markSaved();
-            customAlert('success', 'تم حفظ البيانات بنجاح!');
+            customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
         } else {
             const errorData = await response.json();
+            console.error('GitHub API Error:', errorData);
             throw new Error(errorData.message || response.statusText);
         }
     } catch (error) {
         console.error('Save error:', error);
-        customAlert('error', 'خطأ في الحفظ: ' + error.message);
+        customAlert('error', 'خطأ في الحفظ على GitHub: ' + error.message);
+    } finally {
+        // Restore button
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalBtnHtml;
     }
 }
 
 // Export data
 function exportData() {
-    const data = db.exportData();
+    const data = db.exportData(true); // Include secrets for local export
     const json = JSON.stringify(data, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);

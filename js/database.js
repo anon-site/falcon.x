@@ -300,8 +300,23 @@ class Database {
         this.saveData(data);
     }
 
-    exportData() {
-        return this.getData();
+    exportData(includeSecrets = false) {
+        const data = this.getData();
+        
+        // If exporting to GitHub, exclude sensitive information
+        if (!includeSecrets && data.settings) {
+            const exportData = JSON.parse(JSON.stringify(data)); // Deep clone
+            
+            // Remove sensitive keys
+            if (exportData.settings) {
+                delete exportData.settings.githubToken;
+                delete exportData.settings.groqApiKey;
+            }
+            
+            return exportData;
+        }
+        
+        return data;
     }
 
     importData(jsonData) {
