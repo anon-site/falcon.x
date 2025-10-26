@@ -9,7 +9,7 @@
     const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/anon-site/falcon.x/main/data.json';
     const CACHE_KEY = 'falconx_data';
     const CACHE_TIMESTAMP_KEY = 'falconx_data_timestamp';
-    const CACHE_DURATION = 30 * 1000; // 30 seconds for faster updates
+    const CACHE_DURATION = 10 * 1000; // 10 seconds - check GitHub more frequently
 
     async function loadDataFromGithub() {
         try {
@@ -68,16 +68,28 @@
             // Clear the cache cleared flag since we loaded new data
             localStorage.removeItem('lastCacheCleared');
             
-            // Reload page if main.js is already loaded
-            if (window.db && typeof window.loadAllContent === 'function') {
-                // Re-initialize database with new data
-                if (window.db && typeof window.db.initDatabase === 'function') {
-                    window.db.initDatabase();
+            // Check if data actually changed
+            const dataChanged = currentData !== JSON.stringify(data);
+            
+            if (dataChanged) {
+                console.log('🆕 New data detected from GitHub!');
+                
+                // Show update notification to user
+                showUpdateNotification();
+                
+                // Reload page if main.js is already loaded
+                if (window.db && typeof window.loadAllContent === 'function') {
+                    // Re-initialize database with new data
+                    if (window.db && typeof window.db.initDatabase === 'function') {
+                        window.db.initDatabase();
+                    }
+                    console.log('🔄 Reloading content with fresh data from GitHub...');
+                    window.loadAllContent();
+                } else {
+                    console.log('✅ Data ready. Will load when page initializes.');
                 }
-                console.log('🔄 Reloading content with fresh data from GitHub...');
-                window.loadAllContent();
             } else {
-                console.log('✅ Data ready. Will load when page initializes.');
+                console.log('✅ Data is up to date.');
             }
             
         } catch (error) {
@@ -89,6 +101,47 @@
     // Load data immediately when script runs
     loadDataFromGithub();
     
+    // Show update notification
+    function showUpdateNotification() {
+        // Don't show on first load
+        if (!localStorage.getItem('falconx_has_loaded_before')) {
+            localStorage.setItem('falconx_has_loaded_before', 'true');
+            return;
+        }
+        
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            animation: slideInRight 0.4s ease;
+        `;
+        
+        notification.innerHTML = `
+            <i class="fas fa-sync-alt" style="animation: spin 1s linear infinite;"></i>
+            <span>New content loaded!</span>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.4s ease';
+            setTimeout(() => notification.remove(), 400);
+        }, 3000);
+    }
+    
     // Expose function to force refresh (useful for testing)
     window.forceRefreshData = function() {
         localStorage.removeItem(CACHE_TIMESTAMP_KEY);
@@ -96,11 +149,11 @@
         location.reload();
     };
     
-    // Auto-refresh every 2 minutes if page is visible
+    // Auto-refresh every 30 seconds if page is visible
     setInterval(() => {
         if (document.visibilityState === 'visible') {
             localStorage.removeItem(CACHE_TIMESTAMP_KEY);
             loadDataFromGithub();
         }
-    }, 2 * 60 * 1000); // 2 minutes
+    }, 30 * 1000); // 30 seconds - faster updates
 })();
