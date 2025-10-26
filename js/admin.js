@@ -754,13 +754,24 @@ async function saveToGithub() {
     saveBtn.disabled = true;
     saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
     
-    try {
-        const data = db.exportData(false); // Exclude secrets
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-        
-        // Step 1: Get current file SHA
-        let sha = null;
+    // Attempt save with retry on SHA mismatch
+    const maxRetries = 3;
+    let attempt = 0;
+    let success = false;
+    
+    while (attempt < maxRetries && !success) {
         try {
+            attempt++;
+            if (attempt > 1) {
+                console.log(`Retry attempt ${attempt}/${maxRetries}`);
+                await new Promise(resolve => setTimeout(resolve, 500)); // Wait 500ms
+            }
+            
+            const data = db.exportData(false); // Exclude secrets
+            const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+            
+            // Get fresh SHA
+            let sha = null;
             const getResponse = await fetch(
                 `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
                 {
@@ -777,51 +788,59 @@ async function saveToGithub() {
                 const fileData = await getResponse.json();
                 sha = fileData.sha;
             }
-        } catch (e) {
-            // File doesn't exist, that's ok
-            console.log('File does not exist yet');
-        }
-        
-        // Step 2: Create or update file
-        const body = {
-            message: 'Update data from admin panel',
-            content: content,
-            branch: 'main'
-        };
-        
-        if (sha) {
-            body.sha = sha;
-        }
-        
-        const saveResponse = await fetch(
-            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
-            {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${settings.githubToken}`,
-                    'Accept': 'application/vnd.github+json',
-                    'X-GitHub-Api-Version': '2022-11-28',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
+            
+            // Create or update file
+            const body = {
+                message: 'Update data from admin panel',
+                content: content,
+                branch: 'main'
+            };
+            
+            if (sha) {
+                body.sha = sha;
             }
-        );
-        
-        if (!saveResponse.ok) {
-            const errorData = await saveResponse.json();
-            throw new Error(errorData.message || 'فشل الحفظ');
+            
+            const saveResponse = await fetch(
+                `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${settings.githubToken}`,
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+            
+            if (!saveResponse.ok) {
+                const errorData = await saveResponse.json();
+                
+                // If SHA mismatch and we have retries left, continue loop
+                if (errorData.message && errorData.message.includes('does not match') && attempt < maxRetries) {
+                    console.log('SHA mismatch, retrying...');
+                    continue;
+                }
+                
+                throw new Error(errorData.message || 'فشل الحفظ');
+            }
+            
+            // Success!
+            success = true;
+            markSaved();
+            customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
+            
+        } catch (error) {
+            if (attempt >= maxRetries) {
+                console.error('Save error:', error);
+                customAlert('error', 'خطأ في الحفظ: ' + error.message);
+            }
         }
-        
-        markSaved();
-        customAlert('success', 'تم حفظ البيانات على GitHub بنجاح! ✓');
-        
-    } catch (error) {
-        console.error('Save error:', error);
-        customAlert('error', 'خطأ في الحفظ: ' + error.message);
-    } finally {
-        saveBtn.disabled = false;
-        saveBtn.innerHTML = originalBtnHtml;
     }
+    
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = originalBtnHtml;
 }
 
 // Export data
