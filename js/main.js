@@ -412,7 +412,7 @@ function openItemModal(item) {
         html += `
             <div class="installation-note">
                 <i class="fas fa-info-circle"></i>
-                <span>To install applications in <strong class="format-name">XAPK</strong>, <strong class="format-name">APKS</strong> format, you must use the <strong class="app-name">Zarchiver</strong> or <strong class="app-name">MTManager</strong> application.</span>
+                <span>To install applications in <strong class="format-name">XAPK</strong>, <strong class="format-name">APKS</strong> format, you must use the <a href="#" onclick="event.preventDefault(); openAppByName('Zarchive pro'); return false;" class="app-link">Zarchiver</a> or <a href="#" onclick="event.preventDefault(); openAppByName('MT Manager'); return false;" class="app-link">MTManager</a> application.</span>
             </div>`;
     }
     
@@ -780,3 +780,35 @@ function getDataTypeFromTab(tabName) {
 document.addEventListener('DOMContentLoaded', function() {
     checkUrlParameters();
 });
+
+// Open app by name (for installation note links)
+function openAppByName(appName) {
+    // Close current modal first
+    closeModal();
+    
+    // Switch to Android Apps tab
+    switchTab('android-apps');
+    
+    // Wait for tab to load and search for the app
+    setTimeout(() => {
+        const items = db.getItems('androidApps');
+        const app = items.find(item => 
+            item.name.toLowerCase().includes(appName.toLowerCase())
+        );
+        
+        if (app) {
+            openItemModal(app);
+        } else {
+            // If not found in Android Apps, try Phone Tools
+            const toolItems = db.getItems('phoneTools');
+            const tool = toolItems.find(item => 
+                item.name.toLowerCase().includes(appName.toLowerCase())
+            );
+            
+            if (tool) {
+                switchTab('phone-tools');
+                setTimeout(() => openItemModal(tool), 100);
+            }
+        }
+    }, 200);
+}
