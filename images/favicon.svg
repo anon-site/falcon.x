@@ -6,9 +6,6 @@
       <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="20" fill="url(#grad)"/>
-  <path d="M 30 40 Q 50 20, 70 40 L 65 45 Q 50 30, 35 45 Z M 50 35 L 50 75 M 40 55 L 50 65 L 60 55" 
-        stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="42" cy="42" r="3" fill="white"/>
-  <circle cx="58" cy="42" r="3" fill="white"/>
+  <rect width="100" height="100" rx="22" fill="url(#grad)"/>
+  <text x="50" y="72" font-family="Arial, sans-serif" font-size="65" font-weight="bold" fill="white" text-anchor="middle">F</text>
 </svg>

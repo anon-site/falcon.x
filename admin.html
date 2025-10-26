@@ -15,7 +15,7 @@
             <button class="sidebar-toggle" id="sidebarToggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <h1><i class="fas fa-dragon"></i> Falcon X Admin</h1>
+            <h1>Falcon X Admin</h1>
         </div>
         <div class="topbar-right">
             <div class="unsaved-changes" id="unsavedIndicator" style="display: none;">
@@ -425,53 +425,91 @@
                 <h2><i class="fas fa-user-cog"></i> Account Information</h2>
             </div>
             
-            <div class="github-settings-form">
+            <div class="account-info-grid">
+                <!-- GitHub Connection Card -->
                 <div class="info-card">
                     <div class="info-header">
-                        <i class="fab fa-github"></i>
-                        <h3>GitHub Connection</h3>
+                        <div class="info-icon-wrapper">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div>
+                            <h3>GitHub Connection</h3>
+                            <p class="info-subtitle">Repository and session details</p>
+                        </div>
                     </div>
                     <div class="info-body">
                         <div class="info-row">
-                            <span class="info-label"><i class="fas fa-user"></i> Username:</span>
+                            <span class="info-label">
+                                <i class="fas fa-user"></i>
+                                <span>Username</span>
+                            </span>
                             <span class="info-value" id="currentUsername">-</span>
                         </div>
                         <div class="info-row">
-                            <span class="info-label"><i class="fas fa-code-branch"></i> Repository:</span>
+                            <span class="info-label">
+                                <i class="fas fa-code-branch"></i>
+                                <span>Repository</span>
+                            </span>
                             <span class="info-value" id="currentRepo">-</span>
                         </div>
                         <div class="info-row">
-                            <span class="info-label"><i class="fas fa-clock"></i> Login Time:</span>
+                            <span class="info-label">
+                                <i class="fas fa-clock"></i>
+                                <span>Login Time</span>
+                            </span>
                             <span class="info-value" id="loginTime">-</span>
                         </div>
                         <div class="info-row">
-                            <span class="info-label"><i class="fas fa-hourglass-half"></i> Session Expires:</span>
+                            <span class="info-label">
+                                <i class="fas fa-hourglass-half"></i>
+                                <span>Session Expires</span>
+                            </span>
                             <span class="info-value" id="sessionExpiry">-</span>
                         </div>
                     </div>
                     <div class="info-actions">
                         <button class="btn btn-secondary" onclick="openGithubRepo()">
-                            <i class="fas fa-external-link-alt"></i> Open Repository
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Open Repository</span>
                         </button>
                         <button class="btn btn-primary" onclick="window.location.href='login.html'">
-                            <i class="fas fa-sync-alt"></i> Change Repository
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Change Repository</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="info-card" style="margin-top: 2rem;">
+                <!-- AI Auto-Fill Card -->
+                <div class="info-card">
                     <div class="info-header">
-                        <i class="fas fa-brain"></i>
-                        <h3>AI Auto-Fill Settings</h3>
+                        <div class="info-icon-wrapper ai">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <h3>AI Auto-Fill Settings</h3>
+                            <p class="info-subtitle">Configure AI-powered data completion</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label><i class="fas fa-key"></i> Groq API Key (Optional)</label>
-                        <input type="password" id="groqApiKey" placeholder="Enter your Groq API key">
-                        <small class="field-hint">Get your free API key from <a href="https://console.groq.com/keys" target="_blank" style="color: var(--primary);">console.groq.com</a></small>
+                    <div class="info-body">
+                        <div class="form-group">
+                            <label>
+                                <i class="fas fa-key"></i>
+                                <span>Groq API Key</span>
+                                <span class="optional-badge">Optional</span>
+                            </label>
+                            <input type="password" id="groqApiKey" placeholder="Enter your Groq API key">
+                            <small class="field-hint">
+                                <i class="fas fa-info-circle"></i>
+                                Get your free API key from <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a>
+                            </small>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" onclick="saveGroqApiKey()">
-                        <i class="fas fa-save"></i> Save API Key
-                    </button>
+                    <div class="info-actions">
+                        <button class="btn btn-primary" onclick="saveGroqApiKey()">
+                            <i class="fas fa-save"></i>
+                            <span>Save API Key</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
