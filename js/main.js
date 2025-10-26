@@ -220,12 +220,17 @@ function displayItems(items, gridId) {
     }
     
     const isFrpApps = gridId === 'frpAppsGrid';
-    grid.innerHTML = items.map(item => createItemCard(item, isFrpApps)).join('');
+    const sorted = [...items].sort((a, b) => {
+        const da = new Date(a.lastModified || 0).getTime();
+        const dbm = new Date(b.lastModified || 0).getTime();
+        return dbm - da;
+    });
+    grid.innerHTML = sorted.map(item => createItemCard(item, isFrpApps)).join('');
     
     // Add click handlers - skip modal for FRP Apps
     grid.querySelectorAll('.item-card').forEach((card, index) => {
         if (!isFrpApps) {
-            card.addEventListener('click', () => openItemModal(items[index]));
+            card.addEventListener('click', () => openItemModal(sorted[index]));
         }
     });
 }
