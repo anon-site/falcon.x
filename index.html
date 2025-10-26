@@ -33,15 +33,10 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/settings.css">
-    <link rel="stylesheet" href="css/notifications.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#6366f1">
-    
-    <!-- Auto-load data from GitHub -->
-    <script src="load-data.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -159,6 +154,20 @@
                                 <span>Watch Demo</span>
                             </button>
                         </div>
+                        <div class="hero-stats">
+                            <div class="stat-box">
+                                <div class="stat-number">1000+</div>
+                                <div class="stat-label">Downloads</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Software</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Secure</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="hero-right">
                         <div class="hero-visual">
@@ -188,42 +197,42 @@
                 <div class="features-container">
                     <h2 class="features-title">Why Choose <span class="gradient-text">Falcon X</span>?</h2>
                     <div class="features-grid">
-                        <div class="feature-box" onclick="switchTab('windows-programs')" style="cursor: pointer;">
+                        <div class="feature-box">
                             <div class="feature-icon">
                                 <i class="fab fa-windows"></i>
                             </div>
                             <h3>Windows Software</h3>
                             <p>Latest programs and games for Windows platform</p>
                         </div>
-                        <div class="feature-box" onclick="switchTab('android-apps')" style="cursor: pointer;">
+                        <div class="feature-box">
                             <div class="feature-icon">
                                 <i class="fab fa-android"></i>
                             </div>
                             <h3>Android Apps</h3>
                             <p>Premium apps and games for Android devices</p>
                         </div>
-                        <div class="feature-box" onclick="switchTab('phone-tools')" style="cursor: pointer;">
+                        <div class="feature-box">
                             <div class="feature-icon">
                                 <i class="fas fa-tools"></i>
                             </div>
                             <h3>Phone Tools</h3>
                             <p>Essential tools for phone management</p>
                         </div>
-                        <div class="feature-box" onclick="switchTab('frp-apps')" style="cursor: pointer;">
+                        <div class="feature-box">
                             <div class="feature-icon">
                                 <i class="fas fa-unlock-alt"></i>
                             </div>
                             <h3>FRP Solutions</h3>
                             <p>FRP unlock tools for all phone brands</p>
                         </div>
-                        <div class="feature-box" onclick="switchTab('home')" style="cursor: pointer;">
+                        <div class="feature-box">
                             <div class="feature-icon">
                                 <i class="fas fa-sync-alt"></i>
                             </div>
                             <h3>Regular Updates</h3>
                             <p>Constantly updated with latest versions</p>
                         </div>
-                        <div class="feature-box" onclick="switchTab('about')" style="cursor: pointer;">
+                        <div class="feature-box">
                             <div class="feature-icon">
                                 <i class="fas fa-shield-alt"></i>
                             </div>
@@ -377,95 +386,7 @@
         </div>
     </div>
 
-    <!-- Floating Settings Button -->
-    <button class="settings-fab" id="settingsFab" aria-label="Settings">
-        <i class="fas fa-cog"></i>
-    </button>
-
-    <!-- Settings Modal -->
-    <div class="settings-modal" id="settingsModal">
-        <div class="settings-content">
-            <div class="settings-header">
-                <h2>
-                    <i class="fas fa-cog"></i>
-                    <span data-translate="settings">Settings</span>
-                </h2>
-                <button class="settings-close" id="settingsClose">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="settings-body">
-                <!-- Clear Cache Section -->
-                <div class="settings-section">
-                    <h3>
-                        <i class="fas fa-trash-alt"></i>
-                        <span data-translate="clearCache">Clear Cache</span>
-                    </h3>
-                    <button class="clear-cache-btn" id="clearCacheBtn">
-                        <i class="fas fa-broom"></i>
-                        <span data-translate="clearCache">Clear Cache</span>
-                    </button>
-                    <p class="cache-note">
-                        <i class="fas fa-info-circle"></i>
-                        <span data-translate="cacheNote">Clears local browser data only</span>
-                    </p>
-                </div>
-                
-                <!-- Theme Colors Section -->
-                <div class="settings-section">
-                    <h3>
-                        <i class="fas fa-palette"></i>
-                        <span data-translate="themeColors">Theme Colors</span>
-                    </h3>
-                    <div class="theme-selector">
-                        <div class="theme-option" data-theme="default">
-                            <div class="theme-color" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);"></div>
-                            <span data-translate="default">Default</span>
-                        </div>
-                        <div class="theme-option" data-theme="ocean">
-                            <div class="theme-color" style="background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);"></div>
-                            <span data-translate="ocean">Ocean</span>
-                        </div>
-                        <div class="theme-option" data-theme="sunset">
-                            <div class="theme-color" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);"></div>
-                            <span data-translate="sunset">Sunset</span>
-                        </div>
-                        <div class="theme-option" data-theme="forest">
-                            <div class="theme-color" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"></div>
-                            <span data-translate="forest">Forest</span>
-                        </div>
-                        <div class="theme-option" data-theme="rose">
-                            <div class="theme-color" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);"></div>
-                            <span data-translate="rose">Rose</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Language Section -->
-                <div class="settings-section">
-                    <h3>
-                        <i class="fas fa-language"></i>
-                        <span data-translate="language">Language</span>
-                    </h3>
-                    <div class="language-selector">
-                        <div class="language-option" data-lang="en">
-                            <i class="fas fa-flag-usa"></i>
-                            <span data-translate="english">English</span>
-                        </div>
-                        <div class="language-option" data-lang="ar">
-                            <i class="fas fa-flag"></i>
-                            <span data-translate="arabic">العربية</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/translations.js"></script>
     <script src="js/database.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/settings.js"></script>
 </body>
 </html>

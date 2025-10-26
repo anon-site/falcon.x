@@ -3,36 +3,15 @@ let unsavedChanges = false;
 let currentEditingItem = null;
 let currentEditingType = null;
 
-// Prevent auto-loading from GitHub on admin page
-if (localStorage.getItem('lastCacheCleared')) {
-    // Remove the flag to prevent load-data.js from interfering
-    localStorage.removeItem('lastCacheCleared');
-    console.log('🔒 Admin page: Cleared GitHub auto-load flag');
-}
-
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     initAdmin();
     loadDashboard();
     loadAllTables();
     loadCategories();
-    
-    // Load GitHub settings with delay to ensure elements exist
-    setTimeout(() => {
-        loadGithubSettings();
-    }, 100);
-    
+    loadGithubSettings();
     restoreLastSection();
-    initSaveButton();
 });
-
-// Initialize save button status
-function initSaveButton() {
-    const unsavedIndicator = document.getElementById('unsavedIndicator');
-    if (unsavedIndicator) {
-        unsavedIndicator.style.display = 'none';
-    }
-}
 
 // Initialize admin
 function initAdmin() {
@@ -90,24 +69,15 @@ function restoreLastSection() {
     switchSection(lastSection);
 }
 
-// Track number of changes
-let changesCount = 0;
-
 // Mark unsaved changes
 function markUnsaved() {
     unsavedChanges = true;
-    const unsavedIndicator = document.getElementById('unsavedIndicator');
-    if (unsavedIndicator) {
-        unsavedIndicator.style.display = 'flex';
-    }
+    document.getElementById('unsavedIndicator').style.display = 'flex';
 }
 
 function markSaved() {
     unsavedChanges = false;
-    const unsavedIndicator = document.getElementById('unsavedIndicator');
-    if (unsavedIndicator) {
-        unsavedIndicator.style.display = 'none';
-    }
+    document.getElementById('unsavedIndicator').style.display = 'none';
 }
 
 // Load dashboard
@@ -184,39 +154,18 @@ function openItemForm(type) {
     currentEditingItem = null;
     currentEditingType = type;
     
-    const modal = document.getElementById('itemFormModal');
-    const form = document.getElementById('itemForm');
-    const formTitle = document.getElementById('formModalTitle');
-    const itemId = document.getElementById('itemId');
-    const itemType = document.getElementById('itemType');
+    document.getElementById('formModalTitle').textContent = 'Add New Item';
+    document.getElementById('itemForm').reset();
+    document.getElementById('itemId').value = '';
+    document.getElementById('itemType').value = type;
     
-    // Ensure all elements exist
-    if (!modal || !form || !formTitle || !itemId || !itemType) {
-        console.error('Form elements not found. Reloading page...');
-        location.reload();
-        return;
-    }
+    // Load categories for this type
+    loadFormCategories(type);
     
-    // Force close modal first to reset state
-    modal.classList.remove('active');
+    // Toggle fields visibility based on type
+    toggleFormFields(type);
     
-    // Reset form after a small delay
-    setTimeout(() => {
-        formTitle.textContent = 'Add New Item';
-        form.reset();
-        itemId.value = '';
-        itemType.value = type;
-        
-        // Load categories for this type
-        loadFormCategories(type);
-        
-        // Toggle fields visibility based on type
-        toggleFormFields(type);
-        
-        // Open modal
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }, 50);
+    document.getElementById('itemFormModal').classList.add('active');
 }
 
 // Load form categories
@@ -233,78 +182,56 @@ function editItem(type, id) {
     const items = db.getItems(type);
     const item = items.find(i => i.id == id);
     
-    if (!item) {
-        alert('Item not found. The page will reload.');
-        location.reload();
-        return;
-    }
+    if (!item) return;
     
     currentEditingItem = item;
     currentEditingType = type;
     
-    const modal = document.getElementById('itemFormModal');
-    const form = document.getElementById('itemForm');
+    document.getElementById('formModalTitle').textContent = 'Edit Item';
+    document.getElementById('itemId').value = item.id;
+    document.getElementById('itemType').value = type;
+    document.getElementById('itemName').value = item.name || '';
+    document.getElementById('itemVersion').value = item.version || '';
+    document.getElementById('itemSize').value = item.size || '';
+    document.getElementById('itemShortDesc').value = item.shortDesc || '';
+    document.getElementById('itemFullDesc').value = item.fullDesc || '';
+    document.getElementById('itemIcon').value = item.icon || '';
+    document.getElementById('itemStatus').value = item.status || 'Original';
+    document.getElementById('itemScreenshots').value = (item.screenshots || []).join('\n');
+    document.getElementById('itemFeatures').value = (item.features || []).join('\n');
+    document.getElementById('itemRequirements').value = item.requirements || '';
+    document.getElementById('itemOriginalLink').value = item.originalLink || '';
+    document.getElementById('itemModifiedLink').value = item.modifiedLink || '';
+    document.getElementById('itemWebsite').value = item.website || '';
+    document.getElementById('itemNote').value = item.note || '';
     
-    // Ensure modal exists
-    if (!modal || !form) {
-        console.error('Form elements not found. Reloading page...');
-        location.reload();
-        return;
+    // Handle FRP-specific fields
+    if (type === 'frpApps') {
+        document.getElementById('frpType').value = item.frpType || 'direct';
+        document.getElementById('itemDirectLink').value = item.directLink || '';
+        document.getElementById('itemDownloadLink').value = item.downloadLink || '';
     }
     
-    // Force close modal first to reset state
-    modal.classList.remove('active');
+    // Load categories and set selected
+    loadFormCategories(type);
+    document.getElementById('itemCategory').value = item.category || '';
     
-    // Load data after a small delay
+    // Set note color
+    document.querySelectorAll('input[name="noteColor"]').forEach(radio => {
+        radio.checked = radio.value === (item.noteColor || 'orange');
+    });
+    
+    // Toggle fields visibility based on type
+    toggleFormFields(type);
+    
+    document.getElementById('itemFormModal').classList.add('active');
+    
+    // Auto-resize textareas after loading data
     setTimeout(() => {
-        document.getElementById('formModalTitle').textContent = 'Edit Item';
-        document.getElementById('itemId').value = item.id;
-        document.getElementById('itemType').value = type;
-        document.getElementById('itemName').value = item.name || '';
-        document.getElementById('itemVersion').value = item.version || '';
-        document.getElementById('itemSize').value = item.size || '';
-        document.getElementById('itemShortDesc').value = item.shortDesc || '';
-        document.getElementById('itemFullDesc').value = item.fullDesc || '';
-        document.getElementById('itemIcon').value = item.icon || '';
-        document.getElementById('itemStatus').value = item.status || 'Original';
-        document.getElementById('itemScreenshots').value = (item.screenshots || []).join('\n');
-        document.getElementById('itemFeatures').value = (item.features || []).join('\n');
-        document.getElementById('itemRequirements').value = item.requirements || '';
-        document.getElementById('itemOriginalLink').value = item.originalLink || '';
-        document.getElementById('itemModifiedLink').value = item.modifiedLink || '';
-        document.getElementById('itemWebsite').value = item.website || '';
-        document.getElementById('itemNote').value = item.note || '';
-        
-        // Handle FRP-specific fields
-        if (type === 'frpApps') {
-            document.getElementById('frpType').value = item.frpType || 'direct';
-            document.getElementById('itemDirectLink').value = item.directLink || '';
-            document.getElementById('itemDownloadLink').value = item.downloadLink || '';
-        }
-        
-        // Load categories and set selected
-        loadFormCategories(type);
-        document.getElementById('itemCategory').value = item.category || '';
-        
-        // Set note color
-        document.querySelectorAll('input[name="noteColor"]').forEach(radio => {
-            radio.checked = radio.value === (item.noteColor || 'orange');
+        document.querySelectorAll('textarea[oninput*="autoResize"]').forEach(textarea => {
+            autoResize(textarea);
         });
-        
-        // Toggle fields visibility based on type
-        toggleFormFields(type);
-        
-        // Open modal
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Auto-resize textareas after loading data
-        setTimeout(() => {
-            document.querySelectorAll('textarea[oninput*="autoResize"]').forEach(textarea => {
-                autoResize(textarea);
-            });
-        }, 100);
-    }, 50);
+    }, 100);
 }
 
 // Toggle form fields visibility based on item type
@@ -385,8 +312,6 @@ function deleteItem(type, id) {
     loadTable(type, `${type}Table`);
     loadDashboard();
     markUnsaved();
-    
-    showTempMessage('✅ Item deleted locally. Remember to save to GitHub!');
 }
 
 // Save item
@@ -422,37 +347,21 @@ function saveItem(e) {
         item.downloadLink = document.getElementById('itemDownloadLink').value;
     }
     
-    let result;
     if (id) {
-        result = db.updateItem(type, id, item);
+        db.updateItem(type, id, item);
     } else {
-        result = db.addItem(type, item);
-    }
-    
-    if (result === null) {
-        showTempMessage('❌ Error: Item name is required!', 'error');
-        return;
+        db.addItem(type, item);
     }
     
     closeItemForm();
     loadTable(type, `${type}Table`);
     loadDashboard();
     markUnsaved();
-    
-    // Auto-save to localStorage (already done by db, but let's verify)
-    console.log('✅ Item saved locally. Remember to "Save to GitHub"!');
-    
-    // Show temporary success message
-    showTempMessage('✅ Item saved locally. Don\'t forget to save to GitHub!');
 }
 
 // Close item form
 function closeItemForm() {
-    const modal = document.getElementById('itemFormModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    document.getElementById('itemFormModal').classList.remove('active');
     currentEditingItem = null;
     currentEditingType = null;
 }
@@ -508,7 +417,7 @@ function updateCategory(type, input) {
     const newValue = input.value.trim();
     
     if (!newValue) {
-        showTempMessage('Category name cannot be empty', 'error');
+        alert('Category name cannot be empty');
         input.value = oldValue;
         return;
     }
@@ -518,7 +427,7 @@ function updateCategory(type, input) {
     // Check if new name already exists
     const categories = db.getCategories(type);
     if (categories.includes(newValue)) {
-        showTempMessage('Category already exists', 'error');
+        alert('Category already exists');
         input.value = oldValue;
         return;
     }
@@ -574,42 +483,13 @@ function addCategory(type) {
     const category = input.value.trim();
     
     if (!category) {
-        showTempMessage('Please enter a category name', 'error');
+        alert('Please enter a category name');
         return;
     }
     
-    const result = db.addCategory(type, category);
-    
-    if (result === false) {
-        showTempMessage('Category already exists or invalid', 'error');
-        return;
-    }
-    
+    db.addCategory(type, category);
     input.value = '';
-    
-    // Reload the specific category list
-    let listId;
-    switch(type) {
-        case 'windowsPrograms': listId = 'winProgramsCategoriesList'; break;
-        case 'windowsGames': listId = 'winGamesCategoriesList'; break;
-        case 'androidApps': listId = 'androidAppsCategoriesList'; break;
-        case 'androidGames': listId = 'androidGamesCategoriesList'; break;
-        case 'phoneTools': listId = 'phoneToolsCategoriesList'; break;
-        case 'frpApps': listId = 'frpAppsCategoriesList'; break;
-    }
-    
-    if (listId) {
-        loadCategoryList(type, listId);
-    }
-    
-    // Update the category dropdown in the item form if it's open and matches the current type
-    const itemFormModal = document.getElementById('itemFormModal');
-    const currentItemType = document.getElementById('itemType').value;
-    if (itemFormModal.classList.contains('active') && currentItemType === type) {
-        loadFormCategories(type);
-    }
-    
-    showTempMessage('✅ Category added successfully!');
+    loadCategoryList(type, `${inputId.replace('new', '').replace('Category', 'CategoriesList')}`);
     markUnsaved();
 }
 
@@ -624,47 +504,95 @@ function removeCategory(type, category) {
 
 // GitHub Settings
 function loadGithubSettings() {
-    console.log('🔧 Loading GitHub Settings...');
-    
     const settings = db.getSettings();
-    const groqApiKeyInput = document.getElementById('groqApiKey');
-    const githubUsernameInput = document.getElementById('githubUsername');
-    const githubRepoInput = document.getElementById('githubRepo');
+    document.getElementById('githubToken').value = settings.githubToken || '';
+    document.getElementById('groqApiKey').value = settings.groqApiKey || '';
     
-    // Set Groq API Key
-    if (groqApiKeyInput && settings.groqApiKey) {
-        groqApiKeyInput.value = settings.groqApiKey;
-    }
-    
-    // Load from AuthManager session first
-    if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
-        const session = AuthManager.getSession();
-        if (session.username && session.repo) {
-            if (githubUsernameInput) githubUsernameInput.value = session.username;
-            if (githubRepoInput) githubRepoInput.value = session.repo;
-            console.log('✅ Loaded from session:', session.username, session.repo);
-            return;
+    if (settings.githubUsername && settings.githubRepo) {
+        document.getElementById('githubUsername').value = settings.githubUsername;
+        // If token exists, re-validate to populate repos
+        if (settings.githubToken) {
+            validateGithubToken().then(() => {
+                document.getElementById('githubRepo').value = settings.githubRepo;
+            });
         }
     }
-    
-    // Fallback to settings from database
-    if (githubUsernameInput && settings.githubUsername) {
-        githubUsernameInput.value = settings.githubUsername;
-    }
-    if (githubRepoInput && settings.githubRepo) {
-        githubRepoInput.value = settings.githubRepo;
-    }
-    console.log('✅ GitHub Settings loaded');
 }
 
-// Open GitHub Repository
-function openGithubRepo() {
-    const session = AuthManager.getSession();
-    if (session.username && session.repo) {
-        window.open(`https://github.com/${session.username}/${session.repo}`, '_blank');
-    } else {
-        showTempMessage('Repository information not available', 'error');
+// Validate GitHub token
+async function validateGithubToken() {
+    const token = document.getElementById('githubToken').value.trim();
+    
+    if (!token) {
+        alert('Please enter a GitHub token');
+        return;
     }
+    
+    const btn = document.getElementById('validateTokenBtn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Validating...';
+    
+    try {
+        // Validate token and get user info
+        const response = await fetch('https://api.github.com/user', {
+            headers: {
+                'Authorization': `token ${token}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Invalid token or unauthorized');
+        }
+        
+        const userData = await response.json();
+        
+        // Get user repositories
+        const reposResponse = await fetch('https://api.github.com/user/repos?per_page=100&sort=updated', {
+            headers: {
+                'Authorization': `token ${token}`
+            }
+        });
+        
+        if (!reposResponse.ok) {
+            throw new Error('Failed to fetch repositories');
+        }
+        
+        const repos = await reposResponse.json();
+        
+        // Populate username
+        document.getElementById('githubUsername').value = userData.login;
+        
+        // Populate repository dropdown
+        const repoSelect = document.getElementById('githubRepo');
+        repoSelect.innerHTML = '<option value="">Select a repository...</option>' + 
+            repos.map(repo => `<option value="${repo.name}">${repo.name}</option>`).join('');
+        
+        // Show the info section
+        document.getElementById('githubInfo').style.display = 'block';
+        
+        alert('✅ Token validated successfully!\n\nUsername: ' + userData.login + '\nRepositories found: ' + repos.length);
+        
+    } catch (error) {
+        console.error('Validation error:', error);
+        alert('❌ Error validating token: ' + error.message);
+        document.getElementById('githubInfo').style.display = 'none';
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+
+// Save GitHub settings
+function saveGithubSettings() {
+    const settings = {
+        githubToken: document.getElementById('githubToken').value,
+        githubUsername: document.getElementById('githubUsername').value,
+        githubRepo: document.getElementById('githubRepo').value
+    };
+    
+    db.saveSettings(settings);
+    alert('GitHub settings saved!');
 }
 
 // Save Groq API Key
@@ -672,14 +600,14 @@ function saveGroqApiKey() {
     const apiKey = document.getElementById('groqApiKey').value;
     
     if (!apiKey) {
-        showTempMessage('Please enter a Groq API key', 'error');
+        alert('Please enter a Groq API key');
         return;
     }
     
     const settings = db.getSettings();
     settings.groqApiKey = apiKey;
     db.saveSettings(settings);
-    showTempMessage('✅ Groq API key saved!');
+    alert('Groq API key saved successfully!');
 }
 
 // Auto-fill item data using Groq AI
@@ -718,41 +646,33 @@ async function autoFillItemData() {
         if (itemType.includes('Tools')) itemCategory = 'tool';
         if (itemType === 'frpApps') itemCategory = 'FRP bypass tool';
         
-        const prompt = `You are a software database expert. Provide VERIFIED and UP-TO-DATE information about "${itemName}" (${itemCategory}).
+        const prompt = `You are a software information expert. Provide accurate and concise information about "${itemName}" (${itemCategory}).
 
 Available categories: ${categoriesList}
 
-IMPORTANT INSTRUCTIONS:
-1. If you're NOT CERTAIN about version/size/website, use "Unknown" or leave empty
-2. Only provide information you're confident about
-3. For version: Check if this software typically has year-based (2025.x) or incremental (5.0.x) versioning
-4. For website: Only provide if you're 100% certain of the official domain
-
-Return ONLY a valid JSON object:
+Return ONLY a valid JSON object with these fields:
 {
-  "category": "choose from: ${categoriesList}",
-  "version": "Latest known version (use 'Unknown' if uncertain)",
-  "size": "Approximate size (use 'Varies' if uncertain)",
-  "shortDesc": "Brief one-line description (max 100 chars)",
-  "fullDesc": "Detailed 2-3 sentence description of main purpose and use cases",
-  "features": ["Specific feature 1", "Specific feature 2", "Specific feature 3", "Specific feature 4"],
+  "category": "choose the most appropriate category from the list above",
+  "version": "latest stable version number",
+  "size": "approximate file size (e.g., 50 MB, 1.2 GB)",
+  "shortDesc": "brief one-line description (max 100 chars)",
+  "fullDesc": "detailed description (2-3 sentences)",
+  "features": ["feature 1", "feature 2", "feature 3", "feature 4"],
   "requirements": [
-    "OS: Operating system requirements",
-    "Processor: CPU requirements",
-    "Memory: RAM requirements",
-    "Storage: Disk space needed",
-    "Graphics: GPU if required",
+    "OS: Operating system requirement",
+    "Processor: CPU requirement",
+    "Memory: RAM requirement",
+    "Storage: Disk space requirement",
+    "Graphics: GPU requirement (if applicable)",
     "Additional: Other requirements"
   ],
-  "website": "Official website URL (leave empty if uncertain)"
+  "website": "official website URL"
 }
 
-CRITICAL RULES:
-- Accuracy over completeness - it's better to say 'Unknown' than to guess
-- Use general terms if specific version is uncertain
-- Only include features you're certain about
-- Choose category from the provided list only
-- Return ONLY the JSON object, no markdown or extra text`;
+IMPORTANT:
+- Choose category from the provided list ONLY
+- Format requirements as an array, each item on separate line
+- Return ONLY the JSON object, no additional text or markdown formatting`;
         
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
@@ -813,12 +733,11 @@ CRITICAL RULES:
             autoResize(textarea);
         });
         
-        // Show success message
-        showTempMessage('✅ Information fetched successfully! Please review all fields carefully.');
+        alert('✅ Information fetched successfully! Please review and adjust as needed.');
         
     } catch (error) {
         console.error('Auto-fill error:', error);
-        showTempMessage('❌ Error fetching data: ' + error.message, 'error');
+        alert('❌ Error fetching data: ' + error.message + '\n\nPlease fill the information manually or try again.');
     } finally {
         btn.disabled = false;
         btn.innerHTML = originalText;
@@ -835,38 +754,17 @@ function openGithubRepo() {
 
 // Load from GitHub
 async function loadFromGithub() {
-    // Get settings from AuthManager first (for logged in users)
-    let settings = {};
-    if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
-        const session = AuthManager.getSession();
-        settings = {
-            githubToken: session.token,
-            githubUsername: session.username,
-            githubRepo: session.repo
-        };
-    } else {
-        // Fallback to db.getSettings() for backward compatibility
-        settings = db.getSettings();
-    }
+    const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        showTempMessage('❌ Please configure GitHub settings first', 'error');
+        alert('Please configure GitHub settings first');
         switchSection('github-settings');
         return;
     }
     
-    // Get current data stats
-    const currentStats = db.getDataStats();
-    
-    const confirmMsg = `Load from GitHub?\n\nCurrent local data:\n- Total items: ${currentStats.totalItems}\n\nThis will replace all current data.\n\nA backup will be created automatically.\n\nContinue?`;
-    
-    if (!confirm(confirmMsg)) {
+    if (!confirm('This will replace all current data with data from GitHub. Continue?')) {
         return;
     }
-    
-    // Create backup before loading
-    db.createBackup();
-    console.log('✅ Backup created before loading');
     
     try {
         const response = await fetch(
@@ -879,110 +777,57 @@ async function loadFromGithub() {
         );
         
         if (!response.ok) {
-            if (response.status === 404) {
-                throw new Error('data.json not found in repository. Please save data first.');
-            }
-            throw new Error('Access denied or repository not found');
+            throw new Error('File not found on GitHub or access denied');
         }
         
         const fileData = await response.json();
         const content = atob(fileData.content);
         const data = JSON.parse(content);
         
-        // Validate loaded data
-        if (!db.validateData(data)) {
-            throw new Error('Invalid data structure in GitHub file');
-        }
-        
-        // Restore sensitive settings
-        const currentSettings = db.getSettings();
-        data.settings = {
-            ...data.settings,
-            githubToken: currentSettings.githubToken,
-            groqApiKey: currentSettings.groqApiKey
-        };
-        
         db.importData(data);
-        
-        const newStats = db.getDataStats();
-        showTempMessage(`✅ Data loaded! Total items: ${newStats.totalItems}. Reloading...`);
-        
         loadDashboard();
         loadAllTables();
         loadCategories();
-        
-        setTimeout(() => location.reload(), 1500);
+        alert('✅ Data loaded from GitHub successfully!');
+        location.reload();
         
     } catch (error) {
-        console.error('Load error:', error);
-        showTempMessage('❌ Error loading from GitHub: ' + error.message, 'error');
-        
-        // Offer to restore backup
-        if (confirm('Restore from backup?')) {
-            if (db.restoreBackup()) {
-                showTempMessage('✅ Backup restored');
-                setTimeout(() => location.reload(), 1000);
-            }
-        }
+        alert('❌ Error loading from GitHub: ' + error.message);
     }
 }
 
 // Save to GitHub
 async function saveToGithub() {
-    const saveBtn = document.getElementById('saveChangesBtn');
-    if (!saveBtn) return;
-    
-    // Get settings from AuthManager first (for logged in users)
-    let settings = {};
-    if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
-        const session = AuthManager.getSession();
-        settings = {
-            githubToken: session.token,
-            githubUsername: session.username,
-            githubRepo: session.repo
-        };
-    } else {
-        // Fallback to db.getSettings() for backward compatibility
-        settings = db.getSettings();
-    }
+    const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        showTempMessage('❌ Please configure GitHub settings first', 'error');
+        alert('Please configure GitHub settings first');
         switchSection('github-settings');
         return;
     }
     
-    const data = db.exportDataForGithub();
-    const jsonStr = JSON.stringify(data, null, 2);
-    const sizeKB = (jsonStr.length / 1024).toFixed(2);
-    const stats = db.getDataStats();
-    
-    if (!confirm(`Save to GitHub?\n\nTotal items: ${stats.totalItems}\nData size: ${sizeKB} KB\n\nContinue?`)) {
-        return;
-    }
-    
-    // Show loading state
-    const originalHTML = saveBtn.innerHTML;
-    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-    saveBtn.disabled = true;
+    const data = db.exportData();
+    const content = btoa(JSON.stringify(data, null, 2));
     
     try {
-        // Get current file SHA
-        let sha = null;
-        try {
-            const checkRes = await fetch(
-                `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
-                { headers: { 'Authorization': `token ${settings.githubToken}` } }
-            );
-            if (checkRes.ok) {
-                sha = (await checkRes.json()).sha;
+        // Check if file exists
+        const checkResponse = await fetch(
+            `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
+            {
+                headers: {
+                    'Authorization': `token ${settings.githubToken}`
+                }
             }
-        } catch (e) {
-            console.log('Creating new file');
+        );
+        
+        let sha = null;
+        if (checkResponse.ok) {
+            const fileData = await checkResponse.json();
+            sha = fileData.sha;
         }
         
-        // Upload
-        const uploadRes = await fetch(
+        // Create or update file
+        const response = await fetch(
             `https://api.github.com/repos/${settings.githubUsername}/${settings.githubRepo}/contents/data.json`,
             {
                 method: 'PUT',
@@ -992,56 +837,36 @@ async function saveToGithub() {
                 },
                 body: JSON.stringify({
                     message: `Update data - ${new Date().toISOString()}`,
-                    content: btoa(unescape(encodeURIComponent(jsonStr))),
+                    content: content,
                     sha: sha
                 })
             }
         );
         
-        if (!uploadRes.ok) {
-            throw new Error((await uploadRes.json()).message || 'Upload failed');
+        if (response.ok) {
+            markSaved();
+            alert('✅ Data saved to GitHub successfully!');
+        } else {
+            throw new Error(response.statusText);
         }
-        
-        markSaved();
-        showTempMessage('✅ Data saved to GitHub successfully!');
-        
     } catch (error) {
-        console.error('Save error:', error);
-        showTempMessage('❌ Error: ' + error.message, 'error');
-    } finally {
-        saveBtn.innerHTML = originalHTML;
-        saveBtn.disabled = false;
+        alert('❌ Error saving to GitHub: ' + error.message);
     }
 }
 
 // Export data
 function exportData() {
-    try {
-        const data = db.exportData();
-        
-        // Validate data before export
-        if (!data || !db.validateData(data)) {
-            showTempMessage('❌ Error: Invalid data structure. Cannot export.', 'error');
-            return;
-        }
-        
-        const json = JSON.stringify(data, null, 2);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `falconx-data-${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-        
-        URL.revokeObjectURL(url);
-        
-        console.log('✅ Data exported successfully');
-        showTempMessage('✅ Data exported successfully!');
-    } catch (error) {
-        console.error('Export error:', error);
-        showTempMessage('❌ Error exporting data: ' + error.message, 'error');
-    }
+    const data = db.exportData();
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `falconx-data-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    
+    URL.revokeObjectURL(url);
 }
 
 // Import data
@@ -1050,73 +875,21 @@ function importData(event) {
     
     if (!file) return;
     
-    // Check file size (max 10MB)
-    if (file.size > 10000000) {
-        showTempMessage('❌ File is too large. Maximum size is 10MB.', 'error');
-        event.target.value = '';
-        return;
-    }
-    
     const reader = new FileReader();
     reader.onload = (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            
-            // Validate data structure
-            if (!db.validateData(data)) {
-                throw new Error('Invalid data structure in imported file');
-            }
-            
-            // Get stats
-            const currentStats = db.getDataStats();
-            const newItemsCount = (data.windowsPrograms?.length || 0) + 
-                                 (data.windowsGames?.length || 0) + 
-                                 (data.androidApps?.length || 0) + 
-                                 (data.androidGames?.length || 0) + 
-                                 (data.phoneTools?.length || 0) + 
-                                 (data.frpApps?.length || 0);
-            
-            const confirmMsg = `Import data from file?\n\nCurrent: ${currentStats.totalItems} items\nNew: ${newItemsCount} items\n\nThis will replace all current data.\nBackup will be created.\n\nContinue?`;
-            
-            if (confirm(confirmMsg)) {
-                // Create backup
-                db.createBackup();
-                
-                // Preserve current settings
-                const currentSettings = db.getSettings();
-                
-                // Ensure data.settings exists
-                if (!data.settings) {
-                    data.settings = {};
-                }
-                
-                data.settings = {
-                    ...data.settings,
-                    githubToken: currentSettings.githubToken || data.settings.githubToken || '',
-                    groqApiKey: currentSettings.groqApiKey || data.settings.groqApiKey || '',
-                    githubUsername: currentSettings.githubUsername || data.settings.githubUsername || '',
-                    githubRepo: currentSettings.githubRepo || data.settings.githubRepo || ''
-                };
-                
-                const importResult = db.importData(data);
-                
-                if (!importResult) {
-                    throw new Error('Failed to import data to localStorage');
-                }
-                
+            if (confirm('This will replace all current data. Continue?')) {
+                db.importData(data);
                 loadDashboard();
                 loadAllTables();
                 loadCategories();
-                showTempMessage(`✅ Data imported! Total items: ${newItemsCount}. Reloading...`);
-                setTimeout(() => location.reload(), 1500);
+                alert('Data imported successfully!');
+                location.reload();
             }
         } catch (error) {
-            console.error('Import error:', error);
-            showTempMessage('❌ Error importing data: ' + error.message, 'error');
+            alert('Error importing data: ' + error.message);
         }
-        
-        // Reset file input
-        event.target.value = '';
     };
     reader.readAsText(file);
 }
@@ -1142,155 +915,3 @@ window.addEventListener('beforeunload', (e) => {
         e.returnValue = '';
     }
 });
-
-// Global error handler
-window.addEventListener('error', (e) => {
-    console.error('Global error caught:', e.error);
-    // Optionally show user-friendly error message
-});
-
-// Unhandled promise rejection handler
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('Unhandled promise rejection:', e.reason);
-});
-
-// Search table function
-function searchTable(tableId, searchTerm) {
-    const table = document.getElementById(tableId);
-    const tbody = table.querySelector('tbody');
-    const rows = tbody.getElementsByTagName('tr');
-    const term = searchTerm.toLowerCase().trim();
-    
-    let visibleCount = 0;
-    
-    // Loop through all table rows
-    for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
-        const cells = row.getElementsByTagName('td');
-        let found = false;
-        
-        // Check if row contains "No items found" message
-        if (cells.length === 1 && cells[0].getAttribute('colspan')) {
-            continue;
-        }
-        
-        // Search in Name, Category, and Version columns (first 3 columns)
-        for (let j = 0; j < Math.min(3, cells.length); j++) {
-            const cellText = cells[j].textContent || cells[j].innerText;
-            if (cellText.toLowerCase().indexOf(term) > -1) {
-                found = true;
-                break;
-            }
-        }
-        
-        // Show/hide row based on search
-        if (found || term === '') {
-            row.style.display = '';
-            visibleCount++;
-        } else {
-            row.style.display = 'none';
-        }
-    }
-    
-    // Show "No results found" message if no matches
-    if (visibleCount === 0 && rows.length > 0 && term !== '') {
-        // Check if "no results" row already exists
-        let noResultsRow = tbody.querySelector('.no-results-row');
-        if (!noResultsRow) {
-            noResultsRow = tbody.insertRow(0);
-            noResultsRow.className = 'no-results-row';
-            const cell = noResultsRow.insertCell(0);
-            cell.colSpan = 6;
-            cell.style.textAlign = 'center';
-            cell.style.color = 'var(--text-secondary)';
-            cell.style.padding = '2rem';
-            cell.innerHTML = '<i class="fas fa-search"></i> No results found for "' + searchTerm + '"';
-        } else {
-            noResultsRow.cells[0].innerHTML = '<i class="fas fa-search"></i> No results found for "' + searchTerm + '"';
-            noResultsRow.style.display = '';
-        }
-    } else {
-        // Remove "no results" row if it exists
-        const noResultsRow = tbody.querySelector('.no-results-row');
-        if (noResultsRow) {
-            noResultsRow.style.display = 'none';
-        }
-    }
-}
-
-// Show temporary message (non-blocking)
-function showTempMessage(message, type = 'success') {
-    let messageEl = document.getElementById('tempMessage');
-    
-    if (!messageEl) {
-        messageEl = document.createElement('div');
-        messageEl.id = 'tempMessage';
-        document.body.appendChild(messageEl);
-        
-        // Add animation styles
-        if (!document.getElementById('tempMessageStyles')) {
-            const style = document.createElement('style');
-            style.id = 'tempMessageStyles';
-            style.textContent = `
-                #tempMessage {
-                    position: fixed;
-                    top: 90px;
-                    right: 20px;
-                    color: white;
-                    padding: 1rem 1.5rem;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                    z-index: 10000;
-                    font-size: 0.95rem;
-                    font-weight: 500;
-                    max-width: 400px;
-                    display: none;
-                }
-                #tempMessage.show {
-                    display: block;
-                    animation: slideIn 0.3s ease;
-                }
-                #tempMessage.hide {
-                    animation: slideOut 0.3s ease;
-                }
-                @keyframes slideIn {
-                    from { transform: translateX(400px); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(400px); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-    }
-    
-    // Set color based on type
-    const colors = {
-        success: 'linear-gradient(135deg, #10b981, #059669)',
-        error: 'linear-gradient(135deg, #ef4444, #dc2626)',
-        warning: 'linear-gradient(135deg, #f59e0b, #d97706)',
-        info: 'linear-gradient(135deg, #3b82f6, #2563eb)'
-    };
-    
-    const icons = {
-        success: 'fa-check-circle',
-        error: 'fa-times-circle',
-        warning: 'fa-exclamation-triangle',
-        info: 'fa-info-circle'
-    };
-    
-    messageEl.style.background = colors[type] || colors.success;
-    messageEl.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${message}`;
-    messageEl.className = 'show';
-    
-    // Auto-hide after 3 seconds
-    clearTimeout(messageEl.hideTimeout);
-    messageEl.hideTimeout = setTimeout(() => {
-        messageEl.className = 'hide';
-        setTimeout(() => {
-            messageEl.className = '';
-        }, 300);
-    }, 3000);
-}

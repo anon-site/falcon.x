@@ -5,56 +5,8 @@ class Database {
     }
 
     initDatabase() {
-        // Check if we're on admin page
-        const isAdminPage = window.location.pathname.includes('admin.html');
-        
-        // Check if we should wait for GitHub data load (only on non-admin pages)
-        if (!isAdminPage) {
-            const lastCacheCleared = localStorage.getItem('lastCacheCleared');
-            const now = Date.now();
-            
-            if (lastCacheCleared && (now - parseInt(lastCacheCleared)) < 5000) {
-                console.log('⏳ Waiting for GitHub data load after cache clear...');
-                // Don't initialize default data, wait for load-data.js
-                return;
-            }
-        }
-        
         if (!localStorage.getItem('falconx_data')) {
-            console.log('⏳ No local data found. Initializing empty structure...');
-            // Initialize with empty structure to prevent errors
-            const emptyData = {
-                windowsPrograms: [],
-                windowsGames: [],
-                androidApps: [],
-                androidGames: [],
-                phoneTools: [],
-                frpApps: [],
-                categories: {
-                    windowsPrograms: [],
-                    windowsGames: [],
-                    androidApps: [],
-                    androidGames: [],
-                    phoneTools: [],
-                    frpApps: []
-                },
-                settings: {}
-            };
-            localStorage.setItem('falconx_data', JSON.stringify(emptyData));
-            console.log('📦 Empty structure initialized.');
-            return;
-        }
-        
-        // Data exists, proceed normally
-        console.log('✅ Database initialized with existing data.');
-    }
-        
-        // Skip default data initialization completely
-        /*
-        if (!localStorage.getItem('falconx_data')) {
-            console.log('📦 Initializing default data...');
-            */
-            /*const initialData = {
+            const initialData = {
                 windowsPrograms: [
                     {
                         id: 1,
@@ -264,35 +216,12 @@ class Database {
                     githubRepo: ''
                 }
             };
-            localStorage.setItem('falconx_data', JSON.stringify(initialData));*/
-        //}
+            localStorage.setItem('falconx_data', JSON.stringify(initialData));
+        }
     }
 
     getData() {
-        const data = localStorage.getItem('falconx_data');
-        if (!data) {
-            // Initialize empty structure if data doesn't exist
-            const emptyData = {
-                windowsPrograms: [],
-                windowsGames: [],
-                androidApps: [],
-                androidGames: [],
-                phoneTools: [],
-                frpApps: [],
-                categories: {
-                    windowsPrograms: [],
-                    windowsGames: [],
-                    androidApps: [],
-                    androidGames: [],
-                    phoneTools: [],
-                    frpApps: []
-                },
-                settings: {}
-            };
-            this.saveData(emptyData);
-            return emptyData;
-        }
-        return JSON.parse(data);
+        return JSON.parse(localStorage.getItem('falconx_data'));
     }
 
     saveData(data) {
@@ -307,12 +236,6 @@ class Database {
     addItem(type, item) {
         const data = this.getData();
         if (!data[type]) data[type] = [];
-        
-        // Validate required fields
-        if (!item.name || !item.name.trim()) {
-            console.error('Item name is required');
-            return null;
-        }
         
         const newItem = {
             ...item,
@@ -330,12 +253,6 @@ class Database {
         const index = data[type].findIndex(item => item.id == id);
         
         if (index !== -1) {
-            // Validate required fields
-            if (!updatedItem.name || !updatedItem.name.trim()) {
-                console.error('Item name is required');
-                return null;
-            }
-            
             data[type][index] = {
                 ...updatedItem,
                 id: parseInt(id),
@@ -360,24 +277,10 @@ class Database {
 
     addCategory(type, category) {
         const data = this.getData();
-        const trimmedCategory = category.trim();
-        
-        if (!trimmedCategory) {
-            console.warn('Cannot add empty category');
-            return false;
-        }
-        
-        if (!data.categories[type]) {
-            data.categories[type] = [];
-        }
-        
-        if (!data.categories[type].includes(trimmedCategory)) {
-            data.categories[type].push(trimmedCategory);
+        if (!data.categories[type].includes(category)) {
+            data.categories[type].push(category);
             this.saveData(data);
-            return true;
         }
-        
-        return false; // Category already exists
     }
 
     deleteCategory(type, category) {
@@ -399,71 +302,6 @@ class Database {
 
     exportData() {
         return this.getData();
-    }
-    
-    exportDataForGithub() {
-        const data = this.getData();
-        // Remove sensitive keys before uploading to GitHub
-        const safeData = JSON.parse(JSON.stringify(data));
-        if (safeData.settings) {
-            delete safeData.settings.githubToken;
-            delete safeData.settings.groqApiKey;
-        }
-        return safeData;
-    }
-    
-    validateData(data) {
-        // Validate data structure
-        if (!data || typeof data !== 'object') return false;
-        
-        const requiredTypes = ['windowsPrograms', 'windowsGames', 'androidApps', 'androidGames', 'phoneTools', 'frpApps'];
-        for (const type of requiredTypes) {
-            if (!Array.isArray(data[type])) return false;
-        }
-        
-        if (!data.categories || typeof data.categories !== 'object') return false;
-        if (!data.settings || typeof data.settings !== 'object') return false;
-        
-        return true;
-    }
-    
-    createBackup() {
-        const data = this.getData();
-        const backup = {
-            data: data,
-            timestamp: new Date().toISOString(),
-            version: '2.4'
-        };
-        localStorage.setItem('falconx_backup', JSON.stringify(backup));
-        return backup;
-    }
-    
-    restoreBackup() {
-        const backup = localStorage.getItem('falconx_backup');
-        if (backup) {
-            const parsed = JSON.parse(backup);
-            this.saveData(parsed.data);
-            return true;
-        }
-        return false;
-    }
-    
-    getDataStats() {
-        const data = this.getData();
-        return {
-            windowsPrograms: data.windowsPrograms?.length || 0,
-            windowsGames: data.windowsGames?.length || 0,
-            androidApps: data.androidApps?.length || 0,
-            androidGames: data.androidGames?.length || 0,
-            phoneTools: data.phoneTools?.length || 0,
-            frpApps: data.frpApps?.length || 0,
-            totalItems: (data.windowsPrograms?.length || 0) + 
-                       (data.windowsGames?.length || 0) + 
-                       (data.androidApps?.length || 0) + 
-                       (data.androidGames?.length || 0) + 
-                       (data.phoneTools?.length || 0) + 
-                       (data.frpApps?.length || 0)
-        };
     }
 
     importData(jsonData) {

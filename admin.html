@@ -28,9 +28,6 @@
             <a href="index.html" class="btn-view-site" target="_blank">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>
-            <button class="btn-view-site" onclick="AuthManager.logout()" style="background: #ef4444; margin-left: 0.5rem;">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </button>
         </div>
     </div>
 
@@ -181,15 +178,9 @@
         <div class="admin-section" id="windows-programs-section">
             <div class="section-header">
                 <h2><i class="fab fa-windows"></i> Windows Programs</h2>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchWindowsPrograms" placeholder="Search programs..." onkeyup="searchTable('windowsProgramsTable', this.value)">
-                    </div>
-                    <button class="btn btn-primary" onclick="openItemForm('windowsPrograms')">
-                        <i class="fas fa-plus"></i> Add New
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="openItemForm('windowsPrograms')">
+                    <i class="fas fa-plus"></i> Add New
+                </button>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="windowsProgramsTable">
@@ -211,15 +202,9 @@
         <div class="admin-section" id="windows-games-section">
             <div class="section-header">
                 <h2><i class="fas fa-gamepad"></i> Windows Games</h2>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchWindowsGames" placeholder="Search games..." onkeyup="searchTable('windowsGamesTable', this.value)">
-                    </div>
-                    <button class="btn btn-primary" onclick="openItemForm('windowsGames')">
-                        <i class="fas fa-plus"></i> Add New
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="openItemForm('windowsGames')">
+                    <i class="fas fa-plus"></i> Add New
+                </button>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="windowsGamesTable">
@@ -241,15 +226,9 @@
         <div class="admin-section" id="android-apps-section">
             <div class="section-header">
                 <h2><i class="fab fa-android"></i> Android Apps</h2>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchAndroidApps" placeholder="Search apps..." onkeyup="searchTable('androidAppsTable', this.value)">
-                    </div>
-                    <button class="btn btn-primary" onclick="openItemForm('androidApps')">
-                        <i class="fas fa-plus"></i> Add New
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="openItemForm('androidApps')">
+                    <i class="fas fa-plus"></i> Add New
+                </button>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="androidAppsTable">
@@ -271,15 +250,9 @@
         <div class="admin-section" id="android-games-section">
             <div class="section-header">
                 <h2><i class="fas fa-gamepad"></i> Android Games</h2>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchAndroidGames" placeholder="Search games..." onkeyup="searchTable('androidGamesTable', this.value)">
-                    </div>
-                    <button class="btn btn-primary" onclick="openItemForm('androidGames')">
-                        <i class="fas fa-plus"></i> Add New
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="openItemForm('androidGames')">
+                    <i class="fas fa-plus"></i> Add New
+                </button>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="androidGamesTable">
@@ -301,15 +274,9 @@
         <div class="admin-section" id="phone-tools-section">
             <div class="section-header">
                 <h2><i class="fas fa-tools"></i> Phone Tools</h2>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchPhoneTools" placeholder="Search tools..." onkeyup="searchTable('phoneToolsTable', this.value)">
-                    </div>
-                    <button class="btn btn-primary" onclick="openItemForm('phoneTools')">
-                        <i class="fas fa-plus"></i> Add New
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="openItemForm('phoneTools')">
+                    <i class="fas fa-plus"></i> Add New
+                </button>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="phoneToolsTable">
@@ -331,15 +298,9 @@
         <div class="admin-section" id="frp-apps-section">
             <div class="section-header">
                 <h2><i class="fas fa-unlock-alt"></i> FRP Apps</h2>
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchFrpApps" placeholder="Search FRP apps..." onkeyup="searchTable('frpAppsTable', this.value)">
-                    </div>
-                    <button class="btn btn-primary" onclick="openItemForm('frpApps')">
-                        <i class="fas fa-plus"></i> Add New
-                    </button>
-                </div>
+                <button class="btn btn-primary" onclick="openItemForm('frpApps')">
+                    <i class="fas fa-plus"></i> Add New
+                </button>
             </div>
             <div class="items-table-container">
                 <table class="items-table" id="frpAppsTable">
@@ -452,7 +413,17 @@
             </div>
             
             <div class="github-settings-form">
-                <div id="githubInfo">
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> GitHub Token</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="password" id="githubToken" placeholder="Enter your GitHub token" style="flex: 1;">
+                        <button class="btn btn-primary" onclick="validateGithubToken()" id="validateTokenBtn">
+                            <i class="fas fa-check"></i> Validate
+                        </button>
+                    </div>
+                </div>
+
+                <div id="githubInfo" style="display: none;">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Username</label>
                         <input type="text" id="githubUsername" readonly>
@@ -460,12 +431,17 @@
 
                     <div class="form-group">
                         <label><i class="fas fa-code-branch"></i> Repository</label>
-                        <input type="text" id="githubRepo" readonly>
+                        <select id="githubRepo">
+                            <option value="">Select a repository...</option>
+                        </select>
                     </div>
 
                     <div class="github-actions">
                         <button class="btn btn-secondary" onclick="openGithubRepo()">
                             <i class="fas fa-external-link-alt"></i> Open Repository
+                        </button>
+                        <button class="btn btn-primary" onclick="saveGithubSettings()">
+                            <i class="fas fa-save"></i> Save Settings
                         </button>
                     </div>
                 </div>
@@ -695,30 +671,6 @@
     </div>
 
     <script src="js/database.js"></script>
-    <script src="js/auth.js"></script>
-    <script>
-        // Check authentication before loading admin panel
-        if (!AuthManager.requireAuth()) {
-            // User will be redirected to login by requireAuth()
-        } else {
-            // Update GitHub settings with session data
-            const session = AuthManager.getSession();
-            if (session.token && session.username && session.repo) {
-                // Store in database settings for GitHub operations
-                const settings = db.getSettings();
-                settings.githubToken = session.token;
-                settings.githubUsername = session.username;
-                settings.githubRepo = session.repo;
-                db.saveSettings(settings);
-                
-                // Display session info after page loads
-                window.addEventListener('DOMContentLoaded', function() {
-                    document.getElementById('githubUsername').value = session.username;
-                    document.getElementById('githubRepo').value = session.repo;
-                });
-            }
-        }
-    </script>
     <script src="js/admin.js"></script>
 </body>
 </html>

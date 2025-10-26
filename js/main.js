@@ -4,25 +4,11 @@ let currentItems = [];
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    loadAllContent();
     initSidebar();
     initTabs();
-    
-    // Check if we're waiting for GitHub data after cache clear
-    const lastCacheCleared = localStorage.getItem('lastCacheCleared');
-    const now = Date.now();
-    
-    if (lastCacheCleared && (now - parseInt(lastCacheCleared)) < 5000) {
-        console.log('⏳ Waiting for GitHub data to load...');
-        // Wait a bit for load-data.js to fetch from GitHub
-        setTimeout(() => {
-            loadAllContent();
-            setTimeout(() => restoreLastTab(), 10);
-        }, 2000);
-    } else {
-        loadAllContent();
-        // Restore last tab after a small delay to ensure DOM is ready
-        setTimeout(() => restoreLastTab(), 10);
-    }
+    // Restore last tab after a small delay to ensure DOM is ready
+    setTimeout(() => restoreLastTab(), 10);
 });
 
 // Sidebar functionality
@@ -405,19 +391,6 @@ function openItemModal(item) {
     
     html += `
             </div>
-    `;
-    
-    // Add XAPK installation note for Android Apps and Games
-    if (currentTab === 'android-apps' || currentTab === 'android-games') {
-        html += `
-            <div class="xapk-note">
-                <i class="fas fa-info-circle"></i>
-                <span>To install applications in <strong>XAPK, APKS</strong> format, you must use the <strong>Zarchiver</strong> or <strong>MTManager</strong> application.</span>
-            </div>
-        `;
-    }
-    
-    html += `
         </div>
     `;
     
