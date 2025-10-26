@@ -1,8 +1,8 @@
 // Auto-load data from GitHub on page load for all devices
 (function() {
     // IMPORTANT: Don't run this on admin page to prevent data loss
-    if (window.location.pathname.includes('admin.html')) {
-        console.log('⚠️ Skipping auto-load on admin page to prevent data loss');
+    if (window.location.pathname.includes('admin.html') || window.location.pathname.includes('login.html')) {
+        console.log('⚠️ Skipping auto-load on admin/login page to prevent data loss');
         return;
     }
     
