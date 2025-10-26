@@ -620,15 +620,30 @@ function removeCategory(type, category) {
 // GitHub Settings
 function loadGithubSettings() {
     const settings = db.getSettings();
-    document.getElementById('groqApiKey').value = settings.groqApiKey || '';
+    const groqApiKeyInput = document.getElementById('groqApiKey');
+    const githubUsernameInput = document.getElementById('githubUsername');
+    const githubRepoInput = document.getElementById('githubRepo');
     
-    // Load from session
-    if (typeof AuthManager !== 'undefined') {
+    if (groqApiKeyInput) {
+        groqApiKeyInput.value = settings.groqApiKey || '';
+    }
+    
+    // Load from session first
+    if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
         const session = AuthManager.getSession();
         if (session.username && session.repo) {
-            document.getElementById('githubUsername').value = session.username;
-            document.getElementById('githubRepo').value = session.repo;
+            if (githubUsernameInput) githubUsernameInput.value = session.username;
+            if (githubRepoInput) githubRepoInput.value = session.repo;
+            return;
         }
+    }
+    
+    // Fallback to settings
+    if (githubUsernameInput && settings.githubUsername) {
+        githubUsernameInput.value = settings.githubUsername;
+    }
+    if (githubRepoInput && settings.githubRepo) {
+        githubRepoInput.value = settings.githubRepo;
     }
 }
 
