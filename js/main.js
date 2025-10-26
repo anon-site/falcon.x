@@ -405,6 +405,19 @@ function openItemModal(item) {
     
     html += `
             </div>
+    `;
+    
+    // Add XAPK installation note for Android Apps and Games
+    if (currentTab === 'android-apps' || currentTab === 'android-games') {
+        html += `
+            <div class="xapk-note">
+                <i class="fas fa-info-circle"></i>
+                <span>To install applications in <strong>XAPK</strong> format, you must use the <strong>Zarchiver</strong> or <strong>MTManager</strong> application.</span>
+            </div>
+        `;
+    }
+    
+    html += `
         </div>
     `;
     
