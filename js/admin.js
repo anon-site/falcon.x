@@ -16,7 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDashboard();
     loadAllTables();
     loadCategories();
-    loadGithubSettings();
+    
+    // Load GitHub settings with delay to ensure elements exist
+    setTimeout(() => {
+        loadGithubSettings();
+    }, 100);
+    
     restoreLastSection();
     initSaveButton();
 });
@@ -619,32 +624,37 @@ function removeCategory(type, category) {
 
 // GitHub Settings
 function loadGithubSettings() {
+    console.log('🔧 Loading GitHub Settings...');
+    
     const settings = db.getSettings();
     const groqApiKeyInput = document.getElementById('groqApiKey');
     const githubUsernameInput = document.getElementById('githubUsername');
     const githubRepoInput = document.getElementById('githubRepo');
     
-    if (groqApiKeyInput) {
-        groqApiKeyInput.value = settings.groqApiKey || '';
+    // Set Groq API Key
+    if (groqApiKeyInput && settings.groqApiKey) {
+        groqApiKeyInput.value = settings.groqApiKey;
     }
     
-    // Load from session first
+    // Load from AuthManager session first
     if (typeof AuthManager !== 'undefined' && AuthManager.isAuthenticated()) {
         const session = AuthManager.getSession();
         if (session.username && session.repo) {
             if (githubUsernameInput) githubUsernameInput.value = session.username;
             if (githubRepoInput) githubRepoInput.value = session.repo;
+            console.log('✅ Loaded from session:', session.username, session.repo);
             return;
         }
     }
     
-    // Fallback to settings
+    // Fallback to settings from database
     if (githubUsernameInput && settings.githubUsername) {
         githubUsernameInput.value = settings.githubUsername;
     }
     if (githubRepoInput && settings.githubRepo) {
         githubRepoInput.value = settings.githubRepo;
     }
+    console.log('✅ GitHub Settings loaded');
 }
 
 // Open GitHub Repository
