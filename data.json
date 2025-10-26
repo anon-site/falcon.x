@@ -98,34 +98,29 @@
   ],
   "windowsGames": [
     {
-      "name": "Assassins Creed 1",
+      "name": "Assassins Creed 1 Test",
       "category": "Action & Adventure",
       "version": "1.0",
       "size": "8 GB",
       "shortDesc": "Historical action game",
-      "fullDesc": "Assassin's Creed is an action-adventure game set in historical periods. The game follows Altaïr, an assassin, as he attempts to stop a war between Templars and Assassins. With a mix of stealth, combat, and exploration, the game offers an immersive experience.",
-      "icon": "https://www.wifi4games.com/img/pc_covers/260/y7bGMY3SNF719.jpg",
+      "fullDesc": "Assassin's Creed is an action-adventure game set in historical periods. The game follows a modern-day protagonist as they relive the memories of their ancestors. The game features a mix of stealth, combat, and exploration elements.",
+      "icon": "",
       "status": "Original",
-      "screenshots": [
-        "https://www.wifi4games.com/img/pc_photos/750/t39QvCJ33h181.jpg",
-        "https://www.wifi4games.com/img/pc_photos/750/7RVQodKauC151.jpg",
-        "https://www.wifi4games.com/img/pc_photos/750/eYXc2Q0Izw903.jpg"
-      ],
+      "screenshots": [],
       "features": [
         "Open-world exploration",
-        "Stealth and combat mechanics",
         "Historical settings",
-        "Parkour and climbing abilities",
-        "Rich storyline with engaging characters"
+        "Stealth and combat mechanics",
+        "Parkour system"
       ],
       "requirements": "OS: Windows XP or later\nProcessor: Dual-core CPU\nMemory: 2 GB RAM\nStorage: 12 GB available space\nGraphics: DirectX 9.0c compatible GPU\nAdditional: Internet connection for online features",
-      "originalLink": "https://cat.wifi4games.com/Assassins.Creed_1[www.wifi4games.com].rar",
+      "originalLink": "",
       "modifiedLink": "",
       "website": "https://www.ubisoft.com/en-us/game/assassins-creed",
       "note": "",
       "noteColor": "orange",
-      "id": 1761491450816,
-      "lastModified": "2025-10-26T15:10:50.816Z"
+      "id": 1761491644481,
+      "lastModified": "2025-10-26T15:14:16.764Z"
     }
   ],
   "androidApps": [
