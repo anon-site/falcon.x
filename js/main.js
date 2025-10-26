@@ -7,9 +7,24 @@ document.addEventListener('DOMContentLoaded', function() {
     loadAllContent();
     initSidebar();
     initTabs();
+    initFeatureBoxes();
     // Restore last tab after a small delay to ensure DOM is ready
     setTimeout(() => restoreLastTab(), 10);
 });
+
+// Feature boxes navigation
+function initFeatureBoxes() {
+    document.querySelectorAll('.feature-box[data-tab]').forEach(box => {
+        box.addEventListener('click', () => {
+            const tab = box.dataset.tab;
+            if (tab) {
+                switchTab(tab);
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+}
 
 // Sidebar functionality
 function initSidebar() {
