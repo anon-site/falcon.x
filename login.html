@@ -39,10 +39,10 @@
 
         .login-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             background: var(--bg-secondary);
             border-radius: 20px;
-            padding: 3rem;
+            padding: 2.5rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
         }
@@ -179,37 +179,83 @@
         }
 
         .repo-list {
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
             margin-bottom: 1rem;
+            padding-right: 0.25rem;
+        }
+
+        .repo-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .repo-list::-webkit-scrollbar-track {
+            background: var(--bg);
+            border-radius: 10px;
+        }
+
+        .repo-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .repo-list::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
         }
 
         .repo-item {
-            padding: 1rem;
+            padding: 1.25rem;
             background: var(--bg);
             border: 2px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 0.75rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 1rem;
+            position: relative;
         }
 
         .repo-item:hover {
             border-color: var(--primary);
             background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
         }
 
         .repo-item.selected {
             border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .repo-item.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         .repo-icon {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
+            font-size: 2rem;
+            color: var(--primary);
+            min-width: 50px;
+            height: 50px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .repo-info {
@@ -217,8 +263,10 @@
         }
 
         .repo-name {
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 0.25rem;
+            font-size: 1.05rem;
+            color: var(--text);
         }
 
         .repo-desc {
@@ -229,9 +277,15 @@
         .repo-stats {
             display: flex;
             gap: 1rem;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             margin-top: 0.5rem;
+        }
+
+        .repo-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
         }
 
         .hint {
@@ -280,10 +334,26 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
+            pointer-events: none;
         }
 
         .search-box input {
             padding-right: 2.5rem;
+        }
+
+        .projects-count {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .projects-count strong {
+            color: var(--primary);
+            font-weight: 700;
         }
     </style>
 </head>
@@ -292,23 +362,23 @@
         <div class="logo">
             <i class="fas fa-dragon"></i>
             <h1>Falcon X</h1>
-            <p>لوحة التحكم</p>
+            <p>لوحة التحكم الإدارية</p>
         </div>
 
         <!-- Alert Message -->
         <div class="alert" id="alert"></div>
 
-        <!-- Step 1: GitHub Token -->
+        <!-- Step 1: Access Token -->
         <div class="login-step active" id="step1">
             <div class="form-group">
                 <label>
-                    <i class="fab fa-github"></i>
-                    GitHub Token
+                    <i class="fas fa-key"></i>
+                    رمز الدخول (Access Token)
                 </label>
                 <input 
                     type="password" 
                     id="githubToken" 
-                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                    placeholder="أدخل رمز الدخول الخاص بك"
                     autocomplete="off"
                 >
             </div>
@@ -316,33 +386,29 @@
                 <i class="fas fa-sign-in-alt"></i>
                 تسجيل الدخول
             </button>
-            <div class="hint">
-                للحصول على Token من GitHub:
-                <a href="https://github.com/settings/tokens/new" target="_blank">اضغط هنا</a>
-            </div>
         </div>
 
-        <!-- Step 2: Repository Selection -->
+        <!-- Step 2: Project Selection -->
         <div class="login-step" id="step2">
             <div class="form-group">
-                <label>
-                    <i class="fas fa-code-branch"></i>
-                    اختر Repository
+                <label style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    <i class="fas fa-folder-open"></i>
+                    اختر المشروع الذي تريد العمل عليه
                 </label>
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input 
                         type="text" 
                         id="repoSearch" 
-                        placeholder="ابحث عن repository..."
+                        placeholder="ابحث عن مشروع..."
                         onkeyup="filterRepos()"
                     >
                 </div>
                 <div class="repo-list" id="repoList"></div>
             </div>
             <button class="btn" onclick="continueToAdmin()" id="continueBtn" disabled>
-                <i class="fas fa-arrow-left"></i>
-                الدخول إلى لوحة التحكم
+                <i class="fas fa-check-circle"></i>
+                متابعة
             </button>
             <button class="btn" onclick="goBack()" style="margin-top: 0.5rem; background: var(--bg); border: 2px solid var(--border);">
                 <i class="fas fa-arrow-right"></i>
@@ -360,7 +426,7 @@
             const token = document.getElementById('githubToken').value.trim();
             
             if (!token) {
-                showAlert('error', 'الرجاء إدخال GitHub Token');
+                showAlert('error', 'الرجاء إدخال رمز الدخول');
                 return;
             }
 
@@ -378,7 +444,7 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error('Token غير صحيح أو غير مصرح');
+                    throw new Error('رمز الدخول غير صحيح');
                 }
 
                 userData = await response.json();
@@ -392,7 +458,7 @@
                 });
 
                 if (!reposResponse.ok) {
-                    throw new Error('فشل في جلب المستودعات');
+                    throw new Error('فشل في تحميل قائمة المشاريع');
                 }
 
                 repositories = await reposResponse.json();
@@ -402,7 +468,7 @@
                 sessionStorage.setItem('githubUsername', userData.login);
 
                 // Show success and move to next step
-                showAlert('success', `مرحباً ${userData.login}! تم العثور على ${repositories.length} مستودع`);
+                showAlert('success', `مرحباً ${userData.login}! تم العثور على ${repositories.length} مشروع`);
                 
                 setTimeout(() => {
                     goToStep2();
@@ -432,23 +498,20 @@
             const repoList = document.getElementById('repoList');
             
             if (repositories.length === 0) {
-                repoList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-secondary);">لا توجد مستودعات</div>';
+                repoList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-secondary);">لا توجد مشاريع</div>';
                 return;
             }
 
-            repoList.innerHTML = repositories.map(repo => `
+            const countHTML = `<div class="projects-count">المتاح: <strong>${repositories.length}</strong> مشروع</div>`;
+            
+            repoList.innerHTML = countHTML + repositories.map(repo => `
                 <div class="repo-item" onclick="selectRepo('${repo.name}', '${repo.full_name}', '${repo.description || ''}', ${repo.private})">
                     <div class="repo-icon">
-                        <i class="fas fa-${repo.private ? 'lock' : 'folder'}"></i>
+                        <i class="fas fa-folder"></i>
                     </div>
                     <div class="repo-info">
                         <div class="repo-name">${repo.name}</div>
                         ${repo.description ? `<div class="repo-desc">${repo.description}</div>` : ''}
-                        <div class="repo-stats">
-                            <span><i class="fas fa-star"></i> ${repo.stargazers_count || 0}</span>
-                            <span><i class="fas fa-code-branch"></i> ${repo.forks_count || 0}</span>
-                            <span>${repo.private ? '<i class="fas fa-lock"></i> خاص' : '<i class="fas fa-globe"></i> عام'}</span>
-                        </div>
                     </div>
                 </div>
             `).join('');
@@ -486,7 +549,7 @@
 
         function continueToAdmin() {
             if (!selectedRepo) {
-                showAlert('error', 'الرجاء اختيار مستودع أولاً');
+                showAlert('error', 'الرجاء اختيار مشروع أولاً');
                 return;
             }
 
