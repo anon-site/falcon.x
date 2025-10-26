@@ -305,8 +305,9 @@ function toggleFrpFields() {
 }
 
 // Delete item
-function deleteItem(type, id) {
-    if (!confirm('Are you sure you want to delete this item?')) return;
+async function deleteItem(type, id) {
+    const confirmed = await customConfirm('هل أنت متأكد من حذف هذا العنصر؟', 'تأكيد الحذف');
+    if (!confirmed) return;
     
     db.deleteItem(type, id);
     loadTable(type, `${type}Table`);
@@ -417,7 +418,7 @@ function updateCategory(type, input) {
     const newValue = input.value.trim();
     
     if (!newValue) {
-        alert('Category name cannot be empty');
+        customAlert('error', 'اسم الفئة لا يمكن أن يكون فارغاً');
         input.value = oldValue;
         return;
     }
@@ -427,7 +428,7 @@ function updateCategory(type, input) {
     // Check if new name already exists
     const categories = db.getCategories(type);
     if (categories.includes(newValue)) {
-        alert('Category already exists');
+        customAlert('warning', 'هذه الفئة موجودة بالفعل');
         input.value = oldValue;
         return;
     }
@@ -483,7 +484,7 @@ function addCategory(type) {
     const category = input.value.trim();
     
     if (!category) {
-        alert('Please enter a category name');
+        customAlert('error', 'الرجاء إدخال اسم الفئة');
         return;
     }
     
@@ -494,8 +495,9 @@ function addCategory(type) {
 }
 
 // Remove category
-function removeCategory(type, category) {
-    if (!confirm(`Delete category "${category}"?`)) return;
+async function removeCategory(type, category) {
+    const confirmed = await customConfirm(`حذف الفئة "${category}"؟`);
+    if (!confirmed) return;
     
     db.deleteCategory(type, category);
     loadCategories();
@@ -538,14 +540,14 @@ function saveGroqApiKey() {
     const apiKey = document.getElementById('groqApiKey').value;
     
     if (!apiKey) {
-        alert('Please enter a Groq API key');
+        customAlert('error', 'الرجاء إدخال مفتاح Groq API');
         return;
     }
     
     const settings = db.getSettings();
     settings.groqApiKey = apiKey;
     db.saveSettings(settings);
-    alert('Groq API key saved successfully!');
+    customAlert('success', 'تم حفظ مفتاح API بنجاح!');
 }
 
 // Auto-fill item data using Groq AI
@@ -554,7 +556,7 @@ async function autoFillItemData() {
     const itemType = document.getElementById('itemType').value;
     
     if (!itemName) {
-        alert('Please enter an item name first');
+        customAlert('error', 'الرجاء إدخال اسم العنصر أولاً');
         return;
     }
     
@@ -562,7 +564,8 @@ async function autoFillItemData() {
     const apiKey = settings.groqApiKey;
     
     if (!apiKey) {
-        if (confirm('Groq API key not found. Would you like to configure it now?')) {
+        const confirmed = await customConfirm('مفتاح Groq API غير موجود. هل تريد إعداده الآن؟', 'مفتاح API مفقود');
+        if (confirmed) {
             switchSection('account-info');
         }
         return;
@@ -671,11 +674,11 @@ IMPORTANT:
             autoResize(textarea);
         });
         
-        alert('✅ Information fetched successfully! Please review and adjust as needed.');
+        customAlert('success', 'تم جلب المعلومات بنجاح! يرجى المراجعة والتعديل حسب الحاجة.');
         
     } catch (error) {
         console.error('Auto-fill error:', error);
-        alert('❌ Error fetching data: ' + error.message + '\n\nPlease fill the information manually or try again.');
+        customAlert('error', 'خطأ في جلب البيانات: ' + error.message);
     } finally {
         btn.disabled = false;
         btn.innerHTML = originalText;
@@ -695,12 +698,13 @@ async function loadFromGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        alert('Please configure GitHub settings first');
+        customAlert('error', 'الرجاء إعداد إعدادات الحساب أولاً');
         switchSection('account-info');
         return;
     }
     
-    if (!confirm('This will replace all current data with data from GitHub. Continue?')) {
+    const confirmed = await customConfirm('سيتم استبدال جميع البيانات الحالية بالبيانات من المشروع. هل تريد المتابعة؟', 'تحميل من المشروع');
+    if (!confirmed) {
         return;
     }
     
@@ -726,11 +730,11 @@ async function loadFromGithub() {
         loadDashboard();
         loadAllTables();
         loadCategories();
-        alert('✅ Data loaded from GitHub successfully!');
-        location.reload();
+        customAlert('success', 'تم تحميل البيانات بنجاح!');
+        setTimeout(() => location.reload(), 1500);
         
     } catch (error) {
-        alert('❌ Error loading from GitHub: ' + error.message);
+        customAlert('error', 'خطأ في التحميل: ' + error.message);
     }
 }
 
@@ -739,7 +743,7 @@ async function saveToGithub() {
     const settings = db.getSettings();
     
     if (!settings.githubToken || !settings.githubUsername || !settings.githubRepo) {
-        alert('Please configure GitHub settings first');
+        customAlert('error', 'الرجاء إعداد إعدادات الحساب أولاً');
         switchSection('account-info');
         return;
     }
@@ -783,12 +787,14 @@ async function saveToGithub() {
         
         if (response.ok) {
             markSaved();
-            alert('✅ Data saved to GitHub successfully!');
+            customAlert('success', 'تم حفظ البيانات بنجاح!');
         } else {
-            throw new Error(response.statusText);
+            const errorData = await response.json();
+            throw new Error(errorData.message || response.statusText);
         }
     } catch (error) {
-        alert('❌ Error saving to GitHub: ' + error.message);
+        console.error('Save error:', error);
+        customAlert('error', 'خطأ في الحفظ: ' + error.message);
     }
 }
 
@@ -817,16 +823,18 @@ function importData(event) {
     reader.onload = (e) => {
         try {
             const data = JSON.parse(e.target.result);
-            if (confirm('This will replace all current data. Continue?')) {
-                db.importData(data);
-                loadDashboard();
-                loadAllTables();
-                loadCategories();
-                alert('Data imported successfully!');
-                location.reload();
-            }
+            customConfirm('سيتم استبدال جميع البيانات الحالية. هل تريد المتابعة؟', 'استيراد البيانات').then(confirmed => {
+                if (confirmed) {
+                    db.importData(data);
+                    loadDashboard();
+                    loadAllTables();
+                    loadCategories();
+                    customAlert('success', 'تم استيراد البيانات بنجاح!');
+                    setTimeout(() => location.reload(), 1500);
+                }
+            });
         } catch (error) {
-            alert('Error importing data: ' + error.message);
+            customAlert('error', 'خطأ في الاستيراد: ' + error.message);
         }
     };
     reader.readAsText(file);
@@ -847,9 +855,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Logout function
-function logout() {
+async function logout() {
     if (unsavedChanges) {
-        if (!confirm('You have unsaved changes. Are you sure you want to logout?')) {
+        const confirmed = await customConfirm('لديك تغييرات غير محفوظة. هل أنت متأكد من تسجيل الخروج؟', 'تسجيل الخروج');
+        if (!confirmed) {
             return;
         }
     }
