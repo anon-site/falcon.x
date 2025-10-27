@@ -348,6 +348,71 @@
       "noteColor": "orange",
       "id": 1761495305688,
       "lastModified": "2025-10-26T16:22:40.255Z"
+    },
+    {
+      "name": "YouTube Gold",
+      "category": "Entertainment",
+      "version": "17",
+      "size": "192.46 MB",
+      "shortDesc": "YouTube Gold is an enhanced version of the official YouTube app that allows users to watch videos without ads, play content in the background, and easily download videos.",
+      "fullDesc": "YouTube Gold APK provides an advanced, ad-free viewing experience that combines the simplicity of the original YouTube app with powerful extra features. You can play videos in the background while using other apps, or download them in multiple qualities for offline viewing. It also features a sleek, responsive interface and full dark mode support.",
+      "icon": "https://ytgold.app/wp-content/uploads/2022/07/icon_ytgold.png",
+      "status": "Modified",
+      "screenshots": [
+        "https://eshrahle.net/wp-content/uploads/2023/04/%D9%8A%D9%88%D8%AA%D9%8A%D9%88%D8%A8-%D8%A7%D9%84%D8%B0%D9%87%D8%A8%D9%8A.jpg.webp",
+        "https://mobilltna.org/wp-content/uploads/2024/02/Youtube-Gold-1.webp",
+        "https://apk.gold/icons:bz05anhmYzEmbD0zYW40Jmg9cG5nJmY9Z2xtJmk9Mjk4"
+      ],
+      "features": [
+        "Watch videos without annoying ads",
+        "Play videos in the background or with the screen off",
+        "Download videos in multiple quality options",
+        "Full dark mode support",
+        "Elegant and easy-to-use interface",
+        "Fast performance with low battery consumption",
+        "Supports sign-in with your personal account"
+      ],
+      "requirements": "Android 6.0 or higher\n\nStable internet connection\n\nSufficient storage space for installation",
+      "originalLink": "",
+      "modifiedLink": "https://dlll.apkm.app/ytgold/17/YouTube_Gold_V17.apk",
+      "website": "https://ytgold.app/android/youtube-gold/",
+      "note": "",
+      "noteColor": "orange",
+      "id": 1761572475764,
+      "lastModified": "2025-10-27T13:41:15.764Z"
+    },
+    {
+      "name": "MicroG Helper",
+      "category": "Tools",
+      "version": "0.3.1.4",
+      "size": "37 MB",
+      "shortDesc": "MicroG for YouTube Gold",
+      "fullDesc": "Essential helper app to run modified YouTube apps and enjoy all features",
+      "icon": "https://microg.abu3rab.com/microg.png",
+      "status": "Original",
+      "screenshots": [],
+      "features": [
+        "Login",
+        "Enable login to Google account in modified apps",
+        "Account Management",
+        "Manage multiple accounts and switch between them easily",
+        "Enhanced Privacy",
+        "Safe and private alternative to Google Play services",
+        "Notifications",
+        "Receive notifications from modified apps",
+        "Data Sync",
+        "Sync app data with Google servers",
+        "Compatibility",
+        "Compatible with most modified YouTube apps"
+      ],
+      "requirements": "",
+      "originalLink": "https://dlll.apkm.app/ytgold/14/MicroG_0.3.1.3.240913.apk",
+      "modifiedLink": "",
+      "website": "https://ytgold.app/android/youtube-gold/",
+      "note": "",
+      "noteColor": "orange",
+      "id": 1761572627930,
+      "lastModified": "2025-10-27T13:43:47.930Z"
     }
   ],
   "androidGames": [
