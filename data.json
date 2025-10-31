@@ -152,6 +152,67 @@
       "noteColor": "orange",
       "id": 1761496064424,
       "lastModified": "2025-10-26T16:27:44.424Z"
+    },
+    {
+      "name": "IObit Driver Booster silent",
+      "category": "Utilities",
+      "version": "8.3",
+      "size": "28.88 MB",
+      "shortDesc": "IObit Driver Booster Silent is an automatic driver updater that installs and updates system drivers silently without user intervention.",
+      "fullDesc": "IObit Driver Booster Silent is a powerful tool designed to automatically detect, download, and install outdated or missing drivers on your computer. The “Silent” version works quietly in the background, updating your drivers without showing installation dialogs or requiring user interaction. It helps improve system performance, enhance gaming experience, and ensure hardware stability by keeping all drivers up to date.",
+      "icon": "https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHM0OYfiFeMI2p9MWie0CvL99U4GA1gf6_kayTt_kBblFwHwo8BW8JXlqfnYxKPmmBR_lQTW0utfoTf1PCUV5Nj40Jn2ThHcxw5xDAwd6lbjK62aWliqpTTqG0qoBQHnTpPnFxjf3.9b74rW6xhvE7eA-&format=source",
+      "status": "Modified",
+      "screenshots": [
+        "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/920630/capsule_616x353.jpg?t=1759047863",
+        "https://www.addictivetips.com/app/uploads/2021/02/Driver-Booster-8.3-interface.jpg",
+        "https://www.malwarebytes.com/wp-content/uploads/sites/2/2019/03/warning1-1.png"
+      ],
+      "features": [
+        "Silent installation and automatic driver updates.",
+        "Supports over 8 million hardware drivers.",
+        "Improves gaming performance and system stability.",
+        "Automatically backs up old drivers before updates.",
+        "Fixes common driver-related errors.",
+        "Simple and user-friendly interface."
+      ],
+      "requirements": "Operating System: Windows 7 / 8 / 10 / 11\n\nProcessor: 1 GHz or faster\n\nRAM: 1 GB minimum\n\nDisk Space: 100 MB free space",
+      "originalLink": "",
+      "modifiedLink": "https://www.mediafire.com/file/vfdbzjb0jpni92f/IObit_Driver_Booster_silent.rar/file",
+      "website": "https://www.iobit.com/en/driver-booster.php",
+      "note": "Pro Version",
+      "noteColor": "green",
+      "id": 1761683942973,
+      "lastModified": "2025-10-28T20:39:02.973Z"
+    },
+    {
+      "name": "Brave Browser",
+      "category": "Browsers",
+      "version": "1.83.120",
+      "size": "120 MB",
+      "shortDesc": "Private browser with adblock",
+      "fullDesc": "Brave Browser is a free and open-source web browser that blocks ads and trackers, and rewards users with cryptocurrency for viewing ads. It is built on the Chromium web browser and offers a fast and secure browsing experience. Brave also includes features like HTTPS Everywhere and script blocking for enhanced security.",
+      "icon": "https://img.utdstc.com/icon/392/55b/39255b35b1b3afb7bd7b7ac85336a7ff40d5d34e1290e38593b2bc3f5391eb0a:100",
+      "status": "Original",
+      "screenshots": [
+        "https://img.utdstc.com/screen/3a0/515/3a05159c4b3111180513c465f6af3588727fa56a19d8dc68e600efd22dc2a2e5:200",
+        "https://img.utdstc.com/screen/e9f/b9f/e9fb9f1da26429c84cea048c24f852e7e2ba711a35b77db8efd010687e614b93:200",
+        "https://img.utdstc.com/screen/add/2ea/add2ea2fd14f17a86c663b33953ac3be7f8715eb4062cfb5ebb9f45668df39bb:200"
+      ],
+      "features": [
+        "Ad blocking",
+        "Tracker blocking",
+        "Cryptocurrency rewards",
+        "Private browsing",
+        "Script blocking"
+      ],
+      "requirements": "OS: Windows 10 or later, macOS 10.13 or later, Linux\nProcessor: 64-bit CPU\nMemory: 2 GB RAM\nStorage: 200 MB disk space\nGraphics: None\nAdditional: Internet connection required",
+      "originalLink": "https://laptop-updates.brave.com/download/BRV010?bitness=64",
+      "modifiedLink": "",
+      "website": "https://brave.com/download/",
+      "note": "",
+      "noteColor": "orange",
+      "id": 1761937273272,
+      "lastModified": "2025-10-31T19:01:13.272Z"
     }
   ],
   "windowsGames": [],
